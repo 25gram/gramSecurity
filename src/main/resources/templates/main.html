@@ -32,6 +32,12 @@
                 document.getElementById("footerItem3").style.color='gray';
             }else if(i==4){
                 document.getElementById("footerItem4").style.color='gray';
+            }else if(i==5){
+                document.getElementById("headerItem1").style.color='gray';
+            }else if(i==6){
+                document.getElementById("headerItem2").style.color='gray';
+            }else if(i==7){
+                document.getElementById("headerItem3").style.color='gray';
             }
 
         }
@@ -46,6 +52,12 @@
                 document.getElementById("footerItem3").style.color='black';
             }else if(i==4){
                 document.getElementById("footerItem4").style.color='black';
+            }else if(i==5){
+                document.getElementById("headerItem1").style.color='black';
+            }else if(i==6){
+                document.getElementById("headerItem2").style.color='black';
+            }else if(i==7){
+                document.getElementById("headerItem3").style.color='black';
             }
         }
 
@@ -64,10 +76,25 @@
                 document.getElementById("footerItem3").style.marginRight='2px'
                 setTimeout(iconReset,150,3);
             }else if(i==4){
-                document.getElementById("footerItem4").style.fontSize='28px'
-                document.getElementById("footerItem4").style.marginRight='2px'
-                document.getElementById("footerItem4").className="fa-solid fa-door-open"
+                // document.getElementById("footerItem4").style.fontSize='28px'
+                // document.getElementById("footerItem4").style.marginRight='2px'
+                document.getElementById("footerItem4").className="fi fa-solid fa-door-open"
                 setTimeout(iconReset,150,4);
+            }else if(i==5){
+                // document.getElementById("footerItem4").style.fontSize='28px'
+                // document.getElementById("footerItem4").style.marginRight='2px'
+                document.getElementById("headerItem1").className="hi fa-solid fa-square-plus"
+                setTimeout(iconReset,150,5);
+            }else if(i==6){
+                // document.getElementById("footerItem4").style.fontSize='28px'
+                // document.getElementById("footerItem4").style.marginRight='2px'
+                document.getElementById("headerItem2").className="hi fa-solid fa-heart"
+                setTimeout(iconReset,150,6);
+            }else if(i==7){
+                // document.getElementById("footerItem4").style.fontSize='28px'
+                // document.getElementById("footerItem4").style.marginRight='2px'
+                document.getElementById("headerItem3").className="hi fa-solid fa-paper-plane"
+                setTimeout(iconReset,150,7);
             }
 
 
@@ -82,9 +109,14 @@
                     document.getElementById("footerItem3").style.fontSize="30px"
                     document.getElementById("footerItem3").style.marginRight='0'
                 }else if(i==4){
-                    document.getElementById("footerItem4").style.fontSize="30px"
-                    document.getElementById("footerItem4").style.marginRight='0'
-                    document.getElementById("footerItem4").className="fa-solid fa-door-closed"
+
+                    document.getElementById("footerItem4").className="fi fa-solid fa-door-closed"
+                }else if(i==5){
+                    document.getElementById("headerItem1").className="hi fa-regular fa-square-plus"
+                }else if(i==6){
+                    document.getElementById("headerItem2").className="hi fa-regular fa-heart"
+                }else if(i==7){
+                    document.getElementById("headerItem3").className="hi fa-regular fa-paper-plane"
                 }
             }
         }
@@ -129,13 +161,17 @@
             height: 525px;
             background-color: aqua;
         }
-        .fa-solid{
+        .fi{
             margin-left: 52px;
             font-size: 30px;
         }
 
         .footerItem{
             margin: 20px 0 0 8px;
+        }
+        .hi{
+            margin: 10px 10px 0 0;
+            font-size: 30px;
         }
 
 
@@ -153,10 +189,11 @@
         <div class="col">
             <p class="title">25gram</p>
         </div>
-        <div class="col" style="margin-top: 10px;text-align: right;">
-            <i class="bi bi-plus-square"></i>
-            <i class="bi bi-heart"></i>
-            <i class="bi bi-send" style="margin-right:5px ;"></i>
+        <div class="col headerItem" style="margin-top: 10px;text-align: right;">
+            <i id="headerItem1" class="hi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"onmouseover="gray(5)" onmouseout="black(5)"></i>
+            <i id="headerItem2" class="hi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)" onmouseout="black(6)"></i>
+            <i id="headerItem3" class="hi fa-regular fa-paper-plane" style="font-size: 28px;" onclick="black(7),iconEffect(7)" onmouseover="gray(7)" onmouseout="black(7)"></i>
+
         </div>
     </div>
 
@@ -179,11 +216,11 @@
     <div class="footerZone">
         <div class="footerItem" >
 
-            <i id="footerItem1" class="fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)" onclick="iconEffect(1)"></i>
-            <i id="footerItem2" class="fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)" onclick="iconEffect(2)"></i>
-            <i id="footerItem3" class="fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)" onclick="iconEffect(3)"></i>
-            <i class="fa-solid fa-user"></i>
-            <i id="footerItem4" class="fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4) ,location.href='/logout'"></i>
+            <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)" onclick="iconEffect(1)"></i>
+            <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)" onclick="iconEffect(2)"></i>
+            <i id="footerItem3" class="fi fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)" onclick="iconEffect(3)"></i>
+            <i class="fi fa-solid fa-user"></i>
+            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),location.href='/logout'"></i>
         </div>
     </div>
 
