@@ -21,15 +21,15 @@ public class MemberController {
         return "index";
     }
 
-    @GetMapping("/loginForm")
-    public String loginForm() {
-        return "loginForm";
-    }
+//    @GetMapping("/loginForm")
+//    public String loginForm() {
+//        return "loginForm";
+//    }
 
-    @GetMapping("/board")
-    public String board() {
-        return "board";
-    }
+//    @GetMapping("/main")
+//    public String main() {
+//        return "main";
+//    }
 
     @GetMapping("/joinForm")
     public String joinForm() {
@@ -37,11 +37,11 @@ public class MemberController {
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletRequest request) {
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("prevPage", referrer);
-        return "board";
+        return "main";
     }
 
     //password 암호화 저장
