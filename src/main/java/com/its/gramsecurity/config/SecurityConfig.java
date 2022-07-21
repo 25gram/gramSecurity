@@ -38,17 +38,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/board/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/index")
-                .loginProcessingUrl("/board")
-                .defaultSuccessUrl("/board")
+                    .formLogin()
+                    .loginPage("/index")
+                    .loginProcessingUrl("/board")
+                    .defaultSuccessUrl("/board")
                 .and()
-                .oauth2Login()
-                .loginPage("/index")
-                .successHandler(new LoginSuccessHandler("/board"))
-                .permitAll()
-                .userInfoEndpoint()
-                .userService(principalOauth2UserService);
+                    .logout()
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessUrl("/") // 로그아웃 성공시
+                    .permitAll()
+                .and()
+                    .oauth2Login()
+                    .loginPage("/index")
+                    .successHandler(new LoginSuccessHandler("/board"))
+                    .permitAll()
+                    .userInfoEndpoint()
+                    .userService(principalOauth2UserService);
+
 
     }
 
