@@ -23,6 +23,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws
             OAuth2AuthenticationException{
+        System.out.println("PrincipalOauth2UserService.loadUser");
         OAuth2User oAuth2User=super.loadUser(userRequest);
         String provider = userRequest.getClientRegistration().getClientId();
         String providerId=oAuth2User.getAttribute("sub");
@@ -30,10 +31,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String memberPassword = oAuth2User.getAttribute("memberPassword");
         String memberEmail=oAuth2User.getAttribute("memberEmail");
         String role ="ROLE_USER";
+
+        MemberDTO memberDTO=new MemberDTO();
         Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
-        MemberEntity member=optionalMemberEntity.get();
-        MemberDTO memberDTO=MemberDTO.toDTO(member);
-        if(member==null){
+        if (optionalMemberEntity.isPresent()){
+            MemberEntity member=optionalMemberEntity.get();
+            memberDTO=MemberDTO.toDTO(member);
+        }
+
+
+        if(optionalMemberEntity.isEmpty()){
             memberDTO=MemberDTO.builder()
                     .memberId(memberId)
                     .memberPassword(memberPassword)
@@ -42,7 +49,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .provider(provider)
                     .providerId(providerId)
                     .build();
-            memberRepository.save(member);
+            memberRepository.save(MemberEntity.toSaveEntity(memberDTO));
+
         }
         return new PrincipalDetails(memberDTO,oAuth2User.getAttributes());
     }

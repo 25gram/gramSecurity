@@ -15,8 +15,9 @@ import java.util.Map;
 public class PrincipalDetails implements UserDetails, OAuth2User {
     private Map<String,Object> attributes;
 
-//    private MemberEntity memberEntity;
     private MemberDTO memberDTO;
+
+    private MemberEntity memberEntity;
 
     public PrincipalDetails(MemberDTO memberDTO){
         this.memberDTO=memberDTO;
@@ -26,6 +27,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         this.memberDTO=memberDTO;
         this.attributes=attributes;
     }
+
+
+
     public Collection<? extends GrantedAuthority>getAuthorities(){
         Collection<GrantedAuthority>collect=new ArrayList<>();
         collect.add(new GrantedAuthority() {
@@ -39,7 +43,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getName(){
-        return null;
+        return memberDTO.getMemberId();
     }
 
     @Override

@@ -37,7 +37,6 @@ public class MemberDTO {
 
     public static MemberDTO toDTO(MemberEntity memberEntity){
         MemberDTO memberDTO=new MemberDTO();
-        memberDTO.setId(memberEntity.getId());
         memberDTO.setMemberId(memberEntity.getMemberId());
         memberDTO.setMemberPassword(memberEntity.getMemberPassword());
         memberDTO.setMemberEmail(memberEntity.getMemberEmail());
