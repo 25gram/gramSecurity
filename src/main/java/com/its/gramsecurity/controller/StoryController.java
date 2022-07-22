@@ -19,6 +19,15 @@ public class StoryController {
     private final StoryService storyService;
 
     @GetMapping("/")
+    public String index(HttpSession session, Model model) {
+        session.setAttribute("id", 1);
+        session.setAttribute("memberId", "admin");
+        String memberId = (String)session.getAttribute("memberId");
+        List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
+        model.addAttribute("storyList", storyDTOList);
+        return "storyIndex";
+    }
+    @GetMapping("/myStory")
     public String findByMemberId(HttpSession session, Model model) {
         String memberId = (String)session.getAttribute("member_id");
         List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);

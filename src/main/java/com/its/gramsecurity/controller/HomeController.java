@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 public class HomeController {
     private final StoryService storyService;
-    @GetMapping("/story")
+    @GetMapping("/")
     public String index(HttpSession session, Model model) {
         session.setAttribute("id", 1);
         session.setAttribute("memberId", "admin");
