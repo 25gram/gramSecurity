@@ -1,9 +1,12 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.entity.MemberEntity;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,7 +57,7 @@ public class MemberController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO){
-        memberService.update(memberDTO);
+        memberService.update(MemberEntity.toUpdateEntity(memberDTO));
         return null;
     }
 
