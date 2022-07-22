@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity (securedEnabled = true , prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
@@ -26,17 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new CustomLoginSuccessHandler("/defaultUrl");}
 
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
-//    @Override
+    //    @Override
 //    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 //        // authentication manager (see below)
 //    }
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**","/css/**","/images/**","/font/**","/html/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**", "/html/**");
     }
 
 
@@ -46,30 +46,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/main/**").authenticated()
                 .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/")
-                    .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/main")
-                    .failureUrl("/")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/main")
+                .failureUrl("/")
                 .and()
-                    .logout()
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/") // 로그아웃 성공시
-                    .permitAll()
+                .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/") // 로그아웃 성공시
                 .and()
-                    .oauth2Login()
-                    .loginPage("/index")
-                    .successHandler(new LoginSuccessHandler("/main"))
-                    .permitAll()
-                    .userInfoEndpoint()
-                    .userService(principalOauth2UserService);
+                .oauth2Login()
+                .loginPage("/")
+                .successHandler(new LoginSuccessHandler("/main"))
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
 
 
     }
-
-
-
 }
