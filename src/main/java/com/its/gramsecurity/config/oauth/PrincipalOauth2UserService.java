@@ -1,6 +1,6 @@
 package com.its.gramsecurity.config.oauth;
 
-import com.its.gramsecurity.Repository.MemberRepository;
+import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
