@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .btn-primary {
+            background-color:rgba(71,66,69,0.4) !important;
+            border-radius: 70% !important;
+        }
+        .btn-secondary {
+            background-color: transparent !important;
+            border: 0 !important;
+        }
+        .inputText {
+
+            background-color: transparent;
+            border: 1px solid whitesmoke;
+        }
+        .inputTextDiv {
+            width: 50%;
+            height: 20px;
+            margin-top: 50%;
+            padding: 50%;
+            position: absolute;
+            z-index: 9000;
+            display: none;
+        }
+        .saveBox {
+            width: 500px;
+            height: 780px;
+            padding-left: 0;
+            padding-right: 0;
+            margin-top: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 3%;
+            background-color: rgba(237,237,237,0.4);
+            background-size: cover;
+            border: 1px solid gray;
+            position: relative;
+            z-index: 9000;
+            overflow: hidden;
+        }
+        .btn-close {
+            position: fixed;
+            left: 90%;
+        }
+        .editMenu {
+            padding-left: 60%;
+            padding-top: 5px;
+            display: none;
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            z-index: 9998;
+        }
+        .editFont {
+            padding-left: 60%;
+            padding-top: 5px;
+            display: none;
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            z-index: 9998;
+        }
+        .editBox {
+            position: absolute;
+            z-index: -9997;
+        }
+        .saveBtn {
+            position: absolute;
+            z-index: 8999;
+        }
+        .inputFileBtn {
+            position: absolute;
+            z-index: 8998;
+        }
+        .editMenu5 {
+            display: none;
+            width: 500px;
+            height: 50px;
+            margin-top: 700px;
+            padding-left: 89%;
+            position: absolute;
+            z-index: 9998;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"></head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<body>
+<button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
+
+    <div class="saveBox" id="saveBox">
+        <div class="editMenu" id="editMenu">
+            <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
+            <button class="btn btn-primary" onclick="editFnc2()"><i class="bi bi-outlet"></i></button>
+            <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
+            <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
+        </div>
+        <div class="editMenu5" id="editMenu5"></div>
+        <div class="editFont" id="editFont">
+            <button class="btn btn-primary" onclick="editFnc1a()"><i class="bi bi-text-center"></i></button>
+            <button class="btn btn-primary" onclick="editFnc1b()"><i class="bi bi-palette"></i></button>
+            <button class="btn btn-primary" onclick="editFnc1c()"><i class="bi bi-type"></i></button>
+            <button class="btn btn-secondary" onclick="editFnc1d()">완료</button>
+        </div>
+        <div class="inputTextDiv" id="inputTextDiv">
+            <input class="inputText" type="text" id="text1" name="text1">
+        </div>
+        <div class="inputFileBtn">
+        <form action="/storyBoard/save" method="post" enctype="multipart/form-data">
+            <input type="file" id="upImgFiles" name="imageFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
+            <div class="saveBtn" id="saveBtn"></div>
+        </form>
+        </div>
+        <div class="editBox" id="editBox"></div>
+
+    </div>
+</body>
+<script>
+    function uploadImgPreview(obj) {
+            const editMenu = document.getElementById("editMenu");
+            const editMenu5 = document.getElementById("editMenu5");
+            editMenu.style.display="block";
+            editMenu5.style.display="block";
+
+            const file = document.getElementById("upImgFiles");
+                if (file.files[0] == null){
+                    alert("파일이 없습니다.");
+                } else {
+                    for (const f of obj.files){
+                        validation(f)
+                    }
+                }
+
+        function validation(obj){
+            const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'video/mp4' ,'application/haansofthwp', 'application/x-hwp'];
+            const fileTypes2 = ['image/gif', 'image/jpeg', 'image/png'];
+            const fileTypes3 = ['video/mp4'];
+            const fileTypes4 = ['image/gif', 'image/jpeg', 'image/png', 'video/mp4'];
+            if (obj.name.length > 100) {
+                document.querySelector("input[type=file]").value = "";
+                alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+                return false;
+            }
+            else if (obj.size > (100 * 1024 * 1024)) {
+                document.querySelector("[type=file]").value = "";
+                alert("최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다.");
+                return false;
+            }
+            else if (obj.name.lastIndexOf('.') == -1) {
+                document.querySelector("input[type=file]").value = "";
+                alert("확장자가 없는 파일은 제외되었습니다.");
+                return false;
+            }
+            else if (!fileTypes.includes(obj.type)) {
+                document.querySelector("input[type=file]").value = "";
+                alert("첨부가 불가능한 파일은 제외되었습니다.");
+                return false;
+            }else if (fileTypes4.includes(obj.type)) {
+                let reader = new FileReader();
+                reader.addEventListener("load", function () {
+                    if (fileTypes2.includes(obj.type)) {
+                        const saveBox = document.getElementById("saveBox");
+                        saveBox.style.backgroundImage="url('"+this.result+"')";
+
+                    } else if (fileTypes3.includes(obj.type)) {
+                        let video = document.createElement("video");
+
+                        video.setAttribute("src", this.result);
+                        video.setAttribute("width", "100%");
+                        video.setAttribute("controls", "controls");
+                        video.setAttribute("autoplay", "autoplay");
+                        video.setAttribute("id", "aaa");
+                        video.setAttribute("loop", "loop");
+                        video.setAttribute("class", "aaa");
+
+                        document.getElementById("saveBox").appendChild(video);
+                    }
+
+                });
+                if (obj) {
+                    reader.readAsDataURL(obj);
+                }
+
+
+            }
+            return true;
+        }
+
+    }
+    
+    function reset(){
+        saveBox.style.filter=''
+    }
+    function gray(){
+        saveBox.style.filter='grayscale(100)'
+    }
+    function sepia(){
+        saveBox.style.filter='sepia(1)'
+    }
+    function brightness(){
+        saveBox.style.filter='brightness(1.3)'
+    }
+
+    function contrast(){
+        saveBox.style.filter='contrast(1.3)'
+    }
+    function invert(){
+        saveBox.style.filter='invert(1)'
+    }
+    const editFnc1 = () => {
+        const editMenu = document.getElementById("editMenu");
+        const editFont = document.getElementById("editFont");
+        const inputText = document.getElementById("inputTextDiv");
+        const text1 = document.getElementById("text1");
+        editMenu.style.display="none";
+        editFont.style.display="block";
+        inputText.style.display="block";
+        text1.focus();
+
+    }
+    const editFnc2 = () => {
+
+    }
+    const editFnc3 = () => {
+        const editBox = document.getElementById("editBox");
+        editBox.innerHTML = '<button onClick="reset()">원본</button>' +
+            '<button onClick="gray()">흑백</button>' +
+            '<button onClick="sepia()">세피아</button>' +
+            '<button onClick="brightness()">밝게</button>' +
+            '<button onClick="contrast()">조도</button>' +
+            '<button onClick="invert()">반전</button>';
+    }
+    const editFnc4 = () => {
+
+    }
+    const editFnc5 = () => {
+
+    }
+    const editFnc1a = () => {
+
+    }
+    const editFnc1b = () => {
+
+    }
+    const editFnc1c = () => {
+
+    }
+    const editFnc1d = () => {
+
+    }
+</script>
+</html>
