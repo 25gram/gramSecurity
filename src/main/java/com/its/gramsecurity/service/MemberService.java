@@ -1,12 +1,11 @@
 package com.its.gramsecurity.service;
 
-import com.its.gramsecurity.Repository.MemberRepository;
+import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Member;
 import java.util.Optional;
 
 @Service
@@ -25,5 +24,9 @@ public class MemberService {
         }else{
             return null;
         }
+    }
+
+    public void update(MemberDTO memberDTO) {
+        memberRepository.save(MemberEntity.toUpdateEntity(memberDTO));
     }
 }

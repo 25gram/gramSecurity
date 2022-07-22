@@ -40,15 +40,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/main/**").access("hasRole('ROLE_USER')")
-                .antMatchers("/").permitAll()
+                .antMatchers("/main/").permitAll()
                 .and()
                     .formLogin()
-                    .loginPage("/")
+                    .loginPage("/main/")
                     .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/main")
+                    .defaultSuccessUrl("/main/main")
                     .usernameParameter("memberId")
                     .passwordParameter("memberPassword")
-                    .failureUrl("/")
+                    .failureUrl("/main/")
                 .and()
                     .logout()
                     .invalidateHttpSession(true)
@@ -56,8 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/") // 로그아웃 성공시
                 .and()
                     .oauth2Login()
-                    .loginPage("/")
-                    .successHandler(new LoginSuccessHandler("/main"))
+                    .loginPage("/main/")
+                    .successHandler(new LoginSuccessHandler("/main/main"))
                     .userInfoEndpoint()
                     .userService(principalOauth2UserService);
 

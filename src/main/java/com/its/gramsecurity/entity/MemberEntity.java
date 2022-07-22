@@ -61,4 +61,15 @@ public class MemberEntity {
         this.provider = provider;
         this.providerId = providerId;
     }
+
+    public static MemberEntity toUpdateEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity=new MemberEntity();
+        memberEntity.setId(memberDTO.getId());
+        memberEntity.setMemberId(memberDTO.getMemberId());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberProfileName(memberDTO.getMemberProfileName());
+        memberEntity.setMemberIntro(memberDTO.getMemberIntro());
+        return memberEntity;
+    }
 }
