@@ -4,7 +4,6 @@ import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,23 +14,15 @@ import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
-    @GetMapping("/main")
-    public String main() {
-        return "main";
-    }
-
     @GetMapping("/joinForm")
     public String joinForm() {
-        return "joinForm";
+        return "memberPages/joinForm";
     }
 
     //구글 로그인 후처리
@@ -52,13 +43,19 @@ public class MemberController {
         memberService.save(memberDTO);
         return "redirect:/";
     }
-    //회원정보수정
+    //회원정보수정 폼
     @GetMapping("/updateForm")
     public String updateForm(Principal principal, Model model){
         String memberId=principal.getName();
         MemberDTO memberDTO=memberService.findByMemberId(memberId);
         model.addAttribute("memberDTO",memberDTO);
-        return "update";
+        return "memberPages/update";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO){
+        memberService.update(memberDTO);
+        return null;
     }
 
 
