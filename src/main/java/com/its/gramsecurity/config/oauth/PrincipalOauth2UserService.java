@@ -2,6 +2,7 @@ package com.its.gramsecurity.config.oauth;
 
 import com.its.gramsecurity.Repository.MemberRepository;
 import com.its.gramsecurity.config.auth.PrincipalDetails;
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Data
@@ -27,10 +30,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String memberPassword = oAuth2User.getAttribute("memberPassword");
         String memberEmail=oAuth2User.getAttribute("memberEmail");
         String role ="ROLE_USER";
-
-        MemberEntity member=memberRepository.findByMemberId(memberId);
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
+        MemberEntity member=optionalMemberEntity.get();
+        MemberDTO memberDTO=MemberDTO.toDTO(member);
         if(member==null){
-            member=MemberEntity.builder()
+            memberDTO=MemberDTO.builder()
                     .memberId(memberId)
                     .memberPassword(memberPassword)
                     .memberEmail(memberEmail)
@@ -40,6 +44,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .build();
             memberRepository.save(member);
         }
-        return new PrincipalDetails(member,oAuth2User.getAttributes());
+        return new PrincipalDetails(memberDTO,oAuth2User.getAttributes());
     }
 }

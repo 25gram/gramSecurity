@@ -1,8 +1,11 @@
 package com.its.gramsecurity.controller;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +24,7 @@ public class MemberController {
         return "index";
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String loginForm() {
         return "redirect:/main";
     }
@@ -56,6 +59,5 @@ public class MemberController {
         memberService.save(memberDTO);
         return "redirect:/";
     }
-
 
 }
