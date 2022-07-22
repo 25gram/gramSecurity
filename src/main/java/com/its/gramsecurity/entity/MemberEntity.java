@@ -20,8 +20,6 @@ public class MemberEntity {
     private String memberId;
     @Column(length = 100)
     private String memberPassword;
-    @Column(length = 20)
-    private String memberName;
     @Column(length = 30)
     private String memberEmail;
     @Column(length = 50)
@@ -37,20 +35,6 @@ public class MemberEntity {
     @Column
     private String providerId;
 
-//    @Builder
-//    public MemberEntity(String memberId, String memberPassword, String memberName, String memberEmail, String memberProfileName, String memberIntro, String role, String provider, String providerId) {
-//        this.memberId = memberId;
-//        this.memberPassword = memberPassword;
-//        this.memberName = memberName;
-//        this.memberEmail = memberEmail;
-//        this.memberProfileName = memberProfileName;
-//        this.memberIntro = memberIntro;
-//        this.role = role;
-//        this.provider = provider;
-//        this.providerId = providerId;
-//    }
-
-
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setMemberId(memberDTO.getMemberId());
@@ -65,6 +49,16 @@ public class MemberEntity {
 
     }
 
-
-
+    @Builder
+    public MemberEntity(String memberId, String memberPassword, String memberEmail, String memberProfileName, int loginStatus, String memberIntro, String role, String provider, String providerId) {
+        this.memberId = memberId;
+        this.memberPassword = memberPassword;
+        this.memberEmail = memberEmail;
+        this.memberProfileName = memberProfileName;
+        this.loginStatus = loginStatus;
+        this.memberIntro = memberIntro;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
 }

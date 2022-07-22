@@ -17,4 +17,13 @@ public class MemberService {
         MemberEntity memberEntity= MemberEntity.toSaveEntity(memberDTO);
         memberRepository.save(memberEntity);
     }
+
+    public MemberDTO findByMemberId(String memberId) {
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
+        if(optionalMemberEntity.isPresent()){
+            return MemberDTO.toDTO(optionalMemberEntity.get());
+        }else{
+            return null;
+        }
+    }
 }
