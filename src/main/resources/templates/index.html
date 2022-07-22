@@ -15,25 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600&family=Ibarra+Real+Nova:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
-    <script>
-        function loginIconEffect(){
-            document.getElementById("googleLogin").style.width='275px'
-            document.getElementById("googleLogin").style.marginBottom='1px'
-
-            setTimeout(effectReset,150)
-            // document.getElementById("googleLogin").style.filter='grayscale(100)'
-            // document.getElementById("googleLogin").style.backgroundColor='gray'
-            function effectReset(){
-                document.getElementById("googleLogin").style.width='280px'
-                document.getElementById("googleLogin").style.marginBottom='0px'
-            }
-        }
-
-
-    </script>
-
-
     <style>
         .title {
             /* font-family: 'Ibarra Real Nova', serif; */
@@ -64,21 +45,21 @@
     <p class="title" style="margin-top: 20px;text-align: center;color:#4E4E4E ;">25gram</p>
 
     <div style="">
-        <form action="/login" method="get" style="margin:50px 30px 15px 30px">
+        <form action="/login" method="post" style="margin:50px 30px 15px 30px">
             <div class="input-group  container mt-3">
                 <sapn class=" input-group-text" style="border-radius:3px 0 0 3px;"><i class="bi bi-person-fill" ></i></sapn>
-                <input id="username" name="username" type="text" class="form-control " style="border-radius: 0 3px 3px 0;color: #5c636a;background-color: white"  placeholder="사용자 이름 또는 이메일" autofocus>
+                <input id="username" name="memberId" type="text" class="form-control " style="border-radius: 0 3px 3px 0;color: #5c636a;background-color: white"  placeholder="사용자 이름 또는 이메일" autofocus>
             </div>
             <div class="input-group  container " style="margin-top: 15px">
                 <i style="border-radius:3px 0 0 3px;" class="bi bi-key input-group-text "></i>
-                <input id="password" name="password" class="form-control " style="border-radius: 0 3px 3px 0; color: #5c636a" type="text" placeholder="Password" >
+                <input id="password" name="memberPassword" class="form-control " style="border-radius: 0 3px 3px 0; color: #5c636a" type="text" placeholder="Password" >
             </div>
             <div id="#" style="margin-top: 5px">&nbsp;</div>
         </form>
     </div>
 
     <div class="" style="text-align: center;">
-        <button onclick="location.href='/login'" class="col-8 btn btn-secondary" style="border-radius: 5px;">로그인</button>
+        <button onclick="location.href='/main'"class="col-8 btn btn-secondary" style="border-radius: 5px;">로그인</button>
     </div>
 
     <div>
@@ -86,7 +67,7 @@
     </div>
 
     <div style="margin-top:35px ;text-align: center;">
-        <img id="googleLogin" onmouseover="loginIconEffect()" onclick="loginIconEffect(),location.href='/oauth2/authorization/google'" style="width: 280px;" src="https://t1.daumcdn.net/cfile/tistory/998689465C3D7D1217">
+        <img onclick="location.href='/oauth2/authorization/google'" style="width: 280px;" src="https://t1.daumcdn.net/cfile/tistory/998689465C3D7D1217">
     </div>
 
 
