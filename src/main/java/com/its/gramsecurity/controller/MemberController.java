@@ -44,7 +44,7 @@ public class MemberController {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         memberDTO.setMemberPassword(encPassword);
         memberService.save(memberDTO);
-        return "redirect:/";
+        return "redirect:/main/";
     }
     //회원정보수정 폼
     @GetMapping("/updateForm")
@@ -57,8 +57,10 @@ public class MemberController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO){
+        System.out.println("MemberController.update");
+        System.out.println("memberDTO = " + memberDTO);
         memberService.update(MemberEntity.toUpdateEntity(memberDTO));
-        return null;
+        return "redirect:/member/updateForm";
     }
 
 

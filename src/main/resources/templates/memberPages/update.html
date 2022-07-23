@@ -5,11 +5,12 @@
     <title>update</title>
 </head>
 <body>
-<form action="/member/updateForm" method="post" name="updateForm">
+<form action="/member/update" method="post" name="updateForm">
     <input type="hidden" th:value="${memberDTO.id}" name="id"><br>
-    <input type="text" name="memberEmail" th:value="${memberDTO.memberEmail}" placeholder="계정" readonly><br>
-    <input type="hidden" name="memberPassword" id="memberPassword" th:value="${memberDTO.memberPassword}"  ><br>
-    <input type="text" name="memberIntro" id="memberIntro" placeholder="정보입력" ><br>
+    <input type="hidden" name="memberId" th:value="${memberDTO.memberId}"><br>
+    <input type="text" name="memberEmail" th:value="${memberDTO.memberEmail}" th:placeholder="${memberDTO.memberEmail}" readonly><br>
+    <input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호" ><br>
+    <input type="text" name="memberIntro" id="memberIntro" th:placeholder="${memberDTO.memberIntro}" ><br>
     <input type="submit" value="정보수정">
 
 </form>
