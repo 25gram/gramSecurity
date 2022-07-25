@@ -56,15 +56,12 @@ public class MemberController {
         model.addAttribute("memberDTO", memberDTO);
         return "memberPages/update";
     }
-
+    //일반회원 정보 수정
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO) throws IOException {
-//        String memberId = principal.getName();
         memberService.update(memberDTO);
         System.out.println("MemberController.update");
         System.out.println("memberDTO = " + memberDTO);
-
-//        memberService.update(MemberEntity.toUpdateEntity(memberDTO));
         return "redirect:/main/main";
     }
 

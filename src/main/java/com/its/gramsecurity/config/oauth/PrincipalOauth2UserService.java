@@ -29,7 +29,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String providerId=oAuth2User.getAttribute("sub");
         String memberId=provider+"_"+providerId;
         String memberPassword = oAuth2User.getAttribute("memberPassword");
-        String memberEmail=oAuth2User.getAttribute("memberEmail");
+        String memberEmail=oAuth2User.getAttribute("email");
         String role ="ROLE_USER";
 
         MemberDTO memberDTO=new MemberDTO();
