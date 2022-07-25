@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -46,23 +47,26 @@ public class MemberController {
         memberService.save(memberDTO);
         return "redirect:/main/";
     }
+
     //회원정보수정 폼
     @GetMapping("/updateForm")
-    public String updateForm(Principal principal, Model model){
-        String memberId=principal.getName();
-        MemberDTO memberDTO=memberService.findByMemberId(memberId);
-        model.addAttribute("memberDTO",memberDTO);
+    public String updateForm(Principal principal, Model model) {
+        String memberId = principal.getName();
+        MemberDTO memberDTO = memberService.findByMemberId(memberId);
+        model.addAttribute("memberDTO", memberDTO);
         return "memberPages/update";
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute MemberDTO memberDTO){
+    public String update(@ModelAttribute MemberDTO memberDTO) throws IOException {
+//        String memberId = principal.getName();
+        memberService.update(memberDTO);
         System.out.println("MemberController.update");
         System.out.println("memberDTO = " + memberDTO);
-        memberService.update(MemberEntity.toUpdateEntity(memberDTO));
-        return "redirect:/member/updateForm";
-    }
 
+//        memberService.update(MemberEntity.toUpdateEntity(memberDTO));
+        return "redirect:/main/main";
+    }
 
 
 }
