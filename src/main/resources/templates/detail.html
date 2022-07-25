@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .contentsBody{
+        width: 5000px;
+    }
+    .contentsItem{
+        margin:24px; width:450px; height:650px; border: solid 1px;
+        float: left;
+        /*filter: invert(1);*/
+    }
+    .mainBody{
+        margin: 0 0 0 15px;
+    }
+    .contents{
+        /* margin-top: 30px; */
+        width: 500px;
+        height: 780px;
+        border:gray solid 1px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+</style>
+
+<script th:inline="javascript">
+    let nn =1;
+    let bb =0;
+    function zz() {
+        const c = [[${fileDTOList}]]
+        if (bb+1 < c.length){
+            bb++;
+        }
+        if (nn < c.length) {
+            nn++;
+        }
+
+        let zz = -500;
+        for (let i =0; i <= c.length; i++) {
+            if (bb == i) {
+                document.querySelector('.contentsBody').style.transform = "translate(" + (zz*i) + "px)";
+
+            }
+        }
+    }
+    function zzz() {
+        if(bb > 0) {
+            bb --;
+        }
+        if (nn > 1) {
+            nn--;
+        }
+        let zz = -500;
+        for (let i =0; i <= 10; i++) {
+            if (bb == i) {
+                document.querySelector('.contentsBody').style.transform = "translate(" + (zz*i) + "px)";
+
+            }
+        }
+    }
+</script>
+</head>
+<body>
+<div class="input-group mainBody" style="width:800px; height: 780px;">
+    <div id="contents" class="contents">
+        <div style="overflow: hidden">
+            <div id="contentsBody" class="contentsBody">
+                <div th:each="file: ${fileDTOList}">
+                    <img th:if="${file.boardImgName != null}" th:class="contentsItem" th:src="@{|/upload/${file.boardImgName}|}" th:style="${file.boardFilter}" alt="">
+                    <video th:if="${file.boardVideoName != null}" class="contentsItem" th:src="@{|/upload/${file.boardVideoName}|}"  alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button onclick="zzz()"><</button>
+<button onclick="zz()">></button>
+</body>
+</html>
