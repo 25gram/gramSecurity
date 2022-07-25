@@ -80,4 +80,9 @@ public class MemberService {
 
 
     }
+
+    public void delete(String memberId) {
+        Optional <MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
+        memberRepository.delete(optionalMemberEntity.get());
+    }
 }

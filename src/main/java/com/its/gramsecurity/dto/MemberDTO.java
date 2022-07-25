@@ -13,6 +13,7 @@ public class MemberDTO {
     private String memberId;
     private String memberPassword;
     private String memberEmail;
+    private String memberName;
     private MultipartFile memberProfile;
     private String memberProfileName;
     private int loginStatus;
@@ -22,9 +23,10 @@ public class MemberDTO {
     private String providerId;
 
     @Builder
-    public MemberDTO(String memberId, String memberPassword, String memberEmail, String memberProfileName,MultipartFile memberProfile, int loginStatus, String memberIntro, String role, String provider, String providerId) {
+    public MemberDTO(String memberId, String memberPassword,String memberName, String memberEmail, String memberProfileName,MultipartFile memberProfile, int loginStatus, String memberIntro, String role, String provider, String providerId) {
         this.memberId = memberId;
         this.memberPassword = memberPassword;
+        this.memberName=memberName;
         this.memberEmail = memberEmail;
         this.memberProfileName = memberProfileName;
         this.memberProfile=memberProfile;
@@ -43,6 +45,7 @@ public class MemberDTO {
         memberDTO.setId(memberEntity.getId());
         memberDTO.setMemberId(memberEntity.getMemberId());
         memberDTO.setMemberPassword(memberEntity.getMemberPassword());
+        memberDTO.setMemberName(memberEntity.getMemberName());
         memberDTO.setMemberEmail(memberEntity.getMemberEmail());
         memberDTO.setMemberProfileName(memberEntity.getMemberProfileName());
         memberDTO.setMemberIntro(memberEntity.getMemberIntro());
