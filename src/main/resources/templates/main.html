@@ -120,6 +120,22 @@
                 }
             }
         }
+
+        function loginChk(){
+            console.log("loogin chk 호출")
+            $.ajax({
+                url:"/main/main",
+                success:function(e){
+                    console.log("login chk suc")
+                },
+                error:function(e){
+                    console.log("logout chk err")
+                }
+
+            })
+        }
+
+
     </script>
 
     <style>
@@ -180,7 +196,7 @@
 
 
 </head>
-<body>
+<body onload="loginChk()">
 <div class="container mainBody">
 
 
