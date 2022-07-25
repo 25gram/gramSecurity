@@ -1,20 +1,21 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.dto.MemberDTO;
-import com.its.gramsecurity.entity.MemberEntity;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -49,21 +50,32 @@ public class MemberController {
     }
 
     //회원정보수정 폼
-    @GetMapping("/updateForm")
+    @GetMapping("updateForm")
     public String updateForm(Principal principal, Model model) {
         String memberId = principal.getName();
         MemberDTO memberDTO = memberService.findByMemberId(memberId);
         model.addAttribute("memberDTO", memberDTO);
         return "memberPages/update";
     }
+
     //일반회원 정보 수정
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO) throws IOException {
         memberService.update(memberDTO);
-        System.out.println("MemberController.update");
-        System.out.println("memberDTO = " + memberDTO);
         return "redirect:/main/main";
     }
 
+    @GetMapping("/delete")
+    public String delete(Principal principal) {
+        String memberId = principal.getName();
+        memberService.delete(memberId);
+        return "redirect:/member/logout";
+    }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout
+                (request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/main/";
+    }
 }
