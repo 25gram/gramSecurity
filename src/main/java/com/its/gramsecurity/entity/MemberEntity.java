@@ -18,7 +18,7 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-    @Column(length = 500,unique = true)
+    @Column(length = 500)
     private String memberId;
     @Column(length = 100)
     private String memberPassword;
