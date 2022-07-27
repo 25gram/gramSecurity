@@ -22,13 +22,13 @@ import java.security.Principal;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/joinForm")
-    public String joinForm() {
-        return "memberPages/joinForm";
-    }
+//    @GetMapping("/joinForm")
+//    public String joinForm() {
+//        return "memberPages/joinForm";
+//    }
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
@@ -39,15 +39,15 @@ public class MemberController {
     }
 
     //password 암호화 저장
-    @PostMapping("/join")
-    public String join(@ModelAttribute MemberDTO memberDTO) {
-        memberDTO.setRole("ROLE_USER");
-        String rawPassword = memberDTO.getMemberPassword();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        memberDTO.setMemberPassword(encPassword);
-        memberService.save(memberDTO);
-        return "redirect:/main/";
-    }
+//    @PostMapping("/join")
+//    public String join(@ModelAttribute MemberDTO memberDTO) {
+//        memberDTO.setRole("ROLE_USER");
+//        String rawPassword = memberDTO.getMemberPassword();
+//        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+//        memberDTO.setMemberPassword(encPassword);
+//        memberService.save(memberDTO);
+//        return "redirect:/main/";
+//    }
 
     //회원정보수정 폼
     @GetMapping("updateForm")
@@ -76,8 +76,9 @@ public class MemberController {
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout
                 (request, response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/main/";
+        return "redirect:/home/";
     }
+
     @GetMapping("/loginCheck")
     public @ResponseBody void loginCheck(Principal principal){
         String memberId= principal.getName();
@@ -89,8 +90,5 @@ public class MemberController {
     public @ResponseBody void  logoutCheck(Principal principal){
         String memberId= principal.getName();
         memberService.logoutCheck(memberId);
-//        System.out.println("MemberController.logoutCheck");
-//        System.out.println("memberId = " + memberId);
-//        return "redirect:/member/logout";
     }
 }
