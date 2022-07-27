@@ -152,6 +152,33 @@
             })
         }
 
+        function followBTN(){
+            const memberId=document.getElementById("memberId").value;
+            const yourId="memberId2";
+            const yourName="memberName2";
+            const yourProfileName="memberProfileName2";
+            const loginStatus=0;
+
+            $.ajax({
+                url:"/follow/request",
+                type:"post",
+                dataType:"json",
+                data:{
+                    "myId":memberId,
+                    "yourId":yourId,
+                    "yourName":yourName,
+                    "yourProfileName":yourProfileName,
+                    "loginStatus":loginStatus
+                },
+                success:function (result){
+                    console.log("suc");
+                },
+                error:function (result){
+                    console.log("err");
+                }
+            })
+        };
+
 
     </script>
 
@@ -236,9 +263,6 @@
     <div class="storyZone" >
         <div>
             <h1>스토리 구역입니다.</h1>
-<!--            <input type="text" th:value="${memberDTO.id}">-->
-<!--            <img th:src="@{|/upload/${memberDTO.memberProfile}|}" alt="" width="30" height="30">-->
-
         </div>
     </div>
 
@@ -247,8 +271,6 @@
     <div class="feedZone">
         <h1>메인피드 구역입니다.</h1>
         <a href="/member/updateForm">update</a>
-
-
     </div>
 
 

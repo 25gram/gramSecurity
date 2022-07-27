@@ -24,6 +24,13 @@ public class FollowController {
         return null;
     }
 
+    @GetMapping("list")
+    public String findAll(Model model){
+        List<FollowDTO>followDTOList=followService.findAll();
+        model.addAttribute("followList",followDTOList);
+        return "Contents/testList";
+    }
+
 //    @DeleteMapping("/")
 //    public ResponseEntity UnFollow(@PathVariable Long id){
 //        followService.UnFollow(id);

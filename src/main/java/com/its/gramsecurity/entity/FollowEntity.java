@@ -32,9 +32,9 @@ public class FollowEntity {
     @Column
     private int loginStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberId")
-    private MemberEntity memberEntity;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "memberId")
+//    private MemberEntity memberEntity;
 
     public static FollowEntity toSaveEntity(FollowDTO followDTO) {
         FollowEntity followEntity=new FollowEntity();
