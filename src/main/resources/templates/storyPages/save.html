@@ -15,18 +15,21 @@
             border: 0 !important;
         }
         .inputText {
+            width: 100%;
             color: whitesmoke;
             background-color: transparent;
             border: 0;
             border-spacing: 0;
+            text-align: center;
+            vertical-align: middle;
         }
         .inputTextDiv {
-            width: 50%;
-            height: 20px;
-            margin-top: 50%;
-            padding: 50%;
+            width: 100%;
+            height: 72px;
+            margin: 500px auto auto auto;
+            text-align: center;
             position: absolute;
-            z-index: 9000;
+            z-index: 9111;
             display: none;
         }
         .saveBox {
@@ -39,11 +42,9 @@
             margin-right: auto;
             border-radius: 3%;
             background-color: rgba(237,237,237,0.4);
-            background-size: cover;
             border: 1px solid gray;
             position: relative;
-            z-index: 9000;
-            overflow: hidden;
+            z-index: 9999;
         }
         .btn-close {
             position: fixed;
@@ -56,7 +57,7 @@
             width: 100%;
             height: 50px;
             position: absolute;
-            z-index: 9998;
+            z-index: 1000;
         }
         .editFont {
             padding-left: 60%;
@@ -65,19 +66,33 @@
             width: 100%;
             height: 50px;
             position: absolute;
-            z-index: 9998;
+            z-index: 1000;
         }
         .editBox {
+            margin-top: 70%;
+            height: 50%;
+            width: 100%;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
             position: absolute;
-            z-index: -9997;
+            z-index: 1000;
+            display: none;
+        }
+        .filters {
+            width: 100%;
+            padding-top: 65%;
+            text-align: center;
+            position: absolute;
+            z-index: 1000;
         }
         .saveBtn {
             position: absolute;
-            z-index: 8999;
+            z-index: 1000;
         }
         .inputFileBtn {
             position: absolute;
-            z-index: 8998;
+            z-index: 1000;
         }
         .editMenu5 {
             display: none;
@@ -86,10 +101,84 @@
             margin-top: 700px;
             padding-left: 89%;
             position: absolute;
-            z-index: 9998;
+            z-index: 1000;
+        }
+        .rangBar {
+            display: none;
+            width: 30px;
+            height: 400px;
+            padding-top: 10%;
+            position: absolute;
+            z-index: 1000;
+        }
+        input[type="range"] {
+            -webkit-appearance: slider-vertical;
+            width: 30px;
+            height: 80%;
+        }
+        .colorCircles {
+            margin-top: 70%;
+            width: 100%;
+            height: 50%;
+            padding-top: 70%;
+            padding-left: 15px;
+            position: absolute;
+            z-index: 1000;
+            display: none;
+        }
+        .circles {
+            margin: 0 auto;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid dimgray;
+            float: left;
+            margin: 3px;
+        }
+        .fontDiv {
+            margin: 70% auto 0 auto;
+            width: 100%;
+            height: 50px;
+            padding-top: 70%;
+            padding-left: 20%;
+            position: absolute;
+            z-index: 1000;
+            display: none;
+        }
+        .fontKr {
+            margin: 0 auto;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid dimgray;
+            float: left;
+            padding-top: 3px;
+            margin: 3px;
+            font-size: 22px;
+            text-align: center;
+            color: white;
+            background-color: rgba(0,0,0,0.4);
+
+        }
+        .aaa {
+            height: 100%;
+        }
+        .filePreview {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            overflow: hidden;
+            position: absolute;
+            z-index: 1000;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Hi+Melody&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&family=Noto+Serif+KR:wght@200&family=Single+Day&display=swap" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"></head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -98,20 +187,21 @@
 <button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
 
     <div class="saveBox" id="saveBox">
+        <div class="filePreview" id="filePreview"></div>
         <div class="editMenu" id="editMenu">
             <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
-            <button class="btn btn-primary" onclick="editFnc2()"><i class="bi bi-outlet"></i></button>
+            <button class="btn btn-primary" onclick="editFnc2()"><i class="bi bi-outlet fs-5"></i></button>
             <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
             <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
         </div>
         <div class="editMenu5" id="editMenu5"></div>
         <div class="editFont" id="editFont">
-            <button class="btn btn-primary" onclick="editFnc1a()"><i class="bi bi-text-center"></i></button>
+            <button class="btn btn-primary" onclick="editFnc1a()"><i id=icon1 class="bi bi-text-center"></i></button>
             <button class="btn btn-primary" onclick="editFnc1b()"><i class="bi bi-palette"></i></button>
             <button class="btn btn-primary" onclick="editFnc1c()"><i class="bi bi-type"></i></button>
             <button class="btn btn-secondary" onclick="editFnc1d()">완료</button>
         </div>
-        <div class="inputTextDiv" id="inputTextDiv">
+        <div class="inputTextDiv" id="inputTextDiv">    
             <input class="inputText" type="text" id="text1" name="text1">
         </div>
         <div class="inputFileBtn">
@@ -120,13 +210,50 @@
             <div class="saveBtn" id="saveBtn"></div>
         </form>
         </div>
-        <div class="editBox" id="editBox"></div>
-
+        <div class="editBox" id="editBox">
+            <div class="filters" id="filters">
+                <button onClick="reset()">원본</button>
+                <button onClick="gray()">흑백</button>
+                <button onClick="sepia()">세피아</button>
+                <button onClick="brightness()">밝게</button>
+                <button onClick="contrast()">조도</button>
+                <button onClick="invert()">반전</button>
+            </div>
+        </div>
+        <div class="rangBar" id="rangeBar">
+            <input class="slider_range" id="slider" type="range" value="0" min="2" max="48">
+            <p style="font-size: 2px; text-align: center" id="slider_value_view">0</p>
+        </div>
+        <div class="colorCircles" id="colorCircles">
+            <button type="button" class="circles" style="background-color: black" id="bk" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: white" id="wt" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: blue" id="bl" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: skyblue" id="sb" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: deeppink" id="dp" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: hotpink" id="hp" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: red" id="rd" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: green" id="gn" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: saddlebrown" id="br" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: rebeccapurple" id="pu" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: yellow" id="ye" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: gray" id="gr" onclick="colorChange(this.id)"></button>
+            <button type="button" class="circles" style="background-color: darkgrey" id="dg" onclick="colorChange(this.id)"></button>
+        </div>
+        <div class="fontDiv" id="fontDiv">
+            <button type="button" class="fontKr" style="font-family: 'Dongle', sans-serif; font-size: 25px" id="dongle" onclick="fontChange(this.id)">Aa</button>
+            <button type="button" class="fontKr" style="font-family: 'Hi Melody', cursive; font-size: 25px" id="hiMelody" onclick="fontChange(this.id)">Aa</button>
+            <button type="button" class="fontKr" style="font-family: 'Nanum Pen Script', cursive; font-size: 25px" id="nanumPen" onclick="fontChange(this.id)">Aa</button>
+            <button type="button" class="fontKr" style="font-family: 'Noto Sans KR', sans-serif; padding-top: 2px" id="notoSans" onclick="fontChange(this.id)">Aa</button>
+            <button type="button" class="fontKr" style="font-family: 'Noto Serif KR', serif; padding-top: 2px" id="notoSerif" onclick="fontChange(this.id)">Aa</button>
+            <button type="button" class="fontKr" style="font-family: 'Single Day', cursive; font-size: 25px" id="singleDay" onclick="fontChange(this.id)">Aa</button>
+        </div>
     </div>
 </body>
-<script>
+<script type="text/javascript">
     function uploadImgPreview(obj) {
-            const editMenu = document.getElementById("editMenu");
+        document.getElementById("filePreview").innerHTML="";
+        document.getElementById("filePreview").style.backgroundImage="";
+        const editMenu = document.getElementById("editMenu");
             const editMenu5 = document.getElementById("editMenu5");
             editMenu.style.display="block";
             editMenu5.style.display="block";
@@ -168,8 +295,8 @@
                 let reader = new FileReader();
                 reader.addEventListener("load", function () {
                     if (fileTypes2.includes(obj.type)) {
-                        const saveBox = document.getElementById("saveBox");
-                        saveBox.style.backgroundImage="url('"+this.result+"')";
+
+                        document.getElementById("filePreview").style.backgroundImage="url('"+this.result+"')";
 
                     } else if (fileTypes3.includes(obj.type)) {
                         let video = document.createElement("video");
@@ -182,21 +309,18 @@
                         video.setAttribute("loop", "loop");
                         video.setAttribute("class", "aaa");
 
-                        document.getElementById("saveBox").appendChild(video);
+                        document.getElementById("filePreview").appendChild(video);
                     }
-
                 });
                 if (obj) {
                     reader.readAsDataURL(obj);
                 }
-
-
             }
+        document.getElementById("upImgFiles").value="";
             return true;
         }
-
     }
-    
+
     function reset(){
         saveBox.style.filter=''
     }
@@ -216,14 +340,100 @@
     function invert(){
         saveBox.style.filter='invert(1)'
     }
+    const slider = document.getElementById('slider');
+
+    slider.addEventListener('input', function() {
+        let size = slider.value;
+        document.getElementById("text1").style.fontSize = size + "px";
+    });
+    function ShowSliderValue(sVal){
+        let obValueView = document.getElementById("slider_value_view");
+        let textSize = document.getElementById("text1");
+        obValueView.innerHTML = sVal
+    }
+    const RangeSlider = function(){
+        let range = $('.slider_range');
+        range.on('input', function(){
+            ShowSliderValue(this.value);
+        });
+    };
+    RangeSlider();
+
+    var text1 = document.querySelector("#text1");
+    var inputTextDiv = document.querySelector("#inputTextDiv");
+
+    var active = false;
+    var currentX;
+    var currentY;
+    var initialX;
+    var initialY;
+    var xOffset = 0;
+    var yOffset = 0;
+
+    inputTextDiv.addEventListener("touchstart", dragStart, false);
+    inputTextDiv.addEventListener("touchend", dragEnd, false);
+    inputTextDiv.addEventListener("touchmove", drag, false);
+
+    inputTextDiv.addEventListener("mousedown", dragStart, false);
+    inputTextDiv.addEventListener("mouseup", dragEnd, false);
+    inputTextDiv.addEventListener("mousemove", drag, false);
+
+    function dragStart(e) {
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX - xOffset;
+            initialY = e.touches[0].clientY - yOffset;
+        } else {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+        }
+
+        if (e.target === text1) {
+            active = true;
+        }
+    }
+
+    function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+
+        active = false;
+    }
+
+    function drag(e) {
+        if (active) {
+
+            e.preventDefault();
+
+            if (e.type === "touchmove") {
+                currentX = e.touches[0].clientX - initialX;
+                currentY = e.touches[0].clientY - initialY;
+            } else {
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+            }
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            setTranslate(currentX, currentY, text1);
+        }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
     const editFnc1 = () => {
+        document.getElementById("editBox").style.display="none";
         const editMenu = document.getElementById("editMenu");
         const editFont = document.getElementById("editFont");
         const inputText = document.getElementById("inputTextDiv");
         const text1 = document.getElementById("text1");
+        const rangeBar = document.getElementById("rangeBar");
+        rangeBar.style.display="block";
         editMenu.style.display="none";
         editFont.style.display="block";
         inputText.style.display="block";
+
         text1.focus();
 
     }
@@ -231,13 +441,7 @@
 
     }
     const editFnc3 = () => {
-        const editBox = document.getElementById("editBox");
-        editBox.innerHTML = '<button onClick="reset()">원본</button>' +
-            '<button onClick="gray()">흑백</button>' +
-            '<button onClick="sepia()">세피아</button>' +
-            '<button onClick="brightness()">밝게</button>' +
-            '<button onClick="contrast()">조도</button>' +
-            '<button onClick="invert()">반전</button>';
+        document.getElementById("editBox").style.display="block";
     }
     const editFnc4 = () => {
 
@@ -246,16 +450,42 @@
 
     }
     const editFnc1a = () => {
-
+            if($('#icon1').hasClass("bi-text-center")) {
+                $('#icon1').removeClass('bi-text-center');
+                $('#icon1').addClass('bi-text-left');
+                document.getElementById("text1").style.textAlign="left";
+            } else if($('#icon1').hasClass("bi-text-left")) {
+                $('#icon1').removeClass('bi-text-left');
+                $('#icon1').addClass('bi-text-right');
+                document.getElementById("text1").style.textAlign="right";
+            } else if($('#icon1').hasClass("bi-text-right")) {
+                $('#icon1').removeClass('bi-text-right');
+                $('#icon1').addClass('bi-text-center');
+                document.getElementById("text1").style.textAlign="center";
+            }
     }
     const editFnc1b = () => {
-
+        document.getElementById("fontDiv").style.display="none";
+        document.getElementById("colorCircles").style.display="block";
     }
     const editFnc1c = () => {
-
+        document.getElementById("colorCircles").style.display="none";
+        document.getElementById("fontDiv").style.display="block";
     }
     const editFnc1d = () => {
-
+        document.getElementById("colorCircles").style.display = "none";
+        document.getElementById("fontDiv").style.display = "none";
+        document.getElementById("rangeBar").style.display = "none";
+        document.getElementById("editFont").style.display="none";
+        document.getElementById("editMenu").style.display = "block";
+        document.getElementById("editMenu5").style.display = "block";
+        $("#text1").attr("readonly", true);
+    }
+    const colorChange = (clickId) => {
+        document.getElementById("text1").style.color = document.getElementById(clickId).style.backgroundColor;
+    }
+    const fontChange = (clickId) => {
+        document.getElementById("text1").style.fontFamily=document.getElementById(clickId).style.fontFamily;
     }
 </script>
 </html>
