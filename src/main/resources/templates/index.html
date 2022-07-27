@@ -35,7 +35,7 @@
         function logoutChk(){
             console.log("logout chk 호출")
             $.ajax({
-                url:"/member/logoutCheck",
+                url:"/member/logout",
                 type:"get",
                 success:function (e){
                     console.log("logout chk suc")
@@ -76,8 +76,7 @@
 
 
 </head>
-<!--<body onload="logoutChk()">-->
-<body>
+<body onload="logoutChk()">
 <div class="container" style="margin-top: 50px; width: 380px; height: 610px; border:1px gray solid">
 
     <p class="title" style="margin-top: 20px;text-align: center;color:#4E4E4E ;">25gram</p>
