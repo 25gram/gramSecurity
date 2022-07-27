@@ -49,6 +49,7 @@ public class MemberDTO {
         memberDTO.setMemberEmail(memberEntity.getMemberEmail());
         memberDTO.setMemberProfileName(memberEntity.getMemberProfileName());
         memberDTO.setMemberIntro(memberEntity.getMemberIntro());
+        memberDTO.setLoginStatus(memberEntity.getLoginStatus());
         memberDTO.setRole(memberEntity.getRole());
         memberDTO.setProvider(memberEntity.getProvider());
         memberDTO.setProviderId(memberEntity.getProviderId());

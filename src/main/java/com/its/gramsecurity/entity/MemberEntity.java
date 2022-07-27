@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,7 +18,7 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-    @Column(length = 500)
+    @Column(length = 500,unique = true)
     private String memberId;
     @Column(length = 100)
     private String memberPassword;
@@ -37,6 +39,9 @@ public class MemberEntity {
     @Column
     private String providerId;
 
+    @OneToMany(mappedBy ="memberEntity" ,cascade =CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
+    private List<FollowEntity> followEntityList=new ArrayList<>();
+
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setMemberId(memberDTO.getMemberId());
@@ -45,6 +50,7 @@ public class MemberEntity {
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberProfileName(memberDTO.getMemberProfileName());
         memberEntity.setMemberIntro(memberDTO.getMemberIntro());
+        memberEntity.setLoginStatus(memberDTO.getLoginStatus());
         memberEntity.setRole(memberDTO.getRole());
         memberEntity.setProvider(memberDTO.getProvider());
         memberEntity.setProviderId(memberDTO.getProviderId());

@@ -85,4 +85,12 @@ public class MemberService {
         Optional <MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
         memberRepository.delete(optionalMemberEntity.get());
     }
+
+    public void loginCheck(String memberId) {
+        memberRepository.loginCheck(memberId);
+    }
+
+    public void logoutCheck(String memberId) {
+        memberRepository.logoutCheck(memberId);
+    }
 }
