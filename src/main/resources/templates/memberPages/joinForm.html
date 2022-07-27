@@ -132,13 +132,15 @@
         function sub() {
             let memberEmail= document.getElementById("memberEmail");
             let memberId= document.getElementById("memberId");
+            let memberEmailVal=memberEmail.value;
+            let memberIdVal=memberId.value;
             let upid = document.getElementById("msg_zone")
                 $.ajax({
                     url:"/home/duplicateChk",
                     type:"post",
                     data:{
-                        "memberEmail":memberEmail,
-                        "memberId":memberId
+                        "memberEmail":memberEmailVal,
+                        "memberId":memberIdVal
                     },
                     dataType:"text",
                     success:function (e){
