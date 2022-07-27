@@ -73,7 +73,7 @@ public class MemberController {
     }
     //삭제 후 강제 로그아웃
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response,Principal principal) {
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout
                 (request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/main/";
@@ -86,9 +86,11 @@ public class MemberController {
         System.out.println("principal = " + principal);
     }
     @GetMapping("/logoutCheck")
-    public @ResponseBody String logoutCheck(Principal principal){
+    public @ResponseBody void  logoutCheck(Principal principal){
         String memberId= principal.getName();
         memberService.logoutCheck(memberId);
-        return "redirect:/member/logout";
+//        System.out.println("MemberController.logoutCheck");
+//        System.out.println("memberId = " + memberId);
+//        return "redirect:/member/logout";
     }
 }

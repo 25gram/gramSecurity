@@ -124,10 +124,11 @@
         function logoutChk(){
             console.log("logout chk 호출")
             $.ajax({
-                url:"/member/logout",
+                url:"/member/logoutCheck",
                 type:"get",
                 success:function (e){
                     console.log("logout chk suc")
+                    location.href="/member/logout"
                 },
                 error:function (e){
                     console.log("logout chk err")
@@ -212,8 +213,8 @@
 
 
 </head>
-<!--<body onload="loginChk()">-->
-<body>
+<body onload="loginChk()">
+
 <div class="container mainBody">
 
 

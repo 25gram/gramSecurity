@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
       Optional<MemberEntity> findByMemberId(String memberId);
 
+      @Transactional
       @Modifying
       @Query(value = "update MemberEntity m set m.loginStatus=0 where m.memberId=:memberId")
     void logoutCheck(@Param("memberId") String memberId);
