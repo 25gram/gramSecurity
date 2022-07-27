@@ -1,5 +1,6 @@
 package com.its.gramsecurity.entity;
 
+import com.its.gramsecurity.dto.FollowDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,4 +35,14 @@ public class FollowEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private MemberEntity memberEntity;
+
+    public static FollowEntity toSaveEntity(FollowDTO followDTO) {
+        FollowEntity followEntity=new FollowEntity();
+        followEntity.setMyId(followDTO.getMyId());
+        followEntity.setYourId(followDTO.getYourId());
+        followEntity.setYourName(followDTO.getYourName());
+        followEntity.setYourProfileName(followDTO.getYourProfileName());
+        followEntity.setLoginStatus(followDTO.getLoginStatus());
+        return followEntity;
+    }
 }

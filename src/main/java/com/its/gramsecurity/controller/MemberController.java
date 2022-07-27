@@ -78,6 +78,7 @@ public class MemberController {
                 (request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/home/";
     }
+
     @GetMapping("/loginCheck")
     public @ResponseBody void loginCheck(Principal principal){
         String memberId= principal.getName();
@@ -89,8 +90,5 @@ public class MemberController {
     public @ResponseBody void  logoutCheck(Principal principal){
         String memberId= principal.getName();
         memberService.logoutCheck(memberId);
-//        System.out.println("MemberController.logoutCheck");
-//        System.out.println("memberId = " + memberId);
-//        return "redirect:/member/logout";
     }
 }

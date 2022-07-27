@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -236,6 +236,9 @@
     <div class="storyZone" >
         <div>
             <h1>스토리 구역입니다.</h1>
+<!--            <input type="text" th:value="${memberDTO.id}">-->
+<!--            <img th:src="@{|/upload/${memberDTO.memberProfile}|}" alt="" width="30" height="30">-->
+
         </div>
     </div>
 
@@ -244,6 +247,7 @@
     <div class="feedZone">
         <h1>메인피드 구역입니다.</h1>
         <a href="/member/updateForm">update</a>
+
 
     </div>
 
