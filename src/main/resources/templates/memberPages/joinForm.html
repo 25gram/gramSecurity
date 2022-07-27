@@ -114,7 +114,7 @@
 
             }else{
                 inputid.className = ("form-control is-valid ibox")
-                formCount1=false;
+                formCount4=true;
 
             }
 
@@ -151,13 +151,13 @@
                         }}else{
                             if(e=="id"){
                                 console.log("id중복")
-                                memberId.className = ("form-control is-valid ibox")
+                                memberId.className = ("form-control is-invalid ibox")
                                 upid.innerHTML = "이미 사용중인 Id입니다."
                                 formCount4=false;
 
                             }else if(e=="email"){
                                 console.log("email중복")
-                                memberEmail.className = ("form-control is-valid ibox")
+                                memberEmail.className = ("form-control is-invalid ibox")
                                 formCount1=false;
                                 upid.innerHTML="이미 사용중인 Email입니다."
 
