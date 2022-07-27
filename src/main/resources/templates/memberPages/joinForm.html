@@ -145,7 +145,14 @@
                         if(e==true){
                         if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
                             $('#saveForm').submit();
-                        }}
+                        }}else{
+                            if(e=="id"){
+                                console.log("id중복")
+                            }else if(e=="email"){
+                                console.log("email중복")
+
+                            }
+                        }
                     },
                     error:function (e){
                         console.log("dup err")
