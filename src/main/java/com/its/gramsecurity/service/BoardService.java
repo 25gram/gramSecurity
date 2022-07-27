@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class BoardService {
         MultipartFile boardFile = fileDTO.getBoardFile();
         String fileName = boardFile.getOriginalFilename();
         String ext = fileName.substring(fileName.lastIndexOf(".")+1);
+        System.out.println(fileDTO.getId());
         final String[] a = {"jpg","png"};
         int len = a.length;
         final String[] b = {"mp4"};
@@ -37,16 +39,17 @@ public class BoardService {
             for (int i = 0; i < len; i++){
                 if(ext.equalsIgnoreCase(a[i])){
                     fileDTO.setBoardImgName(fileName);
-                    fileDTO.setBoardFilter("invert(1)");
                 }
             }
+
             for (int i = 0; i < len1; i++){
                 if(ext.equalsIgnoreCase(b[i])){
                     fileDTO.setBoardVideoName(fileName);
                 }
             }
-
         }
+//            fileDTO.setBoardFilter(list);
+
         BoardEntity boardEntity = boardRepository.findById(fileDTO.getBoardId()).get();
         Long id = boardFileRepository.save(BoardFileEntity.toSaveEntity(fileDTO, boardEntity)).getId();
         return BoardFileDTO.toDTO(boardFileRepository.findById(id).get());

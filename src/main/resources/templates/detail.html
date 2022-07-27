@@ -11,7 +11,6 @@
     .contentsItem{
         margin:24px; width:450px; height:650px; border: solid 1px;
         float: left;
-        /*filter: invert(1);*/
     }
     .mainBody{
         margin: 0 0 0 15px;
@@ -69,8 +68,8 @@
         <div style="overflow: hidden">
             <div id="contentsBody" class="contentsBody">
                 <div th:each="file: ${fileDTOList}">
-                    <img th:if="${file.boardImgName != null}" th:class="contentsItem" th:src="@{|/upload/${file.boardImgName}|}" th:style="${file.boardFilter}" alt="">
-                    <video th:if="${file.boardVideoName != null}" class="contentsItem" th:src="@{|/upload/${file.boardVideoName}|}"  alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+                    <img th:if="${file.boardImgName != null}" th:class="contentsItem" th:src="@{|/upload/${file.boardImgName}|}" th:style="'filter:' + ${file.boardFilter}"  alt="">
+                    <video th:if="${file.boardVideoName != null}" class="contentsItem" th:src="@{|/upload/${file.boardVideoName}|}" th:style="'filter:' + ${file.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
                 </div>
             </div>
         </div>
