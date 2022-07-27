@@ -9,10 +9,19 @@
             background-color:rgba(71,66,69,0.4) !important;
             border-radius: 70% !important;
         }
-        .btn-secondary {
+        .btn-outline-primary {
             color: lightgray !important;
             background-color: transparent !important;
             border: 0 !important;
+        }
+        .btn-secondary {
+            color: black !important;
+            background-color: white;
+            padding: 0;
+            width: 80px !important;
+            height: 40px !important;
+            border: 1px solid white;
+            border-radius: 5% !important;
         }
         .inputText {
             width: 100%;
@@ -46,9 +55,18 @@
             position: relative;
             z-index: 9999;
         }
-        .btn-close {
+        .closeDiv {
+            width: 100%;
+            height: 10%;
+            padding-top: 2%;
+            padding-left: 70%;
+            position: absolute;
+        }
+        .closeDiv btn-close {
             position: fixed;
-            left: 90%;
+            left: 70%;
+
+
         }
         .editMenu {
             padding-left: 60%;
@@ -76,7 +94,7 @@
             margin-left: auto;
             margin-right: auto;
             position: absolute;
-            z-index: 1000;
+            z-index: 1100;
             display: none;
         }
         .filters {
@@ -109,7 +127,7 @@
             height: 400px;
             padding-top: 10%;
             position: absolute;
-            z-index: 1000;
+            z-index: 1100;
         }
         input[type="range"] {
             -webkit-appearance: slider-vertical;
@@ -123,7 +141,7 @@
             padding-top: 70%;
             padding-left: 15px;
             position: absolute;
-            z-index: 1000;
+            z-index: 1100;
             display: none;
         }
         .circles {
@@ -142,7 +160,7 @@
             padding-top: 70%;
             padding-left: 20%;
             position: absolute;
-            z-index: 1000;
+            z-index: 1100;
             display: none;
         }
         .fontKr {
@@ -173,6 +191,60 @@
             position: absolute;
             z-index: 1000;
         }
+        @import 'https://fonts.googleapis.com/css?family=Lato';
+
+
+        .slide
+        {
+            background: rgba(0,0,0,0.2);
+            padding: 2rem 4rem 4rem 4rem;
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        #reverse {
+            margin-top: 31%;
+            padding-bottom: 0;
+            height: 624px;
+            position: relative;
+            z-index: 1000;
+        }
+        .slideUp
+        {
+            position: absolute;
+            bottom: 0;
+        }
+        .slide btn-close {
+            position: fixed;
+            left: 90%;
+        }
+        .btnFncDiv {
+            text-align: center;
+            magin-top: 10%;
+            margin-bottom: 50px;
+            width: 100%;
+
+        }
+        .btnFnc {
+            width: 100%;
+            border-radius: 3%;
+            margin-right: 20px;
+        }
+        .closeDiv2 {
+            text-align: center;
+            width: 370px;
+            margin-bottom: 4rem;
+        }
+        .addFileLabel {
+            border: 1px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            padding-top: 0;
+            margin-right: 45px;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -184,13 +256,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 <body>
-<button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
-
+    <div class="closeDiv">
+    <button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
+    </div>
     <div class="saveBox" id="saveBox">
         <div class="filePreview" id="filePreview"></div>
         <div class="editMenu" id="editMenu">
             <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
-            <button class="btn btn-primary" onclick="editFnc2()"><i class="bi bi-outlet"></i></button>
+            <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
             <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
             <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
         </div>
@@ -199,7 +272,7 @@
             <button class="btn btn-primary" onclick="editFnc1a()"><i id=icon1 class="bi bi-text-center"></i></button>
             <button class="btn btn-primary" onclick="editFnc1b()"><i class="bi bi-palette"></i></button>
             <button class="btn btn-primary" onclick="editFnc1c()"><i class="bi bi-type"></i></button>
-            <button class="btn btn-secondary" onclick="editFnc1d()">완료</button>
+            <button class="btn btn-outline-primary" onclick="editFnc1d()">완료</button>
         </div>
         <div class="inputTextDiv" id="inputTextDiv">    
             <input class="inputText" type="text" id="text1" name="text1">
@@ -246,6 +319,27 @@
             <button type="button" class="fontKr" style="font-family: 'Noto Sans KR', sans-serif; padding-top: 2px" id="notoSans" onclick="fontChange(this.id)">Aa</button>
             <button type="button" class="fontKr" style="font-family: 'Noto Serif KR', serif; padding-top: 2px" id="notoSerif" onclick="fontChange(this.id)">Aa</button>
             <button type="button" class="fontKr" style="font-family: 'Single Day', cursive; font-size: 25px" id="singleDay" onclick="fontChange(this.id)">Aa</button>
+        </div>
+        <div id="reverse">
+            <div class="slide slideUp">
+                <div class="closeDiv2"><button class="btn-close" id="reverseSlideContentUp"></button></div>
+                <div class="btnFncDiv">
+                    <button type="button" class="btnFnc btn-secondary">위치</button>
+                    <button type="button" class="btnFnc btn-secondary">@언급</button>
+                    <button type="button" class="btnFnc btn-secondary">#해시태그</button>
+                </div>
+                <div class="btnFncDiv">
+                    <button type="button" class="btnFnc btn-secondary">질문</button>
+                    <button type="button" class="btnFnc btn-secondary">설문</button>
+                    <button type="button" class="btnFnc btn-secondary">퀴즈</button>
+                </div>
+                <div class="btnFncDiv">
+                    <button type="button" class="btnFnc btn-secondary">링크</button>
+                    <label for="addFile" class="addFileLabel"><img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
+                    <input type="file" accept="image/*" class="bi bi-images" id="addFile" onchange="addImgFile()" style="display: none">
+                    <button type="button" class="btnFnc btn-secondary" id="today"></button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -486,6 +580,34 @@
     }
     const fontChange = (clickId) => {
         document.getElementById("text1").style.fontFamily=document.getElementById(clickId).style.fontFamily;
+    }
+    $('#slideContentDown').on('click', function()
+    {
+        $('.slideDown').slideDown();
+    });
+
+    $('#slideContentUp').on('click', function()
+    {
+        $('.slideDown').slideUp();
+    });
+
+    $('#reverseSlideContentDown').on('click', function()
+    {
+        document.getElementById("editBox").style.display="none";
+        let today = new Date();
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        document.getElementById("today").innerHTML=year + '.' + month + '.' + date + '.';
+        $('.slideUp').slideDown();
+    });
+
+    $('#reverseSlideContentUp').on('click', function()
+    {
+        $('.slideUp').slideUp();
+    });
+    const addImgFile = () => {
+        $('.slideUp').slideUp();
     }
 </script>
 </html>
