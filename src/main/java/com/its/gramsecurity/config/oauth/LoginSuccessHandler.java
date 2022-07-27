@@ -1,4 +1,4 @@
-package com.its.gramsecurity.config;
+package com.its.gramsecurity.config.oauth;
 
 import lombok.extern.java.Log;
 import org.springframework.security.core.Authentication;

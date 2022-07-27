@@ -33,3 +33,8 @@ spring:
             scope:
               - email
               - profile
+
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/

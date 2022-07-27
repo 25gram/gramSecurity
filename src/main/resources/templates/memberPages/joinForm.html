@@ -114,20 +114,68 @@
 
             }else{
                 inputid.className = ("form-control is-valid ibox")
-                formCount4=true
+                formCount4=true;
 
             }
 
         }
 
+        // function sub() {
+        //
+        //     if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
+        //         $('#saveForm').submit();
+        //     }
+        //
+        //
+        // };
+
         function sub() {
+            let memberEmail= document.getElementById("memberEmail");
+            let memberId= document.getElementById("memberId");
+            let memberEmailVal=memberEmail.value;
+            let memberIdVal=memberId.value;
+            let upid = document.getElementById("msg_zone")
+                $.ajax({
+                    url:"/home/duplicateChk",
+                    type:"post",
+                    data:{
+                        "memberEmail":memberEmailVal,
+                        "memberId":memberIdVal
+                    },
+                    dataType:"text",
+                    success:function (e){
+                        console.log("dup suc")
+                        if(e=="true"){
+                        if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
+                            $('#saveForm').submit();
+                        }}else{
+                            if(e=="id"){
+                                console.log("id중복")
+                                memberId.className = ("form-control is-invalid ibox")
+                                upid.innerHTML = "이미 사용중인 Id입니다."
+                                formCount4=false;
 
-            if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
-                $('#saveForm').submit();
-            }
+                            }else if(e=="email"){
+                                console.log("email중복")
+                                memberEmail.className = ("form-control is-invalid ibox")
+                                formCount1=false;
+                                upid.innerHTML="이미 사용중인 Email입니다."
 
 
+                            }
+                        }
+                    },
+                    error:function (e){
+                        console.log("dup err")
+
+
+                    }
+
+                })
         };
+
+
+
     </script>
 
 
@@ -158,8 +206,27 @@
         body{
             font-family: 'Noto Sans KR', sans-serif;
         }
+        .msg_zone{
+            margin-top: 5px;text-align: center;font-size: 12px;
+            color:grey;
+        }
     </style>
+    <script>
+        function loginIconEffect(){
+            document.getElementById("googleLogin").style.width='275px'
+            document.getElementById("googleLogin").style.marginBottom='1px'
 
+            setTimeout(effectReset,150)
+            // document.getElementById("googleLogin").style.filter='grayscale(100)'
+            // document.getElementById("googleLogin").style.backgroundColor='gray'
+            function effectReset(){
+                document.getElementById("googleLogin").style.width='280px'
+                document.getElementById("googleLogin").style.marginBottom='0px'
+            }
+        }
+
+
+    </script>
 
 
 </head>
@@ -173,16 +240,16 @@
     </div>
 
     <div style="margin-top:35px ;text-align: center;">
-        <img onclick="location.href='/oauth2/authorization/google'" style="width: 280px;" src="https://t1.daumcdn.net/cfile/tistory/998689465C3D7D1217">
+        <img id="googleLogin" onmouseover="loginIconEffect()" onclick="loginIconEffect(),location.href='/oauth2/authorization/google'" style="width: 280px;" src="https://t1.daumcdn.net/cfile/tistory/998689465C3D7D1217">
     </div>
 
-    <div class="input-group" style="margin: 25px 0 0 24px; color: gray;">
-        <!-- <div style="border-bottom:1px gray solid ;width:120px"></div> -->
-        <p style="text-decoration:line-through;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;</p>
+    <div class="input-group" style="margin: 25px 0 0 20px; color: gray;">
+
+        <p style="text-decoration:line-through;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
         <p>&nbsp&nbsp&nbsp</p>
         <div>또는</div>
         <p>&nbsp&nbsp&nbsp</p>
-        <p style="text-decoration:line-through;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;</p>
+        <p style="text-decoration:line-through;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
 
 
     </div>
@@ -190,7 +257,8 @@
 
 
     <div style="margin:14px 0 0 17px ;">
-        <form action="/join" method="post" id="saveForm">
+        <form action="/home/join" method="post" id="saveForm">
+<!--        <form action="/member/join" method="post" id="saveForm">-->
             <input name="memberEmail" id="memberEmail" type="text" class="form-control ibox"  placeholder="이메일 주소" onblur="mailc()">
             <input name="memberName" id="memberName" type="text" class="form-control ibox"  placeholder="성명" onblur="namec()">
             <input name="memberId" id="memberId" type="text" class="form-control ibox"  placeholder="사용자 이름" onblur="memberIdc()">
@@ -204,13 +272,13 @@
         </div>
     </div>
 
-    <div id="msg_zone" style="margin-top: 5px;text-align: center;font-size: 12px;" >
+    <div id="msg_zone" class="msg_zone" >
         &nbsp;
     </div>
 
     <div class="input-group" style="margin: 7px 0 0 80px;">
         <p style="color:#4E4E4E">계정이 있으신가요? </p>
-        <a href="/" style="color:gray; margin-left: 10px;">로그인</a>
+        <a href="/static" style="color:gray; margin-left: 10px;">로그인</a>
 
     </div>
 

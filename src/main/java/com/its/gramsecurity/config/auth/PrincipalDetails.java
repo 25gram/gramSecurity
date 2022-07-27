@@ -1,8 +1,8 @@
 package com.its.gramsecurity.config.auth;
 
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -15,22 +15,27 @@ import java.util.Map;
 public class PrincipalDetails implements UserDetails, OAuth2User {
     private Map<String,Object> attributes;
 
+    private MemberDTO memberDTO;
+
     private MemberEntity memberEntity;
 
-    public PrincipalDetails(MemberEntity memberEntity){
-        this.memberEntity=memberEntity;
+    public PrincipalDetails(MemberDTO memberDTO){
+        this.memberDTO=memberDTO;
     }
 
-    public PrincipalDetails(MemberEntity memberEntity,Map<String,Object>attributes){
-        this.memberEntity=memberEntity;
+    public PrincipalDetails(MemberDTO memberDTO,Map<String,Object>attributes){
+        this.memberDTO=memberDTO;
         this.attributes=attributes;
     }
+
+
+
     public Collection<? extends GrantedAuthority>getAuthorities(){
         Collection<GrantedAuthority>collect=new ArrayList<>();
         collect.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return memberEntity.getRole();
+                return memberDTO.getRole();
             }
         });
         return collect;
@@ -38,17 +43,17 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getName(){
-        return null;
+        return memberDTO.getMemberId();
     }
 
     @Override
     public String getPassword() {
-        return memberEntity.getMemberPassword();
+        return memberDTO.getMemberPassword();
     }
 
     @Override
     public String getUsername() {
-        return memberEntity.getMemberId();
+        return memberDTO.getMemberId();
     }
 
     @Override

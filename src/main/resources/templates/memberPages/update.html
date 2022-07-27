@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+</head>
+<body>
+<form action="/member/update" method="post" name="updateForm" enctype="multipart/form-data">
+    <input type="hidden" th:value="${memberDTO.id}" name="id"><br>
+    <input type="hidden" name="memberId" th:value="${memberDTO.memberId}"><br>
+    <input type="text" name="memberEmail" th:value="${memberDTO.memberEmail}" readonly><br>
+    <input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호" ><br>
+    <input type="text" name="memberIntro" id="memberIntro" th:placeholder="${memberDTO.memberIntro}" ><br>
+    <input type="file"name="memberProfile" id="memberProfile" placeholder="파일첨부"><br>
+    <input type="submit" value="정보수정"><br>
+    <button type="button" onclick="location.href='/member/delete/'">delete</button>
+
+</form>
+</body>
+
+</html>
