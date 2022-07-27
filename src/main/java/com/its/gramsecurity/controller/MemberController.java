@@ -32,7 +32,7 @@ public class MemberController {
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
-    public String login(HttpServletRequest request) {
+    public  String login(HttpServletRequest request) {
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("prevPage", referrer);
         return "/main";
@@ -64,18 +64,31 @@ public class MemberController {
         memberService.update(memberDTO);
         return "redirect:/main/main";
     }
-
+    //회원삭제
     @GetMapping("/delete")
     public String delete(Principal principal) {
         String memberId = principal.getName();
         memberService.delete(memberId);
         return "redirect:/member/logout";
     }
-
+    //삭제 후 강제 로그아웃
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response,Principal principal) {
         new SecurityContextLogoutHandler().logout
                 (request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/main/";
+    }
+    @GetMapping("/loginCheck")
+    public @ResponseBody void loginCheck(Principal principal){
+        String memberId= principal.getName();
+        memberService.loginCheck(memberId);
+        System.out.println("MemberController.loginCheck");
+        System.out.println("principal = " + principal);
+    }
+    @GetMapping("/logoutCheck")
+    public @ResponseBody String logoutCheck(Principal principal){
+        String memberId= principal.getName();
+        memberService.logoutCheck(memberId);
+        return "redirect:/member/logout";
     }
 }

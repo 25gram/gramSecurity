@@ -124,12 +124,12 @@
         function loginChk(){
             console.log("login chk 호출")
             $.ajax({
-                url:"/main/main",
+                url:"/member/loginCheck",
                 success:function(e){
                     console.log("login chk suc")
                 },
                 error:function(e){
-                    console.log("logout chk err")
+                    console.log("login chk err")
                 }
 
             })
@@ -196,7 +196,8 @@
 
 
 </head>
-<body onload="loginChk()">
+<!--<body onload="loginChk()">-->
+<body>
 <div class="container mainBody">
 
 
