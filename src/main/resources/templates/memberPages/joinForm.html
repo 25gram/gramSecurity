@@ -120,14 +120,38 @@
 
         }
 
+        // function sub() {
+        //
+        //     if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
+        //         $('#saveForm').submit();
+        //     }
+        //
+        //
+        // };
+
         function sub() {
+            let memberEmail= document.getElementById("memberEmail").value;
+                $.ajax({
+                    url:"/home/duplicateChk",
+                    type:"post",
+                    data:{"memberEmail":memberEmail},
+                    dataType:"text",
+                    success:function (e){
+                        console.log("dup suc")
+                        if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
+                            $('#saveForm').submit();
+                        }
+                    },
+                    error:function (e){
+                        console.log("dup err")
 
-            if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
-                $('#saveForm').submit();
-            }
+                    }
 
-
+                })
         };
+
+
+
     </script>
 
 
