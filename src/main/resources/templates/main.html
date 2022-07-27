@@ -120,6 +120,39 @@
                 }
             }
         }
+        //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
+        function logoutChk(){
+            console.log("logout chk 호출")
+            $.ajax({
+                url:"/member/logoutCheck",
+                type:"get",
+                success:function (e){
+                    console.log("logout chk suc")
+                    location.href="/member/logout"
+                },
+                error:function (e){
+                    console.log("logout chk err")
+
+                }
+
+            })
+        }
+
+        function loginChk(){
+            console.log("login chk 호출")
+            $.ajax({
+                url:"/member/loginCheck",
+                success:function(e){
+                    console.log("login chk suc")
+                },
+                error:function(e){
+                    console.log("login chk err")
+                }
+
+            })
+        }
+
+
     </script>
 
     <style>
@@ -180,7 +213,8 @@
 
 
 </head>
-<body>
+<body onload="loginChk()">
+
 <div class="container mainBody">
 
 
@@ -210,6 +244,7 @@
     <div class="feedZone">
         <h1>메인피드 구역입니다.</h1>
         <a href="/member/updateForm">update</a>
+
     </div>
 
 
@@ -221,7 +256,8 @@
             <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)" onclick="iconEffect(2)"></i>
             <i id="footerItem3" class="fi fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)" onclick="iconEffect(3)"></i>
             <i class="fi fa-solid fa-user"></i>
-            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),location.href='/logout'"></i>
+            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),logoutChk()"></i>
+<!--            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),location.href='/logout'"></i>-->
         </div>
     </div>
 

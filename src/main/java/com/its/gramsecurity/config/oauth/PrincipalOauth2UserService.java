@@ -25,11 +25,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             OAuth2AuthenticationException{
         System.out.println("PrincipalOauth2UserService.loadUser");
         OAuth2User oAuth2User=super.loadUser(userRequest);
-        String provider = userRequest.getClientRegistration().getClientId();
+        String provider = userRequest.getClientRegistration().getRegistrationId();
         String providerId=oAuth2User.getAttribute("sub");
         String memberId=provider+"_"+providerId;
         String memberPassword = oAuth2User.getAttribute("memberPassword");
-        String memberEmail=oAuth2User.getAttribute("memberEmail");
+        String memberEmail=oAuth2User.getAttribute("email");
         String role ="ROLE_USER";
 
         MemberDTO memberDTO=new MemberDTO();

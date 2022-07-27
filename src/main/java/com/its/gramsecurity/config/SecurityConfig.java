@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**", "/html/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**");
     }
 
 
@@ -39,8 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/main/**").access("hasRole('ROLE_USER')")
-                .antMatchers("/member/**").access("hasRole('ROLE_USER')")
+//                .antMatchers("/member/**").access("hasRole('ROLE_USER')")
+//                .antMatchers("/storyBoard/**").access("hasRole('ROLE_USER')")
+//                .antMatchers("/contents/**").access("hasRole('ROLE_USER')")
+//                .antMatchers("/main/main").access(("hasRole('ROLE_USER')"))
                 .antMatchers("/main/").permitAll()
                 .and()
                     .formLogin()
@@ -54,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout()
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/") // 로그아웃 성공시
+                    .logoutSuccessUrl("/main/") // 로그아웃 성공시
                 .and()
                     .oauth2Login()
                     .loginPage("/main/")

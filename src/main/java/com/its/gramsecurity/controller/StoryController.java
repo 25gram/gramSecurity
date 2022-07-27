@@ -3,6 +3,7 @@ package com.its.gramsecurity.controller;
 import com.its.gramsecurity.dto.StoryDTO;
 import com.its.gramsecurity.service.StoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,4 +38,6 @@ public class StoryController {
     public String saveForm() {
         return "storyPages/save";
     }
+
+
 }
