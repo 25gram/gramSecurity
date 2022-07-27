@@ -76,7 +76,7 @@ public class MemberController {
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout
                 (request, response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/main/";
+        return "redirect:/home/";
     }
     @GetMapping("/loginCheck")
     public @ResponseBody void loginCheck(Principal principal){

@@ -25,4 +25,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
       @Modifying
       @Query(value = "update MemberEntity m set m.loginStatus=1 where m.memberId=:memberId")
     void loginCheck(@Param("memberId") String memberId);
+
+    Optional<MemberEntity> findByMemberEmail(String memberEmail);
 }

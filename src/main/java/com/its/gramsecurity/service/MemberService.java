@@ -93,4 +93,24 @@ public class MemberService {
     public void logoutCheck(String memberId) {
         memberRepository.logoutCheck(memberId);
     }
+
+    public MemberEntity duplicateChkEmail(String memberEmail) {
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberEmail(memberEmail);
+        if(optionalMemberEntity.isEmpty()){
+            return null;
+        }else {
+            return optionalMemberEntity.get();
+        }
+    }
+
+    public MemberEntity duplicateChkId(String memberId) {
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
+        if(optionalMemberEntity.isEmpty()){
+            return null;
+        }else {
+            return optionalMemberEntity.get();
+        }
+    }
+
+
 }
