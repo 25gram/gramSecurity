@@ -131,16 +131,21 @@
 
         function sub() {
             let memberEmail= document.getElementById("memberEmail").value;
+            let memberId= document.getElementById("memberId").value;
                 $.ajax({
                     url:"/home/duplicateChk",
                     type:"post",
-                    data:{"memberEmail":memberEmail},
-                    dataType:"text",
+                    data:{
+                        "memberEmail":memberEmail,
+                        "memberId":memberId
+                    },
+                    dataType:"json",
                     success:function (e){
                         console.log("dup suc")
+                        if(e==true){
                         if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
                             $('#saveForm').submit();
-                        }
+                        }}
                     },
                     error:function (e){
                         console.log("dup err")
