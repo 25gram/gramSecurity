@@ -19,28 +19,28 @@ public class FollowService {
         followRepository.save(followEntity);
     }
 
-//    public List<FollowDTO> findAll() {
-//        List<FollowEntity>followEntityList=followRepository.findAll();
-//        List<FollowDTO>followDTOList=new ArrayList<>();
-//        for(FollowEntity follow:followEntityList){
-//            FollowDTO followDTO=FollowDTO.toDTO(follow);
-//            followDTOList.add(followDTO);
-//        }return followDTOList;
-//    }
+    public List<FollowDTO> findAll() {
+        List<FollowEntity>followEntityList=followRepository.findAll();
+        List<FollowDTO>followDTOList=new ArrayList<>();
+        for(FollowEntity follow:followEntityList){
+            FollowDTO followDTO=FollowDTO.toDTO(follow);
+            followDTOList.add(followDTO);
+        }return followDTOList;
+    }
 
 //    public void UnFollow(Long id) {
 //        followRepository.deleteById(id);
 //    }
 //
 //
-    public List<FollowDTO> followList(Long id) {
-        List<FollowEntity>followEntityList=followRepository.followList(id);
-        List<FollowDTO>followDTOList=new ArrayList<>();
-        for(FollowEntity followEntity:followEntityList){
-            FollowDTO followDTO=FollowDTO.toDTO(followEntity);
-            followDTOList.add(followDTO);
-        }return followDTOList;
-    }
+//    public List<FollowDTO> followList(Long id) {
+//        List<FollowEntity>followEntityList=followRepository.followList(id);
+//        List<FollowDTO>followDTOList=new ArrayList<>();
+//        for(FollowEntity followEntity:followEntityList){
+//            FollowDTO followDTO=FollowDTO.toDTO(followEntity);
+//            followDTOList.add(followDTO);
+//        }return followDTOList;
+//    }
 
 
 }
