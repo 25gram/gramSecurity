@@ -44,14 +44,10 @@ public class BoardService {
             for (int i = 0; i < len1; i++){
                 if(ext.equalsIgnoreCase(b[i])){
                     fileDTO.setBoardVideoName(fileName);
-
-
-
                 }
             }
         }
         fileDTO.setBoardFilter(list);
-
         BoardEntity boardEntity = boardRepository.findById(fileDTO.getBoardId()).get();
         Long id = boardFileRepository.save(BoardFileEntity.toSaveEntity(fileDTO, boardEntity)).getId();
         return BoardFileDTO.toDTO(boardFileRepository.findById(id).get());
