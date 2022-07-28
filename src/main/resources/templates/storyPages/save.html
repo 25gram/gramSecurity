@@ -38,7 +38,7 @@
             margin: 500px auto auto auto;
             text-align: center;
             position: absolute;
-            z-index: 9111;
+            z-index: 1100;
             display: none;
         }
         .saveBox {
@@ -263,7 +263,17 @@
             z-index: 9111;
             display: none;
         }
-        .ui-wrapper {
+        .todayDiv {
+            margin-top: 300px;
+            background-color: transparent;
+            position: absolute;
+            z-index: 1000;
+        }
+        .inputDate{
+            background-color: transparent;
+            border: 0;
+            color: white;
+            font-family: "Arial Black";
         }
 
 
@@ -292,8 +302,8 @@
             <div class="dragDiv" id="dragDiv">
                 <img class="addImg" id="addImg">
             </div>
-
         </div>
+        <div class="todayDiv" id="todayDiv"></div>
         <div class="editMenu" id="editMenu">
             <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
             <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
@@ -370,7 +380,7 @@
                     <button type="button" class="btnFnc btn-secondary">링크</button>
                     <label for="addFile" class="addFileLabel"><img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
                     <input type="file" accept="image/*" class="bi bi-images" id="addFile"  name="addFile" onchange="addImgFile(this)" style="display: none">
-                    <button type="button" class="btnFnc btn-secondary" id="today"></button>
+                    <button type="button" class="btnFnc btn-secondary" id="today" onclick="inputToday()"></button>
                 </div>
             </div>
         </div>
@@ -732,7 +742,7 @@
     function setTranslate(xPos, yPos, el) {
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
-    // 이미지 리사이징 기능
+// 이미지 리사이징 기능
     $(function (){
         $('.addImg').resizable({
             minHeight :50,
@@ -741,5 +751,14 @@
             ghost: true
         });
     });
+// 오늘 날짜 인풋기능
+    const inputToday = () => {
+        $('.slideUp').slideUp();
+        let today = new Date();
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        document.getElementById("todayDiv").innerHTML='<input type="text" class="inputDate" name="today" value='+year + '.' + month + '.' + date + '.'+' readonly>';
+    }
 </script>
 </html>
