@@ -44,6 +44,9 @@ public class BoardService {
             for (int i = 0; i < len1; i++){
                 if(ext.equalsIgnoreCase(b[i])){
                     fileDTO.setBoardVideoName(fileName);
+
+
+
                 }
             }
         }
