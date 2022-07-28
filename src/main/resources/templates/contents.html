@@ -196,7 +196,6 @@
                 }else if (nn == 2){
                     a.value = "sepia(1)"+",";
                 }
-                boardFilter0.value = boardFilter1.value + boardFilter2.value;
             }else if(i=="contrast"){
                 contentsItem.style.filter="contrast(1.5)";
                 boardFilter.value = boardFilter1.value + "contrast(1.5)"+",";
@@ -207,8 +206,7 @@
                 contentsItem.style.filter="invert(1)"
                 boardFilter.value = boardFilter1.value + "invert(1)"+",";
             }
-
-
+            boardFilter0.value = boardFilter1.value + boardFilter2.value;
         }
 
 
