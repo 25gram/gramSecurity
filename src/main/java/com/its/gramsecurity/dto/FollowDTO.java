@@ -4,11 +4,13 @@ import com.its.gramsecurity.entity.FollowEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Data
 @NoArgsConstructor
 public class FollowDTO {
     private Long id;
-    private String myId;
+    private Long myId;
     private String yourId;
     private String yourName;
     private String yorProfile;
@@ -16,7 +18,7 @@ public class FollowDTO {
     private int loginStatus;
 
 
-    public FollowDTO(Long id, String myId, String yourId, String yourName, String yorProfile, String yourProfileName, int loginStatus) {
+    public FollowDTO(Long id, Long myId, String yourId, String yourName, String yorProfile, String yourProfileName, int loginStatus) {
         this.id = id;
         this.myId = myId;
         this.yourId = yourId;
