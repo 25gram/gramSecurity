@@ -43,7 +43,7 @@ public class BoardController {
             fileDTO.setId(saveDTO.getId());
             fileDTO.setBoardId(saveDTO.getId());
             fileDTO.setBoardFile(m);
-            fileDTOList.add(boardService.save(fileDTO));
+            fileDTOList.add(boardService.save(fileDTO,list2[a]));
             a++;
         }
         saveDTO.setBoardFileList(fileDTOList);
