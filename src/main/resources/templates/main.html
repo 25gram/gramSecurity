@@ -180,12 +180,15 @@
         };
 
         function followList(){
-            const id=document.getElementById("id").value;
+            const myId=document.getElementById("id").value;
             $.ajax({
                 url:"/follow/myList",
                 type:"get",
                 data:{
-                    "id":id
+                    "myId":myId
+                },
+                success:function (result){
+
                 }
             })
         };

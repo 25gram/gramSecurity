@@ -25,10 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    //    @Override
-//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        // authentication manager (see below)
-//    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**");
@@ -46,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/main/").permitAll()
                 .antMatchers("/home/**").permitAll()
                 .and()
-                    .formLogin()
+                .formLogin()
                     .loginPage("/home/")
                     .loginProcessingUrl("/login")
                     .defaultSuccessUrl("/main/main")

@@ -14,33 +14,43 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FollowService {
     private final FollowRepository followRepository;
+
     public void save(FollowDTO followDTO) {
-        FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO);
+        FollowEntity followEntity = FollowEntity.toSaveEntity(followDTO);
         followRepository.save(followEntity);
     }
 
     public List<FollowDTO> findAll() {
-        List<FollowEntity>followEntityList=followRepository.findAll();
-        List<FollowDTO>followDTOList=new ArrayList<>();
-        for(FollowEntity follow:followEntityList){
-            FollowDTO followDTO=FollowDTO.toDTO(follow);
+        List<FollowEntity> followEntityList = followRepository.findAll();
+        List<FollowDTO> followDTOList = new ArrayList<>();
+        for (FollowEntity follow : followEntityList) {
+            FollowDTO followDTO = FollowDTO.toDTO(follow);
             followDTOList.add(followDTO);
-        }return followDTOList;
+        }
+        return followDTOList;
     }
 
-//    public void UnFollow(Long id) {
+    public List<Optional<FollowEntity>> findAllByMyId(Long myId) {
+        List<Optional<FollowEntity>> followEntityList = followRepository.findAllByMyId(myId);
+        List<Optional<FollowEntity>> followList = new ArrayList<>();
+        for (Optional<FollowEntity> follow : followEntityList) {
+            followList.add(follow);
+        }
+        return followList;
+    }
+
+    public List<Optional<FollowEntity>> findAllByYourId(Long yourId) {
+        List<Optional<FollowEntity>>followingEntityList=followRepository.findAllByYourId(yourId);
+        List<Optional<FollowEntity>>followingList=new ArrayList<>();
+        for(Optional<FollowEntity> follow:followingEntityList){
+            followingList.add(follow);
+        }return followingList;
+    }
+
+
+    //    public void UnFollow(Long id) {
 //        followRepository.deleteById(id);
 //    }
 //
 //
-//    public List<FollowDTO> followList(Long id) {
-//        List<FollowEntity>followEntityList=followRepository.followList(id);
-//        List<FollowDTO>followDTOList=new ArrayList<>();
-//        for(FollowEntity followEntity:followEntityList){
-//            FollowDTO followDTO=FollowDTO.toDTO(followEntity);
-//            followDTOList.add(followDTO);
-//        }return followDTOList;
-//    }
-
-
 }

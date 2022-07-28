@@ -245,9 +245,36 @@
             padding-top: 0;
             margin-right: 45px;
         }
+        .dragDiv {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+        .addImg {
+            width: 100%;
+            height: 100%;
+        }
+        .addImgDiv {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            position: absolute;
+            overflow: hidden;
+            z-index: 9111;
+            display: none;
+        }
+        .ui-wrapper {
+        }
+
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet"href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Hi+Melody&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&family=Noto+Serif+KR:wght@200&family=Single+Day&display=swap" rel="stylesheet">
@@ -261,6 +288,12 @@
     </div>
     <div class="saveBox" id="saveBox">
         <div class="filePreview" id="filePreview"></div>
+        <div class="addImgDiv" id="addImgDiv">
+            <div class="dragDiv" id="dragDiv">
+                <img class="addImg" id="addImg">
+            </div>
+
+        </div>
         <div class="editMenu" id="editMenu">
             <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
             <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
@@ -336,7 +369,7 @@
                 <div class="btnFncDiv">
                     <button type="button" class="btnFnc btn-secondary">링크</button>
                     <label for="addFile" class="addFileLabel"><img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
-                    <input type="file" accept="image/*" class="bi bi-images" id="addFile" onchange="addImgFile()" style="display: none">
+                    <input type="file" accept="image/*" class="bi bi-images" id="addFile"  name="addFile" onchange="addImgFile(this)" style="display: none">
                     <button type="button" class="btnFnc btn-secondary" id="today"></button>
                 </div>
             </div>
@@ -344,6 +377,7 @@
     </div>
 </body>
 <script type="text/javascript">
+// 메인 업로드 이미지 보여주기 기능
     function uploadImgPreview(obj) {
         document.getElementById("filePreview").innerHTML="";
         document.getElementById("filePreview").style.backgroundImage="";
@@ -414,7 +448,7 @@
             return true;
         }
     }
-
+// 화면편집 기능
     function reset(){
         saveBox.style.filter=''
     }
@@ -434,6 +468,7 @@
     function invert(){
         saveBox.style.filter='invert(1)'
     }
+// 글자 크기 슬라이더 기능
     const slider = document.getElementById('slider');
 
     slider.addEventListener('input', function() {
@@ -452,7 +487,7 @@
         });
     };
     RangeSlider();
-
+// 인풋창 드래그 앤 드롭 기능
     var text1 = document.querySelector("#text1");
     var inputTextDiv = document.querySelector("#inputTextDiv");
 
@@ -516,6 +551,7 @@
     function setTranslate(xPos, yPos, el) {
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
+// 인풋 글자편집 기능
     const editFnc1 = () => {
         document.getElementById("editBox").style.display="none";
         const editMenu = document.getElementById("editMenu");
@@ -543,6 +579,7 @@
     const editFnc5 = () => {
 
     }
+// 인풋 글자정렬 기능
     const editFnc1a = () => {
             if($('#icon1').hasClass("bi-text-center")) {
                 $('#icon1').removeClass('bi-text-center');
@@ -558,14 +595,23 @@
                 document.getElementById("text1").style.textAlign="center";
             }
     }
+// 글자 색상변경 기능
     const editFnc1b = () => {
         document.getElementById("fontDiv").style.display="none";
         document.getElementById("colorCircles").style.display="block";
     }
+    const colorChange = (clickId) => {
+        document.getElementById("text1").style.color = document.getElementById(clickId).style.backgroundColor;
+    }
+// 글자 폰트변경 기능
     const editFnc1c = () => {
         document.getElementById("colorCircles").style.display="none";
         document.getElementById("fontDiv").style.display="block";
     }
+    const fontChange = (clickId) => {
+        document.getElementById("text1").style.fontFamily=document.getElementById(clickId).style.fontFamily;
+    }
+// 완료 버튼 기능
     const editFnc1d = () => {
         document.getElementById("colorCircles").style.display = "none";
         document.getElementById("fontDiv").style.display = "none";
@@ -575,12 +621,8 @@
         document.getElementById("editMenu5").style.display = "block";
         $("#text1").attr("readonly", true);
     }
-    const colorChange = (clickId) => {
-        document.getElementById("text1").style.color = document.getElementById(clickId).style.backgroundColor;
-    }
-    const fontChange = (clickId) => {
-        document.getElementById("text1").style.fontFamily=document.getElementById(clickId).style.fontFamily;
-    }
+
+// 업슬라이드창 기능
     $('#slideContentDown').on('click', function()
     {
         $('.slideDown').slideDown();
@@ -590,9 +632,8 @@
     {
         $('.slideDown').slideUp();
     });
-
-    $('#reverseSlideContentDown').on('click', function()
-    {
+// 이모지아이콘 클릭시 업슬라이드창 띄우기 (오늘날짜 버튼에 날짜넣기)
+    $('#reverseSlideContentDown').on('click', function() {
         document.getElementById("editBox").style.display="none";
         let today = new Date();
         let year = today.getFullYear(); // 년도
@@ -601,13 +642,104 @@
         document.getElementById("today").innerHTML=year + '.' + month + '.' + date + '.';
         $('.slideUp').slideDown();
     });
-
-    $('#reverseSlideContentUp').on('click', function()
-    {
+// 다운슬라이드창 기능
+    $('#reverseSlideContentUp').on('click', function() {
         $('.slideUp').slideUp();
     });
-    const addImgFile = () => {
+// 메인 이미지 위에 추가이미지 넣기
+    const addImgFile = (input) => {
         $('.slideUp').slideUp();
+        if(input.files && input.files[0]) {
+            // 이미지 파일인지 검사 (생략)
+            // FileReader 인스턴스 생성
+            const reader = new FileReader()
+            // 이미지가 로드가 된 경우
+            reader.onload = e => {
+                const previewImage = document.getElementById("addImg")
+                previewImage.src = e.target.result
+            }
+            // reader가 이미지 읽도록 하기
+            reader.readAsDataURL(input.files[0])
+        }
+        document.getElementById("addImgDiv").style.display="block";
     }
+    // input file에 change 이벤트 부여
+    const inputImage = document.getElementById("addFile")
+    inputImage.addEventListener("change", e => {
+        addImgFile(e.target)
+    });
+// 추가이미지 드래그 앤 드롭 기능
+    var addImg = document.querySelector("#addImg");
+    var addImgDiv = document.querySelector("#addImgDiv");
+
+    var active = false;
+    var currentX;
+    var currentY;
+    var initialX;
+    var initialY;
+    var xOffset = 0;
+    var yOffset = 0;
+
+    addImgDiv.addEventListener("touchstart", dragStart, false);
+    addImgDiv.addEventListener("touchend", dragEnd, false);
+    addImgDiv.addEventListener("touchmove", drag, false);
+
+    addImgDiv.addEventListener("mousedown", dragStart, false);
+    addImgDiv.addEventListener("mouseup", dragEnd, false);
+    addImgDiv.addEventListener("mousemove", drag, false);
+
+    function dragStart(e) {
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX - xOffset;
+            initialY = e.touches[0].clientY - yOffset;
+        } else {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+        }
+
+        if (e.target === addImg) {
+            active = true;
+        }
+    }
+
+    function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+
+        active = false;
+    }
+
+    function drag(e) {
+        if (active) {
+
+            e.preventDefault();
+
+            if (e.type === "touchmove") {
+                currentX = e.touches[0].clientX - initialX;
+                currentY = e.touches[0].clientY - initialY;
+            } else {
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+            }
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            setTranslate(currentX, currentY, addImg);
+        }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
+    // 이미지 리사이징 기능
+    $(function (){
+        $('.addImg').resizable({
+            minHeight :50,
+            minWidth: 70,
+            autohide: false,
+            ghost: true
+        });
+    });
 </script>
 </html>

@@ -19,14 +19,14 @@ public class MainController {
 
     private final MemberService memberService;
 
-
+    //메인피드
     @GetMapping("/main")
-    public String main(Principal principal,Model model) {
-        String memberId= principal.getName();
-        MemberDTO memberDTO=memberService.findByMemberId(memberId);
-        List<MemberDTO> findAll=memberService.findAll();
-        model.addAttribute("memberDTO",memberDTO);
-        model.addAttribute("findAll",findAll);
+    public String main(Principal principal, Model model) {
+        String memberId = principal.getName();
+        MemberDTO memberDTO = memberService.findByMemberId(memberId);
+        List<MemberDTO> findAll = memberService.findAll();
+        model.addAttribute("memberDTO", memberDTO);
+        model.addAttribute("findAll", findAll);
         return "main";
     }
 }
