@@ -24,22 +24,26 @@ public class FollowController {
         return null;
     }
 
-    @GetMapping("list")
-    public String findAll(Model model){
-        List<FollowDTO>followDTOList=followService.findAll();
-        model.addAttribute("followList",followDTOList);
-        return "Contents/testList";
-    }
+//    @GetMapping("list")
+//    public String findAll(Model model){
+//        List<FollowDTO>followDTOList=followService.findAll();
+//        model.addAttribute("followList",followDTOList);
+//        return "Contents/testList";
+//    }
 
 //    @DeleteMapping("/")
 //    public ResponseEntity UnFollow(@PathVariable Long id){
 //        followService.UnFollow(id);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
-//    @GetMapping("/findAll/{id}")
-//    public String findList(Long id, Model model){
-//        List<FollowDTO>followDTOList=followService.findById(id);
-//        model.addAttribute("followList",followDTOList);
-//        return "Contents/testList";
-//    }
+
+
+    @GetMapping("/myList")
+    public @ResponseBody String findList(@RequestParam("id")Long id, Model model){
+        System.out.println("FollowController.findList");
+        System.out.println("id = " + id + ", model = " + model);
+        List<FollowDTO>followDTOList=followService.followList(id);
+        model.addAttribute("followList",followDTOList);
+        return "Contents/testList";
+    }
 }
