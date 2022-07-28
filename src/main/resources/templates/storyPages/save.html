@@ -248,7 +248,7 @@
         .dragDiv {
             width: 100px;
             height: 100px;
-            /*position: absolute;*/
+            position: absolute;
         }
         .addImg {
             width: 100%;
@@ -264,7 +264,6 @@
             display: none;
         }
         .ui-wrapper {
-            position:sticky;
         }
 
 
@@ -291,9 +290,7 @@
         <div class="filePreview" id="filePreview"></div>
         <div class="addImgDiv" id="addImgDiv">
             <div class="dragDiv" id="dragDiv">
-                <div id="hss">
                 <img class="addImg" id="addImg">
-                </div>
             </div>
 
         </div>
@@ -493,6 +490,7 @@
 // 인풋창 드래그 앤 드롭 기능
     var text1 = document.querySelector("#text1");
     var inputTextDiv = document.querySelector("#inputTextDiv");
+
     var active = false;
     var currentX;
     var currentY;
@@ -673,9 +671,8 @@
 // 추가이미지 드래그 앤 드롭 기능
     var addImg = document.querySelector("#addImg");
     var addImgDiv = document.querySelector("#addImgDiv");
-    let hss=document.getElementById("hss");
 
-var active = false;
+    var active = false;
     var currentX;
     var currentY;
     var initialX;
@@ -703,7 +700,6 @@ var active = false;
         if (e.target === addImg) {
             active = true;
         }
-
     }
 
     function dragEnd(e) {
@@ -729,7 +725,7 @@ var active = false;
             xOffset = currentX;
             yOffset = currentY;
 
-            setTranslate(currentX, currentY, hss);
+            setTranslate(currentX, currentY, addImg);
         }
     }
 
