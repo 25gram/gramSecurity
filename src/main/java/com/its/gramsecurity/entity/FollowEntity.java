@@ -17,8 +17,8 @@ public class FollowEntity {
     @Column
     private Long id;
 
-    @Column (length = 100)
-    private String myId;
+    @Column
+    private Long myId;
 
     @Column(length = 100)
     private String yourId;

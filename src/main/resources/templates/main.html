@@ -179,6 +179,20 @@
             })
         };
 
+        function followList(){
+            const myId=document.getElementById("id").value;
+            $.ajax({
+                url:"/follow/myList",
+                type:"get",
+                data:{
+                    "myId":myId
+                },
+                success:function (result){
+
+                }
+            })
+        };
+
 
     </script>
 
@@ -263,6 +277,8 @@
     <div class="storyZone" >
         <div>
             <h1>스토리 구역입니다.</h1>
+            <input type="text" th:value="${memberDTO.id}" id="id">
+            <button th:onclick="followList()">followList</button>
         </div>
     </div>
 

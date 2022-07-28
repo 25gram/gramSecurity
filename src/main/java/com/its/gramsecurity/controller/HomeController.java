@@ -43,21 +43,23 @@ public class HomeController {
         return "redirect:/home/";
     }
 
+    //아이디 이메일 중복체크
     @PostMapping("/duplicateChk")
     public @ResponseBody String duplicateChk(@RequestParam("memberEmail") String memberEmail,
                                              @RequestParam("memberId") String memberId) {
         MemberEntity memberEmailChk = memberService.duplicateChkEmail(memberEmail);
         MemberEntity memberIdChk = memberService.duplicateChkId(memberId);
-        String result=null;
+        String result = null;
         if (memberEmailChk == null && memberIdChk == null) {
-            result="true";
+            result = "true";
         } else {
             if (memberEmailChk != null) {
-               result= "email";
+                result = "email";
             } else if (memberIdChk != null) {
-                result= "id";
+                result = "id";
             }
-        }return result;
+        }
+        return result;
     }
 
 }
