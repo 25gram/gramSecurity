@@ -29,16 +29,26 @@ public class FollowController {
     public String findAll(Model model) {
         List<FollowDTO> followDTOList = followService.findAll();
         model.addAttribute("followList", followDTOList);
-        return "Contents/testList";
+        return null;
     }
 
     //팔로우 리스트
     @GetMapping("/myList")
-    public @ResponseBody String findList(@RequestParam("myId") Long myId, Model model) {
+    public @ResponseBody String follow(@RequestParam("myId") Long myId, Model model) {
         System.out.println("FollowController.findList");
         List<Optional<FollowEntity>> followDTOList = followService.findAllByMyId(myId);
         model.addAttribute("followList", followDTOList);
         System.out.println("myId = " + myId + ", model = " + model);
+        return null;
+    }
+
+    //팔로잉 리스트
+    @GetMapping("/yourList")
+    public @ResponseBody String following(@RequestParam("yourId") Long yourId, Model model) {
+        System.out.println("FollowController.findList");
+        List<Optional<FollowEntity>> followingDTOList = followService.findAllByYourId(yourId);
+        model.addAttribute("followingList", followingDTOList);
+        System.out.println("yourId = " + yourId + ", model = " + model);
         return null;
     }
 
