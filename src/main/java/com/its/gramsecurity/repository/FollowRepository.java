@@ -13,5 +13,6 @@ import java.util.List;
 
 @Repository
 public interface FollowRepository extends JpaRepository<FollowEntity,Long> {
+
     List<FollowEntity> followList(Long id);
 }
