@@ -1,4 +1,4 @@
-package com.its.gramsecurity.Repository;
+package com.its.gramsecurity.repository;
 
 import com.its.gramsecurity.entity.BoardFileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

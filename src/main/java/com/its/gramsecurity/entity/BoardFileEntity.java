@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "boardFile_table")
+@Table(name = "boardFile_entity")
 public class BoardFileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
