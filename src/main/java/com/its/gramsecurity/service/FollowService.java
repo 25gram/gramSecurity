@@ -39,6 +39,14 @@ public class FollowService {
         return followList;
     }
 
+    public List<Optional<FollowEntity>> findAllByYourId(Long yourId) {
+        List<Optional<FollowEntity>>followingEntityList=followRepository.findAllByYourId(yourId);
+        List<Optional<FollowEntity>>followingList=new ArrayList<>();
+        for(Optional<FollowEntity> follow:followingEntityList){
+            followingList.add(follow);
+        }return followingList;
+    }
+
 
     //    public void UnFollow(Long id) {
 //        followRepository.deleteById(id);

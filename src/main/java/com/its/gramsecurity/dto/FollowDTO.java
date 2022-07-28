@@ -11,14 +11,14 @@ import java.util.Optional;
 public class FollowDTO {
     private Long id;
     private Long myId;
-    private String yourId;
+    private Long yourId;
     private String yourName;
     private String yorProfile;
     private String yourProfileName;
     private int loginStatus;
 
 
-    public FollowDTO(Long id, Long myId, String yourId, String yourName, String yorProfile, String yourProfileName, int loginStatus) {
+    public FollowDTO(Long id, Long myId, Long yourId, String yourName, String yorProfile, String yourProfileName, int loginStatus) {
         this.id = id;
         this.myId = myId;
         this.yourId = yourId;
