@@ -1,7 +1,7 @@
 package com.its.gramsecurity.service;
 
-import com.its.gramsecurity.Repository.BoardFileRepository;
-import com.its.gramsecurity.Repository.BoardRepository;
+import com.its.gramsecurity.repository.BoardFileRepository;
+import com.its.gramsecurity.repository.BoardRepository;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
 import com.its.gramsecurity.entity.BoardEntity;
@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +22,7 @@ public class BoardService {
         Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO)).getId();
         return BoardDTO.toDTO(boardRepository.findById(id).get());
     }
-    public BoardFileDTO save(BoardFileDTO fileDTO) throws IOException {
+    public BoardFileDTO save(BoardFileDTO fileDTO,String list) throws IOException {
         MultipartFile boardFile = fileDTO.getBoardFile();
         String fileName = boardFile.getOriginalFilename();
         String ext = fileName.substring(fileName.lastIndexOf(".")+1);
@@ -48,7 +47,7 @@ public class BoardService {
                 }
             }
         }
-//            fileDTO.setBoardFilter(list);
+        fileDTO.setBoardFilter(list);
 
         BoardEntity boardEntity = boardRepository.findById(fileDTO.getBoardId()).get();
         Long id = boardFileRepository.save(BoardFileEntity.toSaveEntity(fileDTO, boardEntity)).getId();
