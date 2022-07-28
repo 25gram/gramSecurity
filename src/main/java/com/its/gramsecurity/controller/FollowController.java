@@ -24,7 +24,7 @@ public class FollowController {
         return null;
     }
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public String findAll(Model model){
         List<FollowDTO>followDTOList=followService.findAll();
         model.addAttribute("followList",followDTOList);
