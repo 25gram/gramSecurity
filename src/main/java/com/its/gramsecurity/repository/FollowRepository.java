@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FollowRepository extends JpaRepository<FollowEntity,Long> {
 
-//    List<FollowEntity> followList(Long id);
+    List<FollowEntity> followList(Long id);
 }
