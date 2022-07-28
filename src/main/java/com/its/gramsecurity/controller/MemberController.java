@@ -22,32 +22,14 @@ import java.security.Principal;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-//    @GetMapping("/joinForm")
-//    public String joinForm() {
-//        return "memberPages/joinForm";
-//    }
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
-    public  String login(HttpServletRequest request) {
+    public String login(HttpServletRequest request) {
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("prevPage", referrer);
         return "/main";
     }
-
-    //password 암호화 저장
-//    @PostMapping("/join")
-//    public String join(@ModelAttribute MemberDTO memberDTO) {
-//        memberDTO.setRole("ROLE_USER");
-//        String rawPassword = memberDTO.getMemberPassword();
-//        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-//        memberDTO.setMemberPassword(encPassword);
-//        memberService.save(memberDTO);
-//        return "redirect:/main/";
-//    }
 
     //회원정보수정 폼
     @GetMapping("updateForm")
@@ -64,6 +46,7 @@ public class MemberController {
         memberService.update(memberDTO);
         return "redirect:/main/main";
     }
+
     //회원삭제
     @GetMapping("/delete")
     public String delete(Principal principal) {
@@ -71,6 +54,7 @@ public class MemberController {
         memberService.delete(memberId);
         return "redirect:/member/logout";
     }
+
     //삭제 후 강제 로그아웃
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -79,16 +63,19 @@ public class MemberController {
         return "redirect:/home/";
     }
 
+    //로그인체크
     @GetMapping("/loginCheck")
-    public @ResponseBody void loginCheck(Principal principal){
-        String memberId= principal.getName();
+    public @ResponseBody void loginCheck(Principal principal) {
+        String memberId = principal.getName();
         memberService.loginCheck(memberId);
         System.out.println("MemberController.loginCheck");
         System.out.println("principal = " + principal);
     }
+
+    //로그아웃 체크
     @GetMapping("/logoutCheck")
-    public @ResponseBody void  logoutCheck(Principal principal){
-        String memberId= principal.getName();
+    public @ResponseBody void logoutCheck(Principal principal) {
+        String memberId = principal.getName();
         memberService.logoutCheck(memberId);
     }
 }
