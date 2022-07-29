@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.crypto.spec.OAEPParameterSpec;
 import java.io.File;
 import java.io.IOException;
 
@@ -52,4 +53,5 @@ public class BoardService {
         Long id = boardFileRepository.save(BoardFileEntity.toSaveEntity(fileDTO, boardEntity)).getId();
         return BoardFileDTO.toDTO(boardFileRepository.findById(id).get());
     }
+
 }

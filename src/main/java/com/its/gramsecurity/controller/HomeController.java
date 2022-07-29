@@ -1,15 +1,19 @@
 package com.its.gramsecurity.controller;
 
+import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
+import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Member;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/home")
@@ -19,6 +23,7 @@ public class HomeController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberService memberService;
+    private final BoardService boardService;
 
 
     @GetMapping("/")
@@ -61,5 +66,6 @@ public class HomeController {
         }
         return result;
     }
+
 
 }
