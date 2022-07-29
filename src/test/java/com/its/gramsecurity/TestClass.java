@@ -17,6 +17,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 public class TestClass {
@@ -33,16 +34,45 @@ public class TestClass {
     private FollowRepository followRepository;
 
 
-    public FollowDTO newBoard(int i) {
-        FollowDTO followDTO = new FollowDTO(1L+i,"11" + i, "11" + i, "11" + i,"11"+i, "11" + i, 1 + i);
+    public FollowDTO newFollow(int i) {
+        FollowDTO followDTO = new FollowDTO(1L+i,"follow" + i, "follow" + i, "follow" + i,"follow"+i, "follow" + i, 1 + i);
         return followDTO;
+    }
+    public MemberDTO newMember(int i) {
+        MemberDTO memberDTO = new MemberDTO("member"+i, "member" + i, "member" + i, 1 + i);
+        return memberDTO;
+    }
+
+
+    @Test
+    @Transactional
+    public void memberSave(){
+        IntStream.rangeClosed(1,20).forEach(i->{
+            memberService.save(newMember(i));
+        });
     }
 
     @Test
     @Transactional
-    @DisplayName("저장 테스트")
     @Rollback
+    @DisplayName("please....")
     public void followSaveTest(){
+        FollowDTO followDTO=newFollow(3);
+        MemberEntity memberEntity=memberRepository.findByMemberId("member").get();
+        FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity,"member");
+        Long savedFollowId=followRepository.save(followEntity).getId();
     }
+
+
+
+//    @Test
+//    @Transactional
+//    @DisplayName("연관관계 테스트")
+//    @Rollback
+//    public void followSaveTest(){
+//        FollowDTO followDTO=newFollow(1);
+//        MemberEntity memberEntity=memberRepository.findByMemberId("member1").get();
+//        FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity);
+//    }
 
 }

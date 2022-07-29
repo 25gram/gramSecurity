@@ -44,6 +44,7 @@ public class MemberDTO {
         this.loginStatus = loginStatus;
     }
 
+
     public static MemberDTO toDTO(MemberEntity memberEntity){
         MemberDTO memberDTO=new MemberDTO();
         memberDTO.setId(memberEntity.getId());
