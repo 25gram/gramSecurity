@@ -39,5 +39,4 @@ public class StoryController {
         return "storyPages/save";
     }
 
-
 }
