@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 
 @Configuration
@@ -63,4 +65,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+
+//    @Bean
+//    HttpSessionCsrfTokenRepository sessionCsrfTokenRepository(){
+//        HttpSessionCsrfTokenRepository csrfTokenRepository=new HttpSessionCsrfTokenRepository();
+//        csrfTokenRepository.setHeaderName("X-CSRF_TOKEN");
+//        csrfTokenRepository.setParameterName("_csrf");
+//        csrfTokenRepository.setSessionAttributeName("CSRF-TOKEN");
+//        return csrfTokenRepository;
+//    }
+//    @Bean
+//    CookieCsrfTokenRepository csrfTokenRepository(){
+//        CookieCsrfTokenRepository csrfTokenRepository=new CookieCsrfTokenRepository();
+//        csrfTokenRepository.setCookieHttpOnly(false);
+//        csrfTokenRepository.setHeaderName("X-CSRF-TOKEN");
+//        csrfTokenRepository.setParameterName("_csrf");
+//        csrfTokenRepository.setCookieName("XSRF-TOKEN");
+//        return csrfTokenRepository;
+//    }
+
 }
