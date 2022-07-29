@@ -10,15 +10,15 @@ import java.util.Optional;
 @NoArgsConstructor
 public class FollowDTO {
     private Long id;
-    private Long myId;
-    private Long yourId;
+    private String myId;
+    private String yourId;
     private String yourName;
     private String yorProfile;
     private String yourProfileName;
     private int loginStatus;
 
 
-    public FollowDTO(Long id, Long myId, Long yourId, String yourName, String yorProfile, String yourProfileName, int loginStatus) {
+    public FollowDTO(Long id, String myId, String yourId, String yourName, String yorProfile, String yourProfileName, int loginStatus) {
         this.id = id;
         this.myId = myId;
         this.yourId = yourId;
@@ -27,6 +27,8 @@ public class FollowDTO {
         this.yourProfileName = yourProfileName;
         this.loginStatus = loginStatus;
     }
+
+
 
     public static FollowDTO toDTO(FollowEntity followEntity){
         FollowDTO followDTO=new FollowDTO();

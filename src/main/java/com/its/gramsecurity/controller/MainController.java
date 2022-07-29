@@ -37,4 +37,6 @@ public class MainController {
         model.addAttribute("boardFile",boardFileList);
         return "main";
     }
+
+
 }

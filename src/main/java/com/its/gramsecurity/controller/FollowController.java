@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,9 @@ public class FollowController {
 
     //팔로우신청
     @PostMapping("/request")
-    public @ResponseBody String request_fw(FollowDTO followDTO) {
-        followService.save(followDTO);
+    public @ResponseBody List<FollowDTO> request_fw(FollowDTO followDTO, Principal principal,Model model) {
+        String myId=principal.getName();
+        Long id= followService.save(followDTO,myId);
         return null;
     }
 
@@ -36,7 +38,7 @@ public class FollowController {
 
     //팔로우 리스트
     @GetMapping("/myList")
-    public @ResponseBody String follow(@RequestParam("myId") Long myId, Model model) {
+    public @ResponseBody String follow(@RequestParam("myId") String myId, Model model) {
         List<Optional<FollowEntity>> followDTOList = followService.findAllByMyId(myId);
         model.addAttribute("followList", followDTOList);
         System.out.println("myId = " + myId + ", model = " + model);
@@ -45,7 +47,7 @@ public class FollowController {
 
     //팔로잉 리스트
     @GetMapping("/yourList")
-    public @ResponseBody String following(@RequestParam("yourId") Long yourId, Model model) {
+    public @ResponseBody String following(@RequestParam("yourId") String yourId, Model model) {
         List<Optional<FollowEntity>> followingDTOList = followService.findAllByYourId(yourId);
         model.addAttribute("followingList", followingDTOList);
         System.out.println("yourId = " + yourId + ", model = " + model);
