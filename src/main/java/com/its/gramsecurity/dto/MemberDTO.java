@@ -37,7 +37,12 @@ public class MemberDTO {
         this.providerId = providerId;
     }
 
-
+    public MemberDTO(String memberId, String memberName, String memberProfileName, int loginStatus) {
+        this.memberId = memberId;
+        this.memberName = memberName;
+        this.memberProfileName = memberProfileName;
+        this.loginStatus = loginStatus;
+    }
 
 
     public static MemberDTO toDTO(MemberEntity memberEntity){

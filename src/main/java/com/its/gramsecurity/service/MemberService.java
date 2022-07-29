@@ -47,13 +47,9 @@ public class MemberService {
         String rawPassword = memberDTO.getMemberPassword();
         String encPassword = encoder.encode(rawPassword);
         persistence.setMemberPassword(encPassword);
-
-        System.out.println("MemberService.update");
-        System.out.println("memberDTO = " + memberDTO);
-
-
         MemberDTO findDTO = findByMemberId(memberDTO.getMemberId());
         persistence.setMemberIntro(memberDTO.getMemberIntro());
+        persistence.setMemberName(memberDTO.getMemberName());
 
         MultipartFile memberFile = memberDTO.getMemberProfile();
         System.out.println(memberFile);

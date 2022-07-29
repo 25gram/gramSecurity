@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
+<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
+<!--    <meta name="_csrf" th:content="${_csrf.token}">-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,10 +124,15 @@
         }
         //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
         function logoutChk(){
+            // let header =$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
             console.log("logout chk 호출")
             $.ajax({
                 url:"/member/logoutCheck",
                 type:"get",
+                // beforeSend:function (result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success:function (e){
                     console.log("logout chk suc")
                     location.href="/member/logout"
@@ -137,11 +144,15 @@
 
             })
         }
-
         function loginChk(){
+            // let header =$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
             console.log("login chk 호출")
             $.ajax({
                 url:"/member/loginCheck",
+            //     beforeSend:function(result){
+            //         result.setRequestHeader(header,token);
+            // },
                 success:function(e){
                     console.log("login chk suc")
                 },
@@ -153,6 +164,8 @@
         }
 
         function followBTN(){
+            // let header=$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
             const memberId=document.getElementById("memberId").value;
             const yourId="memberId2";
             const yourName="memberName2";
@@ -170,6 +183,9 @@
                     "yourProfileName":yourProfileName,
                     "loginStatus":loginStatus
                 },
+                // beforeSend:function(result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success:function (result){
                     console.log("suc");
                 },
@@ -180,13 +196,18 @@
         };
 
         function followList(){
-            const myId=document.getElementById("id").value;
+            // let header=$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
+            const myId="yourId";
             $.ajax({
                 url:"/follow/myList",
                 type:"get",
                 data:{
                     "myId":myId
                 },
+                // beforeSend:function (result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success:function (result){
 
                 }
@@ -233,7 +254,9 @@
         .feedZone{
             /* border: 1px solid gray; */
             height: 525px;
-            background-color: aqua;
+            /*background-color: aqua;*/
+            padding-left: 0;
+            padding-right: 0;
         }
         .fi{
             margin-left: 52px;
@@ -247,7 +270,14 @@
             margin: 10px 10px 0 0;
             font-size: 30px;
         }
-
+        .contentsItem{
+            margin:24px; width:450px; height:470px; border: solid 1px;
+            /*width: 100vw;*/
+            float: left;
+        }
+        .contentsBody{
+            width: 5000px;
+        }
 
     </style>
 
@@ -277,16 +307,30 @@
     <div class="storyZone" >
         <div>
             <h1>스토리 구역입니다.</h1>
-            <input type="text" th:value="${memberDTO.id}" id="id">
-            <button th:onclick="followList()">followList</button>
+<!--            <input type="text" th:value="${memberDTO.memberId}" id="id">-->
+<!--            <button th:onclick="followList()">followList</button>-->
         </div>
     </div>
 
 
     <!-- 메인피드 구역 -->
     <div class="feedZone">
-        <h1>메인피드 구역입니다.</h1>
-        <a href="/member/updateForm">update</a>
+<!--        <div style="overflow: hidden">-->
+<!--        <h1>메인피드 구역입니다.</h1>-->
+<!--        <a href="/member/updateForm">update</a>-->
+        <div class="contentsBody" th:each="boardFile : ${boardFile}" >
+            <div th:if="${1 == boardFile.boardId}">
+                <img th:if="${boardFile.boardImgName != null}" class="contentsItem" th:src="@{|/upload/${boardFile.boardImgName}|}" th:style="'filter:' + ${boardFile.boardFilter}"  alt="">
+                <video th:if="${boardFile.boardVideoName != null}" class="contentsItem" th:src="@{|/upload/${boardFile.boardVideoName}|}" th:style="'filter:' + ${boardFile.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+            </div>
+        </div>
+        <div th:each="board : ${boardList}">
+            <div th:if="${board.id == 1}">
+                <span th:text="${board.boardContents}"></span>
+            </div>
+        </div>
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
 
@@ -306,5 +350,63 @@
 
 
 </div>
+
+
+
+
+
+
+
 </body>
+<script th:inline="javascript">
+    $.ajax({
+        type: "post",
+        url: "/comment/save",
+        data: {"commentWriter":commentWriter,"commentContents":commentContents,"productId":productId,"memberId":memberId},
+        dataType: "json",
+        success: function(result){
+
+        },
+    });
+    // $.ajax({
+    //     type: "post",
+    //     url: "/comment/save",
+    //     data: {"commentWriter":commentWriter,"commentContents":commentContents,"productId":productId,"memberId":memberId},
+    //     dataType: "json",
+    //     success: function(result){
+    //         const a = "삭제";
+    //         let output = "<table class='table'>";
+    //         output += "<tr><th>댓글번호</th>";
+    //         output += "<th>작성자</th>";
+    //         output += "<th>내용</th>";
+    //         output += "<th>작성시간</th></tr>";
+    //         for(let i in result){
+    //             output += "<tr>";
+    //             output += "<td>"+result[i].id+"</td>";
+    //             output += "<td>"+result[i].commentWriter+"</td>";
+    //             output += "<td id='contents" + result[i].id + "'>" + result[i].commentContents+"</td>";
+    //             output += "<td>"+moment(result[i].commentDate).format("YYYY-MM-DD HH:mm:ss")+"</td>";
+    //             if(member == result[i].commentWriter){
+    //                 output += "<td>" + "<a href='/comment/delete?productId=" + productId + "&id=" + result[i].id + "'>" + a + "</a>"+"</td>";
+    //                 output += "<td id='updateBTN" + result[i].id  + "'>" + "<a href='javascript:void(0)' onclick='aaa3(" + result[i].id + ")'>" + "수정" + "</a>"+"</td>";
+    //                 <%--<td id="updateBTN${comment.id}"><a href="javascript:void(0)" onclick="aaa3(${comment.id})">수정</a></td>--%>
+    //             }else if(member == 'admin'){
+    //                 output += "<td>" + "<a href='/comment/delete?productId=" + productId + "&id=" + result[i].id + "'>" + a + "</a>"+"</td>";
+    //                 output += "<td></td>";
+    //             }else{
+    //                 output += "<td></td>";
+    //                 output += "<td></td>";
+    //             }
+    //             output += "<td>" + "<a href='javascript:void(0)' onclick='hitsCheck(" + result[i].id + ")'>" + "<span id='aa'>" + "좋아요" + result[i].commentHits + "</span>" + "</a>" + "</td>";
+    //             output += "</tr>";
+    //         }
+    //         output += "</table>";
+    //         document.getElementById('comment-list').innerHTML = output;
+    //         document.getElementById('commentContents').value='';
+    //     },
+    //     error: function () {
+    //         alert("틀림");
+    //     }
+    // });
+</script>
 </html>

@@ -28,4 +28,14 @@ public class BoardDTO {
         boardFileDTO.setBoardTag(boardFile.getBoardTag());
         return boardFileDTO;
     }
+    public static BoardDTO toBoardDTO(BoardEntity boardEntity){
+        BoardDTO boardDTO = new BoardDTO();
+        boardDTO.setId(boardEntity.getId());
+        boardDTO.setBoardWriter(boardEntity.getBoardWriter());
+        boardDTO.setBoardContents(boardEntity.getBoardContents());
+        boardDTO.setBoardLocation(boardEntity.getBoardLocation());
+        boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
+        boardDTO.setBoardTag(boardEntity.getBoardTag());
+        return boardDTO;
+    }
 }

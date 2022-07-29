@@ -49,6 +49,6 @@ public class BoardController {
         saveDTO.setBoardFileList(fileDTOList);
         model.addAttribute("boardDTO", saveDTO);
         model.addAttribute("fileDTOList", fileDTOList);
-        return "detail";
+        return "redirect:/main/main";
     }
 }

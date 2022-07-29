@@ -38,9 +38,12 @@ public class MemberEntity {
     private String provider;
     @Column
     private String providerId;
-//
-//    @OneToMany(mappedBy ="memberEntity" ,cascade =CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
-//    private List<FollowEntity> followEntityList=new ArrayList<>();
+
+    @OneToMany(mappedBy ="memberEntity" ,cascade =CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
+    private List<FollowEntity> followEntityList=new ArrayList<>();
+
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<CommentEntity>commentEntityList=new ArrayList<>();
 
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity=new MemberEntity();

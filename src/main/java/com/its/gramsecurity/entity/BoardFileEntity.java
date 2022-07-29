@@ -33,10 +33,10 @@ public class BoardFileEntity {
     private BoardEntity boardEntity;
     public static BoardFileEntity toSaveEntity(BoardFileDTO fileDTO, BoardEntity boardFile) {
         BoardFileEntity file = new BoardFileEntity();
+        file.setBoardId(fileDTO.getBoardId());
         file.setBoardImgName(fileDTO.getBoardImgName());
         file.setBoardVideoName(fileDTO.getBoardVideoName());
         file.setBoardFilter(fileDTO.getBoardFilter());
-        System.out.println("aaa" + fileDTO.getBoardFilter());
         file.setBoardEntity(boardFile);
         return file;
     }
