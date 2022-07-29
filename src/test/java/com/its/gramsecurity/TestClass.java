@@ -38,9 +38,6 @@ public class TestClass {
         return followDTO;
     }
 
-
-
-
     @Test
     @Transactional
     @DisplayName("저장 테스트")
