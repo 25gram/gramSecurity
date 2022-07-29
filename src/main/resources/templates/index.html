@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
+<!--    <meta name="_csrf" th:content="${_csrf.token}">-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,9 +71,11 @@
 
     <div style="">
         <form action="/login" method="post" style="margin:50px 30px 15px 30px">
+<!--            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>-->
             <div class="input-group  container mt-3">
                 <sapn class=" input-group-text" style="border-radius:3px 0 0 3px;"><i class="bi bi-person-fill" ></i></sapn>
                 <input id="memberId" name="memberId" type="text" class="form-control " style="border-radius: 0 3px 3px 0;color: #5c636a;background-color: white"  placeholder="사용자 이름 또는 이메일" autofocus>
+
             </div>
             <div class="input-group  container " style="margin-top: 15px">
                 <i style="border-radius:3px 0 0 3px;" class="bi bi-key input-group-text "></i>

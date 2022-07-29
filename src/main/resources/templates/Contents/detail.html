@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <meta name="_csrf" th:content="${_csrf.token}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -162,6 +164,8 @@
         // }
         let likeNum=0;
         function like(){
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             if(likeNum==0){
                 document.getElementById("likeBtn").className="fa-solid fa-heart commentListItem"
                 document.getElementById("likeBtn").style.color="red"
@@ -178,7 +182,9 @@
                 type:"get",
                 data:{},
                 dataType:"",
-
+                // beforeSend:function (result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success:function(e){
                     console.log("like ajax suc")
                 },

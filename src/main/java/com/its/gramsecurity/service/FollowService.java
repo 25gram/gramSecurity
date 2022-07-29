@@ -47,6 +47,10 @@ public class FollowService {
         }return followingList;
     }
 
+    public void UnFollow(Long id) {
+        followRepository.deleteById(id);
+    }
+
 
     //    public void UnFollow(Long id) {
 //        followRepository.deleteById(id);
