@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,4 +54,22 @@ public class BoardService {
         Long id = boardFileRepository.save(BoardFileEntity.toSaveEntity(fileDTO, boardEntity)).getId();
         return BoardFileDTO.toDTO(boardFileRepository.findById(id).get());
     }
+    public List<BoardDTO> findAll() {
+        List<BoardEntity> boardEntity = boardRepository.findAll();
+        List<BoardDTO> board = new ArrayList<>();
+        for (BoardEntity boardList : boardEntity) {
+            board.add(BoardDTO.toBoardDTO(boardList));
+        }
+        return board;
+    }
+    public List<BoardFileDTO> fileFindAll() {
+        List<BoardFileEntity> boardEntity = boardFileRepository.findAll();
+        List<BoardFileDTO> board = new ArrayList<>();
+        for (BoardFileEntity boardList : boardEntity) {
+            board.add(BoardFileDTO.toListDTO(boardList));
+        }
+        return board;
+    }
+
+
 }
