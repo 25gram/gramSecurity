@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
+<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
+<!--    <meta name="_csrf" th:content="${_csrf.token}">-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,10 +124,15 @@
         }
         //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
         function logoutChk(){
+            // let header =$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
             console.log("logout chk 호출")
             $.ajax({
                 url:"/member/logoutCheck",
                 type:"get",
+                // beforeSend:function (result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success:function (e){
                     console.log("logout chk suc")
                     location.href="/member/logout"
@@ -137,11 +144,15 @@
 
             })
         }
-
         function loginChk(){
+            // let header =$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
             console.log("login chk 호출")
             $.ajax({
                 url:"/member/loginCheck",
+            //     beforeSend:function(result){
+            //         result.setRequestHeader(header,token);
+            // },
                 success:function(e){
                     console.log("login chk suc")
                 },
@@ -153,6 +164,8 @@
         }
 
         function followBTN(){
+            // let header=$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
             const memberId=document.getElementById("memberId").value;
             const yourId="memberId2";
             const yourName="memberName2";
@@ -170,6 +183,9 @@
                     "yourProfileName":yourProfileName,
                     "loginStatus":loginStatus
                 },
+                // beforeSend:function(result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success:function (result){
                     console.log("suc");
                 },
@@ -180,6 +196,8 @@
         };
 
         function followList(){
+            // let header=$("meta[name='_csrf_header']").attr('content');
+            // let token=$("meta[name='_csrf']").attr('content');
             const myId="yourId";
             $.ajax({
                 url:"/follow/myList",
@@ -187,6 +205,9 @@
                 data:{
                     "myId":myId
                 },
+                // beforeSend:function (result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success:function (result){
 
                 }
@@ -286,8 +307,8 @@
     <div class="storyZone" >
         <div>
             <h1>스토리 구역입니다.</h1>
-            <input type="text" th:value="${memberDTO.memberId}" id="id">
-            <button th:onclick="followList()">followList</button>
+<!--            <input type="text" th:value="${memberDTO.memberId}" id="id">-->
+<!--            <button th:onclick="followList()">followList</button>-->
         </div>
     </div>
 
