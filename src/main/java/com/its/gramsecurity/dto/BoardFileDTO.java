@@ -25,4 +25,13 @@ public class BoardFileDTO {
         fileDTO.setBoardFilter(file.getBoardFilter());
         return fileDTO;
     }
+    public static BoardFileDTO toListDTO(BoardFileEntity file) {
+        BoardFileDTO fileDTO = new BoardFileDTO();
+        fileDTO.setId(file.getId());
+        fileDTO.setBoardId(file.getBoardId());
+        fileDTO.setBoardImgName(file.getBoardImgName());
+        fileDTO.setBoardVideoName(file.getBoardVideoName());
+        fileDTO.setBoardFilter(file.getBoardFilter());
+        return fileDTO;
+    }
 }
