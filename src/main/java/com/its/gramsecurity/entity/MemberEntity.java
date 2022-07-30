@@ -35,6 +35,8 @@ public class MemberEntity {
     @Column
     private String providerId;
 
+
+
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setMemberId(memberDTO.getMemberId());
@@ -72,4 +74,6 @@ public class MemberEntity {
         memberEntity.setMemberIntro(memberDTO.getMemberIntro());
         return memberEntity;
     }
+
+
 }

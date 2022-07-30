@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +56,7 @@ public class MemberController {
         model.addAttribute("memberDTO",memberDTO);
         return "memberPages/update";
     }
-
+    //일반회원수정
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO){
         System.out.println("MemberController.update");
@@ -64,5 +66,7 @@ public class MemberController {
     }
 
 
+    }
 
-}
+
+
