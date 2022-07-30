@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,6 +22,8 @@ public class MemberEntity {
     private String memberId;
     @Column(length = 100)
     private String memberPassword;
+    @Column(length = 100)
+    private String memberName;
     @Column(length = 30)
     private String memberEmail;
     @Column(length = 50)
@@ -35,15 +39,21 @@ public class MemberEntity {
     @Column
     private String providerId;
 
+    @OneToMany(mappedBy ="memberEntity" ,cascade =CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
+    private List<FollowEntity> followEntityList=new ArrayList<>();
 
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<CommentEntity>commentEntityList=new ArrayList<>();
 
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setMemberId(memberDTO.getMemberId());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberProfileName(memberDTO.getMemberProfileName());
         memberEntity.setMemberIntro(memberDTO.getMemberIntro());
+        memberEntity.setLoginStatus(memberDTO.getLoginStatus());
         memberEntity.setRole(memberDTO.getRole());
         memberEntity.setProvider(memberDTO.getProvider());
         memberEntity.setProviderId(memberDTO.getProviderId());
@@ -52,9 +62,10 @@ public class MemberEntity {
     }
 
     @Builder
-    public MemberEntity(String memberId, String memberPassword, String memberEmail, String memberProfileName, int loginStatus, String memberIntro, String role, String provider, String providerId) {
+    public MemberEntity(String memberId, String memberPassword,String memberName, String memberEmail, String memberProfileName, int loginStatus, String memberIntro, String role, String provider, String providerId) {
         this.memberId = memberId;
         this.memberPassword = memberPassword;
+        this.memberName=memberName;
         this.memberEmail = memberEmail;
         this.memberProfileName = memberProfileName;
         this.loginStatus = loginStatus;
@@ -63,17 +74,4 @@ public class MemberEntity {
         this.provider = provider;
         this.providerId = providerId;
     }
-
-    public static MemberEntity toUpdateEntity(MemberDTO memberDTO) {
-        MemberEntity memberEntity=new MemberEntity();
-        memberEntity.setId(memberDTO.getId());
-        memberEntity.setMemberId(memberDTO.getMemberId());
-        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
-        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
-        memberEntity.setMemberProfileName(memberDTO.getMemberProfileName());
-        memberEntity.setMemberIntro(memberDTO.getMemberIntro());
-        return memberEntity;
-    }
-
-
 }

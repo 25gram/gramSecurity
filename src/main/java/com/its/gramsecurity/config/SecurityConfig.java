@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 
 @Configuration
@@ -25,10 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    //    @Override
-//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        // authentication manager (see below)
-//    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**");
@@ -39,18 +37,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-//                .antMatchers("/member/**").access("hasRole('ROLE_USER')")
-//                .antMatchers("/story/**").access("hasRole('ROLE_USER')")
-//                .antMatchers("/contents/**").access("hasRole('ROLE_USER')")
-                .antMatchers("/main/").permitAll()
+                .antMatchers("/member/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/storyBoard/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/contents/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/main/main").access("hasRole('ROLE_USER')")
+//                .antMatchers("/main/").permitAll()
+                .antMatchers("/home/**").permitAll()
                 .and()
-                    .formLogin()
-                    .loginPage("/main/")
+                .formLogin()
+                    .loginPage("/home/")
                     .loginProcessingUrl("/login")
                     .defaultSuccessUrl("/main/main")
                     .usernameParameter("memberId")
                     .passwordParameter("memberPassword")
-                    .failureUrl("/main/")
+                    .failureUrl("/home/")
                 .and()
                     .logout()
                     .invalidateHttpSession(true)
@@ -58,11 +58,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/main/") // 로그아웃 성공시
                 .and()
                     .oauth2Login()
-                    .loginPage("/main/")
+                    .loginPage("/home/")
                     .successHandler(new LoginSuccessHandler("/main/main"))
                     .userInfoEndpoint()
                     .userService(principalOauth2UserService);
 
 
     }
+
+//    @Bean
+//    HttpSessionCsrfTokenRepository sessionCsrfTokenRepository(){
+//        HttpSessionCsrfTokenRepository csrfTokenRepository=new HttpSessionCsrfTokenRepository();
+//        csrfTokenRepository.setHeaderName("X-CSRF_TOKEN");
+//        csrfTokenRepository.setParameterName("_csrf");
+//        csrfTokenRepository.setSessionAttributeName("CSRF-TOKEN");
+//        return csrfTokenRepository;
+//    }
+//    @Bean
+//    CookieCsrfTokenRepository csrfTokenRepository(){
+//        CookieCsrfTokenRepository csrfTokenRepository=new CookieCsrfTokenRepository();
+//        csrfTokenRepository.setCookieHttpOnly(false);
+//        csrfTokenRepository.setHeaderName("X-CSRF-TOKEN");
+//        csrfTokenRepository.setParameterName("_csrf");
+//        csrfTokenRepository.setCookieName("XSRF-TOKEN");
+//        return csrfTokenRepository;
+//    }
+
 }
