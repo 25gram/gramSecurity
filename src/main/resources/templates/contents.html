@@ -266,6 +266,7 @@
 
 <form action="/board/fileSave" method="post" enctype="multipart/form-data">
 <div>
+<!--    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>-->
     <input type="file" id="boardFile" name="boardFile" onsubmit="return false;" onchange="uploadImgPreview(this);" multiple>
     <input type="submit" value="버튼">
     <input type="hidden" value="'','','','','','','','','',''," id="boardFilter0" name="boardFilter">
@@ -369,7 +370,9 @@
         <div class="collapseBody">
             <div class="filterZone">
                 <div style="text-align: center">
-                    <textarea class="text-form"></textarea>
+                    <textarea class="text-form">
+<!--                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>-->
+                    </textarea>
                 </div>
             </div>
         </div>

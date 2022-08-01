@@ -124,8 +124,8 @@
         }
         //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
         function logoutChk(){
-            // let header =$("meta[name='_csrf_header']").attr('content');
-            // let token=$("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             console.log("logout chk 호출")
             $.ajax({
                 url:"/member/logoutCheck",
@@ -145,8 +145,8 @@
             })
         }
         function loginChk(){
-            // let header =$("meta[name='_csrf_header']").attr('content');
-            // let token=$("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             console.log("login chk 호출")
             $.ajax({
                 url:"/member/loginCheck",
@@ -164,8 +164,8 @@
         }
 
         function followBTN(){
-            // let header=$("meta[name='_csrf_header']").attr('content');
-            // let token=$("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             const memberId=document.getElementById("memberId").value;
             const yourId="memberId2";
             const yourName="memberName2";
@@ -196,8 +196,8 @@
         };
 
         function followList(){
-            // let header=$("meta[name='_csrf_header']").attr('content');
-            // let token=$("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             const myId="yourId";
             $.ajax({
                 url:"/follow/myList",
@@ -359,6 +359,7 @@
 
 </body>
 <script th:inline="javascript">
+
     $.ajax({
         type: "post",
         url: "/comment/save",
