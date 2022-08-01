@@ -36,7 +36,7 @@ public class CommentEntity extends BaseEntity {
     private BoardEntity boardEntity;
 
 
-    public static CommentEntity toSaveEntity(CommentDTO commentDTO, MemberEntity memberEntity, BoardEntity boardEntity){
+    public static CommentEntity toSaveEntity(CommentDTO commentDTO, MemberEntity memberEntity,BoardEntity boardEntity){
         CommentEntity commentEntity=new CommentEntity();
         commentEntity.setId(commentDTO.getId());
         commentEntity.setBoardId(boardEntity.getId());

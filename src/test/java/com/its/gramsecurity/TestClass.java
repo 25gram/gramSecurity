@@ -17,6 +17,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -52,16 +53,17 @@ public class TestClass {
         });
     }
 
-    @Test
-    @Transactional
-    @Rollback
-    @DisplayName("please....")
-    public void followSaveTest(){
-        FollowDTO followDTO=newFollow(3);
-        MemberEntity memberEntity=memberRepository.findByMemberId("member").get();
-        FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity,"member");
-        Long savedFollowId=followRepository.save(followEntity).getId();
-    }
+//    @Test
+//    @Transactional
+//    @Rollback
+//    @DisplayName("please....")
+//    public void followSaveTest(){
+//        FollowDTO followDTO=newFollow(3);
+//        MemberEntity memberEntity=memberRepository.findByMemberId("member").get();
+//        FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity,"member");
+//        Long savedFollowId=followRepository.save(followEntity).getId();
+//        Optional<MemberEntity>findMemberEntity=memberRepository.findById(savedFollowId).get();
+//    }
 
 
 

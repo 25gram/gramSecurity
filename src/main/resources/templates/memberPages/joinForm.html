@@ -137,8 +137,8 @@
             let memberEmailVal=memberEmail.value;
             let memberIdVal=memberId.value;
             let upid = document.getElementById("msg_zone");
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
                 $.ajax({
                     url:"/home/duplicateChk",
                     type:"post",
