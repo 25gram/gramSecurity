@@ -36,12 +36,16 @@ public class BoardEntity extends BaseEntity{
 
     @OneToMany(mappedBy = "boardEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     List<CommentEntity>commentEntityList=new ArrayList<>();
-    public static BoardEntity toSaveEntity(BoardDTO boardFileDTO) {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private MemberEntity memberEntity;
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberId) {
         BoardEntity board = new BoardEntity();
-        board.setBoardWriter(boardFileDTO.getBoardWriter());
-        board.setBoardContents(boardFileDTO.getBoardContents());
-        board.setBoardLocation(boardFileDTO.getBoardLocation());
-        board.setBoardTag(boardFileDTO.getBoardTag());
+        board.setBoardWriter(memberId);
+        board.setBoardContents(boardDTO.getBoardContents());
+        board.setBoardLocation(boardDTO.getBoardLocation());
+        board.setBoardTag(boardDTO.getBoardTag());
         return board;
     }
 }

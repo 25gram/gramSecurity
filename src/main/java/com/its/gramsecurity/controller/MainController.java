@@ -35,8 +35,9 @@ public class MainController {
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
-        return "main";
+        return "/Contents/testList";
     }
+
 
 
 }

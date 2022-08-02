@@ -1,6 +1,7 @@
 package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.MemberDTO;
+import jdk.jfr.Name;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.List;
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "member_id")
     private Long id;
     @Column(length = 500)
     private String memberId;
@@ -38,6 +39,9 @@ public class MemberEntity {
     private String provider;
     @Column
     private String providerId;
+
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
+    private List<BoardEntity>boardEntityList=new ArrayList<>();
 
     @OneToMany(mappedBy ="memberEntity" ,cascade =CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
     private List<FollowEntity> followEntityList=new ArrayList<>();

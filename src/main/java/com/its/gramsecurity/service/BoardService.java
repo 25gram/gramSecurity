@@ -20,8 +20,8 @@ import java.util.List;
 public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
-    public BoardDTO fileSave(BoardDTO boardDTO) {
-        Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO)).getId();
+    public BoardDTO fileSave(BoardDTO boardDTO,String memberId) {
+        Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,memberId)).getId();
         return BoardDTO.toDTO(boardRepository.findById(id).get());
     }
     public BoardFileDTO save(BoardFileDTO fileDTO,String list) throws IOException {

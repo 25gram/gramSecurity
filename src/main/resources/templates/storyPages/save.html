@@ -2,6 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+<!--    <meta name="_csrf" th:content="${_csrf.token}">-->
+<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
     <title>Title</title>
 
     <style>
@@ -52,39 +54,102 @@
             border-radius: 3%;
             background-color: rgba(237,237,237,0.4);
             border: 1px solid gray;
+            overflow: hidden;
             position: relative;
             z-index: 9999;
         }
-        .closeDiv {
+        .mainMenu {
             width: 100%;
-            height: 10%;
-            padding-top: 2%;
-            padding-left: 70%;
+            height: 50px;
             position: absolute;
-        }
-        .closeDiv btn-close {
-            position: fixed;
-            left: 70%;
-
-
+            z-index: 11;
         }
         .editMenu {
-            padding-left: 60%;
-            padding-top: 5px;
-            display: none;
-            width: 100%;
+            width: 200px;
             height: 50px;
             position: absolute;
-            z-index: 1000;
+            top: 5px;
+            right: 10px;
+            display: none;
+
         }
-        .editFont {
-            padding-left: 60%;
-            padding-top: 5px;
+        .fontMenu {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 21;
+            overflow: hidden;
             display: none;
+        }
+        .closeDiv {
+            width: 30px;
+            height: 30px;
+            position: fixed;
+            top: 50px;
+            right: 30%;
+        }
+        .filePreview {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            overflow: hidden;
+            position: absolute;
+            z-index: 11;
+        }
+        .inputFileBtn {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+        }
+
+        .editMenu5 {
+            border-radius: 50%;
+            background-color: white;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            right: 10px;
+            bottom: 50px;
+            display: none;
+        }
+
+        .inputText {
+            width: 100%;
+            color: yellow;
+            background-color: transparent;
+            border: 0;
+            border-spacing: 0;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .inputTextDiv {
             width: 100%;
             height: 50px;
+            display: none;
             position: absolute;
-            z-index: 1000;
+            z-index: 999;
+            top: 50%;
+        }
+        .rangBar {
+            width: 30px;
+            height: 400px;
+            padding-top: 10%;
+            position: absolute;
+            top: 40px;
+            left: 5px;
+            z-index: 23;
+            display: none;
+        }
+
+
+        .editFont {
+            width: 200px;
+            height: 50px;
+            position: absolute;
+            top: 5px;
+            right: 2px;
         }
         .editBox {
             margin-top: 70%;
@@ -129,6 +194,7 @@
             position: absolute;
             z-index: 1100;
         }
+
         input[type="range"] {
             -webkit-appearance: slider-vertical;
             width: 30px;
@@ -294,11 +360,21 @@
             </div>
 
         </div>
-        <div class="editMenu" id="editMenu">
-            <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
-            <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
-            <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
-            <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
+
+        <div class="mainMenu" id="mainMenu">
+            <div class="inputFileBtn">
+                <form action="/storyBoard/save" method="post" enctype="multipart/form-data">
+                    <input type="file" id="upImgFiles" name="imageFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
+                    <div class="saveBtn" id="saveBtn"></div>
+                </form>
+            </div>
+            <div class="editMenu" id="editMenu">
+                <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
+                <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
+                <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
+                <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
+            </div>
+            <div class="editMenu5" id="editMenu5"><i class="bi bi-chevron-right"></i></div>
         </div>
         <div class="editMenu5" id="editMenu5"></div>
         <div class="editFont" id="editFont">
@@ -307,7 +383,7 @@
             <button class="btn btn-primary" onclick="editFnc1c()"><i class="bi bi-type"></i></button>
             <button class="btn btn-outline-primary" onclick="editFnc1d()">완료</button>
         </div>
-        <div class="inputTextDiv" id="inputTextDiv">    
+        <div class="inputTextDiv" id="inputTextDiv">
             <input class="inputText" type="text" id="text1" name="text1">
         </div>
         <div class="inputFileBtn">
@@ -371,6 +447,15 @@
                     <label for="addFile" class="addFileLabel"><img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
                     <input type="file" accept="image/*" class="bi bi-images" id="addFile"  name="addFile" onchange="addImgFile(this)" style="display: none">
                     <button type="button" class="btnFnc btn-secondary" id="today"></button>
+                </div>
+            </div>
+            <div class="linkDiv" id="LinkDiv">
+                <div class="linkContents">
+                    <p>링크 추가</p>
+                    <label for="siteLink">URL</label>
+                        <input type="text" id="siteLink" placeholder="http://example.com" autofocus>
+                        <p>스토리를 보는 사람이 스티커를 눌러 이 링크로 이동할 수 있습니다.</p>
+
                 </div>
             </div>
         </div>
@@ -519,6 +604,7 @@
         if (e.target === text1) {
             active = true;
         }
+
     }
 
     function dragEnd(e) {
@@ -547,16 +633,16 @@
             setTranslate(currentX, currentY, text1);
         }
     }
-
     function setTranslate(xPos, yPos, el) {
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
 // 인풋 글자편집 기능
     const editFnc1 = () => {
         document.getElementById("editBox").style.display="none";
-        const editMenu = document.getElementById("editMenu");
-        const editFont = document.getElementById("editFont");
-        const inputText = document.getElementById("inputTextDiv");
+        document.getElementById("mainMenu").style.display="none";
+        document.getElementById("fontMenu").style.display="block";
+        document.getElementById("inputTextDiv").style.display="block";
+        document.getElementById("rangeBar").style.display="block";
         const text1 = document.getElementById("text1");
         const rangeBar = document.getElementById("rangeBar");
         rangeBar.style.display="block";
@@ -565,7 +651,6 @@
         inputText.style.display="block";
 
         text1.focus();
-
     }
     const editFnc2 = () => {
 
@@ -644,6 +729,7 @@
     });
 // 다운슬라이드창 기능
     $('#reverseSlideContentUp').on('click', function() {
+        document.getElementById("reverse").style.zIndex="20";
         $('.slideUp').slideUp();
     });
 // 메인 이미지 위에 추가이미지 넣기
@@ -671,6 +757,7 @@
 // 추가이미지 드래그 앤 드롭 기능
     var addImg = document.querySelector("#addImg");
     var addImgDiv = document.querySelector("#addImgDiv");
+    let imgDrag = document.getElementById("imgDrag");
 
     var active = false;
     var currentX;
@@ -741,5 +828,11 @@
             ghost: true
         });
     });
+// 링크 버튼 기능
+    const linkTag = () => {
+      document.getElementById("reverse").style.backgroundColor="darkgray";
+      document.getElementById("slideUp").style.display="none";
+      document.getElementById("linkDiv").style.display="block";
+    }
 </script>
 </html>

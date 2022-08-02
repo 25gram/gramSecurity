@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,9 +29,10 @@ public class BoardController {
     @PostMapping("/fileSave")
     public String fileSave(@ModelAttribute BoardDTO boardDTO,
                            @RequestParam("boardFilter") String boardFilter,
-                           MultipartHttpServletRequest mp,
+                           MultipartHttpServletRequest mp,Principal principal,
                            Model model) throws IOException {
-        BoardDTO saveDTO = boardService.fileSave(boardDTO);
+        String memberId=principal.getName();
+        BoardDTO saveDTO = boardService.fileSave(boardDTO,memberId);
         List<MultipartFile> multipartFileList = mp.getFiles("boardFile");
         List<BoardFileDTO> fileDTOList = new ArrayList<>();
         int a = 0;
