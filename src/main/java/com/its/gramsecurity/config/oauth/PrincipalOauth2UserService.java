@@ -5,25 +5,32 @@ import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
 @Data
+@RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
-    @Autowired
-    private MemberRepository memberRepository;
+private final MemberRepository memberRepository;
+private final HttpSession httpSession;
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws
             OAuth2AuthenticationException{
-        System.out.println("PrincipalOauth2UserService.loadUser");
+
         OAuth2User oAuth2User=super.loadUser(userRequest);
         String provider = userRequest.getClientRegistration().getRegistrationId();
         String providerId=oAuth2User.getAttribute("sub");
@@ -38,8 +45,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             MemberEntity member=optionalMemberEntity.get();
             memberDTO=MemberDTO.toDTO(member);
         }
-
-
         if(optionalMemberEntity.isEmpty()){
             memberDTO=MemberDTO.builder()
                     .memberId(memberId)

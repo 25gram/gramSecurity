@@ -284,157 +284,28 @@
 
 
 </head>
-<body onload="loginChk()">
+<body>
 
-<div class="container mainBody">
+<!--테스트를 하려구요-->
+<!--<table>-->
 
+<!--    <tr>-->
+<!--        <th>myId</th>-->
+<!--        <th>yourId</th>-->
+<!--        <th>yourName</th>-->
+<!--        <th>yourProfile</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="followList:${followList}">-->
+<!--        <td th:text="${followList.myId}"></td>-->
+<!--        <td th:text="${followList.yourId}"></td>-->
+<!--        <td th:text="${followList.yourName}"></td>-->
+<!--        <td th:text="${followList.yourProfile}"></td>-->
 
-    <!-- 헤더구역 -->
-    <div class="row headerZone">
-        <div class="col">
-            <p class="title">25gram</p>
-        </div>
-        <div class="col headerItem" style="margin-top: 10px;text-align: right;">
-            <i id="headerItem1" class="hi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"onmouseover="gray(5)" onmouseout="black(5)"></i>
-            <i id="headerItem2" class="hi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)" onmouseout="black(6)"></i>
-            <i id="headerItem3" class="hi fa-regular fa-paper-plane" style="font-size: 28px;" onclick="black(7),iconEffect(7)" onmouseover="gray(7)" onmouseout="black(7)"></i>
-
-        </div>
-    </div>
-
-
-    <!-- 스토리 구역 -->
-    <div class="storyZone" >
-        <div>
-            <h1>스토리 구역입니다.</h1>
-            <!--            <input type="text" th:value="${memberDTO.memberId}" id="id">-->
-                        <button th:onclick="commentTest()">눌러보라</button>
-        </div>
-    </div>
+<!--    </tr>-->
+<!--</table>-->
 
 
-    <!-- 메인피드 구역 -->
-    <div class="feedZone">
-        <!--        <div style="overflow: hidden">-->
-        <!--        <h1>메인피드 구역입니다.</h1>-->
-        <!--        <a href="/member/updateForm">update</a>-->
-        <div class="contentsBody" th:each="boardFile : ${boardFile}" >
-            <div th:if="${1 == boardFile.boardId}">
-                <img th:if="${boardFile.boardImgName != null}" class="contentsItem" th:src="@{|/upload/${boardFile.boardImgName}|}" th:style="'filter:' + ${boardFile.boardFilter}"  alt="">
-                <video th:if="${boardFile.boardVideoName != null}" class="contentsItem" th:src="@{|/upload/${boardFile.boardVideoName}|}" th:style="'filter:' + ${boardFile.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
-            </div>
-        </div>
-        <div th:each="board : ${boardList}">
-            <div th:if="${board.id == 1}">
-                <span th:text="${board.boardContents}"></span>
-            </div>
-        </div>
-        <!--            </div>-->
-        <!--        </div>-->
-    </div>
-
-
-    <!-- 푸터 구역 -->
-    <div class="footerZone">
-        <div class="footerItem" >
-
-            <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)" onclick="iconEffect(1)"></i>
-            <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)" onclick="iconEffect(2)"></i>
-            <i id="footerItem3" class="fi fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)" onclick="iconEffect(3)"></i>
-            <i class="fi fa-solid fa-user"></i>
-            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),logoutChk()"></i>
-            <!--            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),location.href='/logout'"></i>-->
-        </div>
-    </div>
-
-
-
-</div>
-<!--<div id="comment-list"></div>-->
-
-
-
-
+    </tr>
+</table>
 </body>
-<script th:inline="javascript">
-    // function commentTest() {
-    //     // const header=$("meta[name='_csrf_header']").attr('content');
-    //     // const token=$("meta[name='_csrf']").attr('content');
-    //     const boardId=1;
-    //     const commentWriter = "commentWriter";
-    //     const commentContents = "commentContents";
-    //
-    //     $.ajax({
-    //         type:"post",
-    //         url:"/comment/commentSave",
-    //         data:{
-    //             "commentWriter":commentWriter,
-    //             "boardId":boardId,
-    //             "commentContents":commentContents
-    //         },
-    //         dataType:"json",
-    //         // beforeSend:function (send){
-    //         //     send.setRequestHeader(header,token);
-    //         // },
-    //         success: function (result){
-    //             let output="<table><tr>";
-    //             output += "<th>id</th>";
-    //             output += "<th>commentWriter</th>";
-    //             output += "<th>commentContents</th>";
-    //             output += "<th>commentCreatedDate</th></tr>";
-    //             for(let i in result){
-    //                 output += "<tr>";
-    //                 output += "<td>" + result[i].id + "</td>";
-    //                 output += "<td>" + result[i].commentWriter + "</td>";
-    //                 output += "<td>" + result[i].commentContents + "</td>";
-    //                 output += "<td>"+ result[i].commentCreatedDate +"</td></tr>";
-    //             }
-    //             output += "</table>";
-    //             document.getElementById('').innerHTML=output;
-    //             document.getElementById('').value='';
-    //         }
-    //     });
-    //
-    // }
-    // $.ajax({
-    //     type: "post",
-    //     url: "/comment/save",
-    //     data: {"commentWriter":commentWriter,"commentContents":commentContents,"productId":productId,"memberId":memberId},
-    //     dataType: "json",
-    //     success: function(result){
-    //         const a = "삭제";
-    //         let output = "<table class='table'>";
-    //         output += "<tr><th>댓글번호</th>";
-    //         output += "<th>작성자</th>";
-    //         output += "<th>내용</th>";
-    //         output += "<th>작성시간</th></tr>";
-    //         for(let i in result){
-    //             output += "<tr>";
-    //             output += "<td>"+result[i].id+"</td>";
-    //             output += "<td>"+result[i].commentWriter+"</td>";
-    //             output += "<td id='contents" + result[i].id + "'>" + result[i].commentContents+"</td>";
-    //             output += "<td>"+moment(result[i].commentDate).format("YYYY-MM-DD HH:mm:ss")+"</td>";
-    //             if(member == result[i].commentWriter){
-    //                 output += "<td>" + "<a href='/comment/delete?productId=" + productId + "&id=" + result[i].id + "'>" + a + "</a>"+"</td>";
-    //                 output += "<td id='updateBTN" + result[i].id  + "'>" + "<a href='javascript:void(0)' onclick='aaa3(" + result[i].id + ")'>" + "수정" + "</a>"+"</td>";
-    //                 <%--<td id="updateBTN${comment.id}"><a href="javascript:void(0)" onclick="aaa3(${comment.id})">수정</a></td>--%>
-    //             }else if(member == 'admin'){
-    //                 output += "<td>" + "<a href='/comment/delete?productId=" + productId + "&id=" + result[i].id + "'>" + a + "</a>"+"</td>";
-    //                 output += "<td></td>";
-    //             }else{
-    //                 output += "<td></td>";
-    //                 output += "<td></td>";
-    //             }
-    //             output += "<td>" + "<a href='javascript:void(0)' onclick='hitsCheck(" + result[i].id + ")'>" + "<span id='aa'>" + "좋아요" + result[i].commentHits + "</span>" + "</a>" + "</td>";
-    //             output += "</tr>";
-    //         }
-    //         output += "</table>";
-    //         document.getElementById('comment-list').innerHTML = output;
-    //         document.getElementById('commentContents').value='';
-    //     },
-    //     error: function () {
-    //         alert("틀림");
-    //     }
-    // });
-</script>
 </html>
