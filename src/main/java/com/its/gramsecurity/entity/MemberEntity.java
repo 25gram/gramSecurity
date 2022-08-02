@@ -2,16 +2,15 @@ package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.MemberDTO;
 import jdk.jfr.Name;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "member_entity")
 public class MemberEntity {

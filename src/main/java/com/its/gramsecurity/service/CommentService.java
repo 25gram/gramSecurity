@@ -22,27 +22,26 @@ public class CommentService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-    public void save(CommentDTO commentDTO) {
-        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(commentDTO.getCommentWriter());
+    public void save(CommentDTO commentDTO,String memberId) {
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
         Optional<BoardEntity>optionalBoardEntity=boardRepository.findById(commentDTO.getBoardId());
-        System.out.println("CommentService.save");
-        System.out.println("optionalMemberEntity = " + optionalMemberEntity + ", optionalBoardEntity = " + optionalBoardEntity);
         if(optionalMemberEntity.isPresent() && optionalBoardEntity.isPresent()){
             MemberEntity memberEntity=optionalMemberEntity.get();
             BoardEntity boardEntity=optionalBoardEntity.get();
             CommentEntity commentEntity=CommentEntity.toSaveEntity(commentDTO,memberEntity,boardEntity);
             commentRepository.save(commentEntity);
-            System.out.println("CommentService.save if");
-            System.out.println("commentDTO = " + commentDTO );
         }
 
     }
 
     public List<Optional<CommentEntity>> findAll(Long boardId) {
-        List<Optional<CommentEntity>>commentEntityList=boardRepository.findAllById(boardId);
+        System.out.println("CommentService.findAll");
+        List<Optional<CommentEntity>>commentEntityList=commentRepository.findAllById(boardId);
         List<Optional<CommentEntity>>commentDTOList=new ArrayList<>();
+        System.out.println("commentEntityList = " + commentEntityList);
         for(Optional<CommentEntity> commentEntity : commentEntityList){
             commentDTOList.add(commentEntity);
+            System.out.println("commentEntity = " + commentEntity);
         }return commentDTOList;
     }
 }
