@@ -1,214 +1,225 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
-<!--    <meta name="_csrf" th:content="${_csrf.token}">-->
+    <!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
+    <!--    <meta name="_csrf" th:content="${_csrf.token}">-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script src="https://kit.fontawesome.com/827bb06556.js" crossorigin="anonymous"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+    <!-- jquery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:wght@600&display=swap" rel="stylesheet"> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@1,600&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:wght@700&display=swap" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@800&family=Ibarra+Real+Nova:wght@700&display=swap" rel="stylesheet"> -->
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600&family=Ibarra+Real+Nova:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600&family=Ibarra+Real+Nova:wght@700&display=swap"
+          rel="stylesheet">
+
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/827bb06556.js" crossorigin="anonymous"></script>
+    <!-- emojionearea -->
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js></script>
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
 
     <script>
-        function gray(i){
-            if(i==1){
-                document.getElementById("footerItem1").style.color='gray';
-            }else if(i==2){
-                document.getElementById("footerItem2").style.color='gray';
-            }else if(i==3){
-                document.getElementById("footerItem3").style.color='gray';
-            }else if(i==4){
-                document.getElementById("footerItem4").style.color='gray';
-            }else if(i==5){
-                document.getElementById("headerItem1").style.color='gray';
-            }else if(i==6){
-                document.getElementById("headerItem2").style.color='gray';
-            }else if(i==7){
-                document.getElementById("headerItem3").style.color='gray';
+        function gray(i) {
+            if (i == 1) {
+                document.getElementById("footerItem1").style.color = 'gray';
+            } else if (i == 2) {
+                document.getElementById("footerItem2").style.color = 'gray';
+            } else if (i == 3) {
+                document.getElementById("footerItem3").style.color = 'gray';
+            } else if (i == 4) {
+                document.getElementById("footerItem4").style.color = 'gray';
+            } else if (i == 5) {
+                document.getElementById("headerItem1").style.color = 'gray';
+            } else if (i == 6) {
+                document.getElementById("headerItem2").style.color = 'gray';
+            } else if (i == 7) {
+                document.getElementById("headerItem3").style.color = 'gray';
             }
 
         }
 
-        function black(i){
-            if(i==1){
+        function black(i) {
+            if (i == 1) {
                 // $('#footerItem1').style.color="gray";
-                document.getElementById("footerItem1").style.color='black';
-            }else if(i==2){
-                document.getElementById("footerItem2").style.color='black';
-            }else if(i==3){
-                document.getElementById("footerItem3").style.color='black';
-            }else if(i==4){
-                document.getElementById("footerItem4").style.color='black';
-            }else if(i==5){
-                document.getElementById("headerItem1").style.color='black';
-            }else if(i==6){
-                document.getElementById("headerItem2").style.color='black';
-            }else if(i==7){
-                document.getElementById("headerItem3").style.color='black';
+                document.getElementById("footerItem1").style.color = 'black';
+            } else if (i == 2) {
+                document.getElementById("footerItem2").style.color = 'black';
+            } else if (i == 3) {
+                document.getElementById("footerItem3").style.color = 'black';
+            } else if (i == 4) {
+                document.getElementById("footerItem4").style.color = 'black';
+            } else if (i == 5) {
+                document.getElementById("headerItem1").style.color = 'black';
+            } else if (i == 6) {
+                document.getElementById("headerItem2").style.color = 'black';
+            } else if (i == 7) {
+                document.getElementById("headerItem3").style.color = 'black';
             }
         }
 
-        function iconEffect(i){
+        function iconEffect(i) {
 
-            if(i==1){
-                document.getElementById("footerItem1").style.fontSize='28px'
-                document.getElementById("footerItem1").style.marginRight='2px'
-                setTimeout(iconReset,150,1);
-            }else if(i==2){
-                document.getElementById("footerItem2").style.fontSize='28px'
-                document.getElementById("footerItem2").style.marginRight='2px'
-                setTimeout(iconReset,150,2);
-            }else if(i==3){
-                document.getElementById("footerItem3").style.fontSize='28px'
-                document.getElementById("footerItem3").style.marginRight='2px'
-                setTimeout(iconReset,150,3);
-            }else if(i==4){
+            if (i == 1) {
+                document.getElementById("footerItem1").style.fontSize = '28px'
+                document.getElementById("footerItem1").style.marginRight = '2px'
+                setTimeout(iconReset, 150, 1);
+            } else if (i == 2) {
+                document.getElementById("footerItem2").style.fontSize = '28px'
+                document.getElementById("footerItem2").style.marginRight = '2px'
+                setTimeout(iconReset, 150, 2);
+            } else if (i == 3) {
+                document.getElementById("footerItem3").style.fontSize = '28px'
+                document.getElementById("footerItem3").style.marginRight = '2px'
+                setTimeout(iconReset, 150, 3);
+            } else if (i == 4) {
                 // document.getElementById("footerItem4").style.fontSize='28px'
                 // document.getElementById("footerItem4").style.marginRight='2px'
-                document.getElementById("footerItem4").className="fi fa-solid fa-door-open"
-                setTimeout(iconReset,150,4);
-            }else if(i==5){
+                document.getElementById("footerItem4").className = "fi fa-solid fa-door-open"
+                setTimeout(iconReset, 150, 4);
+            } else if (i == 5) {
                 // document.getElementById("footerItem4").style.fontSize='28px'
                 // document.getElementById("footerItem4").style.marginRight='2px'
-                document.getElementById("headerItem1").className="hi fa-solid fa-square-plus"
-                setTimeout(iconReset,150,5);
-            }else if(i==6){
+                document.getElementById("headerItem1").className = "hi fa-solid fa-square-plus"
+                setTimeout(iconReset, 150, 5);
+            } else if (i == 6) {
                 // document.getElementById("footerItem4").style.fontSize='28px'
                 // document.getElementById("footerItem4").style.marginRight='2px'
-                document.getElementById("headerItem2").className="hi fa-solid fa-heart"
-                setTimeout(iconReset,150,6);
-            }else if(i==7){
+                document.getElementById("headerItem2").className = "hi fa-solid fa-heart"
+                setTimeout(iconReset, 150, 6);
+            } else if (i == 7) {
                 // document.getElementById("footerItem4").style.fontSize='28px'
                 // document.getElementById("footerItem4").style.marginRight='2px'
-                document.getElementById("headerItem3").className="hi fa-solid fa-paper-plane"
-                setTimeout(iconReset,150,7);
+                document.getElementById("headerItem3").className = "hi fa-solid fa-paper-plane"
+                setTimeout(iconReset, 150, 7);
             }
 
 
-            function iconReset(i){
-                if(i==1){
-                    document.getElementById("footerItem1").style.fontSize="30px"
-                    document.getElementById("footerItem1").style.marginRight='0'
-                }else if(i==2){
-                    document.getElementById("footerItem2").style.fontSize="30px"
-                    document.getElementById("footerItem2").style.marginRight='0'
-                }else if(i==3){
-                    document.getElementById("footerItem3").style.fontSize="30px"
-                    document.getElementById("footerItem3").style.marginRight='0'
-                }else if(i==4){
+            function iconReset(i) {
+                if (i == 1) {
+                    document.getElementById("footerItem1").style.fontSize = "30px"
+                    document.getElementById("footerItem1").style.marginRight = '0'
+                } else if (i == 2) {
+                    document.getElementById("footerItem2").style.fontSize = "30px"
+                    document.getElementById("footerItem2").style.marginRight = '0'
+                } else if (i == 3) {
+                    document.getElementById("footerItem3").style.fontSize = "30px"
+                    document.getElementById("footerItem3").style.marginRight = '0'
+                } else if (i == 4) {
 
-                    document.getElementById("footerItem4").className="fi fa-solid fa-door-closed"
-                }else if(i==5){
-                    document.getElementById("headerItem1").className="hi fa-regular fa-square-plus"
-                }else if(i==6){
-                    document.getElementById("headerItem2").className="hi fa-regular fa-heart"
-                }else if(i==7){
-                    document.getElementById("headerItem3").className="hi fa-regular fa-paper-plane"
+                    document.getElementById("footerItem4").className = "fi fa-solid fa-door-closed"
+                } else if (i == 5) {
+                    document.getElementById("headerItem1").className = "hi fa-regular fa-square-plus"
+                } else if (i == 6) {
+                    document.getElementById("headerItem2").className = "hi fa-regular fa-heart"
+                } else if (i == 7) {
+                    document.getElementById("headerItem3").className = "hi fa-regular fa-paper-plane"
                 }
             }
         }
+
         //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
-        function logoutChk(){
+        function logoutChk() {
             // let header = $("meta[name='_csrf_header']").attr('content');
             // let token = $("meta[name='_csrf']").attr('content');
             console.log("logout chk 호출")
             $.ajax({
-                url:"/member/logoutCheck",
-                type:"get",
+                url: "/member/logoutCheck",
+                type: "get",
                 // beforeSend:function (result){
                 //     result.setRequestHeader(header,token);
                 // },
-                success:function (e){
+                success: function (e) {
                     console.log("logout chk suc")
-                    location.href="/member/logout"
+                    location.href = "/member/logout"
                 },
-                error:function (e){
+                error: function (e) {
                     console.log("logout chk err")
 
                 }
 
             })
         }
-        function loginChk(){
+
+        function loginChk() {
             // let header = $("meta[name='_csrf_header']").attr('content');
             // let token = $("meta[name='_csrf']").attr('content');
             console.log("login chk 호출")
             $.ajax({
-                url:"/member/loginCheck",
-            //     beforeSend:function(result){
-            //         result.setRequestHeader(header,token);
-            // },
-                success:function(e){
+                url: "/member/loginCheck",
+                //     beforeSend:function(result){
+                //         result.setRequestHeader(header,token);
+                // },
+                success: function (e) {
                     console.log("login chk suc")
                 },
-                error:function(e){
+                error: function (e) {
                     console.log("login chk err")
                 }
 
             })
         }
 
-        function followBTN(){
+        function followBTN() {
             // let header = $("meta[name='_csrf_header']").attr('content');
             // let token = $("meta[name='_csrf']").attr('content');
-            const memberId=document.getElementById("memberId").value;
-            const yourId="memberId2";
-            const yourName="memberName2";
-            const yourProfileName="memberProfileName2";
-            const loginStatus=0;
+            const memberId = document.getElementById("memberId").value;
+            const yourId = "memberId2";
+            const yourName = "memberName2";
+            const yourProfileName = "memberProfileName2";
+            const loginStatus = 0;
 
             $.ajax({
-                url:"/follow/request",
-                type:"post",
-                dataType:"json",
-                data:{
-                    "myId":memberId,
-                    "yourId":yourId,
-                    "yourName":yourName,
-                    "yourProfileName":yourProfileName,
-                    "loginStatus":loginStatus
+                url: "/follow/request",
+                type: "post",
+                dataType: "json",
+                data: {
+                    "myId": memberId,
+                    "yourId": yourId,
+                    "yourName": yourName,
+                    "yourProfileName": yourProfileName,
+                    "loginStatus": loginStatus
                 },
                 // beforeSend:function(result){
                 //     result.setRequestHeader(header,token);
                 // },
-                success:function (result){
+                success: function (result) {
                     console.log("suc");
                 },
-                error:function (result){
+                error: function (result) {
                     console.log("err");
                 }
             })
         };
 
-        function followList(){
+        function followList() {
             // let header = $("meta[name='_csrf_header']").attr('content');
             // let token = $("meta[name='_csrf']").attr('content');
-            const myId="yourId";
+            const myId = "yourId";
             $.ajax({
-                url:"/follow/myList",
-                type:"get",
-                data:{
-                    "myId":myId
+                url: "/follow/myList",
+                type: "get",
+                data: {
+                    "myId": myId
                 },
                 // beforeSend:function (result){
                 //     result.setRequestHeader(header,token);
                 // },
-                success:function (result){
+                success: function (result) {
 
                 }
             })
@@ -218,69 +229,77 @@
     </script>
 
     <style>
+
         .title {
             font-family: 'Dosis', sans-serif;
-            font-size:40px;
-            margin:0px 0 0 10px;
+            font-size: 40px;
+            margin: 0px 0 0 10px;
 
         }
-        .bi{
+
+        .bi {
             font-size: 30px;
             margin-right: 15px;
         }
 
-        .storyZone{
+        .storyZone {
             border-top: 1px gray solid;
             border-bottom: 1px gray solid;
             height: 100px;
             margin: 20px 10px 0 10px;
         }
 
-        .mainBody{
+        .mainBody {
             margin-top: 30px;
             width: 500px;
             height: 780px;
-            border:gray solid 1px;
+            border: gray solid 1px;
             padding-left: 0;
             padding-right: 0;
         }
 
-        .headerZone{
+        .headerZone {
             padding-left: 12px;
             padding-right: 12px;
             margin-top: 10px;
         }
 
-        .feedZone{
+        .feedZone {
             /* border: 1px solid gray; */
             height: 525px;
             /*background-color: aqua;*/
             padding-left: 0;
             padding-right: 0;
         }
-        .fi{
+
+        .fi {
             margin-left: 52px;
             font-size: 30px;
         }
 
-        .footerItem{
+        .footerItem {
             margin: 20px 0 0 8px;
         }
-        .hi{
+
+        .hi {
             margin: 10px 10px 0 0;
             font-size: 30px;
         }
-        .contentsItem{
-            margin:24px; width:450px; height:470px; border: solid 1px;
+
+        .contentsItem1 {
+            margin: 24px;
+            width: 450px;
+            height: 470px;
+            border: solid 1px;
             /*width: 100vw;*/
             float: left;
         }
-        .contentsBody{
+
+        .contentsBody {
             width: 5000px;
         }
 
     </style>
-
 
 
 </head>
@@ -288,40 +307,46 @@
 
 <div class="container mainBody">
 
-
     <!-- 헤더구역 -->
     <div class="row headerZone">
         <div class="col">
             <p class="title">25gram</p>
         </div>
         <div class="col headerItem" style="margin-top: 10px;text-align: right;">
-            <i id="headerItem1" class="hi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"onmouseover="gray(5)" onmouseout="black(5)"></i>
-            <i id="headerItem2" class="hi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)" onmouseout="black(6)"></i>
-            <i id="headerItem3" class="hi fa-regular fa-paper-plane" style="font-size: 28px;" onclick="black(7),iconEffect(7)" onmouseover="gray(7)" onmouseout="black(7)"></i>
+            <i id="headerItem1" class="hi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"
+               onmouseover="gray(5)" onmouseout="black(5)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+            <i id="headerItem2" class="hi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)"
+               onmouseout="black(6)"></i>
+            <i id="headerItem3" class="hi fa-regular fa-paper-plane" style="font-size: 28px;"
+               onclick="black(7),iconEffect(7)" onmouseover="gray(7)" onmouseout="black(7)"></i>
 
         </div>
     </div>
 
 
     <!-- 스토리 구역 -->
-    <div class="storyZone" >
+    <div class="storyZone">
         <div>
             <h1>스토리 구역입니다.</h1>
-<!--            <input type="text" th:value="${memberDTO.memberId}" id="id">-->
-<!--            <button th:onclick="followList()">followList</button>-->
+            <!--            <input type="text" th:value="${memberDTO.memberId}" id="id">-->
+            <!--            <button th:onclick="followList()">followList</button>-->
         </div>
     </div>
 
 
     <!-- 메인피드 구역 -->
     <div class="feedZone">
-<!--        <div style="overflow: hidden">-->
-<!--        <h1>메인피드 구역입니다.</h1>-->
-<!--        <a href="/member/updateForm">update</a>-->
-        <div class="contentsBody" th:each="boardFile : ${boardFile}" >
+        <!--        <div style="overflow: hidden">-->
+        <!--        <h1>메인피드 구역입니다.</h1>-->
+        <!--        <a href="/member/updateForm">update</a>-->
+        <div class="contentsBody" th:each="boardFile : ${boardFile}">
             <div th:if="${1 == boardFile.boardId}">
-                <img th:if="${boardFile.boardImgName != null}" class="contentsItem" th:src="@{|/upload/${boardFile.boardImgName}|}" th:style="'filter:' + ${boardFile.boardFilter}"  alt="">
-                <video th:if="${boardFile.boardVideoName != null}" class="contentsItem" th:src="@{|/upload/${boardFile.boardVideoName}|}" th:style="'filter:' + ${boardFile.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+                <img th:if="${boardFile.boardImgName != null}" class="contentsItem1"
+                     th:src="@{|/upload/${boardFile.boardImgName}|}" th:style="'filter:' + ${boardFile.boardFilter}"
+                     alt="">
+                <video th:if="${boardFile.boardVideoName != null}" class="contentsItem1"
+                       th:src="@{|/upload/${boardFile.boardVideoName}|}" th:style="'filter:' + ${boardFile.boardFilter}"
+                       alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
             </div>
         </div>
         <div th:each="board : ${boardList}">
@@ -329,32 +354,790 @@
                 <span th:text="${board.boardContents}"></span>
             </div>
         </div>
-<!--            </div>-->
-<!--        </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 
 
     <!-- 푸터 구역 -->
     <div class="footerZone">
-        <div class="footerItem" >
+        <div class="footerItem">
 
-            <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)" onclick="iconEffect(1)"></i>
-            <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)" onclick="iconEffect(2)"></i>
-            <i id="footerItem3" class="fi fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)" onclick="iconEffect(3)"></i>
+            <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)"
+               onclick="iconEffect(1)"></i>
+            <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)"
+               onclick="iconEffect(2)"></i>
+            <i id="footerItem3" class="fi fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)"
+               onclick="iconEffect(3)"></i>
             <i class="fi fa-solid fa-user"></i>
-            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),logoutChk()"></i>
-<!--            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),location.href='/logout'"></i>-->
+            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)"
+               onclick="iconEffect(4),logoutChk()"></i>
+            <!--            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)" onclick="iconEffect(4),location.href='/logout'"></i>-->
         </div>
     </div>
-
 
 
 </div>
 
 
+<!--게시글 모달 시작-->
+
+<style>
 
 
 
+    /*.modal-header {*/
+    /*    height: 50px;*/
+    /*    display: contents*/
+
+    /*}*/
+
+    .contentsBody {
+        width: 5000px;
+        /* height: 6000px; */
+    }
+
+    .mainBody1 {
+        margin: 20px 0 0 23px;
+    }
+
+    .contents {
+        /* margin-top: 30px; */
+        width: 420px;
+        height: 600px;
+        /* border: 1px solid rgb(221, 220, 220) ; */
+
+        /* border:gray solid 1px; */
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nextBtn {
+        /* color: gray; */
+        font-size: 30px;
+        text-align: right;
+        margin: 15px 0 0 0;
+        border: 0;
+        /* font-family: 'Dosis', sans-serif; */
+        /* display: block; */
+    }
+
+    .collapseBody {
+        /* border: 1px solid rgba(221, 220, 220,0) ; */
+        border: 1px solid rgb(221, 220, 220);
+        width: 300px;
+        height: 600px;
+        /*margin-top:30px ;*/
+    }
+
+
+    .filterItem {
+        width: 100px;
+        margin: 5px 0 0 30px;
+        border-radius: 4px;
+    }
+
+    .contentsItem {
+        margin: 0px;
+        width: 420px;
+        height: 600px;
+        /* border: solid 1px; */
+        /*width: 100vw;*/
+        float: left;
+    }
+
+    .filterTitle {
+        font-size: 20px;
+        margin: 30px 0 0 0px;
+        font-family: 'Poppins', sans-serif;
+
+    }
+
+    .filterZone {
+        margin-top: 15px;
+    }
+
+    .rangeZone {
+        margin-top: 25px;
+    }
+
+    .contentsHeader {
+        margin: 0px 0 0 0;
+    }
+
+    .text-form {
+        width: 300px;
+        height: 500px;
+    }
+
+    .sliderZone {
+        margin: 0px 15px 200px 0;
+    }
+
+    .btnReset {
+        background-color: transparent;
+        border: 0;
+    }
+
+    .btnPointer {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function sizeTest(i) {
+
+        let zone = document.getElementById("modal-content")
+        if (i == 0) {
+            console.log("test : 0")
+
+            document.getElementById("modalSize").className = "modal-dialog modal-lg"
+
+        } else {
+            console.log("test : 1")
+
+            function sizeS() {
+                document.getElementById("modalSize").className = "modal-dialog"
+            }
+
+            setTimeout(sizeS, 150)
+            count = 0
+        }
+    }
+
+    let classNum = 1;
+    let sliderNum = 0;
+    let test = 0;
+
+    function nextBtnEffect() {
+        document.getElementById('nextBtn').style.color = 'gray'
+
+        function reset() {
+            document.getElementById('nextBtn').style.color = 'black'
+        }
+
+        setTimeout(reset, 150)
+
+        nextPage()
+
+    }
+
+    function nextBtn2() {
+        $('#nextBtn2').trigger("click")
+    }
+
+    function nextBtn() {
+        $('#nextBtn').trigger("click")
+    }
+
+    let page = 0
+
+    function nextPage() {
+        sizeTest(0)
+        console.log("nextPage 호출 : " + page)
+        if (page == 0) {
+            document.getElementById("beforeBtn").removeAttribute("hidden")
+            page = 1
+        } else if (page == 1) {
+            document.getElementById("beforeBtn").removeAttribute("hidden")
+            document.getElementById("nextBtn").innerHTML = '<b>Save<b>'
+            setTimeout(nextBtn2, 200)
+            page = 2
+            // document.getElementById("nextBtn").removeAttribute("data-bs-toggle")
+            // document.getElementById("nextBtn2").removeAttribute("data-bs-toggle")
+        } else if (page == 2) {
+            alert("save 만들기")
+            document.getElementById("nextBtn").setAttribute("data-bs-toggle", "collapse")
+            // document.getElementById("nextBtn2").setAttribute("data-bs-toggle","collapse")
+        }
+    }
+
+    let beforeCount = 0
+
+    function beforeBtnEffect() {
+        if (page == 2) {
+            nextBtn2();
+            document.getElementById("nextBtn").innerHTML = '<b>Next<b>'
+
+            page = 1
+            // setTimeout(nextBtn,200)
+        } else if (page == 1) {
+            sizeTest(1)
+            document.getElementById("beforeBtn").setAttribute("hidden", "hidden")
+
+            page = 0
+        } else if (page == 0) {
+
+        }
+
+        // document.getElementById("beforeBtn").setAttribute("hidden","hidden")
+        // $('#beforeBtn').click()
+
+    }
+
+    function rightSlider() {
+        const boardFile = document.getElementById("boardFile").files;
+        if (document.getElementById("boardFile").value != "") {
+            if (sliderNum + 1 < boardFile.length) {
+                sliderNum++;
+            }
+            if (classNum < boardFile.length) {
+                classNum++;
+            }
+
+            let zz = -420;
+            for (let i = 0; i <= boardFile.length; i++) {
+                if (sliderNum == i) {
+                    document.querySelector('.contentsBody').style.transform = "translate(" + (zz * i) + "px)";
+                }
+            }
+        }
+    }
+
+    function leftSlider() {
+        if (document.getElementById("boardFile").value != "") {
+            if (sliderNum > 0) {
+                sliderNum--;
+            }
+            if (classNum > 1) {
+                classNum--;
+            }
+            let zz = -420;
+            for (let i = 0; i <= 10; i++) {
+                if (sliderNum == i) {
+                    document.querySelector('.contentsBody').style.transform = "translate(" + (zz * i) + "px)";
+
+                }
+            }
+        }
+    }
+
+    function filter(i) {
+        const boardFile = document.getElementById("boardFile").files;
+        console.log(boardFile);
+        if (boardFile.length == 0) {
+            alert("파일이 없습니다.");
+        } else {
+            let contentsItem = document.getElementById("contentsItem" + classNum);
+            let boardFilter0 = document.getElementById("boardFilter0");
+            let boardFilter = document.getElementById("boardFilter" + classNum);
+            let boardFilter1 = document.getElementById("boardFilter1");
+            let boardFilter2 = document.getElementById("boardFilter2");
+            let boardFilter3 = document.getElementById("boardFilter3");
+            let boardFilter4 = document.getElementById("boardFilter4");
+            let boardFilter5 = document.getElementById("boardFilter5");
+            let boardFilter6 = document.getElementById("boardFilter6");
+            let boardFilter7 = document.getElementById("boardFilter7");
+            let boardFilter8 = document.getElementById("boardFilter8");
+            let boardFilter9 = document.getElementById("boardFilter9");
+            let boardFilter10 = document.getElementById("boardFilter10");
+            console.log(boardFilter);
+            let a;
+            for (let i = 1; i <= classNum; i++) {
+                a = boardFilter;
+            }
+            if (i == "reset") {
+                contentsItem.style.filter = ""
+                if (classNum == classNum) {
+                    a.value = "" + ",";
+                }
+            } else if (i == "gray") {
+                contentsItem.style.filter = "grayscale(50)"
+                if (classNum == classNum) {
+                    a.value = "grayscale(50)" + ",";
+                }
+            } else if (i == "sepia") {
+                contentsItem.style.filter = "sepia(1)";
+                if (classNum == classNum) {
+                    a.value = "sepia(1)" + ",";
+                }
+            } else if (i == "contrast") {
+                contentsItem.style.filter = "contrast(1.5)";
+                if (classNum == classNum) {
+                    a.value = "contrast(1.5)" + ",";
+                }
+            } else if (i == "brightness") {
+                contentsItem.style.filter = "brightness(1.3)"
+                if (classNum == classNum) {
+                    a.value = "brightness(1.3)" + ",";
+                }
+            } else if (i == "invert") {
+                contentsItem.style.filter = "invert(1)"
+                if (classNum == classNum) {
+                    a.value = "invert(1)" + ",";
+                }
+            }
+            boardFilter0.value = boardFilter1.value + boardFilter2.value + boardFilter3.value + boardFilter4.value + boardFilter5.value + boardFilter6.value + boardFilter7.value + boardFilter8.value + boardFilter9.value + boardFilter10.value;
+        }
+    }
+
+
+    function range(i) {
+        let val1 = document.getElementById("Range1").value
+        let val2 = document.getElementById("Range2").value
+        let val3 = document.getElementById("Range3").value
+        let item = document.getElementById("contentsItem" + classNum)
+        let boardFilter0 = document.getElementById("boardFilter0");
+        let boardFilter = document.getElementById("boardFilter" + classNum);
+        let boardFilter1 = document.getElementById("boardFilter1");
+        let boardFilter2 = document.getElementById("boardFilter2");
+        let boardFilter3 = document.getElementById("boardFilter3");
+        let boardFilter4 = document.getElementById("boardFilter4");
+        let boardFilter5 = document.getElementById("boardFilter5");
+        let boardFilter6 = document.getElementById("boardFilter6");
+        let boardFilter7 = document.getElementById("boardFilter7");
+        let boardFilter8 = document.getElementById("boardFilter8");
+        let boardFilter9 = document.getElementById("boardFilter9");
+        let boardFilter10 = document.getElementById("boardFilter10");
+        console.log(boardFilter);
+        let a;
+        for (let i = 1; i <= classNum; i++) {
+            a = boardFilter;
+        }
+        if (i == "contrast") {
+            item.style.filter = "contrast(" + val1 + "%)";
+            if (classNum == classNum) {
+                a.value = "contrast(" + val1 + "%)" + ",";
+            }
+        } else if (i == "saturate") {
+            item.style.filter = "saturate(" + val2 + "%)";
+            if (classNum == classNum) {
+                a.value = "saturate(" + val2 + "%)" + ",";
+            }
+        } else if (i == "Brightness") {
+            item.style.filter = "Brightness(" + val3 + "%)";
+            if (classNum == classNum) {
+                a.value = "Brightness(" + val3 + "%)" + ",";
+            }
+        }
+        boardFilter0.value = boardFilter1.value + boardFilter2.value + boardFilter3.value + boardFilter4.value + boardFilter5.value + boardFilter6.value + boardFilter7.value + boardFilter8.value + boardFilter9.value + boardFilter10.value;
+    }
+</script>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div id="modalSize" class="modal-dialog">
+        <!-- <div class="modal-content" id="modal-content" style="height:770px" > -->
+        <div class="modal-content" id="modal-content" style="height:770px" >
+            <div class="modal-header" style=" height: 50px;
+        display: contents">
+                <!-- contents header 구역 -->
+                <div id="contentsHeader" class="contentsHeader row" >
+                    <!-- <div id="contentsHeader" class="row" > -->
+                    <div class="col" style="height: 50px;">
+                        <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()" class="fa-solid fa-arrow-left" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true" aria-controls="collapseWidthExample"  style="font-size:35px ; margin: 25px 0 0 20px;"></i>
+                    </div>
+
+                    <div class="col" style="text-align: right;height: 50px">
+                        <p  onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn"  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true" aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden"><b>Next</b></p>
+                    </div>
+                    <button style="margin:5px 5px 0 0;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button>
+
+                </div>
+
+            </div>
+            <div class="modal-body">
+
+                <div id="nextBtn2" name="nextBtn2" class=""  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="true" aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden><b>Next</b></div>
+                <!-- 여기서 테스트 하세요 -->
+
+                <form action="/board/fileSave" method="post" enctype="multipart/form-data">
+                    <div>
+                        <input type="file" id="boardFile" name="boardFile" onsubmit="return false;" onchange="uploadImgPreview(this);" multiple hidden>
+                        <input type="submit" value="버튼" hidden>
+                        <input type="hidden" value="'','','','','','','','','',''," id="boardFilter0" name="boardFilter">
+                        <input type="hidden" value="''," id="boardFilter1">
+                        <input type="hidden" value="''," id="boardFilter2">
+                        <input type="hidden" value="''," id="boardFilter3">
+                        <input type="hidden" value="''," id="boardFilter4">
+                        <input type="hidden" value="''," id="boardFilter5">
+                        <input type="hidden" value="''," id="boardFilter6">
+                        <input type="hidden" value="''," id="boardFilter7">
+                        <input type="hidden" value="''," id="boardFilter8">
+                        <input type="hidden" value="''," id="boardFilter9">
+                        <input type="hidden" value="''," id="boardFilter10">
+                    </div>
+
+                    <!-- 여기까지 테스트 -->
+                    <div class="input-group mainBody1">
+
+
+                        <!-- contents 구역 -->
+                        <div id="contents" class="contents">
+
+
+
+                            <!-- contents body 구역 -->
+                            <div style="overflow: hidden">
+                                <div id="contentsBody" class="contentsBody">
+
+                                    <!-- 사진 선택 버튼 -->
+                                    <div id="imgBtnZone" style="padding: 0;margin: 0;height: 0;">
+                                        <label for="filePlus" class="btnPointer"><i id="imgBtn" onclick="imgBtnEffect()" name="imgBtn" class="fa-regular fa-file-image" style="color:#0d6efd;font-size: 70px;position:absolute ;top:40%;left:40%"></i></label></button>
+                                        <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">사진을 선택해주세요.</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <script>
+
+                                function valuetest(){
+                                    let val=document.getElementById("boardFile").value
+                                    console.log("val : "+val)
+                                    if(val==""){
+                                        alert("파일 없음")
+                                    }else{
+                                        document.getElementById("nextBtn").removeAttribute("hidden")
+                                        document.getElementById("addBtn").removeAttribute("hidden")
+                                        document.getElementById("imgBtnZone").setAttribute("hidden","hidden")
+
+                                    }
+                                }
+                                function imgBtnEffect(){
+                                    let imgBtn=document.getElementById("imgBtn")
+                                    imgBtn.style.color="gray"
+                                    imgBtn.style.fontSize="65px"
+
+                                    setTimeout(reset,150)
+                                    function reset(){
+                                        imgBtn.style.color="#0d6efd"
+                                        imgBtn.style.fontSize="70px"
+                                    }
+                                }
+
+
+                            </script>
+
+
+                        </div>
+
+
+                        <!-- collapse 구역 -->
+                        <div class="collapse-horizontal collapse" id="collapseWidthExample">
+
+                            <div class="collapseBody">
+                                <div class="filterZone">
+                                    <!-- 필터 버튼 구역 -->
+                                    <table>
+                                        <tr>
+                                            <td ><img onclick="filter('reset')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt=""></td>
+                                            <td ><img onclick="filter('gray')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:grayscale(50)"></td>
+                                        </tr>
+                                        <tr>
+                                            <td ><img onclick="filter('sepia')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:sepia(1)"></td>
+                                            <td ><img onclick="filter('contrast')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:contrast(1.5)"></td>
+                                        </tr>
+                                        <tr>
+                                            <td ><img onclick="filter('brightness')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:brightness(1.3) ;"></td>
+                                            <td ><img onclick="filter('invert')" id="invert" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:invert(1)"></td>
+                                        </tr>
+
+                                    </table>
+
+                                    <!-- 필터 레인지 구역 -->
+                                    <div class="rangeZone">
+                                        <div id="filterContrast" style="text-align: center;" >
+                                            <p class="filterTitle">Contrast</p>
+                                            <input type="range" class="slider_range" id="Range1" style="width:80%;" oninput="range('contrast')" min="100" max="300" value="100">
+                                        </div>
+
+                                        <div id="filterSaturate" style="text-align: center;" >
+                                            <p class="filterTitle">Saturate</p>
+                                            <input type="range" class="slider_range" id="Range2" style="width:80%;" oninput="range('saturate')" min="0" max="200" value="100">
+                                        </div>
+
+                                        <div id="filterBrightness" style="text-align: center;" >
+                                            <p class="filterTitle">Brightness</p>
+                                            <input type="range" class="slider_range" id="Range3" style="width:80%;" oninput="range('Brightness')" min="0" max="200" value="100">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="collapse-horizontal collapse" id="collapseWidthExample2">
+                            <div class="collapseBody">
+                                <div class="filterZone">
+                                    <div style="text-align: center">
+                                        <textarea class="text-form"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </form>
+                <!--슬라이더버튼-->
+                <!-- <button onclick="leftSlider()">앞으로</button>
+                <button onclick="rightSlider()">뒤로</button> -->
+                <!--파일추가 할 인풋창-->
+                <input type="file" name="filePlus" id="filePlus" onsubmit="return false;" onchange="plus(this)" multiple hidden>
+
+
+
+
+
+
+
+
+
+
+
+
+                <script>
+                    let num = 0;
+
+                    function uploadImgPreview(obj) {
+                        console.log(obj);
+                        var maxFileCnt = 10;   // 첨부파일 최대 개수
+                        var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
+                        var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+                        var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
+
+
+                        document.querySelector("[id=contentsBody]").innerHTML = null;
+                        if (curFileCnt > remainFileCnt) {
+                            alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+                            document.querySelector("input[type=file]").value = "";
+                        } else {
+                            const boardFile = document.getElementById("boardFile").files;
+                            if (boardFile[0] == null) {
+                                alert("파일이 없습니다.");
+                            } else {
+                                for (const f of obj.files) {
+                                    validation(f)
+                                }
+
+                            }
+                            num = 0
+                        }
+                    }
+                    function uploadImgPreview1(obj) {
+                        const boardFile = document.getElementById("boardFile");
+                        var maxFileCnt = 10;   // 첨부파일 최대 개수
+                        var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
+                        var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+                        var curFileCnt = boardFile.files.length;  // 현재 선택된 첨부파일 개수
+
+                        if (curFileCnt > remainFileCnt) {
+                            alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+                            document.querySelector("input[type=file]").value = "";
+                        } else {
+                            const boardFile = document.getElementById("boardFile").files;
+                            if (boardFile[0] == null) {
+                                alert("파일이 없습니다.");
+                            } else {
+                                for (const f of obj.files) {
+                                    validation(f)
+                                }
+
+                            }
+
+                        }
+                    }
+                    function validation(obj){
+                        console.log(obj);
+                        let fileList = document.getElementById("boardFile").files;
+                        const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'video/mp4' ,'application/haansofthwp', 'application/x-hwp'];
+                        for (let i = 0; i < fileList.length; i++){
+                            if (fileList[i].name.length > 100) {
+                                alert("파일명이 100자 이상인" + fileList[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=boardFile]").value = "";
+                                return false;
+                            }
+                            else if (fileList[i].size > (100 * 1024 * 1024)) {
+                                alert("최대 파일 용량인 100MB를 초과한" + fileList[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=boardFile]").value = "";
+                                return false;
+                            }
+                            else if (fileList[i].name.lastIndexOf('.') == -1) {
+                                alert("확장자가 없는" + fileList[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=boardFile]").value = "";
+                                return false;
+                            }
+                            else if (!fileTypes.includes(fileList[i].type)) {
+                                alert("첨부가 불가능한" + fileList[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=boardFile]").value = "";
+                                return false;
+                            }
+                        }
+
+                        setTimeout(function () {
+                            if (fileList[0] == obj) {
+                                uploadFile(obj);
+                            }
+                        },);
+                        setTimeout(function () {
+                            if (fileList[1] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 350);
+                        setTimeout(function () {
+                            if (fileList[2] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 700);
+                        setTimeout(function () {
+                            if (fileList[3] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 1050);
+                        setTimeout(function () {
+                            if (fileList[4] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 1400);
+                        setTimeout(function () {
+                            if (fileList[5] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 1750);
+                        setTimeout(function () {
+                            if (fileList[6] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 2100);
+                        setTimeout(function () {
+                            if (fileList[7] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 2450);
+                        setTimeout(function () {
+                            if (fileList[8] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 2800);
+                        setTimeout(function () {
+                            if (fileList[9] == obj) {
+                                uploadFile(obj);
+                            }
+                        }, 3150);
+                        return true;
+                    }
+
+
+                    function uploadFile (obj) {
+                        const fileTypes2 = ['image/gif', 'image/jpeg', 'image/png'];
+                        const fileTypes3 = ['video/mp4'];
+                        const fileTypes4 = ['image/gif', 'image/jpeg', 'image/png', 'video/mp4'];
+                        if (fileTypes4.includes(obj.type)) {
+                            let reader = new FileReader();
+                            reader.addEventListener("load", function () {
+                                if (fileTypes2.includes(obj.type)) {
+                                    let image = new Image();
+
+                                    num += 1;
+
+                                    image.src = this.result;
+
+
+                                    image.id = "contentsItem" + num;
+
+                                    image.className = "contentsItem";
+
+
+                                    document.getElementById("contentsBody").appendChild(image);
+                                } else if (fileTypes3.includes(obj.type)) {
+                                    let video = document.createElement("video");
+                                    num += 1;
+                                    video.setAttribute("src", this.result);
+                                    // video.setAttribute("controls", "controls");
+                                    video.setAttribute("autoplay", "autoplay");
+                                    video.setAttribute("id", "contentsItem" + num);
+                                    video.setAttribute("class", "contentsItem");
+                                    video.setAttribute("loop", "loop");
+                                    document.getElementById("contentsBody").appendChild(video);
+                                }
+
+                            });
+                            if (obj) {
+                                valuetest()
+                                if(document.getElementById("boardFile").files.length>=2){
+                                    document.getElementById("slideBtnZone").removeAttribute("hidden")}
+                                reader.readAsDataURL(obj);
+                            }
+
+
+                        }
+                    }
+
+
+
+                    function plus (obj) {
+                        const files1 = document.querySelector('#filePlus').files;
+                        const files = document.querySelector('#boardFile').files;
+                        const dataTranster = new DataTransfer();
+                        const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'video/mp4' ,'application/haansofthwp', 'application/x-hwp'];
+                        for (let i = 0; i < files1.length; i++){
+                            if (files1[i].name.length > 100) {
+                                alert("파일명이 100자 이상인" + files1[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=filePlus]").value = "";
+                                return false;
+                            }
+                            else if (files1[i].size > (100 * 1024 * 1024)) {
+                                alert("최대 파일 용량인 100MB를 초과한" + files1[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=filePlus]").value = "";
+                                return false;
+                            }
+                            else if (files1[i].name.lastIndexOf('.') == -1) {
+                                alert("확장자가 없는" + files1[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=filePlus]").value = "";
+                                return false;
+                            }
+                            else if (!fileTypes.includes(files1[i].type)) {
+                                alert("첨부가 불가능한" + files1[i].name + "파일이 있습니다.");
+                                document.querySelector("input[id=filePlus]").value = "";
+                                return false;
+                            }
+                        }
+                        Array.from(files)
+                            .forEach(file => {
+                                dataTranster.items.add(file);
+                            });
+                        Array.from(files1)
+                            .forEach(file => {
+                                dataTranster.items.add(file);
+                            });
+                        document.querySelector('#boardFile').files = dataTranster.files;
+                        uploadImgPreview1(obj);
+
+                    }</script>
+
+            </div>
+            <div class="modal-footer row" style="padding:0;margin: 0;height:70px;">
+                <div class="col slideBtnZone" style="height: 50px;" id="slideBtnZone" hidden>
+                    <i id="leftBtn" onclick="leftSlider()" style="margin-top: 5px;font-size: 35px;" class="sliderZone fa-regular fa-circle-left btnPointer"></i>
+                    <i id="rightBtn" onclick="rightSlider()" style="margin-top:5px; font-size: 35px;" class="sliderZone fa-regular fa-circle-right btnPointer"></i>
+                </div>
+                <div class="col" id="addBtnZone" style="height:50px; text-align: right; margin-top:10px">
+                    <label for="filePlus"><i id="addBtn" onclick="addBtnEffect()" name="addBtn" class="fa-regular fa-clone btnPointer" style="font-size:30px" hidden></i></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function addBtnEffect(){
+        let btn=document.getElementById("addBtn")
+        btn.className="fa-solid fa-clone"
+        function reset(){
+            btn.className="fa-regular fa-clone"
+        }
+        setTimeout(reset,150)
+
+    }
+</script>
+
+<!--게시글 모달 끝-->
 
 
 </body>
@@ -363,51 +1146,17 @@
     $.ajax({
         type: "post",
         url: "/comment/save",
-        data: {"commentWriter":commentWriter,"commentContents":commentContents,"productId":productId,"memberId":memberId},
+        data: {
+            "commentWriter": commentWriter,
+            "commentContents": commentContents,
+            "productId": productId,
+            "memberId": memberId
+        },
         dataType: "json",
-        success: function(result){
+        success: function (result) {
 
         },
     });
-    // $.ajax({
-    //     type: "post",
-    //     url: "/comment/save",
-    //     data: {"commentWriter":commentWriter,"commentContents":commentContents,"productId":productId,"memberId":memberId},
-    //     dataType: "json",
-    //     success: function(result){
-    //         const a = "삭제";
-    //         let output = "<table class='table'>";
-    //         output += "<tr><th>댓글번호</th>";
-    //         output += "<th>작성자</th>";
-    //         output += "<th>내용</th>";
-    //         output += "<th>작성시간</th></tr>";
-    //         for(let i in result){
-    //             output += "<tr>";
-    //             output += "<td>"+result[i].id+"</td>";
-    //             output += "<td>"+result[i].commentWriter+"</td>";
-    //             output += "<td id='contents" + result[i].id + "'>" + result[i].commentContents+"</td>";
-    //             output += "<td>"+moment(result[i].commentDate).format("YYYY-MM-DD HH:mm:ss")+"</td>";
-    //             if(member == result[i].commentWriter){
-    //                 output += "<td>" + "<a href='/comment/delete?productId=" + productId + "&id=" + result[i].id + "'>" + a + "</a>"+"</td>";
-    //                 output += "<td id='updateBTN" + result[i].id  + "'>" + "<a href='javascript:void(0)' onclick='aaa3(" + result[i].id + ")'>" + "수정" + "</a>"+"</td>";
-    //                 <%--<td id="updateBTN${comment.id}"><a href="javascript:void(0)" onclick="aaa3(${comment.id})">수정</a></td>--%>
-    //             }else if(member == 'admin'){
-    //                 output += "<td>" + "<a href='/comment/delete?productId=" + productId + "&id=" + result[i].id + "'>" + a + "</a>"+"</td>";
-    //                 output += "<td></td>";
-    //             }else{
-    //                 output += "<td></td>";
-    //                 output += "<td></td>";
-    //             }
-    //             output += "<td>" + "<a href='javascript:void(0)' onclick='hitsCheck(" + result[i].id + ")'>" + "<span id='aa'>" + "좋아요" + result[i].commentHits + "</span>" + "</a>" + "</td>";
-    //             output += "</tr>";
-    //         }
-    //         output += "</table>";
-    //         document.getElementById('comment-list').innerHTML = output;
-    //         document.getElementById('commentContents').value='';
-    //     },
-    //     error: function () {
-    //         alert("틀림");
-    //     }
-    // });
+
 </script>
 </html>
