@@ -19,15 +19,12 @@ public class FollowService {
     private final MemberRepository memberRepository;
 
     //테스트코드 사용중
-    public Long save(FollowDTO followDTO,String myId) {
+    public void save(FollowDTO followDTO,String myId) {
         Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(followDTO.getMyId());
         if(optionalMemberEntity.isPresent()){
             MemberEntity memberEntity=optionalMemberEntity.get();
             FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity,myId);
             Long savedId= followRepository.save(followEntity).getId();
-            return savedId;
-        }else{
-            return null;
         }
     }
 

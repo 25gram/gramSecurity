@@ -24,7 +24,7 @@ public class FollowController {
     @PostMapping("/request")
     public @ResponseBody List<FollowDTO> request_fw(FollowDTO followDTO, Principal principal,Model model) {
         String myId=principal.getName();
-        Long id= followService.save(followDTO,myId);
+       followService.save(followDTO,myId);
         return null;
     }
 

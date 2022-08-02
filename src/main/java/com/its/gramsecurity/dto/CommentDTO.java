@@ -27,7 +27,6 @@ public class CommentDTO {
     public static CommentDTO toSaveDTO(CommentEntity commentEntity){
         CommentDTO commentDTO=new CommentDTO();
         commentDTO.setId(commentEntity.getId());
-        commentDTO.setBoardId(commentEntity.getBoardId());
         commentDTO.setCommentWriter(commentEntity.getCommentWriter());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
         return commentDTO;
