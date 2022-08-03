@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contents/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/board/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/comment/**").access("hasRole('ROLE_USER')")
-                .antMatchers("follow/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/follow/**").access("hasRole('ROLE_USER')")
 //                .antMatchers("/main/").permitAll()
                 .antMatchers("/home/**").permitAll()
                 .and()

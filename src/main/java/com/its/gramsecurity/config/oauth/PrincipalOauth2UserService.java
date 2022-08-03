@@ -37,8 +37,10 @@ private final HttpSession httpSession;
         String memberId=provider+"_"+providerId;
         String memberPassword = oAuth2User.getAttribute("memberPassword");
         String memberEmail=oAuth2User.getAttribute("email");
+        String memberName= oAuth2User.getAttribute("name");
         String role ="ROLE_USER";
-
+        System.out.println("PrincipalOauth2UserService.loadUser");
+        System.out.println("memberName = " + memberName);
         MemberDTO memberDTO=new MemberDTO();
         Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
         if (optionalMemberEntity.isPresent()){
@@ -50,6 +52,7 @@ private final HttpSession httpSession;
                     .memberId(memberId)
                     .memberPassword(memberPassword)
                     .memberEmail(memberEmail)
+                    .memberName(memberName)
                     .role(role)
                     .provider(provider)
                     .providerId(providerId)
