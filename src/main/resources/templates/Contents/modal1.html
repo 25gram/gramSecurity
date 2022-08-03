@@ -26,12 +26,6 @@
 
 
 
-    <script>
-
-
-    </script>
-
-
 
     <style>
         .col{
@@ -180,7 +174,7 @@
                 document.getElementById("nextBtn").innerHTML='<b>Save<b>'
                 setTimeout(nextBtn2,200)
                 page=2
-                document.getElementById("nextBtn").removeAttribute("data-bs-toggle")
+                // document.getElementById("nextBtn").removeAttribute("data-bs-toggle")
                 // document.getElementById("nextBtn2").removeAttribute("data-bs-toggle")
             }else if(page==2){
                 alert("save 만들기")
@@ -373,7 +367,7 @@
                     </div>
 
                     <div class="col" style="text-align: right;">
-                        <p  onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn"  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true" aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden><b>Next</b></p>
+                        <p  onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn"  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true" aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden"><b>Next</b></p>
                     </div>
                     <button style="margin:5px 5px 0 0;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cancelFile()"></button>
 
@@ -533,7 +527,7 @@
 
 
 
-</body>
+
 <script>
     let num = 0;
 
@@ -755,7 +749,7 @@
 
 </div>
 <div class="modal-footer row" style="padding:0;margin: 0;height:70px;">
-    <div class="col" class="slideBtnZone" id="slideBtnZone" hidden>
+    <div class="col slideBtnZone" id="slideBtnZone" hidden>
         <i id="leftBtn" onclick="leftSlider()" style="margin-top: 5px;font-size: 35px;" class="sliderZone fa-regular fa-circle-left btnPointer"></i>
         <i id="rightBtn" onclick="rightSlider()" style="margin-top:5px; font-size: 35px;" class="sliderZone fa-regular fa-circle-right btnPointer"></i>
     </div>

@@ -24,7 +24,7 @@ public class FollowController {
     @PostMapping("/request")
     public @ResponseBody List<FollowDTO> request_fw(FollowDTO followDTO, Principal principal,Model model) {
         String myId=principal.getName();
-        Long id= followService.save(followDTO,myId);
+       followService.save(followDTO,myId);
         return null;
     }
 
@@ -39,7 +39,7 @@ public class FollowController {
     //팔로우 리스트
     @GetMapping("/myList")
     public @ResponseBody String follow(@RequestParam("myId") String myId, Model model) {
-        List<Optional<FollowEntity>> followDTOList = followService.findAllByMyId(myId);
+        List<FollowDTO> followDTOList = followService.findAllByMyId(myId);
         model.addAttribute("followList", followDTOList);
         System.out.println("myId = " + myId + ", model = " + model);
         return null;
@@ -48,15 +48,14 @@ public class FollowController {
     //팔로잉 리스트
     @GetMapping("/yourList")
     public @ResponseBody String following(@RequestParam("yourId") String yourId, Model model) {
-        List<Optional<FollowEntity>> followingDTOList = followService.findAllByYourId(yourId);
+        List<FollowDTO> followingDTOList = followService.findAllByYourId(yourId);
         model.addAttribute("followingList", followingDTOList);
         System.out.println("yourId = " + yourId + ", model = " + model);
         return null;
     }
 
     //언팔로우
-    @DeleteMapping("/")
-    public ResponseEntity UnFollow(@PathVariable Long id) {
+    @DeleteMapping("/")   public ResponseEntity UnFollow(@PathVariable Long id) {
         followService.UnFollow(id);
 //        return new ResponseEntity<>(HttpStatus.OK);
         return null;

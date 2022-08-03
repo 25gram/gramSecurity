@@ -1,13 +1,9 @@
 package com.its.gramsecurity.controller;
 
-import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

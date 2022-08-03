@@ -22,23 +22,26 @@ public class CommentService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-//    public void save(CommentDTO commentDTO) {
-//        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(commentDTO.getCommentWriter());
-//        Optional<BoardEntity>optionalBoardEntity=boardRepository.findByBoardId(commentDTO.getBoardId());
-//        if(optionalMemberEntity.isPresent() && optionalMemberEntity.isPresent()){
-//            MemberEntity memberEntity=optionalMemberEntity.get();
-//            BoardEntity boardEntity=optionalBoardEntity.get();
-//            CommentEntity commentEntity=CommentEntity.toSaveEntity(commentDTO,memberEntity,boardEntity);
-//            commentRepository.save(commentEntity);
-//        }
-//
-//    }
-//
-//    public List<Optional<CommentEntity>> findAll(Long boardId) {
-//        List<Optional<CommentEntity>>commentEntityList=commentRepository.findByBoardId(boardId);
-//        List<Optional<CommentEntity>>commentDTOList=new ArrayList<>();
-//        for(Optional<CommentEntity> commentEntity : commentEntityList){
-//            commentDTOList.add(commentEntity);
-//        }return commentDTOList;
-//    }
+    public void save(CommentDTO commentDTO,String memberId) {
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
+        Optional<BoardEntity>optionalBoardEntity=boardRepository.findById(commentDTO.getBoardId());
+        if(optionalMemberEntity.isPresent() && optionalBoardEntity.isPresent()){
+            MemberEntity memberEntity=optionalMemberEntity.get();
+            BoardEntity boardEntity=optionalBoardEntity.get();
+            CommentEntity commentEntity=CommentEntity.toSaveEntity(commentDTO,memberEntity,boardEntity);
+            commentRepository.save(commentEntity);
+        }
+
+    }
+
+    public List<CommentDTO> findAll(Long boardId) {
+        System.out.println("CommentService.findAll");
+        List<CommentEntity>commentEntityList=commentRepository.findAllById(boardId);
+        List<CommentDTO>commentDTOList=new ArrayList<>();
+        System.out.println("commentEntityList = " + commentEntityList);
+        for(CommentEntity commentEntity : commentEntityList){
+            commentDTOList.add(CommentDTO.toSaveDTO(commentEntity));
+            System.out.println("commentEntity = " + commentEntity);
+        }return commentDTOList;
+    }
 }

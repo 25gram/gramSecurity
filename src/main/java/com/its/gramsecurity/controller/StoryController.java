@@ -26,7 +26,7 @@ public class StoryController {
         model.addAttribute("memberId", memberId);
         List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
         model.addAttribute("storyList", storyDTOList);
-        return "storyIndex";
+        return "storyPages/test3";
     }
     @GetMapping("/myStory")
     public String findByMemberId(Model model) {
