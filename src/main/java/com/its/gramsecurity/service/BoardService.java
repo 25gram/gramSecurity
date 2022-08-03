@@ -36,7 +36,7 @@ public class BoardService {
         String fileName = boardFile.getOriginalFilename();
         String ext = fileName.substring(fileName.lastIndexOf(".")+1);
         System.out.println(fileDTO.getId());
-        final String[] a = {"jpg","png"};
+        final String[] a = {"jpeg","jpg","png"};
         int len = a.length;
         final String[] b = {"mp4"};
         int len1 = b.length;
