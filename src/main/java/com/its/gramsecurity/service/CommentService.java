@@ -34,13 +34,13 @@ public class CommentService {
 
     }
 
-    public List<Optional<CommentEntity>> findAll(Long boardId) {
+    public List<CommentDTO> findAll(Long boardId) {
         System.out.println("CommentService.findAll");
-        List<Optional<CommentEntity>>commentEntityList=commentRepository.findAllById(boardId);
-        List<Optional<CommentEntity>>commentDTOList=new ArrayList<>();
+        List<CommentEntity>commentEntityList=commentRepository.findAllById(boardId);
+        List<CommentDTO>commentDTOList=new ArrayList<>();
         System.out.println("commentEntityList = " + commentEntityList);
-        for(Optional<CommentEntity> commentEntity : commentEntityList){
-            commentDTOList.add(commentEntity);
+        for(CommentEntity commentEntity : commentEntityList){
+            commentDTOList.add(CommentDTO.toSaveDTO(commentEntity));
             System.out.println("commentEntity = " + commentEntity);
         }return commentDTOList;
     }

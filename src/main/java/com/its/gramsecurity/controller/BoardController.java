@@ -32,7 +32,7 @@ public class BoardController {
                            @RequestParam("boardFilter") String boardFilter,
                            MultipartHttpServletRequest mp,Principal principal,
                            Model model) throws IOException {
-        String memberId=principal.getName();
+        String memberId= principal.getName();
         BoardDTO saveDTO = boardService.fileSave(boardDTO, memberId);
         List<MultipartFile> multipartFileList = mp.getFiles("boardFile");
         List<BoardFileDTO> fileDTOList = new ArrayList<>();

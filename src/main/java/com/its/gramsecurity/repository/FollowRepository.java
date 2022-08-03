@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface FollowRepository extends JpaRepository<FollowEntity,Long> {
 
 
-    List<Optional<FollowEntity>> findAllByMyId(String myId);
+    List<FollowEntity> findAllByMyId(String myId);
 
-    List<Optional<FollowEntity>> findAllByYourId(String yourId);
+    List<FollowEntity> findAllByYourId(String yourId);
 }
