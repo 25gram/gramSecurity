@@ -41,7 +41,7 @@
             width: 100%;
             height: 50px;
             position: absolute;
-            z-index: 11;
+            z-index: 6111;
         }
         .editMenu {
             width: 200px;
@@ -63,9 +63,9 @@
         .closeDiv {
             width: 30px;
             height: 30px;
-            position: fixed;
+            position: relative;
             top: 50px;
-            right: 30%;
+            left: 95%;
         }
         .filePreview {
             width: 100%;
@@ -78,19 +78,25 @@
             z-index: 11;
         }
         .inputFileBtn {
+            width: 250px;
             position: absolute;
             top: 5px;
             left: 10px;
         }
+        #upImgFiles {
+            width: 100%;
+        }
 
         .editMenu5 {
+            text-align: center;
+            padding-top: 10px;
             border-radius: 50%;
             background-color: white;
             width: 40px;
             height: 40px;
             position: absolute;
-            right: 10px;
-            bottom: 50px;
+            top: 660px;
+            right: 20px;
             display: none;
         }
 
@@ -218,7 +224,7 @@
             padding-bottom: 0;
             height: 624px;
             position: relative;
-            z-index: 20;
+            z-index: 21;
         }
         .slideUp
         {
@@ -245,6 +251,7 @@
             text-align: center;
             width: 370px;
             margin-bottom: 4rem;
+
         }
         .addFileLabel {
             border: 1px solid white;
@@ -273,13 +280,242 @@
             z-index: 6111;
         }
         .linkDiv {
+            padding-top: 30px;
+            text-align: center;
+            color: whitesmoke;
             width: 100%;
             height: 100%;
             position: absolute;
-            z-index: 5100;
+            z-index: 7100;
             display: none;
         }
+        #siteLink {
+            color: whitesmoke;
+            width: 100%;
+            background-color: transparent;
+            border: 0;
+            border-bottom: 1px solid lightgrey;
+        }
+        input::placeholder {
+            color: darkgray;
+        }
+        .returnLeft {
+            background-color: transparent;
+            border: 0;
+            color: whitesmoke;
+            font-weight: 700;
+            margin-right: 30%;
+        }
+        .inputLink {
+            width: 25%;
+            color: blue;
+            background-color: white;
+            border: 0;
+            font-weight: 700;
+            font-size: 20px;
+            position: absolute;
+            top: 100px;
+            z-index: 6900;
+            display: none;
+        }
+        input:focus {outline:none;}
+        #stickerDiv {
+            color: whitesmoke;
+            display: none;
+            text-align: left;
+        }
+        #stickerInput {
+            color: whitesmoke;
+            width: 100%;
+            background-color: transparent;
+            border: 0;
+            border-bottom: 1px solid lightgrey;
+        }
+        #todayDiv {
+            color: blue;
+            background-color: white;
+            position: absolute;
+            top: 100px;
+            left: 30%;
+            z-index: 6900;
+            display: none;
 
+        }
+        .questionDiv {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 40%;
+            display: none;
+
+        }
+        .input-box {
+            width: 70%;
+            height: 100%;
+            background-color: white;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding-top: 10%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        #question2 {
+            background-color: transparent;
+            border: 0;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 20px;
+            text-align: center;
+        }
+        #answer {
+            width: 90%;
+            height: 40px;
+            margin: 5px;
+            background-color: lightgrey;
+            border: 0;
+            border-radius: 7px;
+        }
+        #circleLogo {
+            background-color: skyblue;
+            border: 1px solid lightgrey;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            top: -20%;
+            left: 45%;
+        }
+        .logoImg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        .questionGroup {
+            width: 100%;
+            height: 100%;
+            border-radius: 3%;
+            position: absolute;
+            z-index: 12;
+        }
+        .endClose {
+            width: 100%;
+            padding-left: 90%;
+            display: none;
+        }
+        .surveyDiv {
+            width: 70%;
+            height: 100%;
+            background-color: white;
+            border: 0px solid transparent;
+            border-radius: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .survey-group {
+            width: 100%;
+            height: 30%;
+            position: absolute;
+            top: 30%;
+            display: none;
+        }
+        #question {
+            color: white;
+            margin: 0 auto 20px auto;
+            padding: 0;
+            background-color: black;
+            border: 0;
+            width: 100%;
+            font-weight: 700;
+            font-size: 20px;
+            text-align: center;
+        }
+        #question.survey{
+            border-radius: 0;
+        }
+        .survey {
+            width: 90%;
+            height: 40px;
+            margin: 5px;
+            background-color: lightgrey;
+            border: 0;            border-radius: 10px;
+        }
+        .quiz-group {
+            width: 54%;
+            height: 23%;
+            position: absolute;
+            top: 30%;
+            background-color: white;
+            border: 0;
+            border-radius: 10px;
+            margin-left: 23%;
+
+        }
+        .shapeBtn {
+            width: 100%;
+            height: 40px;
+            border: 1px solid darkgrey;
+            border-radius: 15px;
+            margin-top: 20px;
+            background-color: transparent;
+        }
+        .quizDiv {
+            height: 100%;
+            text-align: center;
+        }
+        .shapeQuestion {
+            width: 100%;
+            height: 40px;
+            background-color: black;
+        }
+        .quiz {
+            text-align: center;
+            color: white;
+            width: 100%;
+            height: 40px;
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+        }
+        .quizIco {
+            color: #343a40;
+            font-weight: 700;
+            background-color: white;
+            border: 1px solid darkgrey;
+            border-radius: 50%;
+            text-align: center;
+            width: 20px;
+            height: 20px;
+            float: left;
+            margin-top: 9px;
+            margin-left: 4px;
+        }
+        .option {
+            width: 85%;
+            height: 100%;
+            border: 0;
+            border-radius: 15px;
+            padding: 0;
+            background-color: transparent;
+        }
+        .optionDiv {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input {
+            outline: none;
+        }
+        #shapeBtn3 {
+            border: 0;
+        }
+        #shapeBtn4 {
+            border: 0;
+        }
 
 
     </style>
@@ -294,113 +530,165 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Hi+Melody&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&family=Noto+Serif+KR:wght@200&family=Single+Day&display=swap" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"></head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
+</head>
 <body>
-    <div class="closeDiv">
-    <button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
-    </div>
-    <div class="saveBox" id="saveBox">
-        <div class="filePreview" id="filePreview"></div>
-        <div class="addImgDiv" id="addImgDiv">
-            <div class="dragDiv" id="dragDiv">
-                <div id="imgDrag">
-                    <img class="addImg" id="addImg">
+    <div class="container">
+        <div class="closeDiv">
+        <button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
+        </div>
+        <div class="saveBox" id="saveBox">
+            <div class="filePreview" id="filePreview"></div>
+            <div class="addImgDiv" id="addImgDiv">
+                <div class="dragDiv" id="dragDiv">
+                    <div id="imgDrag">
+                        <img class="addImg" id="addImg">
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="questionGroup" id="questionGroup">
+                <div class="endClose" id="endClose">
+                <input type="button" class="btn btn-outline-primary" onclick="endQuestion()" value="완료">
+                </div>
+                <div class="quiz-group" id="quiz-group">
+                    <div class="quizDiv" id="quizDiv">
+                        <div class="shapeQuestion">
+                            <input type="text"  class="quiz" id="quiz" placeholder="내가 좋아하는 것은...">
+                        </div>
+                        <div class="optionDiv" id="optionDiv">
+                            <div class="shapeBtn" id="shapeBtn1">
+                                <div class="quizIco" id="quizIcoA" onclick="clickQuizIcoA()">A</div>
+                                <input type="text" class="option" id="option1" onkeyup="addCheck()" name="quizOption" placeholder="옵션1">
+                            </div>
+                            <div class="shapeBtn" id="shapeBtn2">
+                                <div class="quizIco" id="quizIcoB" onclick="clickQuizIcoB()">B</div>
+                                <input type="text" class="option" id="option2" onkeyup="addCheck()" name="quizOption" placeholder="옵션2">
+                            </div>
+                            <div class="shapeBtn" id="shapeBtn3">
 
-        <div class="mainMenu" id="mainMenu">
-            <div class="inputFileBtn">
-                <form action="/storyBoard/save" method="post" enctype="multipart/form-data">
-                    <input type="file" id="upImgFiles" name="imageFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
-                    <div class="saveBtn" id="saveBtn"></div>
-                </form>
-            </div>
-            <div class="editMenu" id="editMenu">
-                <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
-                <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
-                <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
-                <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
-            </div>
-            <div class="editMenu5" id="editMenu5"><i class="bi bi-chevron-right"></i></div>
-        </div>
-        <div class="inputTextDiv" id="inputTextDiv">
-            <input class="inputText" type="text" id="text1" name="text1">
-        </div>
-        <div class="fontMenu" id="fontMenu">
-            <div class="editFont" id="editFont">
-                <button class="btn btn-primary" onclick="editFnc1a()"><i id=icon1 class="bi bi-text-center"></i></button>
-                <button class="btn btn-primary" onclick="editFnc1b()"><i class="bi bi-palette"></i></button>
-                <button class="btn btn-primary" onclick="editFnc1c()"><i class="bi bi-type"></i></button>
-                <button class="btn btn-outline-primary" onclick="editFnc1d()">완료</button>
-            </div>
-            <div class="editBox" id="editBox">
-                <div class="filters" id="filters">
-                    <button onClick="reset()">원본</button>
-                    <button onClick="gray()">흑백</button>
-                    <button onClick="sepia()">세피아</button>
-                    <button onClick="brightness()">밝게</button>
-                    <button onClick="contrast()">조도</button>
-                    <button onClick="invert()">반전</button>
-                </div>
-            </div>
-            <div class="rangBar" id="rangeBar">
-                <input class="slider_range" id="slider" type="range" value="0" min="2" max="48">
-                <p style="font-size: 2px; text-align: center" id="slider_value_view">0</p>
-            </div>
-            <div class="colorCircles" id="colorCircles">
-                <button type="button" class="circles" style="background-color: black" id="bk" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: white" id="wt" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: blue" id="bl" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: skyblue" id="sb" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: deeppink" id="dp" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: hotpink" id="hp" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: red" id="rd" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: green" id="gn" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: saddlebrown" id="br" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: rebeccapurple" id="pu" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: yellow" id="ye" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: gray" id="gr" onclick="colorChange(this.id)"></button>
-                <button type="button" class="circles" style="background-color: darkgrey" id="dg" onclick="colorChange(this.id)"></button>
-            </div>
-            <div class="fontDiv" id="fontDiv">
-                <button type="button" class="fontKr" style="font-family: 'Dongle', sans-serif; font-size: 25px" id="dongle" onclick="fontChange(this.id)">Aa</button>
-                <button type="button" class="fontKr" style="font-family: 'Hi Melody', cursive; font-size: 25px" id="hiMelody" onclick="fontChange(this.id)">Aa</button>
-                <button type="button" class="fontKr" style="font-family: 'Nanum Pen Script', cursive; font-size: 25px" id="nanumPen" onclick="fontChange(this.id)">Aa</button>
-                <button type="button" class="fontKr" style="font-family: 'Noto Sans KR', sans-serif; padding-top: 2px" id="notoSans" onclick="fontChange(this.id)">Aa</button>
-                <button type="button" class="fontKr" style="font-family: 'Noto Serif KR', serif; padding-top: 2px" id="notoSerif" onclick="fontChange(this.id)">Aa</button>
-                <button type="button" class="fontKr" style="font-family: 'Single Day', cursive; font-size: 25px" id="singleDay" onclick="fontChange(this.id)">Aa</button>
-            </div>
-        </div>
-        <div id="reverse">
-            <div class="slide slideUp" id="slideUp">
-                <div class="closeDiv2"><button class="btn-close" id="reverseSlideContentUp"></button></div>
-                <div class="btnFncDiv">
-                    <button type="button" class="btnFnc btn-secondary">위치</button>
-                    <button type="button" class="btnFnc btn-secondary">@언급</button>
-                    <button type="button" class="btnFnc btn-secondary">#해시태그</button>
-                </div>
-                <div class="btnFncDiv">
-                    <button type="button" class="btnFnc btn-secondary">질문</button>
-                    <button type="button" class="btnFnc btn-secondary">설문</button>
-                    <button type="button" class="btnFnc btn-secondary">퀴즈</button>
-                </div>
-                <div class="btnFncDiv">
-                    <button type="button" class="btnFnc btn-secondary" onclick="linkTag()">링크</button>
-                    <label for="addFile" class="addFileLabel"><img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
-                    <input type="file" accept="image/*" class="bi bi-images" id="addFile"  name="addFile" onchange="addImgFile(this)" style="display: none">
-                    <button type="button" class="btnFnc btn-secondary" id="today"></button>
-                </div>
-            </div>
-            <div class="linkDiv" id="LinkDiv">
-                <div class="linkContents">
-                    <p>링크 추가</p>
-                    <label for="siteLink">URL</label>
-                        <input type="text" id="siteLink" placeholder="http://example.com" autofocus>
-                        <p>스토리를 보는 사람이 스티커를 눌러 이 링크로 이동할 수 있습니다.</p>
+                            </div>
+                            <div class="shapeBtn" id="shapeBtn4">
 
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="survey-group" id="survey-group">
+                    <div class="surveyDiv" id="surveyDiv">
+                        <input type="text"  class="survey" id="question" placeholder="질문을 입력하세요">
+                        <input type="text"  class="survey" id="answer1" placeholder="예">
+                        <input type="text"  class="survey" id="answer2" placeholder="아니요">
+                        <input type="text"  class="survey" id="answer3" placeholder="다른 옵션 추가..." onkeyup="newInput()">
+                        <input type="text"  class="survey" id="answer4" placeholder="다른 옵션 추가..." style="display: none; margin-right: auto; margin-left: auto">
+                    </div>
+                </div>
+                <div class="questionDiv" id="questionDiv">
+                    <div class="input-box">
+                        <div id="circleLogo"><img src="https://cdn.mindgil.com/news/photo/202201/73470_12193_834.png" class="logoImg" alt="유재석사진"></div>
+                        <input type="text" id="question2" value="무엇이든 물어보세요!">
+                        <input type="text" id="answer" placeholder="무엇이든 물어보세요!">
+                    </div>
+                </div>
+            </div>
+            <input type="button" class="inputLink" id="inputLink">
+            <input type="button" class="inputLink" id="todayDiv">
+            <div class="mainMenu" id="mainMenu">
+                <div class="inputFileBtn">
+                    <form action="/storyBoard/save" method="post" enctype="multipart/form-data">
+                        <input type="file" id="upImgFiles" name="imageFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
+                        <div class="saveBtn" id="saveBtn"></div>
+                    </form>
+                </div>
+                <div class="editMenu" id="editMenu">
+                    <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
+                    <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
+                    <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
+                    <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
+                </div>
+                <button class="editMenu5 btn-primary" id="editMenu5"><i class="bi bi-chevron-right"></i></button>
+            </div>
+            <div class="inputTextDiv" id="inputTextDiv">
+                <input class="inputText" type="text" id="text1" name="text1">
+            </div>
+            <div class="fontMenu" id="fontMenu">
+                <div class="editFont" id="editFont">
+                    <button class="btn btn-primary" onclick="editFnc1a()"><i id=icon1 class="bi bi-text-center"></i></button>
+                    <button class="btn btn-primary" onclick="editFnc1b()"><i class="bi bi-palette"></i></button>
+                    <button class="btn btn-primary" onclick="editFnc1c()"><i class="bi bi-type"></i></button>
+                    <button class="btn btn-outline-primary" onclick="editFnc1d()">완료</button>
+                </div>
+                <div class="editBox" id="editBox">
+                    <div class="filters" id="filters">
+                        <button onClick="reset()">원본</button>
+                        <button onClick="gray()">흑백</button>
+                        <button onClick="sepia()">세피아</button>
+                        <button onClick="brightness()">밝게</button>
+                        <button onClick="contrast()">조도</button>
+                        <button onClick="invert()">반전</button>
+                    </div>
+                </div>
+                <div class="rangBar" id="rangeBar">
+                    <input class="slider_range" id="slider" type="range" value="0" min="2" max="48">
+                    <p style="font-size: 2px; text-align: center" id="slider_value_view">0</p>
+                </div>
+                <div class="colorCircles" id="colorCircles">
+                    <button type="button" class="circles" style="background-color: black" id="bk" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: white" id="wt" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: blue" id="bl" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: skyblue" id="sb" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: deeppink" id="dp" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: hotpink" id="hp" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: red" id="rd" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: green" id="gn" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: saddlebrown" id="br" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: rebeccapurple" id="pu" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: yellow" id="ye" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: gray" id="gr" onclick="colorChange(this.id)"></button>
+                    <button type="button" class="circles" style="background-color: darkgrey" id="dg" onclick="colorChange(this.id)"></button>
+                </div>
+                <div class="fontDiv" id="fontDiv">
+                    <button type="button" class="fontKr" style="font-family: 'Dongle', sans-serif; font-size: 25px" id="dongle" onclick="fontChange(this.id)">Aa</button>
+                    <button type="button" class="fontKr" style="font-family: 'Hi Melody', cursive; font-size: 25px" id="hiMelody" onclick="fontChange(this.id)">Aa</button>
+                    <button type="button" class="fontKr" style="font-family: 'Nanum Pen Script', cursive; font-size: 25px" id="nanumPen" onclick="fontChange(this.id)">Aa</button>
+                    <button type="button" class="fontKr" style="font-family: 'Noto Sans KR', sans-serif; padding-top: 2px" id="notoSans" onclick="fontChange(this.id)">Aa</button>
+                    <button type="button" class="fontKr" style="font-family: 'Noto Serif KR', serif; padding-top: 2px" id="notoSerif" onclick="fontChange(this.id)">Aa</button>
+                    <button type="button" class="fontKr" style="font-family: 'Single Day', cursive; font-size: 25px" id="singleDay" onclick="fontChange(this.id)">Aa</button>
+                </div>
+            </div>
+            <div id="reverse">
+                <div class="slide slideUp" id="slideUp">
+                    <div class="closeDiv2"><button class="btn-close" id="reverseSlideContentUp" onclick="downSlide()"></button></div>
+                    <div class="btnFncDiv">
+                        <button type="button" class="btnFnc btn-secondary">위치</button>
+                        <button type="button" class="btnFnc btn-secondary">@언급</button>
+                        <button type="button" class="btnFnc btn-secondary">#해시태그</button>
+                    </div>
+                    <div class="btnFncDiv">
+                        <button type="button" class="btnFnc btn-secondary" onclick="questionFnc()">질문</button>
+                        <button type="button" class="btnFnc btn-secondary" onclick="surveyFnc()">설문</button>
+                        <button type="button" class="btnFnc btn-secondary">퀴즈</button>
+                    </div>
+                    <div class="btnFncDiv">
+                        <button type="button" class="btnFnc btn-secondary" onclick="linkTag()">링크</button>
+                        <label for="addFile" class="addFileLabel"><img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
+                        <input type="file" accept="image/*" class="bi bi-images" id="addFile"  name="addFile" onchange="addImgFile(this)" style="display: none">
+                        <input type="button" class="btnFnc btn-secondary" id="today">
+                    </div>
+                </div>
+                <div class="linkDiv" id="linkDiv">
+                        <button class="returnLeft"><i class="bi bi-arrow-left" onclick="location.href='javascript:history.back()'"></i></button><span style="margin-right: 30%"><b>링크 추가</b></span><button class="btn btn-outline-primary" id="endLink">완료</button>
+
+                    <div style="text-align: left"><label for="siteLink" style="font-size: 12px">URL</label></div>
+                            <div style="text-align: left; "><input type="text" id="siteLink" placeholder="http://example.com" autofocus></div>
+                            <p style="text-align: left; font-size: 12px">스토리를 보는 사람이 스티커를 눌러 이 링크로 이동할 수 있습니다.</p>
+                            <div class="sticker" id="sticker" onclick="stickerFnc()"><i class="bi bi-plus"></i>스티커 텍스트 맞춤 설정</div>
+                            <div id="stickerDiv">
+                                <label class='stickerLabel' for='stickerInput'>스티커 텍스트</label>
+                                <div><input id='stickerInput'></div>
+                                <p>이 텍스트는 URL이 아닌 스티커에 표시됩니다.</p>
+                            </div>
                 </div>
             </div>
         </div>
@@ -461,7 +749,6 @@
 
                         video.setAttribute("src", this.result);
                         video.setAttribute("width", "100%");
-                        video.setAttribute("controls", "controls");
                         video.setAttribute("autoplay", "autoplay");
                         video.setAttribute("id", "aaa");
                         video.setAttribute("loop", "loop");
@@ -634,7 +921,7 @@
     const fontChange = (clickId) => {
         document.getElementById("text1").style.fontFamily=document.getElementById(clickId).style.fontFamily;
     }
-// 완료 버튼 기능
+// 글자편집 완료 버튼 기능
     const editFnc1d = () => {
         document.getElementById("fontMenu").style.display = "none";
         document.getElementById("mainMenu").style.display = "block";
@@ -654,12 +941,13 @@
 // 이모지아이콘 클릭시 업슬라이드창 띄우기 (오늘날짜 버튼에 날짜넣기)
     $('#reverseSlideContentDown').on('click', function() {
             document.getElementById("editBox").style.display="none";
-            document.getElementById("reverse").style.zIndex="5000";
+            document.getElementById("reverse").style.display="block";
+            document.getElementById("reverse").style.zIndex="7000";
             let today = new Date();
             let year = today.getFullYear(); // 년도
             let month = today.getMonth() + 1;  // 월
             let date = today.getDate();  // 날짜
-            document.getElementById("today").innerHTML=year + '.' + month + '.' + date + '.';
+            document.getElementById("today").value=year + '.' + month + '.' + date + '.';
                 $('.slideUp').slideDown();
     });
 // 다운슬라이드창 기능
@@ -667,9 +955,15 @@
         document.getElementById("reverse").style.zIndex="20";
         $('.slideUp').slideUp();
     });
+const downSlide = () => {
+    document.getElementById("linkDiv").style.display="none";
+    $('.slideUp').slideUp();
+    document.getElementById("reverse").style.zIndex="20";
+}
 // 메인 이미지 위에 추가이미지 넣기
     const addImgFile = (input) => {
         $('.slideUp').slideUp();
+        document.getElementById("reverse").style.zIndex="20";
         if(input.files && input.files[0]) {
             // 이미지 파일인지 검사 (생략)
             // FileReader 인스턴스 생성
@@ -762,9 +1056,174 @@
     });
 // 링크 버튼 기능
     const linkTag = () => {
-      document.getElementById("reverse").style.backgroundColor="darkgray";
+      document.getElementById("reverse").style.backgroundColor="rgba(100,100,100,0.9)";
       document.getElementById("slideUp").style.display="none";
       document.getElementById("linkDiv").style.display="block";
+      document.getElementById("siteLink").focus();
+    }
+    $('#endLink').on('click', function (){
+        document.getElementById("linkDiv").style.display="none";
+        $('.slideUp').slideUp();
+        document.getElementById("reverse").style.display="none";
+        const inputLink = document.getElementById("inputLink");
+        let stickerValue = document.getElementById("stickerInput").value;
+        if(stickerValue) {
+            inputLink.value=stickerValue;
+        } else {
+            const siteLink = document.getElementById("siteLink").value;
+            inputLink.value=siteLink;
+        }
+        document.getElementById("reverse").style.backgroundColor="transparent";
+        inputLink.style.display="block";
+    });
+
+// 링크태그 기능
+    const stickerFnc = () => {
+        document.getElementById("sticker").style.display="none";
+        document.getElementById("stickerDiv").style.display="block";
+        document.getElementById("stickerInput").focus();
+        return false;
+    }
+    $('#inputLink').on('click', function (){
+        const siteLink = document.getElementById("siteLink").value;
+        location.href=siteLink;
+    });
+// 날짜태그 기능
+    $('#today').on('click', function (){
+        const today = document.getElementById("todayDiv");
+        today.value=document.getElementById("today").value;
+        $('.slideUp').slideUp();
+        today.style.display="block";
+    })
+// 질문태그 기능
+    const questionFnc = () => {
+        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("mainMenu").style.display="none";
+        document.getElementById("questionDiv").style.display="block";
+        document.getElementById("questionDiv").style.zIndex="7100";
+        document.getElementById("endClose").style.display="block";
+
+        $('.slideUp').slideUp();
+        $('#question').attr('readonly', false);
+        $('#answer').attr('readonly', true);
+        document.getElementById("reverse").style.display="none";
+    }
+// 질문태그완료 기능
+    const endQuestion = () => {
+        console.log("완료버튼");
+        document.getElementById("questionGroup").style.backgroundColor="transparent";
+        document.getElementById("mainMenu").style.display="block";
+        document.getElementById("questionDiv").style.zIndex="6000";
+        document.getElementById("survey-group").style.zIndex="6000";
+        $('#question').attr('readonly', true);
+        document.getElementById("endClose").style.display="none";
+
+    }
+// 설문태그 기능
+    const surveyFnc = () => {
+        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("mainMenu").style.display="none";
+        document.getElementById("questionDiv").style.zIndex="31";
+        document.getElementById("survey-group").style.display="block";
+        document.getElementById("survey-group").style.zIndex="7100";
+        $('.slideUp').slideUp();
+        document.getElementById("reverse").style.display="none";
+        document.getElementById("endClose").style.display="block";
+
+
+
+    }
+    let newInputStatus = true;
+    // 설문답 추가기능
+    const newInput = () => {
+        if(newInputStatus){
+            document.getElementById("surveyDiv").style.height="100%";
+            document.getElementById("answer4").style.display="block";
+            newInputStatus = false;
+        }
+    }
+// 퀴즈태그 기능
+    const A = document.getElementById("quizIcoA");
+    const B = document.getElementById("quizIcoB");
+    const clickQuizIcoA = () => {
+        A.innerHTML= "<i class=\"bi bi-check2\"></i>";
+        document.getElementById("shapeBtn1").style.backgroundColor="skyblue";
+        B.innerHTML= "B";
+        if(document.getElementById("quizIcoC")){
+            document.getElementById("quizIcoC").innerHTML= "C";
+            if(document.getElementById("quizIcoD")){
+                document.getElementById("quizIcoD").innerHTML= "D";
+            }
+        }
+    }
+    const clickQuizIcoB = () => {
+        A.innerHTML= "A";
+        B.innerHTML= "<i class=\"bi bi-check2\"></i>";
+        document.getElementById("shapeBtn2").style.backgroundColor="skyblue";
+        if(document.getElementById("quizIcoC")){
+            document.getElementById("quizIcoC").innerHTML= "C";
+            if(document.getElementById("quizIcoD")){
+                document.getElementById("quizIcoD").innerHTML= "D";
+            }
+        }
+    }
+    const clickQuizIcoC = () => {
+        A.innerHTML= "A";
+        B.innerHTML= "B";
+        document.getElementById("quizIcoC").innerHTML= "<i class=\"bi bi-check2\"></i>";
+        document.getElementById("shapeBtn3").style.backgroundColor="skyblue";
+        if(document.getElementById("quizIcoD")){
+            document.getElementById("quizIcoD").innerHTML= "D";
+        }
+    }
+    const clickQuizIcoD = () => {
+        A.innerHTML= "A";
+        B.innerHTML= "B";
+        document.getElementById("quizIcoC").innerHTML= "C";
+        document.getElementById("quizIcoD").innerHTML= "<i class=\"bi bi-check2\"></i>";
+        document.getElementById("shapeBtn4").style.backgroundColor="skyblue";
+    }
+    const addCheck = () => {
+        const option1 = document.getElementById("option1").value;
+        const option2 = document.getElementById("option2").value;
+        const shapeBtn3 = document.getElementById("shapeBtn3");
+        if(option1 && option2) {
+            document.getElementById("quiz-group").style.height="32%";
+            shapeBtn3.style.border="1px dashed darkgrey";
+            shapeBtn3.innerHTML= '<div class="quizIco" id="quizIcoC" onclick="clickQuizIcoC()">C</div>\n' +
+                '<input type="text" class="option" id="option3" onkeyup="addCheck2()" name="quizOption" placeholder="추가">\n';
+        }
+    }
+    const addCheck2 = () => {
+        const option3 = document.getElementById("option3").value;
+        const shapeBtn3 = document.getElementById("shapeBtn3");
+
+        if(option3) {
+            shapeBtn3.style.border="1px solid darkgrey";
+            document.getElementById("quiz-group").style.height="39%";
+            const shapeBtn4 = document.getElementById("shapeBtn4");
+            shapeBtn4.style.border="1px dashed darkgrey";
+            shapeBtn4.innerHTML= '<div class="quizIco" id="quizIcoD" onclick="clickQuizIcoD()">D</div>\n' +
+                '<input type="text" class="option" id="option4" onkeyup="addCheck3()" name="quizOption" placeholder="추가">\n';
+        } else {
+            shapeBtn3.style.border="1px dashed darkgrey";
+        }
+    }
+    const addCheck3 = () => {
+        const option4 = document.getElementById("option4");
+        const shapeBtn4 = document.getElementById("shapeBtn4");
+        if(option4.value) {
+            shapeBtn4.style.border="1px solid darkgrey";
+        } else {
+            shapeBtn4.style.border="1px dashed darkgrey";
+            option4.onblur=function (){
+                shapeBtn4.style.border="0";
+                shapeBtn4.innerHTML="";
+                document.getElementById("quiz-group").style.height="32%";
+            }
+        }
     }
 </script>
 </html>
