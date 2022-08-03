@@ -1423,22 +1423,4 @@
 
 
 </body>
-<script th:inline="javascript">
-
-    $.ajax({
-        type: "post",
-        url: "/comment/save",
-        data: {
-            "commentWriter": commentWriter,
-            "commentContents": commentContents,
-            "productId": productId,
-            "memberId": memberId
-        },
-        dataType: "json",
-        success: function (result) {
-
-        },
-    });
-
-</script>
 </html>

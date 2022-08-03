@@ -1,13 +1,13 @@
 package com.its.gramsecurity.dto;
 
 import com.its.gramsecurity.entity.BoardEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.its.gramsecurity.entity.BoardFileEntity;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardDTO {
