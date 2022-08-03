@@ -1,26 +1,32 @@
 package com.its.gramsecurity.service;
 
+import com.its.gramsecurity.dto.LikesDTO;
+import com.its.gramsecurity.entity.LikesEntity;
 import com.its.gramsecurity.repository.BoardFileRepository;
 import com.its.gramsecurity.repository.BoardRepository;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
 import com.its.gramsecurity.entity.BoardEntity;
 import com.its.gramsecurity.entity.BoardFileEntity;
+import com.its.gramsecurity.repository.LikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
-    public BoardDTO fileSave(BoardDTO boardDTO,String memberId) {
+    private final LikesRepository likesRepository;
+    public BoardDTO fileSave(BoardDTO boardDTO, String memberId) {
         Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,memberId)).getId();
         return BoardDTO.toDTO(boardRepository.findById(id).get());
     }
@@ -70,6 +76,21 @@ public class BoardService {
         }
         return board;
     }
-
+    public int likes(LikesDTO likesDTO, Principal principal) {
+        Optional<LikesEntity> likesEntity = likesRepository.findByMemberIdAndBoardId(likesDTO.getMemberId(), likesDTO.getBoardId());
+        if (likesEntity.isPresent()){
+            LikesEntity likes = likesEntity.get();
+            if (likes.getMemberId().equals(likesDTO.getMemberId()) && likes.getBoardId().equals(likesDTO.getBoardId())){
+                likesRepository.delete(likes);
+            }
+        }
+        if (likesDTO.getLikes() == 1) {
+            LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, principal));
+            LikesDTO.toLikeSave(likesEntity2);
+//            boardRepository.save();
+        }
+//        }
+        return 1;
+    }
 
 }

@@ -2,6 +2,7 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
+import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,11 +33,11 @@ public class BoardController {
                            MultipartHttpServletRequest mp,Principal principal,
                            Model model) throws IOException {
         String memberId=principal.getName();
-        BoardDTO saveDTO = boardService.fileSave(boardDTO,memberId);
+        BoardDTO saveDTO = boardService.fileSave(boardDTO, memberId);
         List<MultipartFile> multipartFileList = mp.getFiles("boardFile");
         List<BoardFileDTO> fileDTOList = new ArrayList<>();
         int a = 0;
-        System.out.println("="+boardFilter);
+//        System.out.println("="+boardFilter);
         List<String> list = Arrays.asList(boardFilter.split(","));
         String[] list2 = list.toArray(new String[list.size()]);
         System.out.println(list2[a]);
@@ -52,5 +53,10 @@ public class BoardController {
         model.addAttribute("boardDTO", saveDTO);
         model.addAttribute("fileDTOList", fileDTOList);
         return "redirect:/main/main";
+    }
+    @PostMapping("/likes")
+    public @ResponseBody int hits(@ModelAttribute LikesDTO likesDTO, Principal principal) {
+        int a = boardService.likes(likesDTO,principal);
+        return a;
     }
 }
