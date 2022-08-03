@@ -35,6 +35,7 @@
 
     <script>
         function gray(i) {
+            console.log("gray")
             if (i == 1) {
                 document.getElementById("footerItem1").style.color = 'gray';
             } else if (i == 2) {
@@ -230,41 +231,43 @@
 
     <style>
 
-        .title {
+        .title:not(.detail) {
             font-family: 'Dosis', sans-serif;
             font-size: 40px;
             margin: 0px 0 0 10px;
 
         }
 
-        .bi {
+        .b:not(.detail)i {
             font-size: 30px;
             margin-right: 15px;
         }
 
-        .storyZone {
-            border-top: 1px gray solid;
-            border-bottom: 1px gray solid;
+        .storyZone:not(.detail) {
+            border-top: 1px rgb(214,214,214) solid;
+            border-bottom: 1px rgb(214,214,214) solid;
             height: 100px;
             margin: 20px 10px 0 10px;
         }
-
-        .mainBody {
+        /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
+        .mainBody:not(.detail) {
             margin-top: 30px;
             width: 500px;
             height: 780px;
             border: gray solid 1px;
+            /*border: rgb(214,214,214) solid 1px;*/
             padding-left: 0;
             padding-right: 0;
+            /*box-shadow:3px 3px 3px 3px rgb(214,214,214);*/
         }
 
-        .headerZone {
+        .headerZone:not(.detail) {
             padding-left: 12px;
             padding-right: 12px;
             margin-top: 10px;
         }
 
-        .feedZone {
+        .feedZone:not(.detail) {
             /* border: 1px solid gray; */
             height: 525px;
             /*background-color: aqua;*/
@@ -272,33 +275,34 @@
             padding-right: 0;
         }
 
-        .fi {
+        .fi:not(.detail) {
             margin-left: 52px;
             font-size: 30px;
         }
 
-        .footerItem {
+        .footerItem:not(.detail) {
             margin: 20px 0 0 8px;
         }
 
-        .hi {
+        .hi:not(.detail) {
             margin: 10px 10px 0 0;
             font-size: 30px;
         }
 
-        .contentsItem1 {
+        .contentsItem1:not(.detail) {
             margin: 24px;
             width: 450px;
             height: 470px;
-            border: solid 1px;
+            border: rgb(214,214,214) solid 1px;
             /*width: 100vw;*/
             float: left;
         }
 
-        .contentsBody {
+        .contentsBody:not(.detail) {
             width: 5000px;
         }
-        i{
+
+        i {
             cursor: pointer;
         }
     </style>
@@ -306,13 +310,16 @@
 
 </head>
 <body onload="loginChk()">
-
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop_detail">
+    Launch static backdrop modal
+</button>
 <div class="container mainBody">
 
     <!-- 헤더구역 -->
     <div class="row headerZone">
         <div class="col">
-            <p class="title">25gram</p>
+            <p class="title" style="color:#4E4E4E">25gram</p>
         </div>
         <div class="col headerItem" style="margin-top: 10px;text-align: right;">
             <i id="headerItem1" class="hi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"
@@ -382,10 +389,11 @@
 </div>
 
 
+
+
 <!--게시글 모달 시작-->
 
 <style>
-
 
 
     /*.modal-header {*/
@@ -394,16 +402,16 @@
 
     /*}*/
 
-    .contentsBody {
+    .contentsBody:not(.detail) {
         width: 5000px;
         /* height: 6000px; */
     }
 
-    .mainBody1 {
+    .mainBody1:not(.detail) {
         margin: 20px 0 0 23px;
     }
 
-    .contents {
+    .contents:not(.detail) {
         /* margin-top: 30px; */
         width: 420px;
         height: 600px;
@@ -414,7 +422,7 @@
         padding-right: 0;
     }
 
-    .nextBtn {
+    .nextBtn:not(.detail) {
         /* color: gray; */
         font-size: 30px;
         text-align: right;
@@ -424,7 +432,7 @@
         /* display: block; */
     }
 
-    .collapseBody {
+    .collapseBody:not(.detail) {
         /* border: 1px solid rgba(221, 220, 220,0) ; */
         border: 1px solid rgb(221, 220, 220);
         width: 300px;
@@ -433,13 +441,13 @@
     }
 
 
-    .filterItem {
+    .filterItem:not(.detail) {
         width: 100px;
         margin: 5px 0 0 30px;
         border-radius: 4px;
     }
 
-    .contentsItem {
+    .contentsItem:not(.detail) {
         margin: 0px;
         width: 420px;
         height: 600px;
@@ -448,40 +456,40 @@
         float: left;
     }
 
-    .filterTitle {
+    .filterTitle:not(.detail) {
         font-size: 20px;
         margin: 30px 0 0 0px;
         font-family: 'Poppins', sans-serif;
 
     }
 
-    .filterZone {
+    .filterZone:not(.detail) {
         margin-top: 15px;
     }
 
-    .rangeZone {
+    .rangeZone:not(.detail) {
         margin-top: 25px;
     }
 
-    .contentsHeader {
+    .contentsHeader:not(.detail) {
         margin: 0px 0 0 0;
     }
 
-    .text-form {
+    .text-form:not(.detail) {
         width: 300px;
         height: 500px;
     }
 
-    .sliderZone {
+    .sliderZone:not(.detail) {
         margin: 0px 15px 200px 0;
     }
 
-    .btnReset {
+    .btnReset:not(.detail) {
         background-color: transparent;
         border: 0;
     }
 
-    .btnPointer {
+    .btnPointer:not(.detail) {
         cursor: pointer;
     }
 </style>
@@ -544,7 +552,7 @@
             document.getElementById("beforeBtn").removeAttribute("hidden")
             document.getElementById("nextBtn").innerHTML = '<b>Save<b>'
             document.getElementById("nextBtn").removeAttribute("onclick")
-            document.getElementById("nextBtn").setAttribute("onclick","submitBtn()")
+            document.getElementById("nextBtn").setAttribute("onclick", "submitBtn()")
             setTimeout(nextBtn2, 200)
             page = 2
             // document.getElementById("nextBtn").removeAttribute("data-bs-toggle")
@@ -555,7 +563,8 @@
             // document.getElementById("nextBtn2").setAttribute("data-bs-toggle","collapse")
         }
     }
-    function submitBtn(){
+
+    function submitBtn() {
         // $('#submitBtn').trigger("click")
         document.getElementById("saveForm").submit();
         // location.href='/main/main'
@@ -568,7 +577,7 @@
             nextBtn2();
             document.getElementById("nextBtn").innerHTML = '<b>Next<b>'
             document.getElementById("nextBtn").removeAttribute("onclick")
-            document.getElementById("nextBtn").setAttribute("onclick","nextBtnEffect()")
+            document.getElementById("nextBtn").setAttribute("onclick", "nextBtnEffect()")
 
 
             page = 1
@@ -727,40 +736,50 @@
 </script>
 
 
-
-
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div id="modalSize" class="modal-dialog">
+<div class="modal fade modal1" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div id="modalSize" class="modal-dialog modal1">
         <!-- <div class="modal-content" id="modal-content" style="height:770px" > -->
-        <div class="modal-content" id="modal-content" style="height:770px" >
-            <div class="modal-header" style=" height: 50px;
+        <div class="modal-content modal1" id="modal-content" style="height:770px">
+            <div class="modal-header  modal1" style=" height: 50px;
         display: contents">
                 <!-- contents header 구역 -->
-                <div id="contentsHeader" class="contentsHeader row" >
+                <div id="contentsHeader" class="contentsHeader row modal1">
                     <!-- <div id="contentsHeader" class="row" > -->
                     <div class="col" style="height: 50px;">
-                        <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()" class="fa-solid fa-arrow-left" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true" aria-controls="collapseWidthExample"  style="font-size:35px ; margin: 25px 0 0 20px;"></i>
+                        <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()" class="fa-solid fa-arrow-left modal1"
+                           data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true"
+                           aria-controls="collapseWidthExample" style="font-size:35px ; margin: 25px 0 0 20px;"></i>
                     </div>
 
                     <div class="col" style="text-align: right;height: 50px">
-                        <p  onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn"  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true" aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden"><b>Next</b></p>
+                        <p onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn modal1" data-bs-toggle="collapse"
+                           data-bs-target="#collapseWidthExample" aria-expanded="true"
+                           aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden"><b>Next</b>
+                        </p>
                     </div>
-                    <button style="margin:5px 5px 0 0;" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button>
+                    <button style="margin:5px 5px 0 0;" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close" onclick="location.href='/main/main'"></button>
 
                 </div>
 
             </div>
-            <div class="modal-body">
+            <div class="modal-body modal1">
 
-                <div id="nextBtn2" name="nextBtn2" class=""  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="true" aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden><b>Next</b></div>
+                <div id="nextBtn2" name="nextBtn2" class=" modal1" data-bs-toggle="collapse"
+                     data-bs-target="#collapseWidthExample2" aria-expanded="true" aria-controls="collapseWidthExample"
+                     style="padding-right:0 ;" hidden><b>Next</b></div>
                 <!-- 여기서 테스트 하세요 -->
 
-                <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm" name="saveForm" >
+                <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm"
+                      name="saveForm">
                     <div>
-                        <input type="file" id="boardFile" name="boardFile" onsubmit="return false;" onchange="uploadImgPreview(this);" multiple >
-                        <input type="submit" id="submitBtn" name="submitBtn" value="버튼">
-                        <input type="hidden" value="'','','','','','','','','',''," id="boardFilter0" name="boardFilter">
+                        <input type="file" id="boardFile" name="boardFile" onsubmit="return false;"
+                               onchange="uploadImgPreview(this);" multiple hidden>
+                        <input type="submit" id="submitBtn" name="submitBtn" value="버튼" hidden>
+                        <input type="hidden" value="'','','','','','','','','',''," id="boardFilter0"
+                               name="boardFilter">
                         <input type="hidden" value="''," id="boardFilter1">
                         <input type="hidden" value="''," id="boardFilter2">
                         <input type="hidden" value="''," id="boardFilter3">
@@ -774,653 +793,1017 @@
                     </div>
                 </form>
 
-                    <!-- 여기까지 테스트 -->
-                    <div class="input-group mainBody1">
+                <!-- 여기까지 테스트 -->
+                <div class="input-group mainBody1 modal1">
 
 
-                        <!-- contents 구역 -->
-                        <div id="contents" class="contents">
+                    <!-- contents 구역 -->
+                    <div id="contents" class="contents modal1">
 
 
+                        <!-- contents body 구역 -->
+                        <div style="overflow: hidden">
+                            <div id="contentsBody" class="contentsBody modal1">
+
+                                <!-- 사진 선택 버튼 -->
+                                <div id="imgBtnZone" style="padding: 0;margin: 0;height: 0;">
+                                    <label for="filePlus" class="btnPointer modal1"><i id="imgBtn" onclick="imgBtnEffect()"
+                                                                                name="imgBtn"
+                                                                                class=" modal1 fa-regular fa-file-image"
+                                                                                style="color:#0d6efd;font-size: 70px;position:absolute ;top:40%;left:40%"></i></label></button>
+                                    <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">사진을
+                                        선택해주세요.</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <script>
+
+                            function valuetest() {
+                                let val = document.getElementById("boardFile").value
+                                console.log("val : " + val)
+                                if (val == "") {
+                                    alert("파일 없음")
+                                } else {
+                                    document.getElementById("nextBtn").removeAttribute("hidden")
+                                    document.getElementById("addBtn").removeAttribute("hidden")
+                                    document.getElementById("imgBtnZone").setAttribute("hidden", "hidden")
+
+                                }
+                            }
+
+                            function imgBtnEffect() {
+                                let imgBtn = document.getElementById("imgBtn")
+                                imgBtn.style.color = "gray"
+                                imgBtn.style.fontSize = "65px"
+
+                                setTimeout(reset, 150)
+
+                                function reset() {
+                                    imgBtn.style.color = "#0d6efd"
+                                    imgBtn.style.fontSize = "70px"
+                                }
+                            }
+
+
+                        </script>
+
+
+                    </div>
+
+
+                    <!-- collapse 구역 -->
+                    <div class="collapse-horizontal collapse modal1" id="collapseWidthExample">
+
+                        <div class="collapseBody modal1">
+                            <div class="filterZone modal1">
+                                <!-- 필터 버튼 구역 -->
+                                <table>
+                                    <tr>
+                                        <td><img onclick="filter('reset')" class="filterItem modal1"
+                                                 src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587"
+                                                 alt=""></td>
+                                        <td><img onclick="filter('gray')" class="filterItem modal1"
+                                                 src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587"
+                                                 alt="" style="filter:grayscale(50)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><img onclick="filter('sepia')" class="filterItem modal1"
+                                                 src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587"
+                                                 alt="" style="filter:sepia(1)"></td>
+                                        <td><img onclick="filter('contrast')" class="filterItem modal1"
+                                                 src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587"
+                                                 alt="" style="filter:contrast(1.5)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><img onclick="filter('brightness')" class="filterItem modal1"
+                                                 src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587"
+                                                 alt="" style="filter:brightness(1.3) ;"></td>
+                                        <td><img onclick="filter('invert')" id="invert" class="filterItem modal1"
+                                                 src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587"
+                                                 alt="" style="filter:invert(1)"></td>
+                                    </tr>
+
+                                </table>
+
+                                <!-- 필터 레인지 구역 -->
+                                <div class="rangeZone modal1">
+                                    <div id="filterContrast" style="text-align: center;">
+                                        <p class="filterTitle modal1">Contrast</p>
+                                        <input type="range" class="slider_range modal1" id="Range1" style="width:80%;"
+                                               oninput="range('contrast')" min="100" max="300" value="100">
+                                    </div>
+
+                                    <div id="filterSaturate" style="text-align: center;">
+                                        <p class="filterTitle modal1">Saturate</p>
+                                        <input type="range" class="slider_range modal1" id="Range2" style="width:80%;"
+                                               oninput="range('saturate')" min="0" max="200" value="100">
+                                    </div>
+
+                                    <div id="filterBrightness" style="text-align: center;">
+                                        <p class="filterTitle modal1">Brightness</p>
+                                        <input type="range" class="slider_range modal1" id="Range3" style="width:80%;"
+                                               oninput="range('Brightness')" min="0" max="200" value="100">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!--                        글 작성 영역-->
+                    <!-- 글작성 구역 -->
+
+
+                    <!-- <div class="filterZone"> -->
+                    <!-- <div style="text-align: center"> -->
+
+
+                    <style>
+                        /*.submitBtn modal1 {*/
+                        /*    !* color: gray; *!*/
+                        /*    font-size: 20px;*/
+                        /*    text-align: right;*/
+                        /*    margin: 10px 20px 0 0;*/
+                        /*    border: 0;*/
+                        /*    !* font-family: 'Dosis', sans-serif; *!*/
+
+                        /*}*/
+
+
+                        .contentsHeader[class*="modal1"]:not(.detail) {
+                            margin: 10px 0 0 0;
+                        }
+
+
+                        .contentsImg[class*="modal1"]:not(.detail) {
+                            width: 500px;
+                            border: 1px solid;
+                        }
+
+
+                        .emojionearea .emojionearea-editor:not(.detail) {
+                            min-height: 200px;
+                            max-height: 200px;
+
+                        }
+
+                        .chkBox[class*="modal1"]:not(.detail) {
+                            border-bottom: 1px solid rgb(226, 226, 226);
+                            padding: 0;
+                            height: 59px;
+                            text-align: left;
+
+
+                            /* background-color: red; */
+                        }
+
+                        .chkBoxItem[class*="modal1"]:not(.detail) {
+                            font-size: 17px;
+                            margin: 15px 0 0px 15px;
+                        }
+
+                        body {
+                            font-family: 'Noto Sans KR', sans-serif;
+                        }
+
+
+                        .profileImg[class*="modal1"]:not(.detail) {
+                            margin: 0px 0 0 20px;
+                            border-radius: 50%;
+                            /* border: 2px solid rgb(218, 218, 218) ; */
+                            width: 50px;
+                            height: 50px;
+
+                        }
+
+                        .profileId[class*="modal1"]:not(.detail) {
+                            margin: 17px 0 0 0;
+                            font-size: 20px;
+                            text-align: left;
+                        }
+
+                        .modal1>.emojionearea .emojionearea.form-control {
+                            font-size: 18px;
+
+                        }
+
+                        .cText[class*="modal1"]:not(.detail) {
+                            margin-top: 0px;
+                            padding: 7px;
+                        }
+
+                        .tagResult[class*="modal1"]:not(.detail) {
+                            background-color: red;
+                            height: 200px
+                            /* height:230px */
+                        }
+
+                        .modal-footer[class*="modal1"]:not(.detail) {
+                            border: 0;
+                        }
+
+                        .emojionearea .emojionearea-button{
+                            top:173px
+                        }
+                    </style>
+                    <!-- <div class="collapse-horizontal collapse" id="collapseWidthExample2">
+                        <div class="collapseBody">               -->
+                    <div class="collapse-horizontal collapse modal1" id="collapseWidthExample2">
+                        <div class="collapseBody modal1">
+                            <div class="filterZone modal1">
+                                <div style="text-align: center">
+                                    <!--                                        <textarea class="text-form"></textarea>-->
+                                    <div class="contentsText modal1">
+                                        <div class="profileZone row modal1">
+                                            <!-- 작성자 프로필 구역 -->
+
+                                            <!-- 프로필 이미지 -->
+                                            <div class="col-3">
+                                                <img class="profileImg modal1"
+                                                     src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">
+                                            </div>
+
+                                            <!-- 프로필 아이디 -->
+                                            <div class="col">
+                                                <p class="profileId modal1">hasangsu82</p>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- 글 작성 구역 -->
+                                        <div id="cText" class="cText modal1">
+                                            <div style="text-align: left">
+                                                <form action="/hhhhhhhh" id="contentsForm">
+                                                    <textarea name="fff" class="tete textArea modal1" id="text1"
+                                                              placeholder="문구 입력.."></textarea>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- tag 검색어 리스트 구역 -->
+
+                                        <div id="tagResult" class="tagResult modal1" style="overflow:scroll ;">
+                                            <h3>tag검색어 리스트 구역</h3>
+                                            <table>
+
+                                            </table>
+
+                                        </div>
+
+
+                                        <!-- 댓글 기능 해제  -->
+
+                                        <div class="chkBox modal1">
+                                            <div id="replyZone" class="row">
+                                                <p class="col chkBoxItem modal1">댓글 기능 해제</p>
+                                                <div class="col-2 form-check form-switch chkBoxItem modal1">
+                                                    <input value="false" onchange="replyChk()" class="form-check-input modal1"
+                                                           type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 좋아요 기능 해제 -->
+                                        <div class="chkBox modal1">
+                                            <div id="likeZone" class="row">
+                                                <p class="col chkBoxItem modal1">좋아요 및 조회수 감추기</p>
+                                                <div class="col-2 form-check form-switch chkBoxItem modal1">
+                                                    <input value="false" onchange="likeChk()" class="form-check-input modal1"
+                                                           type="checkbox" role="switch" id="flexSwitchCheckDefault1">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <script>
+
+                                            // false 일때 댓글 기능을 해제 하도록 개발 해주세요
+                                            function replyChk() {
+                                                let val = document.getElementById("flexSwitchCheckDefault").value
+                                                console.log("cktest : " + val)
+                                            }
+
+
+                                            // false 일때 기능 해제 하도록 개발 해주세요
+                                            function likeChk() {
+                                                let val = document.getElementById("flexSwitchCheckDefault1").value
+                                                console.log("cktest1 : " + val)
+                                            }
+                                        </script>
+
+
+                                        <script>
+
+
+                                            //    textarea 이모지 및 키이벤트 함수
+                                            $("#text1").emojioneArea({
+                                                pickerPosition: "right",
+                                                searchPosition: "bottom",
+                                                filtersPosition: "bottom",
+
+                                                events: {
+                                                    keypress: function () {
+                                                        console.log("key events")
+                                                        //    $("textarea:contains('#')")
+                                                        //  document.addEventListener("keypress",checkKeyPressed,false)
+                                                        //  function checkKeyPressed(e){
+                                                        //     if (e.keyCode === 65) {
+                                                        //     alert("The 'a' key is pressed.");
+                                                        //     }
+                                                        //  }
+
+                                                        window.addEventListener("keydown", keysPressed, false);
+                                                        window.addEventListener("keyup", keysReleased, false);
+
+                                                        var keys = [];
+                                                        let zone = document.querySelector(".emojionearea .emojionearea-editor")
+
+                                                        function keysPressed(e) {
+                                                            // store an entry for every key pressed
+                                                            keys[e.keyCode] = true;
+
+                                                            // Ctrl + Shift + 5
+                                                            // if (keys[17] && keys[16] && keys[53]) {
+                                                            if (keys[16] && keys[51]) {
+                                                                // do something
+                                                                console.log("test성공")
+                                                                zone.style.color = "red"
+                                                            }
+
+                                                            if (keys[32]) {
+                                                                console.log("test성공")
+                                                                zone.style.color = "#555"
+                                                            }
+                                                            // Ctrl + f
+                                                            if (keys[17] && keys[70]) {
+                                                                // do something
+                                                                // console.log("test성공")
+
+                                                                // prevent default browser behavior
+                                                                e.preventDefault();
+                                                            }
+                                                        }
+
+                                                        function keysReleased(e) {
+                                                            // mark keys that were released
+                                                            keys[e.keyCode] = false;
+                                                        }
+
+
+                                                    }
+                                                }
+                                                //    tonesStyle:"bullet",
+                                                //    standalone: true,
+                                                //     autocomplete: false
+                                                //    container: "#container",
+                                                //    inline:false
+                                            });
+
+                                            // 체크박스 토글 밸류 변경 함수
+
+                                            $(function () {
+                                                let val = document.getElementById("flexSwitchCheckDefault").value
+                                                $('#flexSwitchCheckDefault').change(function () {
+                                                    $('#flexSwitchCheckDefault').val($(this).prop('checked'))
+                                                })
+
+                                            })
+
+                                            $(function () {
+                                                let val = document.getElementById("flexSwitchCheckDefault1").value
+                                                $('#flexSwitchCheckDefault1').change(function () {
+                                                    $('#flexSwitchCheckDefault1').val($(this).prop('checked'))
+                                                })
+
+                                            })
+
+
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!--슬라이더버튼-->
+                    <!-- <button onclick="leftSlider()">앞으로</button>
+                    <button onclick="rightSlider()">뒤로</button> -->
+                    <!--파일추가 할 인풋창-->
+                    <input type="file" name="filePlus" id="filePlus" onsubmit="return false;" onchange="plus(this)"
+                           multiple hidden>
+
+
+                    <script>
+                        let num = 0;
+
+                        function uploadImgPreview(obj) {
+                            console.log(obj);
+                            var maxFileCnt = 10;   // 첨부파일 최대 개수
+                            var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
+                            var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+                            var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
+
+
+                            document.querySelector("[id=contentsBody]").innerHTML = null;
+                            if (curFileCnt > remainFileCnt) {
+                                alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+                                document.querySelector("input[type=file]").value = "";
+                            } else {
+                                const boardFile = document.getElementById("boardFile").files;
+                                if (boardFile[0] == null) {
+                                    alert("파일이 없습니다.");
+                                } else {
+                                    for (const f of obj.files) {
+                                        validation(f)
+                                    }
+
+                                }
+                                num = 0
+                            }
+                        }
+
+                        function uploadImgPreview1(obj) {
+                            const boardFile = document.getElementById("boardFile");
+                            var maxFileCnt = 10;   // 첨부파일 최대 개수
+                            var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
+                            var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+                            var curFileCnt = boardFile.files.length;  // 현재 선택된 첨부파일 개수
+
+                            if (curFileCnt > remainFileCnt) {
+                                alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+                                document.querySelector("input[type=file]").value = "";
+                            } else {
+                                const boardFile = document.getElementById("boardFile").files;
+                                if (boardFile[0] == null) {
+                                    alert("파일이 없습니다.");
+                                } else {
+                                    for (const f of obj.files) {
+                                        validation(f)
+                                    }
+
+                                }
+
+                            }
+                        }
+
+                        function validation(obj) {
+                            console.log(obj);
+                            let fileList = document.getElementById("boardFile").files;
+                            const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'video/mp4', 'application/haansofthwp', 'application/x-hwp'];
+                            for (let i = 0; i < fileList.length; i++) {
+                                if (fileList[i].name.length > 100) {
+                                    alert("파일명이 100자 이상인" + fileList[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=boardFile]").value = "";
+                                    return false;
+                                } else if (fileList[i].size > (100 * 1024 * 1024)) {
+                                    alert("최대 파일 용량인 100MB를 초과한" + fileList[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=boardFile]").value = "";
+                                    return false;
+                                } else if (fileList[i].name.lastIndexOf('.') == -1) {
+                                    alert("확장자가 없는" + fileList[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=boardFile]").value = "";
+                                    return false;
+                                } else if (!fileTypes.includes(fileList[i].type)) {
+                                    alert("첨부가 불가능한" + fileList[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=boardFile]").value = "";
+                                    return false;
+                                }
+                            }
+
+                            setTimeout(function () {
+                                if (fileList[0] == obj) {
+                                    uploadFile(obj);
+                                }
+                            },);
+                            setTimeout(function () {
+                                if (fileList[1] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 350);
+                            setTimeout(function () {
+                                if (fileList[2] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 700);
+                            setTimeout(function () {
+                                if (fileList[3] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 1050);
+                            setTimeout(function () {
+                                if (fileList[4] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 1400);
+                            setTimeout(function () {
+                                if (fileList[5] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 1750);
+                            setTimeout(function () {
+                                if (fileList[6] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 2100);
+                            setTimeout(function () {
+                                if (fileList[7] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 2450);
+                            setTimeout(function () {
+                                if (fileList[8] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 2800);
+                            setTimeout(function () {
+                                if (fileList[9] == obj) {
+                                    uploadFile(obj);
+                                }
+                            }, 3150);
+                            return true;
+                        }
+
+
+                        function uploadFile(obj) {
+                            const fileTypes2 = ['image/gif', 'image/jpeg', 'image/png'];
+                            const fileTypes3 = ['video/mp4'];
+                            const fileTypes4 = ['image/gif', 'image/jpeg', 'image/png', 'video/mp4'];
+                            if (fileTypes4.includes(obj.type)) {
+                                let reader = new FileReader();
+                                reader.addEventListener("load", function () {
+                                    if (fileTypes2.includes(obj.type)) {
+                                        let image = new Image();
+
+                                        num += 1;
+
+                                        image.src = this.result;
+
+
+                                        image.id = "contentsItem" + num;
+
+                                        image.className = "contentsItem";
+
+
+                                        document.getElementById("contentsBody").appendChild(image);
+                                    } else if (fileTypes3.includes(obj.type)) {
+                                        let video = document.createElement("video");
+                                        num += 1;
+                                        video.setAttribute("src", this.result);
+                                        // video.setAttribute("controls", "controls");
+                                        video.setAttribute("autoplay", "autoplay");
+                                        video.setAttribute("id", "contentsItem" + num);
+                                        video.setAttribute("class", "contentsItem");
+                                        video.setAttribute("loop", "loop");
+                                        document.getElementById("contentsBody").appendChild(video);
+                                    }
+
+                                });
+                                if (obj) {
+                                    valuetest()
+                                    if (document.getElementById("boardFile").files.length >= 2) {
+                                        document.getElementById("slideBtnZone").removeAttribute("hidden")
+                                    }
+                                    reader.readAsDataURL(obj);
+                                }
+
+
+                            }
+                        }
+
+
+                        function plus(obj) {
+                            const files1 = document.querySelector('#filePlus').files;
+                            const files = document.querySelector('#boardFile').files;
+                            const dataTranster = new DataTransfer();
+                            const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'video/mp4', 'application/haansofthwp', 'application/x-hwp'];
+                            for (let i = 0; i < files1.length; i++) {
+                                if (files1[i].name.length > 100) {
+                                    alert("파일명이 100자 이상인" + files1[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=filePlus]").value = "";
+                                    return false;
+                                } else if (files1[i].size > (100 * 1024 * 1024)) {
+                                    alert("최대 파일 용량인 100MB를 초과한" + files1[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=filePlus]").value = "";
+                                    return false;
+                                } else if (files1[i].name.lastIndexOf('.') == -1) {
+                                    alert("확장자가 없는" + files1[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=filePlus]").value = "";
+                                    return false;
+                                } else if (!fileTypes.includes(files1[i].type)) {
+                                    alert("첨부가 불가능한" + files1[i].name + "파일이 있습니다.");
+                                    document.querySelector("input[id=filePlus]").value = "";
+                                    return false;
+                                }
+                            }
+                            Array.from(files)
+                                .forEach(file => {
+                                    dataTranster.items.add(file);
+                                });
+                            Array.from(files1)
+                                .forEach(file => {
+                                    dataTranster.items.add(file);
+                                });
+                            document.querySelector('#boardFile').files = dataTranster.files;
+                            uploadImgPreview1(obj);
+
+                        }</script>
+
+                </div>
+                <div class="modal-footer row modal1" style="padding:0;margin: 0;height:70px;">
+                    <div class="col slideBtnZone modal1" style="height: 50px;" id="slideBtnZone" hidden>
+                        <i id="leftBtn" onclick="leftSlider()" style="margin-top: 5px;font-size: 35px;"
+                           class="sliderZone fa-regular fa-circle-left btnPointer modal1"></i>
+                        <i id="rightBtn" onclick="rightSlider()" style="margin-top:5px; font-size: 35px;"
+                           class="sliderZone fa-regular fa-circle-right btnPointer modal1"></i>
+                    </div>
+                    <div class="col" id="addBtnZone" style="height:50px; text-align: right; margin-top:10px">
+                        <label for="filePlus"><i id="addBtn" onclick="addBtnEffect()" name="addBtn"
+                                                 class="fa-regular fa-clone btnPointer modal1" style="font-size:30px"
+                                                 hidden></i></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function addBtnEffect() {
+            let btn = document.getElementById("addBtn")
+            btn.className = "fa-solid fa-clone"
+
+            function reset() {
+                btn.className = "fa-regular fa-clone"
+            }
+
+            setTimeout(reset, 150)
+
+        }
+    </script>
+
+    <!--게시글 모달 끝-->
+</div>
+<!--    detail 모달 시작-->
+
+<style>
+
+    .input-group[class*="detail"]{
+        flex-wrap:nowrap
+    }
+    .contentsItem_detail[class*="detail"]{
+        /* margin:64px 130px 24px 30px; width:450px; height:650px;  */
+        /*margin:64px 24px 24px 24px; width:450px; height:650px;*/
+        margin: 85px 24px 24px 24px;
+        width: 400px;
+        height: 600px;
+    }
+    .modal[class*="detail"]{
+        --bs-modal-border-width: 1px;
+        --bs-modal-width:850px
+        /* --bs-modal-width: 500px; */
+    }
+
+    .detail>.emojionearea .emojionearea-editor:empty:before{
+        margin-top: 12px;
+    }
+
+
+    .contentsImg[class*="detail"]{
+        margin: 20px;
+        width: 520px;
+        background-color: black;
+        border-radius: 5px;
+        /* border: 1px solid; */
+    }
+
+    .comment[class*="detail"]{
+        padding: 0;
+        margin: 0;
+        width: 400px;
+        /* border: 1px solid; */
+    }
+
+    .detail>.emojionearea{
+        min-height: 60px;
+        max-height: 60px;
+        border: 0;
+
+        /* height: 50px; */
+    }
+    .detail>.emojionearea .emojionearea-editor{
+        margin: 0px;
+        min-height: 60px;
+        max-height: 60px;
+        height: 60px;
+    }
+
+
+    .detail>.emojionearea.focused{
+        border-color:#66AFE9;
+        outline:0;
+        -moz-box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0);
+        -webkit-box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0);
+        box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0)
+    }
+
+
+
+    body{
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+
+    .profileImg[class*="detail"]{
+        margin: 0px 0 0 20px;
+        border-radius: 50%;
+        /* border: 2px solid rgb(218, 218, 218) ; */
+        width: 50px;
+        height: 50px;
+
+    }
+
+    .profileId[class*="detail"]{
+        margin: 0px 0 0 0 ;
+        font-size: 20px;
+    }
+
+    .detail>.emojionearea, .emojionearea.form-control{
+        font-size: 16px;
+    }
+    .detail>.emojionearea .emojionearea-button{
+        top:18px
+    }
+
+
+
+
+    .profileZone[class*="detail"]{
+        margin: 0px 0 5px 0;
+    }
+
+    .pofileItem[class*="detail"]{
+        margin: 0 0 0 20px;
+    }
+    .profileTag[class*="detail"]{
+        color:dimgrey;
+        font-size: 12px;
+    }
+
+    .commentList[class*="detail"]{
+        /* background-color: yellow; */
+        height: 509px;
+        border-bottom:rgb(214, 214, 214) 1px solid       }
+    .commentListItem[class*="detail"]{
+        font-size: 25px;
+        margin: 10px 0 0 20px;
+    }
+
+    .likeListZone[class*="detail"]{
+        height: 80px;
+        /* background-color: blue; */
+        border-bottom:rgb(214, 214, 214) 1px solid
+    }
+    .saveCommentBtn[class*="detail"]{
+        margin: 17px 0 0 0;
+        padding: 0;
+        border: 0;
+    }
+    .commentZone[class*="detail"]{
+        width: 398px;
+    }
+</style>
+
+<script>
+
+    function black(){
+        document.getElementById("saveCommentBtn_detail").style.color="black"
+    }
+    function gray(){
+        document.getElementById("saveCommentBtn_detail").style.color="gray"
+    }
+
+    // function like(i){
+    //     let likeBtn = document.getElementById("likeBtn")
+
+    // }
+    let likeNum=0;
+    function like(){
+        if(likeNum==0){
+            document.getElementById("likeBtn_detail").className="fa-solid fa-heart commentListItem"
+            document.getElementById("likeBtn_detail").style.color="red"
+            likeNum=1;
+        }else if(likeNum==1){
+            document.getElementById("likeBtn_detail").className="fa-regular fa-heart commentListItem"
+            document.getElementById("likeBtn_detail").style.color="black"
+            likeNum=0;
+        }
+
+        // 이곳에 좋아요 컬럼 변경하는 내용을 작성해주세요
+        $.ajax({
+            url:"",
+            type:"get",
+            data:{},
+            dataType:"",
+
+            success:function(e){
+                console.log("like ajax suc")
+            },
+            error:function(){
+                console.log("like ajax err")
+            }
+
+        })
+
+
+
+    }
+
+    function focusComment(){
+        $(".emojionearea-editor").focus();
+    }
+
+
+
+
+
+
+</script>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop_detail">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade detail" id="staticBackdrop_detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog detail">
+        <div class="modal-content detail" style="" >
+            <!-- <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> -->
+            <div class="modal-body detail" style="padding: 0; margin: 0 0 0 0px; height: 770px">
+
+                <div class="input-group mainBody detail" >
+                    <!-- <div class="input-group mainBody" style="width:900px; height: 780px; margin:10px 0 0 10px;"> -->
+
+                    <!-- 왼쪽 화면 -->
+                    <div class="contentsImg_detail">
+                        <div id="contents_detail" class="contents detail">
 
                             <!-- contents body 구역 -->
-                            <div style="overflow: hidden">
-                                <div id="contentsBody" class="contentsBody">
 
-                                    <!-- 사진 선택 버튼 -->
-                                    <div id="imgBtnZone" style="padding: 0;margin: 0;height: 0;">
-                                        <label for="filePlus" class="btnPointer"><i id="imgBtn" onclick="imgBtnEffect()" name="imgBtn" class="fa-regular fa-file-image" style="color:#0d6efd;font-size: 70px;position:absolute ;top:40%;left:40%"></i></label></button>
-                                        <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">사진을 선택해주세요.</p>
-                                    </div>
+                            <div id="contentsBody_detail" class="contentsBody_detail detail">
 
-                                </div>
+                                <!-- 이미지 넣는 곳 -->
+                                <img id="contentsItem_detail"  class="contentsItem_detail detail" src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt="">
+                                <!-- <img style="border:solid 10px rgba(0,0,0,1)" id="contentsItem"  class="contentsItem" src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt=""> -->
 
                             </div>
-                            <script>
 
-                                function valuetest(){
-                                    let val=document.getElementById("boardFile").value
-                                    console.log("val : "+val)
-                                    if(val==""){
-                                        alert("파일 없음")
-                                    }else{
-                                        document.getElementById("nextBtn").removeAttribute("hidden")
-                                        document.getElementById("addBtn").removeAttribute("hidden")
-                                        document.getElementById("imgBtnZone").setAttribute("hidden","hidden")
-
-                                    }
-                                }
-                                function imgBtnEffect(){
-                                    let imgBtn=document.getElementById("imgBtn")
-                                    imgBtn.style.color="gray"
-                                    imgBtn.style.fontSize="65px"
-
-                                    setTimeout(reset,150)
-                                    function reset(){
-                                        imgBtn.style.color="#0d6efd"
-                                        imgBtn.style.fontSize="70px"
-                                    }
-                                }
-
-
-                            </script>
 
 
                         </div>
 
-
-                        <!-- collapse 구역 -->
-                        <div class="collapse-horizontal collapse" id="collapseWidthExample">
-
-                            <div class="collapseBody">
-                                <div class="filterZone">
-                                    <!-- 필터 버튼 구역 -->
-                                    <table>
-                                        <tr>
-                                            <td ><img onclick="filter('reset')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt=""></td>
-                                            <td ><img onclick="filter('gray')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:grayscale(50)"></td>
-                                        </tr>
-                                        <tr>
-                                            <td ><img onclick="filter('sepia')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:sepia(1)"></td>
-                                            <td ><img onclick="filter('contrast')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:contrast(1.5)"></td>
-                                        </tr>
-                                        <tr>
-                                            <td ><img onclick="filter('brightness')" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:brightness(1.3) ;"></td>
-                                            <td ><img onclick="filter('invert')" id="invert" class="filterItem" src="https://cdn.class101.net/images/7b9546d0-3294-4839-b17b-0c5c9edfc587" alt="" style="filter:invert(1)"></td>
-                                        </tr>
-
-                                    </table>
-
-                                    <!-- 필터 레인지 구역 -->
-                                    <div class="rangeZone">
-                                        <div id="filterContrast" style="text-align: center;" >
-                                            <p class="filterTitle">Contrast</p>
-                                            <input type="range" class="slider_range" id="Range1" style="width:80%;" oninput="range('contrast')" min="100" max="300" value="100">
-                                        </div>
-
-                                        <div id="filterSaturate" style="text-align: center;" >
-                                            <p class="filterTitle">Saturate</p>
-                                            <input type="range" class="slider_range" id="Range2" style="width:80%;" oninput="range('saturate')" min="0" max="200" value="100">
-                                        </div>
-
-                                        <div id="filterBrightness" style="text-align: center;" >
-                                            <p class="filterTitle">Brightness</p>
-                                            <input type="range" class="slider_range" id="Range3" style="width:80%;" oninput="range('Brightness')" min="0" max="200" value="100">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-<!--                        글 작성 영역-->
-                        <!-- 글작성 구역 -->
-
-
-                        <!-- <div class="filterZone"> -->
-                        <!-- <div style="text-align: center"> -->
-
-
-                        <style>
-                            .submitBtn{
-                                /* color: gray; */
-                                font-size: 20px;
-                                text-align: right;
-                                margin: 10px 20px 0 0;
-                                border: 0;
-                                /* font-family: 'Dosis', sans-serif; */
-
-                            }
-
-
-
-                            .contentsHeader{
-                                margin: 10px 0 0 0;
-                            }
-
-
-
-                            .contentsImg{
-                                width: 500px;
-                                border: 1px solid;
-                            }
-
-
-                            .emojionearea .emojionearea-editor{
-                                min-height: 200px;
-                                max-height: 200px;
-
-                            }
-
-                            .chkBox{
-                                border-bottom: 1px solid rgb(226, 226, 226);
-                                padding: 0;
-                                height: 59px;
-                                text-align: left;
-
-
-
-                                /* background-color: red; */
-                            }
-                            .chkBoxItem{
-                                font-size: 17px;
-                                margin: 15px 0 0px 15px;
-                            }
-                            body{
-                                font-family: 'Noto Sans KR', sans-serif;
-                            }
-
-
-                            .profileImg{
-                                margin: 0px 0 0 20px;
-                                border-radius: 50%;
-                                /* border: 2px solid rgb(218, 218, 218) ; */
-                                width: 50px;
-                                height: 50px;
-
-                            }
-
-                            .profileId{
-                                margin: 17px 0 0 0 ;
-                                font-size: 20px;
-                                text-align: left;
-                            }
-
-                            .emojionearea, .emojionearea.form-control{
-                                font-size: 18px;
-
-                            }
-
-                            .cText{
-                                margin-top: 0px;
-                                padding: 7px;
-                            }
-
-                            .tagResult{
-                                background-color: red;
-                                height:200px
-                                /* height:230px */
-                            }
-                            .modal-footer{
-                                border: 0;
-                            }
-                        </style>
-                        <!-- <div class="collapse-horizontal collapse" id="collapseWidthExample2">
-                            <div class="collapseBody">               -->
-                        <div class="collapse-horizontal collapse" id="collapseWidthExample2">
-                            <div class="collapseBody">
-                                <div class="filterZone">
-                                    <div style="text-align: center">
-                                        <!--                                        <textarea class="text-form"></textarea>-->
-                                        <div class="contentsText">
-                                            <div class="profileZone row">
-                                                <!-- 작성자 프로필 구역 -->
-
-                                                <!-- 프로필 이미지 -->
-                                                <div class="col-3">
-                                                    <img class="profileImg" src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">
-                                                </div>
-
-                                                <!-- 프로필 아이디 -->
-                                                <div class="col" >
-                                                    <p class="profileId">hasangsu82</p>
-                                                </div>
-                                            </div>
-
-
-                                            <!-- 글 작성 구역 -->
-                                            <div id="cText" class="cText">
-                                                <div>
-                                                    <form action="/hhhhhhhh" id="contentsForm">
-                                                        <textarea name="fff" class="tete textArea" id="text1" placeholder="문구 입력.."></textarea>
-                                                    </form>
-                                                </div>
-
-                                            </div>
-
-                                            <!-- tag 검색어 리스트 구역 -->
-
-                                            <div id="tagResult" class="tagResult" style="overflow:scroll ;">
-                                                <h3>tag검색어 리스트 구역</h3>
-                                                <table>
-
-                                                </table>
-
-                                            </div>
-
-
-
-                                            <!-- 댓글 기능 해제  -->
-
-                                            <div class="chkBox">
-                                                <div id="replyZone" class="row">
-                                                    <p class="col chkBoxItem">댓글 기능 해제</p>
-                                                    <div class="col-2 form-check form-switch chkBoxItem">
-                                                        <input value="false" onchange="replyChk()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" >
-                                                    </div>
-                                                </div></div>
-
-                                            <!-- 좋아요 기능 해제 -->
-                                            <div class="chkBox">
-                                                <div id="likeZone" class="row">
-                                                    <p class="col chkBoxItem">좋아요 및 조회수 감추기</p>
-                                                    <div class="col-2 form-check form-switch chkBoxItem">
-                                                        <input value="false" onchange="likeChk()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1" >
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-
-
-
-                                            <script>
-
-                                                // false 일때 댓글 기능을 해제 하도록 개발 해주세요
-                                                function replyChk(){
-                                                    let val=document.getElementById("flexSwitchCheckDefault").value
-                                                    console.log("cktest : "+val)
-                                                }
-
-
-                                                // false 일때 기능 해제 하도록 개발 해주세요
-                                                function likeChk(){
-                                                    let val=document.getElementById("flexSwitchCheckDefault1").value
-                                                    console.log("cktest1 : "+val)
-                                                }
-                                            </script>
-
-
-
-
-
-
-
-                                            <script>
-
-
-                                                //    textarea 이모지 및 키이벤트 함수
-                                                $("#text1").emojioneArea({
-                                                    pickerPosition:"right",
-                                                    searchPosition: "bottom",
-                                                    filtersPosition: "bottom",
-
-                                                    events:{
-                                                        keypress: function (){
-                                                            console.log("key events")
-                                                            //    $("textarea:contains('#')")
-                                                            //  document.addEventListener("keypress",checkKeyPressed,false)
-                                                            //  function checkKeyPressed(e){
-                                                            //     if (e.keyCode === 65) {
-                                                            //     alert("The 'a' key is pressed.");
-                                                            //     }
-                                                            //  }
-
-                                                            window.addEventListener("keydown", keysPressed, false);
-                                                            window.addEventListener("keyup", keysReleased, false);
-
-                                                            var keys = [];
-                                                            let zone=document.querySelector(".emojionearea .emojionearea-editor")
-                                                            function keysPressed(e) {
-                                                                // store an entry for every key pressed
-                                                                keys[e.keyCode] = true;
-
-                                                                // Ctrl + Shift + 5
-                                                                // if (keys[17] && keys[16] && keys[53]) {
-                                                                if (keys[16] && keys[51]) {
-                                                                    // do something
-                                                                    console.log("test성공")
-                                                                    zone.style.color="red"
-                                                                }
-
-                                                                if(keys[32]){
-                                                                    console.log("test성공")
-                                                                    zone.style.color="#555"
-                                                                }
-                                                                // Ctrl + f
-                                                                if (keys[17] && keys[70]) {
-                                                                    // do something
-                                                                    // console.log("test성공")
-
-                                                                    // prevent default browser behavior
-                                                                    e.preventDefault();
-                                                                }
-                                                            }
-
-                                                            function keysReleased(e) {
-                                                                // mark keys that were released
-                                                                keys[e.keyCode] = false;
-                                                            }
-
-
-
-
-                                                        }
-                                                    }
-                                                    //    tonesStyle:"bullet",
-                                                    //    standalone: true,
-                                                    //     autocomplete: false
-                                                    //    container: "#container",
-                                                    //    inline:false
-                                                });
-
-                                                // 체크박스 토글 밸류 변경 함수
-
-                                                $(function() {
-                                                    let val=document.getElementById("flexSwitchCheckDefault").value
-                                                    $('#flexSwitchCheckDefault').change(function() {
-                                                        $('#flexSwitchCheckDefault').val($(this).prop('checked'))
-                                                    })
-
-                                                })
-
-                                                $(function() {
-                                                    let val=document.getElementById("flexSwitchCheckDefault1").value
-                                                    $('#flexSwitchCheckDefault1').change(function() {
-                                                        $('#flexSwitchCheckDefault1').val($(this).prop('checked'))
-                                                    })
-
-                                                })
-
-
-                                            </script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
 
 
 
                     </div>
-                <!--슬라이더버튼-->
-                <!-- <button onclick="leftSlider()">앞으로</button>
-                <button onclick="rightSlider()">뒤로</button> -->
-                <!--파일추가 할 인풋창-->
-                <input type="file" name="filePlus" id="filePlus" onsubmit="return false;" onchange="plus(this)" multiple hidden>
 
 
 
 
 
+                    <!-- 오른쪽 화면 -->
+                    <div class="comment detail" style="margin-right: 20px;border-left: 1px solid rgb(214, 214, 214);">
+
+                        <div class="profileZone input-group detail" style="border-bottom:rgb(214, 214, 214) 1px solid">
+                            <!-- 게시글 작성자 프로필 구역 -->
+
+                            <table style="margin-top: 10px;">
+                                <tr>
+                                    <!-- 프로필 이미지 -->
+                                    <td rowspan="2">
+                                        <img class="profileImg detail" src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">
+                                    </td>
+
+                                    <td >
+                                        <!-- 프로필 아이디 -->
+                                        <p class="profileId profileItem detail">hasangsu82</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <!-- 위치 태그 -->
+                                        <p class="profileTag profileItem detail" >인천일보 아카데미</p>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                            <!-- close button -->
+                            <!-- <div style="font-size: 20px;margin:0 0 0 170px;"><i class="fa-solid fa-xmark"></i></div> -->
+                            <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button></div>
+
+
+
+                        </div>
 
 
 
 
+                        <!-- 댓글 구역 -->
+                        <div id="commentZone" class="commentZone detail">
 
 
 
-                <script>
-                    let num = 0;
 
-                    function uploadImgPreview(obj) {
-                        console.log(obj);
-                        var maxFileCnt = 10;   // 첨부파일 최대 개수
-                        var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
-                        var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
-                        var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
+                            <!-- 댓글 리스트 구역 -->
+
+                            <div id="commentList" class="commentList detail">
 
 
-                        document.querySelector("[id=contentsBody]").innerHTML = null;
-                        if (curFileCnt > remainFileCnt) {
-                            alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
-                            document.querySelector("input[type=file]").value = "";
-                        } else {
-                            const boardFile = document.getElementById("boardFile").files;
-                            if (boardFile[0] == null) {
-                                alert("파일이 없습니다.");
-                            } else {
-                                for (const f of obj.files) {
-                                    validation(f)
-                                }
-
-                            }
-                            num = 0
-                        }
-                    }
-                    function uploadImgPreview1(obj) {
-                        const boardFile = document.getElementById("boardFile");
-                        var maxFileCnt = 10;   // 첨부파일 최대 개수
-                        var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
-                        var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
-                        var curFileCnt = boardFile.files.length;  // 현재 선택된 첨부파일 개수
-
-                        if (curFileCnt > remainFileCnt) {
-                            alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
-                            document.querySelector("input[type=file]").value = "";
-                        } else {
-                            const boardFile = document.getElementById("boardFile").files;
-                            if (boardFile[0] == null) {
-                                alert("파일이 없습니다.");
-                            } else {
-                                for (const f of obj.files) {
-                                    validation(f)
-                                }
-
-                            }
-
-                        }
-                    }
-                    function validation(obj){
-                        console.log(obj);
-                        let fileList = document.getElementById("boardFile").files;
-                        const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'video/mp4' ,'application/haansofthwp', 'application/x-hwp'];
-                        for (let i = 0; i < fileList.length; i++){
-                            if (fileList[i].name.length > 100) {
-                                alert("파일명이 100자 이상인" + fileList[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=boardFile]").value = "";
-                                return false;
-                            }
-                            else if (fileList[i].size > (100 * 1024 * 1024)) {
-                                alert("최대 파일 용량인 100MB를 초과한" + fileList[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=boardFile]").value = "";
-                                return false;
-                            }
-                            else if (fileList[i].name.lastIndexOf('.') == -1) {
-                                alert("확장자가 없는" + fileList[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=boardFile]").value = "";
-                                return false;
-                            }
-                            else if (!fileTypes.includes(fileList[i].type)) {
-                                alert("첨부가 불가능한" + fileList[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=boardFile]").value = "";
-                                return false;
-                            }
-                        }
-
-                        setTimeout(function () {
-                            if (fileList[0] == obj) {
-                                uploadFile(obj);
-                            }
-                        },);
-                        setTimeout(function () {
-                            if (fileList[1] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 350);
-                        setTimeout(function () {
-                            if (fileList[2] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 700);
-                        setTimeout(function () {
-                            if (fileList[3] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 1050);
-                        setTimeout(function () {
-                            if (fileList[4] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 1400);
-                        setTimeout(function () {
-                            if (fileList[5] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 1750);
-                        setTimeout(function () {
-                            if (fileList[6] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 2100);
-                        setTimeout(function () {
-                            if (fileList[7] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 2450);
-                        setTimeout(function () {
-                            if (fileList[8] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 2800);
-                        setTimeout(function () {
-                            if (fileList[9] == obj) {
-                                uploadFile(obj);
-                            }
-                        }, 3150);
-                        return true;
-                    }
+                            </div>
 
 
-                    function uploadFile (obj) {
-                        const fileTypes2 = ['image/gif', 'image/jpeg', 'image/png'];
-                        const fileTypes3 = ['video/mp4'];
-                        const fileTypes4 = ['image/gif', 'image/jpeg', 'image/png', 'video/mp4'];
-                        if (fileTypes4.includes(obj.type)) {
-                            let reader = new FileReader();
-                            reader.addEventListener("load", function () {
-                                if (fileTypes2.includes(obj.type)) {
-                                    let image = new Image();
+                            <!-- 게시글 하단부 아이콘 -->
 
-                                    num += 1;
+                            <!-- 좋아요 버튼 -->
+                            <div class="input-group detail">
+                                <div class="likeBtn detail">
 
-                                    image.src = this.result;
-
-
-                                    image.id = "contentsItem" + num;
-
-                                    image.className = "contentsItem";
+                                    <!--
+                                         like 함수 파라미터로 컬럼에 저장되어있는
+                                         좋아요클릭 여부를 넣어주세요(1또는 0, 디폴트는 0)
+                                     -->
+                                    <i id="likeBtn detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>
+                                    <!-- <i class="fa-solid fa-heart"></i> -->
+                                </div>
 
 
-                                    document.getElementById("contentsBody").appendChild(image);
-                                } else if (fileTypes3.includes(obj.type)) {
-                                    let video = document.createElement("video");
-                                    num += 1;
-                                    video.setAttribute("src", this.result);
-                                    // video.setAttribute("controls", "controls");
-                                    video.setAttribute("autoplay", "autoplay");
-                                    video.setAttribute("id", "contentsItem" + num);
-                                    video.setAttribute("class", "contentsItem");
-                                    video.setAttribute("loop", "loop");
-                                    document.getElementById("contentsBody").appendChild(video);
-                                }
-
-                            });
-                            if (obj) {
-                                valuetest()
-                                if(document.getElementById("boardFile").files.length>=2){
-                                    document.getElementById("slideBtnZone").removeAttribute("hidden")}
-                                reader.readAsDataURL(obj);
-                            }
-
-
-                        }
-                    }
+                                <!-- 댓글 버튼 -->
+                                <div class="commentBtn detail">
+                                    <i onclick="focusComment()" class="fa-regular fa-comment commentListItem detail"></i>
+                                </div>
+                            </div>
 
 
 
-                    function plus (obj) {
-                        const files1 = document.querySelector('#filePlus').files;
-                        const files = document.querySelector('#boardFile').files;
-                        const dataTranster = new DataTransfer();
-                        const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'video/mp4' ,'application/haansofthwp', 'application/x-hwp'];
-                        for (let i = 0; i < files1.length; i++){
-                            if (files1[i].name.length > 100) {
-                                alert("파일명이 100자 이상인" + files1[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=filePlus]").value = "";
-                                return false;
-                            }
-                            else if (files1[i].size > (100 * 1024 * 1024)) {
-                                alert("최대 파일 용량인 100MB를 초과한" + files1[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=filePlus]").value = "";
-                                return false;
-                            }
-                            else if (files1[i].name.lastIndexOf('.') == -1) {
-                                alert("확장자가 없는" + files1[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=filePlus]").value = "";
-                                return false;
-                            }
-                            else if (!fileTypes.includes(files1[i].type)) {
-                                alert("첨부가 불가능한" + files1[i].name + "파일이 있습니다.");
-                                document.querySelector("input[id=filePlus]").value = "";
-                                return false;
-                            }
-                        }
-                        Array.from(files)
-                            .forEach(file => {
-                                dataTranster.items.add(file);
-                            });
-                        Array.from(files1)
-                            .forEach(file => {
-                                dataTranster.items.add(file);
-                            });
-                        document.querySelector('#boardFile').files = dataTranster.files;
-                        uploadImgPreview1(obj);
+                            <!-- 좋아요 리스트 구역 -->
+                            <div class="likeListZone detail">
 
-                    }</script>
+                            </div>
 
-            </div>
-            <div class="modal-footer row" style="padding:0;margin: 0;height:70px;">
-                <div class="col slideBtnZone" style="height: 50px;" id="slideBtnZone" hidden>
-                    <i id="leftBtn" onclick="leftSlider()" style="margin-top: 5px;font-size: 35px;" class="sliderZone fa-regular fa-circle-left btnPointer"></i>
-                    <i id="rightBtn" onclick="rightSlider()" style="margin-top:5px; font-size: 35px;" class="sliderZone fa-regular fa-circle-right btnPointer"></i>
-                </div>
-                <div class="col" id="addBtnZone" style="height:50px; text-align: right; margin-top:10px">
-                    <label for="filePlus"><i id="addBtn" onclick="addBtnEffect()" name="addBtn" class="fa-regular fa-clone btnPointer" style="font-size:30px" hidden></i></label>
+
+                            <!-- 댓글 작성 -->
+
+                            <div class="row detail" style="height: 60px;" >
+                                <div class="col-10 detail" style=" margin-top:0px;">
+                                    <textarea class="text1_detail detail" name="" id="text1_detail" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
+                                </div>
+                                <!-- 댓글 저장 버튼 -->
+                                <div class="col-2 detail">
+                                    <p onclick="" id="saveCommentBtn_detail" class="saveCommentBtn btn detail" onmouseover="gray()" onmouseout="black()">게시</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Understood</button>
+                    </div> -->
                 </div>
             </div>
         </div>
+
+
+
     </div>
 </div>
+
 <script>
-    function addBtnEffect(){
-        let btn=document.getElementById("addBtn")
-        btn.className="fa-solid fa-clone"
-        function reset(){
-            btn.className="fa-regular fa-clone"
-        }
-        setTimeout(reset,150)
+    $("#text1_detail").emojioneArea({
+        pickerPosition:"top",
+        searchPosition: "bottom",
+        filtersPosition: "bottom",
 
-    }
+
+        //    tonesStyle:"bullet",
+        //    standalone: true,
+        //     autocomplete: false
+        //    container: "#container",
+        //    inline:false
+    });
 </script>
-
-<!--게시글 모달 끝-->
-
-
+    <!--    detail 모달 끝-->
 </body>
 </html>
