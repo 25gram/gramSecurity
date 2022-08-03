@@ -41,7 +41,7 @@ public class BoardEntity extends BaseEntity{
     List<CommentEntity>commentEntityList=new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member")
+    @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
     public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberId) {
         BoardEntity board = new BoardEntity();

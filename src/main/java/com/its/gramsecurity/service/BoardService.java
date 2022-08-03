@@ -10,6 +10,7 @@ import com.its.gramsecurity.entity.BoardEntity;
 import com.its.gramsecurity.entity.BoardFileEntity;
 import com.its.gramsecurity.repository.LikesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,7 +62,7 @@ public class BoardService {
         return BoardFileDTO.toDTO(boardFileRepository.findById(id).get());
     }
     public List<BoardDTO> findAll() {
-        List<BoardEntity> boardEntity = boardRepository.findAll();
+        List<BoardEntity> boardEntity = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         List<BoardDTO> board = new ArrayList<>();
         for (BoardEntity boardList : boardEntity) {
             board.add(BoardDTO.toBoardDTO(boardList));
