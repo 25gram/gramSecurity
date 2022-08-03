@@ -779,6 +779,7 @@
 
                 <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm"
                       name="saveForm">
+<!--                    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
                     <div>
                         <input type="file" id="boardFile" name="boardFile" onsubmit="return false;"
                                onchange="uploadImgPreview(this);" multiple hidden>
@@ -1044,6 +1045,7 @@
                                         <div id="cText" class="cText modal1">
                                             <div style="text-align: left">
                                                 <form action="/hhhhhhhh" id="contentsForm">
+<!--                                                    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
                                                     <textarea name="fff" class="tete textArea modal1" id="text1"
                                                               placeholder="문구 입력.."></textarea>
                                                 </form>
@@ -1841,22 +1843,4 @@
 
 
 </body>
-<script th:inline="javascript">
-
-    $.ajax({
-        type: "post",
-        url: "/comment/save",
-        data: {
-            "commentWriter": commentWriter,
-            "commentContents": commentContents,
-            "productId": productId,
-            "memberId": memberId
-        },
-        dataType: "json",
-        success: function (result) {
-
-        },
-    });
-
-</script>
 </html>

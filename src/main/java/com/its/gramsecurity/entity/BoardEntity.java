@@ -1,10 +1,13 @@
 package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.BoardDTO;
+import com.its.gramsecurity.dto.LikesDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class BoardEntity extends BaseEntity{
     @Column(name = "board_id")
     private Long id;
 
-    @Column(length = 20)
+    @Column(length = 500)
     private String boardWriter;
 
     @Column(length = 100)

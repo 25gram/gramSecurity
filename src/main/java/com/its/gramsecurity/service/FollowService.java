@@ -38,20 +38,20 @@ public class FollowService {
         return followDTOList;
     }
 
-    public List<Optional<FollowEntity>> findAllByMyId(String myId) {
-        List<Optional<FollowEntity>> followEntityList = followRepository.findAllByMyId(myId);
-        List<Optional<FollowEntity>> followList = new ArrayList<>();
-        for (Optional<FollowEntity> follow : followEntityList) {
-            followList.add(follow);
+    public List<FollowDTO> findAllByMyId(String myId) {
+        List<FollowEntity> followEntityList = followRepository.findAllByMyId(myId);
+        List<FollowDTO> followList = new ArrayList<>();
+        for (FollowEntity follow : followEntityList) {
+            followList.add(FollowDTO.toDTO(follow));
         }
         return followList;
     }
 
-    public List<Optional<FollowEntity>> findAllByYourId(String yourId) {
-        List<Optional<FollowEntity>>followingEntityList=followRepository.findAllByYourId(yourId);
-        List<Optional<FollowEntity>>followingList=new ArrayList<>();
-        for(Optional<FollowEntity> follow:followingEntityList){
-            followingList.add(follow);
+    public List<FollowDTO> findAllByYourId(String yourId) {
+        List<FollowEntity>followingEntityList=followRepository.findAllByYourId(yourId);
+        List<FollowDTO>followingList=new ArrayList<>();
+        for(FollowEntity follow:followingEntityList){
+            followingList.add(FollowDTO.toDTO(follow));
         }return followingList;
     }
 
