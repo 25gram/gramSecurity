@@ -79,6 +79,7 @@
                 document.getElementById("footerItem1").style.fontSize = '28px'
                 document.getElementById("footerItem1").style.marginRight = '2px'
                 setTimeout(iconReset, 150, 1);
+                location.href='/main/main'
             } else if (i == 2) {
                 document.getElementById("footerItem2").style.fontSize = '28px'
                 document.getElementById("footerItem2").style.marginRight = '2px'
@@ -325,7 +326,7 @@
             <i id="headerItem1" class="hi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"
                onmouseover="gray(5)" onmouseout="black(5)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
             <i id="headerItem2" class="hi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)"
-               onmouseout="black(6)"></i>
+               onmouseout="black(6)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
             <i id="headerItem3" class="hi fa-regular fa-paper-plane" style="font-size: 28px;"
                onclick="black(7),iconEffect(7)" onmouseover="gray(7)" onmouseout="black(7)"></i>
 
@@ -492,6 +493,9 @@
     .btnPointer:not(.detail) {
         cursor: pointer;
     }
+    /*.modal {*/
+    /*    transition: transform 10s ease-in-out;*/
+    /*}*/
 </style>
 
 <script>
@@ -501,16 +505,17 @@
         if (i == 0) {
             console.log("test : 0")
 
-            document.getElementById("modalSize").className = "modal-dialog modal-lg"
-
+            // document.getElementById("modalSize").className = "modal-dialog modal-lg"
+            zone.style.width='800px'
         } else {
             console.log("test : 1")
 
             function sizeS() {
-                document.getElementById("modalSize").className = "modal-dialog"
+                // document.getElementById("modalSize").className = "modal-dialog"
+                zone.style.width='500px'
             }
 
-            setTimeout(sizeS, 150)
+            setTimeout(sizeS, 180)
             count = 0
         }
     }
@@ -1545,10 +1550,10 @@
 
 
     .profileZone[class*="detail"]{
-        margin: 0px 0 5px 0;
+        margin: 5px 0 16px 0;
     }
 
-    .pofileItem[class*="detail"]{
+    .profileItem[class*="detail"]{
         margin: 0 0 0 20px;
     }
     .profileTag[class*="detail"]{
@@ -1807,5 +1812,35 @@
     });
 </script>
     <!--    detail 모달 끝-->
+
+
+<!--off canvas start-->
+
+<!--<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Toggle top offcanvas</button>-->
+
+<style>
+    .offcanvas.offcanvas-top {
+        margin: auto;
+        margin-top: 68px;
+
+    }
+    .offcanvas{
+        max-width: 500px;
+    }
+
+</style>
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasTopLabel">Offcanvas top</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        ...
+    </div>
+</div>
+<!--off canvas end-->
+
+
+
 </body>
 </html>
