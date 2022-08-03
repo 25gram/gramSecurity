@@ -16,10 +16,10 @@ public class StoryEntity {
     @Column
     private Long id;
 
-    @Column(length = 20, unique = true, nullable = false)
+    @Column(length = 500, unique = true, nullable = false)
     private String memberId;
 
-    @Column (length = 20, nullable = false)
+    @Column (length = 500, nullable = false)
     private String storyFileName;
 
     @Column

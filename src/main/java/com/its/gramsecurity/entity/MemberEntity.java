@@ -26,7 +26,7 @@ public class MemberEntity {
     private String memberName;
     @Column(length = 30)
     private String memberEmail;
-    @Column(length = 50)
+    @Column(length = 500)
     private String memberProfileName;
     @Column
     private int loginStatus;
