@@ -27,7 +27,7 @@ public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
     private final LikesRepository likesRepository;
-    public BoardDTO fileSave(BoardDTO boardDTO, String memberId) {
+    public BoardDTO fileSave(BoardDTO boardDTO,String memberId) {
         Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,memberId)).getId();
         return BoardDTO.toDTO(boardRepository.findById(id).get());
     }
