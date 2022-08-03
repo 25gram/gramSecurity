@@ -1,14 +1,14 @@
 package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.CommentDTO;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "comment_entity")
 public class CommentEntity extends BaseEntity {
@@ -16,9 +16,6 @@ public class CommentEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-
-    @Column
-    private Long boardId;
 
     @Column
     private String commentWriter;
@@ -36,10 +33,9 @@ public class CommentEntity extends BaseEntity {
     private BoardEntity boardEntity;
 
 
-    public static CommentEntity toSaveEntity(CommentDTO commentDTO, MemberEntity memberEntity, BoardEntity boardEntity){
+    public static CommentEntity toSaveEntity(CommentDTO commentDTO, MemberEntity memberEntity,BoardEntity boardEntity){
         CommentEntity commentEntity=new CommentEntity();
         commentEntity.setId(commentDTO.getId());
-        commentEntity.setBoardId(boardEntity.getId());
         commentEntity.setCommentWriter(memberEntity.getMemberId());
         commentEntity.setCommentContents(commentDTO.getCommentContents());
         commentEntity.setMemberEntity(memberEntity);

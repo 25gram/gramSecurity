@@ -1,10 +1,13 @@
 package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.BoardDTO;
+import com.its.gramsecurity.dto.LikesDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class BoardEntity extends BaseEntity{
     @Column(name = "board_id")
     private Long id;
 
-    @Column(length = 20)
+    @Column(length = 500)
     private String boardWriter;
 
     @Column(length = 100)
@@ -36,12 +39,16 @@ public class BoardEntity extends BaseEntity{
 
     @OneToMany(mappedBy = "boardEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     List<CommentEntity>commentEntityList=new ArrayList<>();
-    public static BoardEntity toSaveEntity(BoardDTO boardFileDTO) {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private MemberEntity memberEntity;
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberId) {
         BoardEntity board = new BoardEntity();
-        board.setBoardWriter(boardFileDTO.getBoardWriter());
-        board.setBoardContents(boardFileDTO.getBoardContents());
-        board.setBoardLocation(boardFileDTO.getBoardLocation());
-        board.setBoardTag(boardFileDTO.getBoardTag());
+        board.setBoardWriter(memberId);
+        board.setBoardContents(boardDTO.getBoardContents());
+        board.setBoardLocation(boardDTO.getBoardLocation());
+        board.setBoardTag(boardDTO.getBoardTag());
         return board;
     }
 }

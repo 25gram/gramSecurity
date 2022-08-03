@@ -1,22 +1,22 @@
 package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.MemberDTO;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jdk.jfr.Name;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "member_entity")
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "member_id")
     private Long id;
     @Column(length = 500)
     private String memberId;
@@ -38,6 +38,9 @@ public class MemberEntity {
     private String provider;
     @Column
     private String providerId;
+
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
+    private List<BoardEntity>boardEntityList=new ArrayList<>();
 
     @OneToMany(mappedBy ="memberEntity" ,cascade =CascadeType.REMOVE,orphanRemoval = false,fetch = FetchType.LAZY)
     private List<FollowEntity> followEntityList=new ArrayList<>();

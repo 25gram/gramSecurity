@@ -1,8 +1,11 @@
 package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.BoardFileDTO;
+import com.its.gramsecurity.repository.BoardFileRepository;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 
@@ -31,6 +34,7 @@ public class BoardFileEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
+    
     public static BoardFileEntity toSaveEntity(BoardFileDTO fileDTO, BoardEntity boardFile) {
         BoardFileEntity file = new BoardFileEntity();
         file.setBoardId(fileDTO.getBoardId());

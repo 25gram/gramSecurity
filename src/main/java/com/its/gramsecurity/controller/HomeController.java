@@ -67,5 +67,10 @@ public class HomeController {
         return result;
     }
 
+    @GetMapping("/test")
+    String test(){
+        return "Contents/modal1";
+    }
+
 
 }

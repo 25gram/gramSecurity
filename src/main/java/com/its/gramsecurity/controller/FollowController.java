@@ -24,7 +24,7 @@ public class FollowController {
     @PostMapping("/request")
     public @ResponseBody List<FollowDTO> request_fw(FollowDTO followDTO, Principal principal,Model model) {
         String myId=principal.getName();
-        Long id= followService.save(followDTO,myId);
+       followService.save(followDTO,myId);
         return null;
     }
 
@@ -55,8 +55,7 @@ public class FollowController {
     }
 
     //언팔로우
-    @DeleteMapping("/")
-    public ResponseEntity UnFollow(@PathVariable Long id) {
+    @DeleteMapping("/")   public ResponseEntity UnFollow(@PathVariable Long id) {
         followService.UnFollow(id);
 //        return new ResponseEntity<>(HttpStatus.OK);
         return null;

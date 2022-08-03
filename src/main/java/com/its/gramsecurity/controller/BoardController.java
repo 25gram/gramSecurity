@@ -2,6 +2,7 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
+import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,13 +30,14 @@ public class BoardController {
     @PostMapping("/fileSave")
     public String fileSave(@ModelAttribute BoardDTO boardDTO,
                            @RequestParam("boardFilter") String boardFilter,
-                           MultipartHttpServletRequest mp,
+                           MultipartHttpServletRequest mp,Principal principal,
                            Model model) throws IOException {
-        BoardDTO saveDTO = boardService.fileSave(boardDTO);
+        String memberId=principal.getName();
+        BoardDTO saveDTO = boardService.fileSave(boardDTO, memberId);
         List<MultipartFile> multipartFileList = mp.getFiles("boardFile");
         List<BoardFileDTO> fileDTOList = new ArrayList<>();
         int a = 0;
-        System.out.println("="+boardFilter);
+//        System.out.println("="+boardFilter);
         List<String> list = Arrays.asList(boardFilter.split(","));
         String[] list2 = list.toArray(new String[list.size()]);
         System.out.println(list2[a]);
@@ -50,5 +53,10 @@ public class BoardController {
         model.addAttribute("boardDTO", saveDTO);
         model.addAttribute("fileDTOList", fileDTOList);
         return "redirect:/main/main";
+    }
+    @PostMapping("/likes")
+    public @ResponseBody int hits(@ModelAttribute LikesDTO likesDTO, Principal principal) {
+        int a = boardService.likes(likesDTO,principal);
+        return a;
     }
 }

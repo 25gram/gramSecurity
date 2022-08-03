@@ -7,7 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardFileDTO {
