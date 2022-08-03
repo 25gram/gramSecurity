@@ -345,27 +345,30 @@
 
 
     <!-- 메인피드 구역 -->
-    <div class="feedZone">
-        <!--        <div style="overflow: hidden">-->
-        <!--        <h1>메인피드 구역입니다.</h1>-->
-        <!--        <a href="/member/updateForm">update</a>-->
-        <div class="contentsBody" th:each="boardFile : ${boardFile}">
-            <div th:if="${1 == boardFile.boardId}">
-                <img th:if="${boardFile.boardImgName != null}" class="contentsItem1"
-                     th:src="@{|/upload/${boardFile.boardImgName}|}" th:style="'filter:' + ${boardFile.boardFilter}"
-                     alt="">
-                <video th:if="${boardFile.boardVideoName != null}" class="contentsItem1"
-                       th:src="@{|/upload/${boardFile.boardVideoName}|}" th:style="'filter:' + ${boardFile.boardFilter}"
-                       alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+    <div class="feedZone" id="feedZone">
+        <div style="overflow: hidden">
+            <div th:each="board : ${boardList}">
+                <span th:text="${board.boardWriter}" style="margin-left: auto"></span>
+                <div th:id="${board.id}" style="width: 5000px;">
+                    <div th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
+                        <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"  alt="">
+                        <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <button th:if="${board.likes == null}" th:id="i+${board.id}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i class="bi bi-heart" style="color: black"></i></button>
+                    <button th:if="${board.likes == 1}" th:id="d+${board.id}" th:value="${board.id}" onclick="likesDelete(value)" style="border: 0;background-color: transparent;"><i class="bi bi-heart-fill" style="color: red"></i></button>
+                    <a>댓글</a>
+                    <a>공유</a>
+                    <a>북마크</a>
+                    <!--아이콘 구역-->
+                    <br>
+                    <span th:text="${board.boardContents}"></span>
+                    <button th:id="l+${board.id}" id="" th:value="${board.id}" onclick="feedLeftSlider(value)"><</button>
+                    <button th:id="r+${board.id}" th:value="${board.id}" onclick="feedRightSlider(value)">></button>
+                </div>
             </div>
         </div>
-        <div th:each="board : ${boardList}">
-            <div th:if="${board.id == 1}">
-                <span th:text="${board.boardContents}"></span>
-            </div>
-        </div>
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
 
 
@@ -497,7 +500,96 @@
     /*    transition: transform 10s ease-in-out;*/
     /*}*/
 </style>
-
+<script th:inline="javascript">
+    const d = [[${boardFile}]];
+    const s = [[${boardList}]];
+    let sliderNum = [];
+    for (let i = 1; i <= s.length; i++) {
+        sliderNum[i] = 0;
+        // 한 게시물당 슬라이드 num 구하기
+        document.getElementById("l"+i).style.visibility = "hidden";
+    }
+    for (let i = 1; i < s.length+1; i++){
+        let c = 0;
+        for (let j = 0; j < d.length; j++){
+            if (d[j].boardId == s[s.length-i].id){
+                c++
+            }
+        }
+        if (c == 1) {
+            document.getElementById("r"+i).style.visibility = "hidden";
+        }
+    }
+    function feedRightSlider(a) {
+        // a = id 값 벨류 받아오기
+        document.getElementById("l"+a).style.visibility = "visible";
+        let y=0;
+        let zz = -498;
+        for (let i = 0; i < d.length; i++){
+            if (d[i].boardId == s[s.length-a].id){
+                y++;
+                // 한게시물당 슬라이드 length 구하기
+            }
+        }
+        if (sliderNum[a]+1 < y){
+            sliderNum[a]++;
+        }
+        if (sliderNum[a] == y-1) {
+            document.getElementById("r"+a).style.visibility = "hidden";
+        }
+        for (let i =0; i <= y; i++) {
+            if (sliderNum[a] == i) {
+                document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
+            }
+        }
+    }
+    function feedLeftSlider(a) {
+        let zz = -498;
+        if(sliderNum[a] > 0) {
+            sliderNum[a]--;
+        }
+        if (sliderNum[a] == 0){
+            document.getElementById("l"+a).style.visibility = "hidden";
+        }
+        document.getElementById("r"+a).style.visibility = "visible";
+        for (let i =0; i <= 10; i++) {
+            if (sliderNum[a] == i) {
+                document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
+            }
+        }
+    }
+    function likes (id) {
+        const memberId = [[${memberDTO.memberId}]];
+        // console.log(lineValue);
+        $.ajax({
+            type: "post",
+            url: "/board/likes",
+            data: {"memberId":memberId, "boardId": id},
+            dataType: "json",
+            success: function (a) {
+                const likeTest = document.getElementById("d"+id);
+                const likeTest2 = document.getElementById("i"+id);
+                likeTest2.style.display = "none";
+                likeTest.style.display = "inline-flex";
+            }
+        });
+    }
+    function likesDelete (id) {
+        const memberId = [[${memberDTO.memberId}]];
+        $.ajax({
+            type: "post",
+            url: "/board/likes/delete",
+            data: {"memberId":memberId, "boardId": id},
+            dataType: "json",
+            success: function (a) {
+                const likeTest = document.getElementById("d"+id);
+                const likeTest2 = document.getElementById("i"+id);
+                likeTest2.style.display = "inline-flex";
+                likeTest.style.display = "none";
+            }
+        });
+    }
+</script>
 <script>
     function sizeTest(i) {
 
@@ -521,7 +613,7 @@
     }
 
     let classNum = 1;
-    let sliderNum = 0;
+    let sliderNum2 = 0;
     let test = 0;
 
     function nextBtnEffect() {
@@ -604,8 +696,8 @@
     function rightSlider() {
         const boardFile = document.getElementById("boardFile").files;
         if (document.getElementById("boardFile").value != "") {
-            if (sliderNum + 1 < boardFile.length) {
-                sliderNum++;
+            if (sliderNum2 + 1 < boardFile.length) {
+                sliderNum2 ++;
             }
             if (classNum < boardFile.length) {
                 classNum++;
@@ -613,7 +705,7 @@
 
             let zz = -420;
             for (let i = 0; i <= boardFile.length; i++) {
-                if (sliderNum == i) {
+                if (sliderNum2 == i) {
                     document.querySelector('.contentsBody').style.transform = "translate(" + (zz * i) + "px)";
                 }
             }
@@ -622,15 +714,15 @@
 
     function leftSlider() {
         if (document.getElementById("boardFile").value != "") {
-            if (sliderNum > 0) {
-                sliderNum--;
+            if (sliderNum2 > 0) {
+                sliderNum2 --;
             }
             if (classNum > 1) {
                 classNum--;
             }
             let zz = -420;
             for (let i = 0; i <= 10; i++) {
-                if (sliderNum == i) {
+                if (sliderNum2 == i) {
                     document.querySelector('.contentsBody').style.transform = "translate(" + (zz * i) + "px)";
 
                 }

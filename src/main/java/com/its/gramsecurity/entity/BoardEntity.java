@@ -33,6 +33,9 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 200)
     private String boardTag;
 
+    @Column
+    private Integer likes;
+
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL,orphanRemoval = true ,fetch=FetchType.LAZY)
     List<BoardFileEntity> fileEntityList= new ArrayList<>();
@@ -49,6 +52,27 @@ public class BoardEntity extends BaseEntity{
         board.setBoardContents(boardDTO.getBoardContents());
         board.setBoardLocation(boardDTO.getBoardLocation());
         board.setBoardTag(boardDTO.getBoardTag());
+        return board;
+    }
+
+    public static BoardEntity toUpdateSave(BoardDTO boardDTO) {
+        BoardEntity board = new BoardEntity();
+        board.setId(boardDTO.getId());
+        board.setBoardWriter(boardDTO.getBoardWriter());
+        board.setBoardContents(boardDTO.getBoardContents());
+        board.setBoardLocation(boardDTO.getBoardLocation());
+        board.setBoardTag(boardDTO.getBoardTag());
+        board.setLikes(1);
+        return board;
+    }
+    public static BoardEntity toDelete(BoardDTO boardDTO) {
+        BoardEntity board = new BoardEntity();
+        board.setId(boardDTO.getId());
+        board.setBoardWriter(boardDTO.getBoardWriter());
+        board.setBoardContents(boardDTO.getBoardContents());
+        board.setBoardLocation(boardDTO.getBoardLocation());
+        board.setBoardTag(boardDTO.getBoardTag());
+        board.setLikes(null);
         return board;
     }
 }
