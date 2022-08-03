@@ -18,6 +18,7 @@ public class BoardDTO {
     private LocalDateTime boardCreatedTime;
     private String boardTag;
     private List<BoardFileDTO> boardFileList;
+    private Integer likes;
 
     public static BoardDTO toDTO(BoardEntity boardFile) {
         BoardDTO boardFileDTO = new BoardDTO();
@@ -36,6 +37,8 @@ public class BoardDTO {
         boardDTO.setBoardLocation(boardEntity.getBoardLocation());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardTag(boardEntity.getBoardTag());
+        boardDTO.setLikes(boardEntity.getLikes());
         return boardDTO;
     }
+
 }
