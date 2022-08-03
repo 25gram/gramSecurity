@@ -16,7 +16,7 @@ import java.util.List;
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member")
+    @Column(name = "member_id")
     private Long id;
     @Column(length = 500)
     private String memberId;
