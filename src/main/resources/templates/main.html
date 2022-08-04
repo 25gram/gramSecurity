@@ -254,9 +254,13 @@
 
         .storyZone:not(.detail) {
             /*border-top: 1px rgb(214,214,214) solid;*/
-            border-bottom: 1px rgb(214,214,214) solid;
+            border: 2px rgb(214,214,214) solid;
+            border-radius: 1em;
             height: 100px;
-            margin: 0px 10px 0 10px;
+            margin: auto;
+            margin-top: 10px;
+            width: 500px;
+
         }
         /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
         .mainBody:not(.detail) {
@@ -266,7 +270,7 @@
             height: 100vh;
             /* min-width: 500px; */
             /* height: 860px; */
-            border: gray solid 1px;
+            /* border: gray solid 1px; */
             /*border: rgb(214,214,214) solid 1px;*/
             padding-left: 0;
             padding-right: 0;
@@ -281,8 +285,8 @@
         }
 
         .feedZone:not(.detail) {
-            border: 1px solid ;
-            min-height: 810px;
+            /* border: 1px solid ; */
+            height: 818px;
 
             /* height: 830px; */
             /*background-color: aqua;*/
@@ -290,8 +294,10 @@
             padding-right: 0;
             width: 500px;
             margin: auto;
-            /* border: rgb(214,214,214) solid 1px;
-            border-radius: 1em; */
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: rgb(214,214,214) solid 1px;
+            border-radius: 1em;
         }
 
         .fi:not(.detail) {
@@ -313,7 +319,7 @@
             margin: 24px;
             width: 450px;
             height: 470px;
-            border: rgb(214,214,214) solid 1px;
+            /* border: rgb(214,214,214) solid 1px; */
             /*width: 100vw;*/
             float: left;
             padding-right: 65px;
@@ -323,7 +329,7 @@
             margin: 24px;
             width: 450px;
             height: 470px;
-            border: rgb(214,214,214) solid 1px;
+            /* border: rgb(214,214,214) solid 1px; */
             /*width: 100vw;*/
             float: left;
         }
@@ -351,30 +357,42 @@
         }
         .slideRight{
             position: relative;
-            top: -380px;
-            left: 416px;
+            top: -330px;
+            left: 413px;
         }
         .slideLeft{
             position: relative;
-            top: -380px;
+            top: -330px;
             left: -5px;
         }
         .feedWriter{
-            background-color: red;
             height: 60px;
             border-radius: 1em 1em 0 0;
         }
         .feedBtnZone{
             background-color: yellow;
             height: 46px;
+            text-align: right;
         }
         .feedContentsZone{
-            background-color: blue;
+            /* background-color: rgba(0, 0, 255,0.05); */
             height: 520px;
+            border-top: rgb(214,214,214) solid 1px;
+            border-bottom: rgb(214,214,214) solid 1px;
         }
 
         .feedBtn{
             font-size: 25px;
+            margin: 10px;
+        }
+        .feedCommentZone{
+            background-color: orange;
+            height: 130px;
+        }
+        .commentSaveZone{
+            background-color: #66AFE9;
+            height: 60px;
+            border-radius: 0 0 1em 1em;
         }
     </style>
 
@@ -414,7 +432,7 @@
 
 
     <!-- 스토리 구역 -->
-    <div style="overflow: scroll;height: 92vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
+    <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone row">
             <div class="col">
                 <button type="button" class="btn btn-primary detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop_detail">
@@ -422,7 +440,7 @@
                 </button>
             </div>
             <div class="col">
-                <h1>스토리 구역입니다.</h1>
+                <h5>스토리 구역입니다.</h5>
             </div>
             <div class="col">
                 <a href="/member/updateForm">업데이트</a>
@@ -433,9 +451,9 @@
 
 
         <!-- 메인피드 구역 -->
-        <div class="feedZone" id="feedZone">
+        <div class="" id="feedZone">
 
-            <div th:each="board : ${boardList}" style="overflow: hidden">
+            <div th:each="board : ${boardList}" style="overflow: hidden" class="feedZone">
                 <div class="feedWriter">
                     <span th:text="${board.boardWriter}" style="margin-left: auto"></span>
                 </div>
@@ -444,7 +462,7 @@
                     <div th:id="${board.id}" style="width: 5000px;">
                         <div th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
-                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt=""  autoplay="autoplay" loop="loop"></video>
                         </div>
     <!-- 메인피드 구역 -->
     <div class="feedZone" id="feedZone">
@@ -464,11 +482,29 @@
                     <i class="fa-regular fa-comment feedBtn"></i>
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
-                <div>
+                <div style="height: 0px;">
                     <span th:text="${board.boardContents}"></span>
                     <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}" onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>
                     <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}" onclick="feedRightSlider(value)"style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
                 </div>
+                <!-- 댓글 표시 -->
+                <div class="feedCommentZone">
+
+                </div>
+                <!-- 댓글작성 -->
+                <!-- <div class="commentSaveZone">
+                    <textarea class="feedText" name="" id="" cols="30" rows="10"></textarea>
+                </div> -->
+                <div class="row detail" style="height: 60px;" >
+                    <div class="col-10 detail" style=" margin-top:0px;">
+                        <textarea class="text1_detail detail" name="" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
+                    </div>
+                    <!-- 댓글 저장 버튼 -->
+                    <div class="col-2 detail">
+                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -1988,7 +2024,7 @@
     </div>
 
     <script>
-        $("#text1_detail").emojioneArea({
+        $(".text1_detail").emojioneArea({
             pickerPosition:"top",
             searchPosition: "bottom",
             filtersPosition: "bottom",
