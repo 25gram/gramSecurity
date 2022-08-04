@@ -355,7 +355,7 @@
     <div class="feedZone" id="feedZone">
         <div style="overflow: hidden">
             <div th:each="board : ${boardList}">
-                <span th:text="${board.boardWriter}" style="margin-left: auto"></span>
+                <span th:text="${memberDTO.memberName}" style="margin-left: auto"></span>
                 <div th:id="${board.id}" style="width: 5000px;">
                     <div th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
                         <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"  alt="">

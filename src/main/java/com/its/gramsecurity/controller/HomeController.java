@@ -23,7 +23,6 @@ public class HomeController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberService memberService;
-    private final BoardService boardService;
 
 
     @GetMapping("/")

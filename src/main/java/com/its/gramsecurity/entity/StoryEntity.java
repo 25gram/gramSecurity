@@ -17,7 +17,7 @@ public class StoryEntity {
     private Long id;
 
     @Column(length = 500, unique = true, nullable = false)
-    private String memberId;
+    private String memberName;
 
     @Column (length = 500, nullable = false)
     private String storyFileName;
@@ -30,7 +30,7 @@ public class StoryEntity {
 
     public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO){
         StoryEntity storyEntity = new StoryEntity();
-        storyEntity.setMemberId(storyDTO.getMemberId());
+        storyEntity.setMemberName(storyDTO.getMemberName());
         storyEntity.setStoryFileName(storyDTO.getStoryFileName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
         return storyEntity;

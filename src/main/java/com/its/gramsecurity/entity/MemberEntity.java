@@ -19,7 +19,7 @@ public class MemberEntity {
     @Column(name = "member_id")
     private Long id;
     @Column(length = 500)
-    private String memberId;
+    private String loginId;
     @Column(length = 100)
     private String memberPassword;
     @Column(length = 100)
@@ -50,7 +50,8 @@ public class MemberEntity {
 
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity=new MemberEntity();
-        memberEntity.setMemberId(memberDTO.getMemberId());
+        memberEntity.setId(memberDTO.getId());
+        memberEntity.setLoginId(memberDTO.getLoginId());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
@@ -65,8 +66,8 @@ public class MemberEntity {
     }
 
     @Builder
-    public MemberEntity(String memberId, String memberPassword,String memberName, String memberEmail, String memberProfileName, int loginStatus, String memberIntro, String role, String provider, String providerId) {
-        this.memberId = memberId;
+    public MemberEntity(String loginId, String memberPassword,String memberName, String memberEmail, String memberProfileName, int loginStatus, String memberIntro, String role, String provider, String providerId) {
+        this.loginId = loginId;
         this.memberPassword = memberPassword;
         this.memberName=memberName;
         this.memberEmail = memberEmail;
