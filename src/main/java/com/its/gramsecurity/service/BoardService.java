@@ -78,34 +78,54 @@ public class BoardService {
         }
         return board;
     }
-    public boolean likes(LikesDTO likesDTO,PrincipalDetails principalDetails) {
+    public List<LikesDTO> likesFindAll() {
+        List<LikesEntity> likesEntity = likesRepository.findAll();
+        List<LikesDTO> list = new ArrayList<>();
+        for (LikesEntity likes : likesEntity) {
+            list.add(LikesDTO.toLikeList(likes));
+        }
+        return list;
+    }
+    public String likes(LikesDTO likesDTO, Principal principal) {
+        Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
+        if (boardEntity.isPresent()){
+            BoardEntity board = boardEntity.get();
+            if (board.getLikes() == null) {
+                LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, principal));
+                LikesDTO.toLikeSave(likesEntity2);
+                Long id = likesDTO.getBoardId();
+                boardRepository.likes(id);
+                return "ok";
+            }else if (board.getLikes() == 1) {
+                Optional<LikesEntity> likesEntity = likesRepository.findByMemberIdAndBoardId(likesDTO.getMemberId(), likesDTO.getBoardId());
+                if (likesEntity.isPresent()){
+                    LikesEntity likes = likesEntity.get();
+                    if (likes.getMemberId().equals(likesDTO.getMemberId()) && likes.getBoardId().equals(likesDTO.getBoardId())){
+                        likesRepository.delete(likes);
+                    }
+                }
+                Long id = likesDTO.getBoardId();
+                boardRepository.likesDelete(id);
+            }
+        }
+        return "no";
+    }
+    public boolean likesDelete(LikesDTO likesDTO) {
 //        Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
 //        if (boardEntity.isPresent()){
 //            BoardEntity board = boardEntity.get();
 //            BoardDTO boardDTO = BoardDTO.toDTO(board);
-//            boardRepository.save(BoardEntity.toUpdateSave(boardDTO));
+//            boardRepository.save(BoardEntity.toDelete(boardDTO));
 //        }
-//
-//        LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, principalDetails));
-//        LikesDTO.toLikeSave(likesEntity2);
-        Long id = 1L;
-        boardRepository.likes(id);
-        return true;
-    }
-    public boolean likesDelete(LikesDTO likesDTO) {
-        Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
-        if (boardEntity.isPresent()){
-            BoardEntity board = boardEntity.get();
-            BoardDTO boardDTO = BoardDTO.toDTO(board);
-            boardRepository.save(BoardEntity.toDelete(boardDTO));
-        }
-        Optional<LikesEntity> likesEntity = likesRepository.findByMemberNameAndBoardId(likesDTO.getMemberName(), likesDTO.getBoardId());
-        if (likesEntity.isPresent()){
-            LikesEntity likes = likesEntity.get();
-            if (likes.getMemberName().equals(likesDTO.getMemberName()) && likes.getBoardId().equals(likesDTO.getBoardId())){
-                likesRepository.delete(likes);
-            }
-        }
+//        Optional<LikesEntity> likesEntity = likesRepository.findByMemberIdAndBoardId(likesDTO.getMemberId(), likesDTO.getBoardId());
+//        if (likesEntity.isPresent()){
+//            LikesEntity likes = likesEntity.get();
+//            if (likes.getMemberId().equals(likesDTO.getMemberId()) && likes.getBoardId().equals(likesDTO.getBoardId())){
+//                likesRepository.delete(likes);
+//            }
+//        }
+//        Long id = likesDTO.getBoardId();
+//        boardRepository.likesDelete(id);
         return true;
     }
 

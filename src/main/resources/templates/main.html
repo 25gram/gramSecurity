@@ -639,105 +639,118 @@
             border: 0;
         }
 
-        .btnPointer:not(.detail) {
-            cursor: pointer;
+    .btnPointer:not(.detail) {
+        cursor: pointer;
+    }
+    /*.modal {*/
+    /*    transition: transform 10s ease-in-out;*/
+    /*}*/
+</style>
+<script th:inline="javascript">
+    const d = [[${boardFile}]];
+    const s = [[${boardList}]];
+    let sliderNum = [];
+    for (let i = 1; i <= s.length; i++) {
+        sliderNum[i] = 0;
+        // 한 게시물당 슬라이드 num 구하기
+        document.getElementById("l"+i).style.visibility = "hidden";
+    }
+    for (let i = 1; i < s.length+1; i++){
+        let c = 0;
+        for (let j = 0; j < d.length; j++){
+            if (d[j].boardId == s[s.length-i].id){
+                c++
+            }
         }
-        /*.modal {*/
-        /*    transition: transform 10s ease-in-out;*/
-        /*}*/
-    </style>
-    <script th:inline="javascript">
-        const d = [[${boardFile}]];
-        const s = [[${boardList}]];
-        let sliderNum = [];
-        for (let i = 1; i <= s.length; i++) {
-            sliderNum[i] = 0;
-            // 한 게시물당 슬라이드 num 구하기
-            document.getElementById("l"+i).style.visibility = "hidden";
+        if (c == 1) {
+            document.getElementById("r"+i).style.visibility = "hidden";
         }
-        for (let i = 1; i < s.length+1; i++){
-            let c = 0;
-            for (let j = 0; j < d.length; j++){
-                if (d[j].boardId == s[s.length-i].id){
-                    c++
+    }
+    function feedRightSlider(a) {
+        // a = id 값 벨류 받아오기
+        document.getElementById("l"+a).style.visibility = "visible";
+        let y=0;
+        let zz = -498;
+        for (let i = 0; i < d.length; i++){
+            if (d[i].boardId == s[s.length-a].id){
+                y++;
+                // 한게시물당 슬라이드 length 구하기
+            }
+        }
+        if (sliderNum[a]+1 < y){
+            sliderNum[a]++;
+        }
+        if (sliderNum[a] == y-1) {
+            document.getElementById("r"+a).style.visibility = "hidden";
+        }
+        for (let i =0; i <= y; i++) {
+            if (sliderNum[a] == i) {
+                document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
+            }
+        }
+    }
+    function feedLeftSlider(a) {
+        let zz = -498;
+        if(sliderNum[a] > 0) {
+            sliderNum[a]--;
+        }
+        if (sliderNum[a] == 0){
+            document.getElementById("l"+a).style.visibility = "hidden";
+        }
+        document.getElementById("r"+a).style.visibility = "visible";
+        for (let i =0; i <= 10; i++) {
+            if (sliderNum[a] == i) {
+                document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
+            }
+        }
+    }
+    function likes (id) {
+        const memberId = [[${memberDTO.memberId}]];
+        $.ajax({
+            type: "post",
+            url: "/board/likes",
+            data: {"memberId":memberId, "boardId": id},
+            dataType: "text",
+            success: function (data) {
+                console.log(data);
+                // const likeTest2 = document.getElementById("i"+id);
+                // likeTest2.className="bi bi-heart-fill";
+                const likeTest2 = document.getElementById("i"+id);
+                if (data == "ok") {
+                    likeTest2.className="bi bi-heart-fill";
+                    likeTest2.style.color ="red";
+
+                }else {
+                    likeTest2.className="bi bi-heart";
+                    likeTest2.style.color ="black";
                 }
             }
-            if (c == 1) {
-                document.getElementById("r"+i).style.visibility = "hidden";
-            }
-        }
-        function feedRightSlider(a) {
-            // a = id 값 벨류 받아오기
-            document.getElementById("l"+a).style.visibility = "visible";
-            let y=0;
-            let zz = -498;
-            for (let i = 0; i < d.length; i++){
-                if (d[i].boardId == s[s.length-a].id){
-                    y++;
-                    // 한게시물당 슬라이드 length 구하기
+        });
+    }
+    function likes2 (id) {
+        const memberId = [[${memberDTO.memberId}]];
+        $.ajax({
+            type: "post",
+            url: "/board/likes",
+            data: {"memberId":memberId, "boardId": id},
+            dataType: "text",
+            success: function (data) {
+                console.log(data);
+                const likeTest2 = document.getElementById("d"+id);
+                if (data == "ok") {
+                    likeTest2.className="bi bi-heart-fill";
+                    likeTest2.style.color ="red";
+
+                }else {
+                    likeTest2.className="bi bi-heart";
+                    likeTest2.style.color ="black";
                 }
             }
-            if (sliderNum[a]+1 < y){
-                sliderNum[a]++;
-            }
-            if (sliderNum[a] == y-1) {
-                document.getElementById("r"+a).style.visibility = "hidden";
-            }
-            for (let i =0; i <= y; i++) {
-                if (sliderNum[a] == i) {
-                    document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
-                }
-            }
-        }
-        function feedLeftSlider(a) {
-            let zz = -498;
-            if(sliderNum[a] > 0) {
-                sliderNum[a]--;
-            }
-            if (sliderNum[a] == 0){
-                document.getElementById("l"+a).style.visibility = "hidden";
-            }
-            document.getElementById("r"+a).style.visibility = "visible";
-            for (let i =0; i <= 10; i++) {
-                if (sliderNum[a] == i) {
-                    document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
-                }
-            }
-        }
-        function likes (id) {
-            const memberName = [[${memberDTO.memberName}]];
-            // console.log(lineValue);
-            $.ajax({
-                type: "post",
-                url: "/board/likes",
-                data: {"memberName":memberName, "boardId": id},
-                dataType: "json",
-                success: function (a) {
-                    const likeTest = document.getElementById("d"+id);
-                    const likeTest2 = document.getElementById("i"+id);
-                    likeTest2.style.display = "none";
-                    likeTest.style.display = "inline-flex";
-                }
-            });
-        }
-        function likesDelete (id) {
-            const memberName = [[${memberDTO.memberName}]];
-            $.ajax({
-                type: "post",
-                url: "/board/likes/delete",
-                data: {"memberName":memberName, "boardId": id},
-                dataType: "json",
-                success: function (a) {
-                    const likeTest = document.getElementById("d"+id);
-                    const likeTest2 = document.getElementById("i"+id);
-                    likeTest2.style.display = "inline-flex";
-                    likeTest.style.display = "none";
-                }
-            });
-        }
-    </script>
-    <script>
-        function sizeTest(i) {
+        });
+    }
+</script>
+<script>
+    function sizeTest(i) {
 
             let zone = document.getElementById("modal-content")
             if (i == 0) {
