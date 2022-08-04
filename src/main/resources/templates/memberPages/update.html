@@ -36,7 +36,7 @@
         }
         .updateBtnZone{
             position: relative;
-            top: 8px;
+            top: 7px;
             left: 108px;
         }
         .form-control:focus {
@@ -46,22 +46,25 @@
         .seePassword{
             font-size: 16px;
             position: relative;
-            top: -230px;
+            top: -254px;
             left: 290px;
         }
         .xBtn{
             font-size: 20px;
             position: relative;
-            top: -643px;
+            top: -671px;
             left: 321px;
             cursor: pointer;
+        }
+        textarea{
+            resize: none;
         }
     </style>
 
 
 </head>
-<body>
-<div  class="container" style="margin-top: 100px; width: 380px; height: 565px; border:1px gray solid;border-radius: 5px;padding: 30px;padding-top: 12px;">
+<body style="background-color:#F2F3F5 ;">
+<div  class="container" style="margin-top: 100px; width: 380px; height: 588px; border:1px rgb(209, 209, 209) solid;border-radius: 5px;padding: 30px;padding-top: 12px;background-color: white;">
 
 
     <div class="profileZone input-group">
@@ -73,8 +76,8 @@
             <!-- 사용자 이름 영역 -->
 
             <div>
-                <!-- <p style="font-size:20px ;margin: 0;">havana_1016</p> -->
-                <p style="font-size:20px ;margin: 0;">[[${memberDTO.memberName}]]</p>
+<!--                <p style="font-size:20px ;margin: 0;">havana_1016</p>-->
+                 <p style="font-size:20px ;margin: 0;">[[${memberDTO.memberName}]]</p>
             </div>
             <!-- 프로필 사진변경 버튼 구역 -->
             <div>
@@ -91,7 +94,8 @@
         <p class="item">사용자 이름</p> <input class="form-control"type="text" name="memberName" id="memberName"th:value="${memberDTO.memberName}" ><br>
         <p class="item">비밀번호</p> <input class="form-control"type="password" name="memberPassword" id="memberPassword" placeholder="비밀번호" ><br>
 
-        <p class="item">???</p> <input class="form-control"type="text" name="memberIntro" id="memberIntro" th:placeholder="정보수정" ><br>
+        <p class="item">소개</p> <textarea class="form-control" name="memberIntro" id="memberIntro"></textarea><br>
+
         <input type="file"name="memberProfile" id="memberProfile" placeholder="파일첨부" hidden><br>
         <!-- <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>-->
         <div class="updateBtnZone">
