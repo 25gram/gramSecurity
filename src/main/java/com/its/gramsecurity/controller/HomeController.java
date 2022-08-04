@@ -50,16 +50,16 @@ public class HomeController {
     //아이디 이메일 중복체크
     @PostMapping("/duplicateChk")
     public @ResponseBody String duplicateChk(@RequestParam("memberEmail") String memberEmail,
-                                             @RequestParam("memberId") String memberId) {
+                                             @RequestParam("loginId") String loginId) {
         MemberEntity memberEmailChk = memberService.duplicateChkEmail(memberEmail);
-        MemberEntity memberIdChk = memberService.duplicateChkId(memberId);
+        MemberEntity loginIdChk = memberService.duplicateChkId(loginId);
         String result = null;
-        if (memberEmailChk == null && memberIdChk == null) {
+        if (memberEmailChk == null && loginIdChk == null) {
             result = "true";
         } else {
             if (memberEmailChk != null) {
                 result = "email";
-            } else if (memberIdChk != null) {
+            } else if (loginIdChk != null) {
                 result = "id";
             }
         }
