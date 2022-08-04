@@ -363,12 +363,12 @@
                     </div>
                 </div>
                 <div style="margin-bottom: 20px;">
-                    <button th:if="${board.likes == null}" th:id="i+${board.id}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i class="bi bi-heart" style="color: black"></i></button>
-                    <button th:if="${board.likes == 1}" th:id="d+${board.id}" th:value="${board.id}" onclick="likesDelete(value)" style="border: 0;background-color: transparent;"><i class="bi bi-heart-fill" style="color: red"></i></button>
+                    <button th:if="${board.likes == null}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i th:id="i+${board.id}" class="bi bi-heart" style="color: black"></i></button>
+                    <button th:if="${board.likes == 1}" th:value="${board.id}" onclick="likes2(value)" style="border: 0;background-color: transparent;"><i th:id="d+${board.id}" class="bi bi-heart-fill" style="color: red"></i></button>
+                    <!--아이콘 구역-->
                     <a>댓글</a>
                     <a>공유</a>
                     <a>북마크</a>
-                    <!--아이콘 구역-->
                     <br>
                     <span th:text="${board.boardContents}"></span>
                     <button th:id="l+${board.id}" id="" th:value="${board.id}" onclick="feedLeftSlider(value)"><</button>
@@ -567,32 +567,45 @@
     }
     function likes (id) {
         const memberId = [[${memberDTO.memberId}]];
-        // console.log(lineValue);
         $.ajax({
             type: "post",
             url: "/board/likes",
             data: {"memberId":memberId, "boardId": id},
-            dataType: "json",
-            success: function (a) {
-                const likeTest = document.getElementById("d"+id);
+            dataType: "text",
+            success: function (data) {
+                console.log(data);
+                // const likeTest2 = document.getElementById("i"+id);
+                // likeTest2.className="bi bi-heart-fill";
                 const likeTest2 = document.getElementById("i"+id);
-                likeTest2.style.display = "none";
-                likeTest.style.display = "inline-flex";
+                if (data == "ok") {
+                    likeTest2.className="bi bi-heart-fill";
+                    likeTest2.style.color ="red";
+
+                }else {
+                    likeTest2.className="bi bi-heart";
+                    likeTest2.style.color ="black";
+                }
             }
         });
     }
-    function likesDelete (id) {
+    function likes2 (id) {
         const memberId = [[${memberDTO.memberId}]];
         $.ajax({
             type: "post",
-            url: "/board/likes/delete",
+            url: "/board/likes",
             data: {"memberId":memberId, "boardId": id},
-            dataType: "json",
-            success: function (a) {
-                const likeTest = document.getElementById("d"+id);
-                const likeTest2 = document.getElementById("i"+id);
-                likeTest2.style.display = "inline-flex";
-                likeTest.style.display = "none";
+            dataType: "text",
+            success: function (data) {
+                console.log(data);
+                const likeTest2 = document.getElementById("d"+id);
+                if (data == "ok") {
+                    likeTest2.className="bi bi-heart-fill";
+                    likeTest2.style.color ="red";
+
+                }else {
+                    likeTest2.className="bi bi-heart";
+                    likeTest2.style.color ="black";
+                }
             }
         });
     }

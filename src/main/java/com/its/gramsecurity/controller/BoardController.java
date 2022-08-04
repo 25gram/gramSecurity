@@ -55,9 +55,10 @@ public class BoardController {
         return "redirect:/main/main";
     }
     @PostMapping("/likes")
-    public @ResponseBody boolean hits(@ModelAttribute LikesDTO likesDTO, Principal principal) {
-        boardService.likes(likesDTO,principal);
-        return true;
+    public @ResponseBody String likes(@ModelAttribute LikesDTO likesDTO, Principal principal) {
+        String likes = boardService.likes(likesDTO,principal);
+        System.out.println(likes);
+        return likes;
     }
     @PostMapping("/likes/delete")
     public @ResponseBody boolean likesDelete(@ModelAttribute LikesDTO likesDTO, Principal principal) {
