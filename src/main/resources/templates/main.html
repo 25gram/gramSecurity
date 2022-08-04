@@ -705,11 +705,11 @@
         }
     }
     function likes (id) {
-        const memberId = [[${memberDTO.memberId}]];
+        const loginId = [[${memberDTO.loginId}]];
         $.ajax({
             type: "post",
             url: "/board/likes",
-            data: {"memberId":memberId, "boardId": id},
+            data: {"loginId":loginId, "boardId": id},
             dataType: "text",
             success: function (data) {
                 console.log(data);
@@ -728,11 +728,11 @@
         });
     }
     function likes2 (id) {
-        const memberId = [[${memberDTO.memberId}]];
+        const loginId = [[${memberDTO.loginId}]];
         $.ajax({
             type: "post",
             url: "/board/likes",
-            data: {"memberId":memberId, "boardId": id},
+            data: {"loginId":loginId, "boardId": id},
             dataType: "text",
             success: function (data) {
                 console.log(data);

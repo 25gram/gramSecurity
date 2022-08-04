@@ -26,7 +26,7 @@ public class LikesDTO {
     public static LikesDTO toLikeList(LikesEntity likesEntity){
         LikesDTO likesDTO = new LikesDTO();
         likesDTO.setId(likesEntity.getId());
-        likesDTO.setMemberId(likesEntity.getMemberId());
+        likesDTO.setMemberName(likesEntity.getMemberName());
         likesDTO.setBoardId(likesEntity.getBoardId());
         likesDTO.setLikes(likesEntity.getLikes());
         return likesDTO;

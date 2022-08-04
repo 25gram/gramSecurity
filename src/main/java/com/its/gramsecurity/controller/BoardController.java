@@ -57,8 +57,8 @@ public class BoardController {
         return "redirect:/main/main";
     }
     @PostMapping("/likes")
-    public @ResponseBody String likes(@ModelAttribute LikesDTO likesDTO, Principal principal) {
-        String likes = boardService.likes(likesDTO,principal);
+    public @ResponseBody String likes(@ModelAttribute LikesDTO likesDTO,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String likes = boardService.likes(likesDTO,principalDetails);
         System.out.println(likes);
         return likes;
     }
