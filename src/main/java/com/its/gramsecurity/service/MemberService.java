@@ -29,8 +29,8 @@ public class MemberService {
         memberRepository.save(memberEntity);
     }
 
-    public MemberDTO findByMemberId(String memberId) {
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(memberId);
+    public MemberDTO findByMemberName(String memberName) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberName(memberName);
         if (optionalMemberEntity.isPresent()) {
             return MemberDTO.toDTO(optionalMemberEntity.get());
         } else {
@@ -41,13 +41,13 @@ public class MemberService {
     @Transactional
     public void update(MemberDTO memberDTO) throws IOException {
 
-        MemberEntity persistence = memberRepository.findByMemberId(memberDTO.getMemberId()).orElseThrow(() -> {
+        MemberEntity persistence = memberRepository.findByLoginId(memberDTO.getLoginId()).orElseThrow(() -> {
             return new IllegalArgumentException("회원찾기실패");
         });
         String rawPassword = memberDTO.getMemberPassword();
         String encPassword = encoder.encode(rawPassword);
         persistence.setMemberPassword(encPassword);
-        MemberDTO findDTO = findByMemberId(memberDTO.getMemberId());
+        MemberDTO findDTO = findByLoginId(memberDTO.getLoginId());
         persistence.setMemberIntro(memberDTO.getMemberIntro());
         persistence.setMemberName(memberDTO.getMemberName());
 
@@ -78,8 +78,16 @@ public class MemberService {
 
     }
 
-    public void delete(String memberId) {
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(memberId);
+    public MemberDTO findByLoginId(String LoginId) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(LoginId);
+        if (optionalMemberEntity.isPresent()) {
+            return MemberDTO.toDTO(optionalMemberEntity.get());
+        } else {
+            return null;
+        }
+    }
+    public void delete(String loginId) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(loginId);
         memberRepository.delete(optionalMemberEntity.get());
     }
 
@@ -100,8 +108,8 @@ public class MemberService {
         }
     }
 
-    public MemberEntity duplicateChkId(String memberId) {
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(memberId);
+    public MemberEntity duplicateChkId(String loginId) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(loginId);
         if (optionalMemberEntity.isEmpty()) {
             return null;
         } else {

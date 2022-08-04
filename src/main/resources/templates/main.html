@@ -464,6 +464,15 @@
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
                             <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt=""  autoplay="autoplay" loop="loop"></video>
                         </div>
+    <!-- 메인피드 구역 -->
+    <div class="feedZone" id="feedZone">
+        <div style="overflow: hidden">
+            <div th:each="board : ${boardList}">
+                <span th:text="${memberDTO.memberName}" style="margin-left: auto"></span>
+                <div th:id="${board.id}" style="width: 5000px;">
+                    <div th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
+                        <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"  alt="">
+                        <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
                     </div>
                 </div>
                 <!-- 피드 좋아요,댓글 아이콘 -->

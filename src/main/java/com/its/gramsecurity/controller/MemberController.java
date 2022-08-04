@@ -1,8 +1,10 @@
 package com.its.gramsecurity.controller;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -31,9 +33,9 @@ public class MemberController {
 
     //회원정보수정 폼
     @GetMapping("updateForm")
-    public String updateForm(Principal principal, Model model) {
-        String memberId = principal.getName();
-        MemberDTO memberDTO = memberService.findByMemberId(memberId);
+    public String updateForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        String memberName = principalDetails.getName();
+        MemberDTO memberDTO = memberService.findByMemberName(memberName);
         model.addAttribute("memberDTO", memberDTO);
         return "memberPages/update";
     }
@@ -47,9 +49,9 @@ public class MemberController {
 
     //회원삭제
     @GetMapping("/delete")
-    public String delete(Principal principal) {
-        String memberId = principal.getName();
-        memberService.delete(memberId);
+    public String delete(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String memberName = principalDetails.getName();
+        memberService.delete(memberName);
         return "redirect:/member/logout";
     }
 
@@ -63,15 +65,15 @@ public class MemberController {
 
     //로그인체크
     @GetMapping("/loginCheck")
-    public @ResponseBody void loginCheck(Principal principal) {
-        String memberId = principal.getName();
-        memberService.loginCheck(memberId);
+    public @ResponseBody void loginCheck(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String memberName = principalDetails.getName();
+        memberService.loginCheck(memberName);
     }
 
     //로그아웃 체크
     @GetMapping("/logoutCheck")
-    public @ResponseBody void logoutCheck(Principal principal) {
-        String memberId = principal.getName();
-        memberService.logoutCheck(memberId);
+    public @ResponseBody void logoutCheck(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String memberName = principalDetails.getName();
+        memberService.logoutCheck(memberName);
     }
 }

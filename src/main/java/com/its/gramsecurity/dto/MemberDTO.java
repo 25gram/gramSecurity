@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class MemberDTO {
     private Long id;
-    private String memberId;
+    private String loginId;
     private String memberPassword;
     private String memberEmail;
     private String memberName;
@@ -23,8 +23,8 @@ public class MemberDTO {
     private String providerId;
 
     @Builder
-    public MemberDTO(String memberId, String memberPassword,String memberName, String memberEmail, String memberProfileName,MultipartFile memberProfile, int loginStatus, String memberIntro, String role, String provider, String providerId) {
-        this.memberId = memberId;
+    public MemberDTO(String loginId, String memberPassword,String memberName, String memberEmail, String memberProfileName,MultipartFile memberProfile, int loginStatus, String memberIntro, String role, String provider, String providerId) {
+        this.loginId = loginId;
         this.memberPassword = memberPassword;
         this.memberName=memberName;
         this.memberEmail = memberEmail;
@@ -37,8 +37,8 @@ public class MemberDTO {
         this.providerId = providerId;
     }
 
-    public MemberDTO(String memberId, String memberName, String memberProfileName, int loginStatus) {
-        this.memberId = memberId;
+    public MemberDTO(String loginId, String memberName, String memberProfileName, int loginStatus) {
+        this.loginId = loginId;
         this.memberName = memberName;
         this.memberProfileName = memberProfileName;
         this.loginStatus = loginStatus;
@@ -48,7 +48,7 @@ public class MemberDTO {
     public static MemberDTO toDTO(MemberEntity memberEntity){
         MemberDTO memberDTO=new MemberDTO();
         memberDTO.setId(memberEntity.getId());
-        memberDTO.setMemberId(memberEntity.getMemberId());
+        memberDTO.setLoginId(memberEntity.getLoginId());
         memberDTO.setMemberPassword(memberEntity.getMemberPassword());
         memberDTO.setMemberName(memberEntity.getMemberName());
         memberDTO.setMemberEmail(memberEntity.getMemberEmail());

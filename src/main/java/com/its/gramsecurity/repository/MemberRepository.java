@@ -13,18 +13,20 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
-      Optional<MemberEntity> findByMemberId(String memberId);
+      Optional<MemberEntity> findByLoginId(String LoginId);
 
       @Transactional
       @Modifying
-      @Query(value = "update MemberEntity m set m.loginStatus=0 where m.memberId=:memberId")
-    void logoutCheck(@Param("memberId") String memberId);
+      @Query(value = "update MemberEntity m set m.loginStatus=0 where m.memberName=:memberName")
+    void logoutCheck(@Param("memberName") String memberName);
 
 
     @Transactional
       @Modifying
-      @Query(value = "update MemberEntity m set m.loginStatus=1 where m.memberId=:memberId")
-    void loginCheck(@Param("memberId") String memberId);
+      @Query(value = "update MemberEntity m set m.loginStatus=1 where m.memberName=:memberName")
+    void loginCheck(@Param("memberName") String memberName);
 
     Optional<MemberEntity> findByMemberEmail(String memberEmail);
+
+    Optional<MemberEntity> findByMemberName(String memberName);
 }
