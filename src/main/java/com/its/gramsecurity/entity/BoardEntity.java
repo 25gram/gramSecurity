@@ -24,7 +24,7 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 500)
     private String boardWriter;
 
-    @Column(length = 100)
+    @Column(length = 1000)
     private String boardContents;
 
     @Column(length = 50)
@@ -46,9 +46,9 @@ public class BoardEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberId) {
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberName) {
         BoardEntity board = new BoardEntity();
-        board.setBoardWriter(memberId);
+        board.setBoardWriter(memberName);
         board.setBoardContents(boardDTO.getBoardContents());
         board.setBoardLocation(boardDTO.getBoardLocation());
         board.setBoardTag(boardDTO.getBoardTag());

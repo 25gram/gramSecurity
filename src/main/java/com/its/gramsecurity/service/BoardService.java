@@ -1,5 +1,6 @@
 package com.its.gramsecurity.service;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.entity.LikesEntity;
 import com.its.gramsecurity.repository.BoardFileRepository;
@@ -27,8 +28,8 @@ public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
     private final LikesRepository likesRepository;
-    public BoardDTO fileSave(BoardDTO boardDTO,String memberId) {
-        Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,memberId)).getId();
+    public BoardDTO fileSave(BoardDTO boardDTO, PrincipalDetails principalDetails) {
+        Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,principalDetails.getName())).getId();
         return BoardDTO.toDTO(boardRepository.findById(id).get());
     }
     public BoardFileDTO save(BoardFileDTO fileDTO,String list) throws IOException {
@@ -77,7 +78,7 @@ public class BoardService {
         }
         return board;
     }
-    public boolean likes(LikesDTO likesDTO, Principal principal) {
+    public boolean likes(LikesDTO likesDTO,PrincipalDetails principalDetails) {
 //        Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
 //        if (boardEntity.isPresent()){
 //            BoardEntity board = boardEntity.get();
@@ -85,7 +86,7 @@ public class BoardService {
 //            boardRepository.save(BoardEntity.toUpdateSave(boardDTO));
 //        }
 //
-//        LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, principal));
+//        LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, principalDetails));
 //        LikesDTO.toLikeSave(likesEntity2);
         Long id = 1L;
         boardRepository.likes(id);
@@ -98,10 +99,10 @@ public class BoardService {
             BoardDTO boardDTO = BoardDTO.toDTO(board);
             boardRepository.save(BoardEntity.toDelete(boardDTO));
         }
-        Optional<LikesEntity> likesEntity = likesRepository.findByMemberIdAndBoardId(likesDTO.getMemberId(), likesDTO.getBoardId());
+        Optional<LikesEntity> likesEntity = likesRepository.findByMemberNameAndBoardId(likesDTO.getMemberName(), likesDTO.getBoardId());
         if (likesEntity.isPresent()){
             LikesEntity likes = likesEntity.get();
-            if (likes.getMemberId().equals(likesDTO.getMemberId()) && likes.getBoardId().equals(likesDTO.getBoardId())){
+            if (likes.getMemberName().equals(likesDTO.getMemberName()) && likes.getBoardId().equals(likesDTO.getBoardId())){
                 likesRepository.delete(likes);
             }
         }
