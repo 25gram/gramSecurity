@@ -25,7 +25,6 @@ public class LikesEntity {
     @Column
     private Integer likes;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;

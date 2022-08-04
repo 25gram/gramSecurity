@@ -3,6 +3,7 @@ package com.its.gramsecurity.controller;
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
+import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.MemberService;
@@ -33,10 +34,12 @@ public class MainController {
         List<MemberDTO> findAll = memberService.findAll();
         List<BoardDTO> boardList = boardService.findAll();
         List<BoardFileDTO> boardFileList = boardService.fileFindAll();
+        List<LikesDTO> likesList = boardService.likesFindAll();
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
+        model.addAttribute("likes",likesList);
         return "main";
     }
 
