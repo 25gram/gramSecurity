@@ -49,6 +49,13 @@
             top: -230px;
             left: 290px;
         }
+        .xBtn{
+            font-size: 20px;
+            position: relative;
+            top: -643px;
+            left: 321px;
+            cursor: pointer;
+        }
     </style>
 
 
@@ -56,18 +63,18 @@
 <body>
 <div  class="container" style="margin-top: 100px; width: 380px; height: 565px; border:1px gray solid;border-radius: 5px;padding: 30px;padding-top: 12px;">
 
+
     <div class="profileZone input-group">
         <!-- 프로필 사진 영역 -->
         <div>
             <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>
         </div>
-
         <div style="margin-left:20px ;">
             <!-- 사용자 이름 영역 -->
 
             <div>
-<!--                <p style="font-size:20px ;margin: 0;">havana_1016</p>-->
-                 <p style="font-size:20px ;margin: 0;">[[${memberDTO.memberName}]]</p>
+                <!-- <p style="font-size:20px ;margin: 0;">havana_1016</p> -->
+                <p style="font-size:20px ;margin: 0;">[[${memberDTO.memberName}]]</p>
             </div>
             <!-- 프로필 사진변경 버튼 구역 -->
             <div>
@@ -94,11 +101,14 @@
         <div class="seePassword">
             <i class="fa-regular fa-eye" id="seeBtn"  onclick="seePassword()" style="cursor:pointer ;"></i>
         </div>
+        <!-- close 버튼 -->
+        <div class="xBtn">
+            <i class="fa-solid fa-xmark" onclick="location.href='/main/main'"></i>
+        </div>
 
         <!-- <button type="button" onclick="location.href='/member/delete/'">delete</button> -->
 
     </form>
-    <!-- <button onclick="formSub()">수정하기</button> -->
 </div>
 
 
