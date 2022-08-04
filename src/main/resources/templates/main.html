@@ -254,12 +254,13 @@
 
         .storyZone:not(.detail) {
             /*border-top: 1px rgb(214,214,214) solid;*/
-            border: 2px rgb(214,214,214) solid;
+            border: 1px rgb(214,214,214) solid;
             border-radius: 1em;
             height: 100px;
             margin: auto;
             margin-top: 10px;
             width: 500px;
+            background-color: white;
 
         }
         /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
@@ -282,6 +283,7 @@
             padding-right: 12px;
             margin-top: 0px;
             margin-bottom: 0px;
+            background-color: white;
         }
 
         .feedZone:not(.detail) {
@@ -298,6 +300,7 @@
             margin-bottom: 10px;
             border: rgb(214,214,214) solid 1px;
             border-radius: 1em;
+            background-color: white;
         }
 
         .fi:not(.detail) {
@@ -394,11 +397,17 @@
             height: 60px;
             border-radius: 0 0 1em 1em;
         }
+        .feedName{
+            font-size: 20px;
+        }
+        .feedWriterItem{
+            margin-left: 15px;
+        }
     </style>
 
 
 </head>
-<body onload="loginChk()">
+<body onload="loginChk()" style="background-color:#F2F3F5 ;">
 
 <div class="mainBody">
 
@@ -429,16 +438,16 @@
                onclick="iconEffect(4),logoutChk()"></i>
         </div>
     </div>
-
+    <div>
+        <button hidden id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop_detail">
+            Launch static backdrop modal
+        </button>
+    </div>
 
     <!-- 스토리 구역 -->
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone row">
-            <div class="col">
-                <button type="button" class="btn btn-primary detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop_detail">
-                    Launch static backdrop modal
-                </button>
-            </div>
+
             <div class="col">
                 <h5>스토리 구역입니다.</h5>
             </div>
@@ -454,18 +463,27 @@
         <div class="" id="feedZone">
 
             <div th:each="board : ${boardList}" style="overflow: hidden" class="feedZone">
-                <div class="feedWriter">
-                    <span th:text="${board.boardWriter}" style="margin-left: auto"></span>
+                <div class="feedWriter input-group">
+                    <div class="feedImg feedWriterItem"><i class="bi bi-person-circle" style="font-size: 40px; margin-left:5px"></i></div>
+                    <div class="feedName feedWriterItem"><span>Havana 1016</span></div>
+                    <!-- <span th:text="${board.boardWriter}" style="margin-left: auto"></span> -->
                 </div>
 
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
+                        <div onclick="detailGo()" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
-                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" controls="controls" autoplay="autoplay" loop="loop"></video>
+                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    function detailGo(){
+                        $("#detailModalBtn").trigger("click")
+                    }
+                </script>
+
                 <!-- 피드 좋아요,댓글 아이콘 -->
                 <div class="feedBtnZone">
                     <button th:if="${board.likes == null}" th:id="i+${board.id}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i class="fa-regular fa-heart feedBtn" style="color: black"></i></button>
@@ -1934,7 +1952,7 @@
 
                                 <!-- close button -->
                                 <!-- <div style="font-size: 20px;margin:0 0 0 170px;"><i class="fa-solid fa-xmark"></i></div> -->
-                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button></div>
+                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close"></button></div>
 
 
 
