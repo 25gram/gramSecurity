@@ -91,12 +91,12 @@ public class MemberService {
         memberRepository.delete(optionalMemberEntity.get());
     }
 
-    public void loginCheck(String memberId) {
-        memberRepository.loginCheck(memberId);
+    public void loginCheck(String loginId) {
+        memberRepository.loginCheck(loginId);
     }
 
-    public void logoutCheck(String memberId) {
-        memberRepository.logoutCheck(memberId);
+    public void logoutCheck(String loginId) {
+        memberRepository.logoutCheck(loginId);
     }
 
     public MemberEntity duplicateChkEmail(String memberEmail) {
