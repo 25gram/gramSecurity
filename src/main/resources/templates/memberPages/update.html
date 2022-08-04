@@ -7,9 +7,9 @@
 <body>
 <form action="/member/update" method="post" name="updateForm" enctype="multipart/form-data">
     <input type="hidden" th:value="${memberDTO.id}" name="id"><br>
-    <input type="hidden" name="memberId" th:value="${memberDTO.memberId}"><br>
+    <input type="hidden" name="loginId" th:value="${memberDTO.loginId}"><br>
     <input type="text" name="memberEmail" th:value="${memberDTO.memberEmail}" readonly><br>
-    <input type="text" name="memberName" id="memberName" placeholder="사용자이름" ><br>
+    <input type="text" name="memberName" id="memberName"th:value="${memberDTO.memberName}" ><br>
     <input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호" ><br>
     <input type="text" name="memberIntro" id="memberIntro" th:placeholder="정보수정" ><br>
     <input type="file"name="memberProfile" id="memberProfile" placeholder="파일첨부"><br>

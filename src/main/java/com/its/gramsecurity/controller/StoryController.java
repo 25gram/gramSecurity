@@ -18,19 +18,19 @@ import java.util.List;
 @Controller
 public class StoryController {
     private final StoryService storyService;
-    String memberId = "admin";
+    String memberName = "admin";
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("id", 1);
-        model.addAttribute("memberId", memberId);
-        List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
+        model.addAttribute("memberName", memberName);
+        List<StoryDTO> storyDTOList = storyService.findByMemberName(memberName);
         model.addAttribute("storyList", storyDTOList);
         return "storyPages/test3";
     }
     @GetMapping("/myStory")
-    public String findByMemberId(Model model) {
-        List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
+    public String findByMemberName(Model model) {
+        List<StoryDTO> storyDTOList = storyService.findByMemberName(memberName);
         model.addAttribute("storyList", storyDTOList);
         return "storyPages/main";
     }

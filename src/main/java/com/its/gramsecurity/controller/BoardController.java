@@ -1,10 +1,12 @@
 package com.its.gramsecurity.controller;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
 import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +32,10 @@ public class BoardController {
     @PostMapping("/fileSave")
     public String fileSave(@ModelAttribute BoardDTO boardDTO,
                            @RequestParam("boardFilter") String boardFilter,
-                           MultipartHttpServletRequest mp,Principal principal,
+                           MultipartHttpServletRequest mp,
+                           @AuthenticationPrincipal PrincipalDetails principalDetails,
                            Model model) throws IOException {
-        String memberId= principal.getName();
-        BoardDTO saveDTO = boardService.fileSave(boardDTO, memberId);
+        BoardDTO saveDTO = boardService.fileSave(boardDTO, principalDetails);
         List<MultipartFile> multipartFileList = mp.getFiles("boardFile");
         List<BoardFileDTO> fileDTOList = new ArrayList<>();
         int a = 0;
@@ -61,7 +63,7 @@ public class BoardController {
         return likes;
     }
     @PostMapping("/likes/delete")
-    public @ResponseBody boolean likesDelete(@ModelAttribute LikesDTO likesDTO, Principal principal) {
+    public @ResponseBody boolean likesDelete(@ModelAttribute LikesDTO likesDTO,@AuthenticationPrincipal PrincipalDetails principalDetails) {
         boolean a = boardService.likesDelete(likesDTO);
         return a;
     }

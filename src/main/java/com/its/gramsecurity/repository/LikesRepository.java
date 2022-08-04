@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface LikesRepository extends JpaRepository<LikesEntity,Long> {
-    Optional<LikesEntity> findByMemberIdAndBoardId(String memberId,Long boardId);
+    Optional<LikesEntity> findByMemberNameAndBoardId(String memberName,Long boardId);
 }
