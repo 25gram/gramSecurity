@@ -13,9 +13,9 @@ import java.util.List;
 @Service
 public class StoryService {
     private final StoryRepository storyRepository;
-    public List<StoryDTO> findByMemberId(String memberId) {
+    public List<StoryDTO> findByMemberName(String memberName) {
         List<StoryDTO> storyDTOList = new ArrayList<>();
-        List<StoryEntity> storyEntityList = storyRepository.findByMemberId(memberId);
+        List<StoryEntity> storyEntityList = storyRepository.findByMemberName(memberName);
         for(StoryEntity story: storyEntityList) {
             storyDTOList.add(StoryDTO.toStoryDTO(story));
         }

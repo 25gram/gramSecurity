@@ -46,9 +46,9 @@ public class BoardEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberId) {
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberName) {
         BoardEntity board = new BoardEntity();
-        board.setBoardWriter(memberId);
+        board.setBoardWriter(memberName);
         board.setBoardContents(boardDTO.getBoardContents());
         board.setBoardLocation(boardDTO.getBoardLocation());
         board.setBoardTag(boardDTO.getBoardTag());
