@@ -29,7 +29,7 @@ public class StoryController {
         return "storyPages/test3";
     }
     @GetMapping("/myStory")
-    public String findByMemberId(Model model) {
+    public String findByMemberName(Model model) {
         List<StoryDTO> storyDTOList = storyService.findByMemberName(memberName);
         model.addAttribute("storyList", storyDTOList);
         return "storyPages/main";

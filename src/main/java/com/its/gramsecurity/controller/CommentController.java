@@ -22,8 +22,8 @@ public class CommentController {
     @PostMapping("/commentSave")
     public @ResponseBody List<CommentDTO> save(@ModelAttribute CommentDTO commentDTO,
                                                @AuthenticationPrincipal PrincipalDetails principalDetails){
-        String memberId= principalDetails.getName();
-        commentService.save(commentDTO,memberId);
+        String memberName= principalDetails.getName();
+        commentService.save(commentDTO,memberName);
         List<CommentDTO>commentDTOList=commentService.findAll(commentDTO.getBoardId());
         System.out.println("CommentController.save");
         System.out.println("commentDTOList"+commentDTOList);

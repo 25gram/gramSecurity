@@ -187,9 +187,9 @@
         function followBTN() {
             // let header = $("meta[name='_csrf_header']").attr('content');
             // let token = $("meta[name='_csrf']").attr('content');
-            const memberId = document.getElementById("memberId").value;
-            const yourId = "memberId2";
-            const yourName = "memberName2";
+            const memberName = document.getElementById("memberName").value;
+            const yourId = "memberName";
+            const yourName = "memberName";
             const yourProfileName = "memberProfileName2";
             const loginStatus = 0;
 
@@ -198,7 +198,7 @@
                 type: "post",
                 dataType: "json",
                 data: {
-                    "myId": memberId,
+                    "myId": memberName,
                     "yourId": yourId,
                     "yourName": yourName,
                     "yourProfileName": yourProfileName,
@@ -445,7 +445,7 @@
             <div class="col">
                 <a href="/member/updateForm">업데이트</a>
             </div>
-            <!--            <input type="text" th:value="${memberDTO.memberId}" id="id">-->
+            <!--            <input type="text" th:value="${memberDTO.memberName}" id="id">-->
             <!--            <button th:onclick="followList()">followList</button>-->
         </div>
 
@@ -687,12 +687,12 @@
             }
         }
         function likes (id) {
-            const memberId = [[${memberDTO.memberId}]];
+            const memberName = [[${memberDTO.memberName}]];
             // console.log(lineValue);
             $.ajax({
                 type: "post",
                 url: "/board/likes",
-                data: {"memberId":memberId, "boardId": id},
+                data: {"memberName":memberName, "boardId": id},
                 dataType: "json",
                 success: function (a) {
                     const likeTest = document.getElementById("d"+id);
@@ -703,11 +703,11 @@
             });
         }
         function likesDelete (id) {
-            const memberId = [[${memberDTO.memberId}]];
+            const memberName = [[${memberDTO.memberName}]];
             $.ajax({
                 type: "post",
                 url: "/board/likes/delete",
-                data: {"memberId":memberId, "boardId": id},
+                data: {"memberName":memberName, "boardId": id},
                 dataType: "json",
                 success: function (a) {
                     const likeTest = document.getElementById("d"+id);

@@ -34,8 +34,8 @@ public class MemberController {
     //회원정보수정 폼
     @GetMapping("updateForm")
     public String updateForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
-        String memberName = principalDetails.getName();
-        MemberDTO memberDTO = memberService.findByMemberName(memberName);
+        String loginId = principalDetails.getUsername();
+        MemberDTO memberDTO = memberService.findByLoginId(loginId);
         model.addAttribute("memberDTO", memberDTO);
         return "memberPages/update";
     }
