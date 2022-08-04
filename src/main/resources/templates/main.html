@@ -373,7 +373,6 @@
             border-radius: 1em 1em 0 0;
         }
         .feedBtnZone{
-            background-color: yellow;
             height: 46px;
             text-align: right;
         }
@@ -389,7 +388,7 @@
             margin: 10px;
         }
         .feedCommentZone{
-            background-color: orange;
+            background-color: rgba(128, 128, 128,0.3);
             height: 130px;
         }
         .commentSaveZone{
@@ -398,10 +397,14 @@
             border-radius: 0 0 1em 1em;
         }
         .feedName{
-            font-size: 20px;
+            font-size: 18px;
+            margin: 17px 0 0 10px;
+        }
+        .feedImg{
+            margin: 0 0 0 15px;
         }
         .feedWriterItem{
-            margin-left: 15px;
+
         }
     </style>
 
@@ -463,10 +466,10 @@
         <div class="" id="feedZone">
 
             <div th:each="board : ${boardList}" style="overflow: hidden" class="feedZone">
-                <div class="feedWriter input-group">
-                    <div class="feedImg feedWriterItem"><i class="bi bi-person-circle" style="font-size: 40px; margin-left:5px"></i></div>
-                    <div class="feedName feedWriterItem"><span>Havana 1016</span></div>
-                    <!-- <span th:text="${board.boardWriter}" style="margin-left: auto"></span> -->
+                <div class="feedWriter row">
+                    <div class="col-1 feedImg feedWriterItem"><i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i></div>
+                    <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
+                    <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
                 </div>
 
                 <div class="feedContentsZone">
