@@ -30,7 +30,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final LikesRepository likesRepository;
     public BoardDTO fileSave(BoardDTO boardDTO, PrincipalDetails principalDetails) {
-        Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,principalDetails.getName())).getId();
+        Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,principalDetails)).getId();
         return BoardDTO.toDTO(boardRepository.findById(id).get());
     }
     public BoardFileDTO save(BoardFileDTO fileDTO,String list) throws IOException {

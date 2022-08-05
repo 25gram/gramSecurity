@@ -1,5 +1,6 @@
 package com.its.gramsecurity.entity;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.LikesDTO;
 import lombok.Getter;
@@ -33,6 +34,10 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 200)
     private String boardTag;
 
+
+    @Column (length = 500)
+    private String memberProfileName;
+
     @Column
     private Integer likes;
 
@@ -46,9 +51,10 @@ public class BoardEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberName) {
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO, PrincipalDetails principalDetails) {
         BoardEntity board = new BoardEntity();
-        board.setBoardWriter(memberName);
+        board.setBoardWriter(principalDetails.getName());
+        board.setMemberProfileName(principalDetails.getMemberDTO().getMemberProfileName());
         board.setBoardContents(boardDTO.getBoardContents());
         board.setBoardLocation(boardDTO.getBoardLocation());
         board.setBoardTag(boardDTO.getBoardTag());
