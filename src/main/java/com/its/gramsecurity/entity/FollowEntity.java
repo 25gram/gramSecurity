@@ -40,7 +40,7 @@ public class FollowEntity {
     public static FollowEntity toSaveEntity(FollowDTO followDTO, MemberEntity memberEntity,String myId) {
         FollowEntity followEntity=new FollowEntity();
         followEntity.setMyId(myId);
-        followEntity.setYourId(memberEntity.getMemberId());
+        followEntity.setYourId(memberEntity.getMemberName());
         followEntity.setYourName(memberEntity.getMemberName());
         followEntity.setYourProfileName(memberEntity.getMemberProfileName());
         followEntity.setLoginStatus(memberEntity.getLoginStatus());

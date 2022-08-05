@@ -1,11 +1,14 @@
 package com.its.gramsecurity.controller;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
+import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +28,19 @@ public class MainController {
 
     //메인피드
     @GetMapping("/main")
-    public String main(Principal principal, Model model) {
-        String memberId = principal.getName();
-        MemberDTO memberDTO = memberService.findByMemberId(memberId);
+    public String main(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        String memberName = principalDetails.getName();
+        MemberDTO memberDTO = memberService.findByMemberName(memberName);
         List<MemberDTO> findAll = memberService.findAll();
         List<BoardDTO> boardList = boardService.findAll();
         List<BoardFileDTO> boardFileList = boardService.fileFindAll();
+//        List<LikesDTO> likesList = boardService.likesFindAll();
+        List<LikesDTO> likesList = boardService.qqq(memberName);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
+        model.addAttribute("likes",likesList);
         return "main";
     }
 

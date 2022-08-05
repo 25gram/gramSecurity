@@ -11,16 +11,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LikesDTO {
     private Long id;
-    private String memberId;
+    private String memberName;
     private Long boardId;
     private Integer likes;
 
     public static LikesDTO toLikeSave(LikesEntity likesEntity){
         LikesDTO likesDTO = new LikesDTO();
         likesDTO.setId(likesEntity.getId());
-        likesDTO.setMemberId(likesEntity.getMemberId());
+        likesDTO.setMemberName(likesEntity.getMemberName());
         likesDTO.setBoardId(likesEntity.getBoardId());
         likesDTO.setLikes(likesEntity.getLikes());
         return likesDTO;
     }
+    public static LikesDTO toLikeList(LikesEntity likesEntity){
+        LikesDTO likesDTO = new LikesDTO();
+        likesDTO.setId(likesEntity.getId());
+        likesDTO.setMemberName(likesEntity.getMemberName());
+        likesDTO.setBoardId(likesEntity.getBoardId());
+        likesDTO.setLikes(likesEntity.getLikes());
+        return likesDTO;
+    }
+
 }

@@ -34,22 +34,23 @@ private final HttpSession httpSession;
         OAuth2User oAuth2User=super.loadUser(userRequest);
         String provider = userRequest.getClientRegistration().getRegistrationId();
         String providerId=oAuth2User.getAttribute("sub");
-        String memberId=provider+"_"+providerId;
+        String loginId=provider+"_"+providerId;
         String memberPassword = oAuth2User.getAttribute("memberPassword");
         String memberEmail=oAuth2User.getAttribute("email");
+        String memberName= oAuth2User.getAttribute("name");
         String role ="ROLE_USER";
-
         MemberDTO memberDTO=new MemberDTO();
-        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberId(memberId);
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberEmail(memberEmail);
         if (optionalMemberEntity.isPresent()){
             MemberEntity member=optionalMemberEntity.get();
             memberDTO=MemberDTO.toDTO(member);
         }
         if(optionalMemberEntity.isEmpty()){
             memberDTO=MemberDTO.builder()
-                    .memberId(memberId)
+                    .loginId(loginId)
                     .memberPassword(memberPassword)
                     .memberEmail(memberEmail)
+                    .memberName(memberName)
                     .role(role)
                     .provider(provider)
                     .providerId(providerId)

@@ -1,5 +1,6 @@
 package com.its.gramsecurity.entity;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.LikesDTO;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 500)
     private String boardWriter;
 
-    @Column(length = 100)
+    @Column(length = 1000)
     private String boardContents;
 
     @Column(length = 50)
@@ -32,6 +33,13 @@ public class BoardEntity extends BaseEntity{
 
     @Column(length = 200)
     private String boardTag;
+
+
+    @Column (length = 500)
+    private String memberProfileName;
+
+    @Column
+    private Integer likes;
 
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL,orphanRemoval = true ,fetch=FetchType.LAZY)
@@ -43,12 +51,34 @@ public class BoardEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO,String memberId) {
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO, PrincipalDetails principalDetails) {
         BoardEntity board = new BoardEntity();
-        board.setBoardWriter(memberId);
+        board.setBoardWriter(principalDetails.getName());
+        board.setMemberProfileName(principalDetails.getMemberDTO().getMemberProfileName());
         board.setBoardContents(boardDTO.getBoardContents());
         board.setBoardLocation(boardDTO.getBoardLocation());
         board.setBoardTag(boardDTO.getBoardTag());
+        return board;
+    }
+
+    public static BoardEntity toUpdateSave(BoardDTO boardDTO) {
+        BoardEntity board = new BoardEntity();
+        board.setId(boardDTO.getId());
+        board.setBoardWriter(boardDTO.getBoardWriter());
+        board.setBoardContents(boardDTO.getBoardContents());
+        board.setBoardLocation(boardDTO.getBoardLocation());
+        board.setBoardTag(boardDTO.getBoardTag());
+        board.setLikes(1);
+        return board;
+    }
+    public static BoardEntity toDelete(BoardDTO boardDTO) {
+        BoardEntity board = new BoardEntity();
+        board.setId(boardDTO.getId());
+        board.setBoardWriter(boardDTO.getBoardWriter());
+        board.setBoardContents(boardDTO.getBoardContents());
+        board.setBoardLocation(boardDTO.getBoardLocation());
+        board.setBoardTag(boardDTO.getBoardTag());
+        board.setLikes(null);
         return board;
     }
 }

@@ -22,10 +22,10 @@ public class BoardFileEntity {
     @Column
     private Long boardId;
 
-    @Column(length = 50)
+    @Column(length = 500)
     private String boardImgName;
 
-    @Column(length = 50)
+    @Column(length = 500)
     private String boardVideoName;
 
     @Column
