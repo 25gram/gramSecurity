@@ -132,8 +132,11 @@
         // };
 
         function sub() {
-            let memberEmail= document.getElementById("memberEmail");
             let loginId= document.getElementById("loginId");
+            let memberName=document.getElementById("memberName")
+            loginId.value=memberName.value
+
+            let memberEmail= document.getElementById("memberEmail");
             let memberEmailVal=memberEmail.value;
             let loginIdVal=loginId.value;
             let upid = document.getElementById("msg_zone");
@@ -153,7 +156,8 @@
                     success:function (e){
                         console.log("dup suc")
                         if(e=="true"){
-                        if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
+                        if(formCount1==true && formCount2==true && formCount3==true){
+                        // if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
                             $('#saveForm').submit();
                         }}else{
                             if(e=="id"){
@@ -270,9 +274,9 @@
     <div style="margin:14px 0 0 17px ;">
         <form action="/home/join" method="post" id="saveForm">
 <!--        <form action="/member/join" method="post" id="saveForm">-->
+            <input name="memberName" id="memberName" type="text" class="form-control ibox"  placeholder="아이디" onblur="namec()">
             <input name="memberEmail" id="memberEmail" type="text" class="form-control ibox"  placeholder="이메일 주소" onblur="mailc()">
-            <input name="memberName" id="memberName" type="text" class="form-control ibox"  placeholder="성명" onblur="namec()">
-            <input name="loginId" id="loginId" type="text" class="form-control ibox"  placeholder="사용자 이름" onblur="memberIdc()">
+            <input hidden name="loginId" id="loginId" type="text" class="form-control ibox"  placeholder="사용자 이름" onblur="memberIdc()">
             <input name="memberPassword" id="memberPassword" type="text" class="form-control ibox" placeholder="비밀번호" onblur="pwc()">
 <!--            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>-->
             <!-- <div class="" style="margin-top: 35px;">
