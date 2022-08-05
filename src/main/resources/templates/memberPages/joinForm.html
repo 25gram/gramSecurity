@@ -92,15 +92,28 @@
             let inputid = document.getElementById("memberName");
             let id = document.getElementById("memberName").value;
             let upid = document.getElementById("msg_zone")
+            const exp = /^[a-z \d ! @ # $ % ^ & * - _]{5,12}$/
             if(id.length==0){
                 inputid.className = ("form-control ibox")
                 upid.innerHTML = "&nbsp"
                 formCount3=false;
-            }else{
+            }
+            // else{
+            //     inputid.className = ("form-control is-valid ibox")
+            //     formCount3=true;
+            //
+            //
+            // }
+            else if (id.match(exp)) {
                 inputid.className = ("form-control is-valid ibox")
-                formCount3=true;
-
-
+                formCount3=true
+                // upid.innerHTML = "사용가능한 비밀번호입니다."
+                // upid.style.color = "green"
+            } else if (!id.match(exp)) {
+                inputid.className = ("form-control is-invalid ibox")
+                formCount3=false;
+                // upid.innerHTML = "영문소문자,숫자,1개 이상의 특수문자 8~12자"
+                // upid.style.color = "red"
             }
 
         }
@@ -109,15 +122,29 @@
             let inputid = document.getElementById("loginId");
             let id = document.getElementById("loginId").value;
             let upid = document.getElementById("msg_zone");
+            const exp = /^[a-z \d ! @ # $ % ^ & * - _]{5,12}$/
             if(id.length==0){
                 inputid.className = ("form-control ibox")
                 upid.innerHTML = "&nbsp"
                 formCount4=false;
 
-            }else{
-                inputid.className = ("form-control is-valid ibox")
-                formCount4=true;
+            }
+            // else{
+            //     inputid.className = ("form-control is-valid ibox")
+            //     formCount4=true;
+            //
+            // }
 
+            else if (id.match(exp)) {
+                inputid.className = ("form-control is-valid ibox")
+                formCount4=true
+                // upid.innerHTML = "사용가능한 비밀번호입니다."
+                // upid.style.color = "green"
+            } else if (!id.match(exp)) {
+                inputid.className = ("form-control is-invalid ibox")
+                formCount4=false;
+                // upid.innerHTML = "영문소문자,숫자,1개 이상의 특수문자 8~12자"
+                // upid.style.color = "red"
             }
 
         }
@@ -133,8 +160,8 @@
 
         function sub() {
             let loginId= document.getElementById("loginId");
-            let memberName=document.getElementById("memberName")
-            loginId.value=memberName.value
+            // let memberName=document.getElementById("memberName")
+            // loginId.value=memberName.value
 
             let memberEmail= document.getElementById("memberEmail");
             let memberEmailVal=memberEmail.value;
@@ -156,8 +183,9 @@
                     success:function (e){
                         console.log("dup suc")
                         if(e=="true"){
-                        if(formCount1==true && formCount2==true && formCount3==true){
-                        // if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
+                        // if(formCount1==true && formCount2==true && formCount3==true){
+                        if(formCount1==true && formCount2==true && formCount3==true && formCount4==true){
+                        //    memberName.value=""
                             $('#saveForm').submit();
                         }}else{
                             if(e=="id"){
@@ -225,6 +253,8 @@
             margin-top: 5px;text-align: center;font-size: 12px;
             color:grey;
         }
+        input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #fff inset ; -webkit-text-fill-color: #000; }
+        input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s; }
     </style>
     <script>
         function loginIconEffect(){
@@ -274,9 +304,9 @@
     <div style="margin:14px 0 0 17px ;">
         <form action="/home/join" method="post" id="saveForm">
 <!--        <form action="/member/join" method="post" id="saveForm">-->
-            <input name="memberName" id="memberName" type="text" class="form-control ibox"  placeholder="아이디" onblur="namec()">
+            <input name="loginId" id="loginId" type="text" class="form-control ibox"  placeholder="아이디" onblur="memberIdc()">
+            <input name="memberName" id="memberName" type="text" class="form-control ibox"  placeholder="사용자 이름" onblur="namec()" autocomplete="on">
             <input name="memberEmail" id="memberEmail" type="text" class="form-control ibox"  placeholder="이메일 주소" onblur="mailc()">
-            <input hidden name="loginId" id="loginId" type="text" class="form-control ibox"  placeholder="사용자 이름" onblur="memberIdc()">
             <input name="memberPassword" id="memberPassword" type="text" class="form-control ibox" placeholder="비밀번호" onblur="pwc()">
 <!--            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>-->
             <!-- <div class="" style="margin-top: 35px;">
