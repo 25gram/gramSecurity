@@ -26,6 +26,12 @@ public class StoryEntity {
     private LocalDateTime storyCreatedTime;
 
     @Column
+    private String storyHashtag;
+
+    @Column
+    private String storyLocation;
+
+    @Column
     private int storyVisitStatus;
 
     public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO){
@@ -33,6 +39,8 @@ public class StoryEntity {
         storyEntity.setMemberName(storyDTO.getMemberName());
         storyEntity.setStoryFileName(storyDTO.getStoryFileName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
+        storyEntity.setStoryHashtag(storyDTO.getStoryHashtag());
+        storyEntity.setStoryLocation(storyDTO.getStoryLocation());
         return storyEntity;
     }
 }

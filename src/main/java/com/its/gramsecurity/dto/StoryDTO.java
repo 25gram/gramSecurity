@@ -15,6 +15,8 @@ public class StoryDTO {
     private String memberName;
     private String storyFileName;
     private LocalDateTime storyCreatedTime;
+    private String storyHashtag;
+    private String storyLocation;
     private int storyVisitStatus;
 
     public StoryDTO(String memberName, String storyFileName, LocalDateTime storyCreatedTime, int storyVisitStatus) {
@@ -29,6 +31,8 @@ public class StoryDTO {
         storyDTO.setMemberName(storyEntity.getMemberName());
         storyDTO.setStoryFileName(storyEntity.getStoryFileName());
         storyDTO.setStoryCreatedTime(storyEntity.getStoryCreatedTime());
+        storyDTO.setStoryHashtag(storyEntity.getStoryHashtag());
+        storyDTO.setStoryLocation(storyEntity.getStoryLocation());
         storyDTO.setStoryVisitStatus(storyEntity.getStoryVisitStatus());
         return storyDTO;
     }
