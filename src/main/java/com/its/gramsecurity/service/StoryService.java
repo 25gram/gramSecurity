@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -20,5 +21,13 @@ public class StoryService {
             storyDTOList.add(StoryDTO.toStoryDTO(story));
         }
         return storyDTOList;
+    }
+
+    public List<StoryDTO> findByLocation(String storyLocation) {
+        List<StoryEntity> storyEntityList = storyRepository.findByStoryLocation(storyLocation);
+        List<StoryDTO> storyDTOList = new ArrayList<>();
+        for(StoryEntity story: storyEntityList){
+            storyDTOList.add(StoryDTO.toStoryDTO(story));
+        } return storyDTOList;
     }
 }

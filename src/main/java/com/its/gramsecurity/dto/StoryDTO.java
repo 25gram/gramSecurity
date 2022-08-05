@@ -15,20 +15,19 @@ public class StoryDTO {
     private String memberId;
     private String storyFileName;
     private LocalDateTime storyCreatedTime;
+    private String storyHashtag;
+    private String storyLocation;
     private int storyVisitStatus;
 
-    public StoryDTO(String memberId, String storyFileName, LocalDateTime storyCreatedTime, int storyVisitStatus) {
-        this.memberId = memberId;
-        this.storyFileName = storyFileName;
-        this.storyCreatedTime = storyCreatedTime;
-        this.storyVisitStatus = storyVisitStatus;
-    }
+
     public static StoryDTO toStoryDTO (StoryEntity storyEntity) {
         StoryDTO storyDTO = new StoryDTO();
         storyDTO.setId(storyEntity.getId());
         storyDTO.setMemberId(storyEntity.getMemberId());
         storyDTO.setStoryFileName(storyEntity.getStoryFileName());
         storyDTO.setStoryCreatedTime(storyEntity.getStoryCreatedTime());
+        storyDTO.setStoryHashtag(storyEntity.getStoryHashtag());
+        storyDTO.setStoryLocation(storyEntity.getStoryLocation());
         storyDTO.setStoryVisitStatus(storyEntity.getStoryVisitStatus());
         return storyDTO;
     }

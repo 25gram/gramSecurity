@@ -453,6 +453,7 @@
             border: 0;
             border-radius: 10px;
             margin-left: 23%;
+            display: none;
 
         }
         .shapeBtn {
@@ -493,6 +494,7 @@
             float: left;
             margin-top: 9px;
             margin-left: 4px;
+            line-height: 17px;
         }
         .option {
             width: 85%;
@@ -516,8 +518,165 @@
         #shapeBtn4 {
             border: 0;
         }
-
-
+        .hashtagDiv {
+            width: 100%;
+            height: 40px;
+            font-size: 20px;
+            color: hotpink;
+            text-align: center;
+            float: left;
+            margin-right: auto;
+            margin-left: auto;
+            position: absolute;
+            top: 50%;
+            display: none;
+        }
+        .hashtag-input {
+            width: 75%;
+            height: 40px;
+            background-color: transparent;
+            border: 0;
+            font-size: 20px;
+            color: hotpink;
+            float: left;
+            padding: 0;
+        }
+        .sharp {
+            width: 25%;
+            height: 40px;
+            float: left;
+            background-color: transparent;
+            font-size: 20px;
+            color: hotpink;
+            line-height: 40px;
+            text-align: right;
+        }
+        input::placeholder{
+            color: hotpink;
+        }
+        input:focus {
+            outline: none;
+        }
+        .hashtag {
+            background-color: white;
+            width: 30%;
+            height: 40px;
+            text-align: center;
+            align-items: center;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .referenceDiv {
+            width: 100%;
+            height: 40px;
+            font-size: 20px;
+            color: hotpink;
+            text-align: center;
+            float: left;
+            margin-right: auto;
+            margin-left: auto;
+            position: absolute;
+            top: 50%;
+            display: none;
+        }
+        .reference-input {
+            width: 75%;
+            height: 40px;
+            background-color: transparent;
+            border: 0;
+            font-size: 20px;
+            color: hotpink;
+            float: left;
+            padding: 0;
+        }
+        .at {
+            width: 25%;
+            height: 40px;
+            float: left;
+            background-color: transparent;
+            font-size: 20px;
+            color: hotpink;
+            line-height: 40px;
+            text-align: right;
+        }
+        input::placeholder{
+            color: hotpink;
+        }
+        input:focus {
+            outline: none;
+        }
+        .reference {
+            background-color: white;
+            width: 30%;
+            height: 40px;
+            text-align: center;
+            align-items: center;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .locationDiv {
+            color: lightgray;
+            width: 80%;
+            height: 30px;
+            font-size: 20px;
+            text-align: center;
+            float: left;
+            margin-right: auto;
+            margin-left: auto;
+            position: absolute;
+            border-radius: 10px;
+            background-color: #343a40;
+            top: 10%;
+            left: 10%;
+        }
+        .location-input {
+            color: lightgray;
+            width: 75%;
+            height: 30px;
+            background-color: transparent;
+            border: 0;
+            font-size: 16px;
+            float: left;
+            padding: 0;
+        }
+        .search {
+            color: lightgray;
+            width: 10%;
+            height: 100%;
+            float: left;
+            background-color: transparent;
+            font-size: 20px;
+            line-height: 30px;
+        }
+        .endDiv {
+            border: 0;
+            background-color: transparent;
+            color: lightgray;
+        }
+        .closeLocation {
+            border: 0;
+            background-color: transparent;
+            color: lightgray;
+            font-size: 20px;
+        }
+        .locationGroup {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            display: none;
+        }
+        .location-innerText {
+            width: 25%;
+            height: 30px;
+            background-color: white;
+            text-align: center;
+            line-height: 30px;
+            position: absolute;
+            top: 50%;
+            left: 37%;
+            z-index: 31;
+            display: none;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -547,9 +706,34 @@
                     </div>
                 </div>
             </div>
+            <div class="location-innerText" id="location-innerText"><i class="bi bi-geo-alt-fill"></i></div>
             <div class="questionGroup" id="questionGroup">
                 <div class="endClose" id="endClose">
                 <input type="button" class="btn btn-outline-primary" onclick="endQuestion()" value="완료">
+                </div>
+                <div class="locationGroup" id="locationGroup">
+                    <div class="endDiv" id="endDiv">
+                        <button class="closeLocation" onclick="endLocation()"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="locationDiv" id="locationDiv">
+                        <div class="location">
+                            <div class="search" id="search"><i class="bi bi-search"></i></div>
+                            <input type="text"  class="location-input" id="location-input" onkeyup="searchLocation()" placeholder="위치 검색..." autofocus>
+                        </div>
+                    </div>
+                    <div class="locationList" id="locationList"></div>
+                </div>
+                <div class="referenceDiv" id="referenceDiv">
+                    <div class="reference">
+                        <div class="at" id="at">@</div>
+                        <input type="text"  class="reference-input" id="reference-input" placeholder="언급">
+                    </div>
+                </div>
+                <div class="hashtagDiv" id="hashtagDiv">
+                    <div class="hashtag">
+                        <div class="sharp" id="sharp">#</div>
+                        <input type="text"  class="hashtag-input" id="hashtag-input" placeholder="해시태그">
+                    </div>
                 </div>
                 <div class="quiz-group" id="quiz-group">
                     <div class="quizDiv" id="quizDiv">
@@ -661,14 +845,14 @@
                 <div class="slide slideUp" id="slideUp">
                     <div class="closeDiv2"><button class="btn-close" id="reverseSlideContentUp" onclick="downSlide()"></button></div>
                     <div class="btnFncDiv">
-                        <button type="button" class="btnFnc btn-secondary">위치</button>
-                        <button type="button" class="btnFnc btn-secondary">@언급</button>
-                        <button type="button" class="btnFnc btn-secondary">#해시태그</button>
+                        <button type="button" class="btnFnc btn-secondary" onclick="locationFnc()">위치</button>
+                        <button type="button" class="btnFnc btn-secondary" onclick="referenceFnc()">@언급</button>
+                        <button type="button" class="btnFnc btn-secondary" onclick="hashtagFnc()">#해시태그</button>
                     </div>
                     <div class="btnFncDiv">
                         <button type="button" class="btnFnc btn-secondary" onclick="questionFnc()">질문</button>
                         <button type="button" class="btnFnc btn-secondary" onclick="surveyFnc()">설문</button>
-                        <button type="button" class="btnFnc btn-secondary">퀴즈</button>
+                        <button type="button" class="btnFnc btn-secondary" onclick="quizFnc()">퀴즈</button>
                     </div>
                     <div class="btnFncDiv">
                         <button type="button" class="btnFnc btn-secondary" onclick="linkTag()">링크</button>
@@ -1145,62 +1329,112 @@ const downSlide = () => {
         }
     }
 // 퀴즈태그 기능
-    const A = document.getElementById("quizIcoA");
-    const B = document.getElementById("quizIcoB");
+    const quizFnc = () => {
+        document.getElementById("quiz-group").style.display="block";
+        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("mainMenu").style.display="none";
+        document.getElementById("survey-group").style.display="none";
+        document.getElementById("questionDiv").style.zIndex="31";
+        document.getElementById("survey-group").style.zIndex="31";
+        document.getElementById("quiz-group").style.zIndex="7100";
+        $('.slideUp').slideUp();
+        document.getElementById("reverse").style.display="none";
+        document.getElementById("endClose").style.display="block";
+    }
+    const shapeBtn1 = document.getElementById("shapeBtn1");
+    const shapeBtn2 = document.getElementById("shapeBtn2");
+    const shapeBtn3 = document.getElementById("shapeBtn3");
+    const shapeBtn4 = document.getElementById("shapeBtn4");
+
     const clickQuizIcoA = () => {
-        A.innerHTML= "<i class=\"bi bi-check2\"></i>";
-        document.getElementById("shapeBtn1").style.backgroundColor="skyblue";
+        const A = document.getElementById("quizIcoA");
+        const B = document.getElementById("quizIcoB");
+        const C = document.getElementById("quizIcoC");
+        const D = document.getElementById("quizIcoD");
+
+        A.innerHTML= "<i class='bi bi-check2'></i>";
+        shapeBtn1.style.backgroundColor="skyblue";
         B.innerHTML= "B";
-        if(document.getElementById("quizIcoC")){
-            document.getElementById("quizIcoC").innerHTML= "C";
-            if(document.getElementById("quizIcoD")){
-                document.getElementById("quizIcoD").innerHTML= "D";
+        shapeBtn2.style.backgroundColor="transparent";
+        if(C){
+            C.innerHTML= "C";
+            shapeBtn3.style.backgroundColor="transparent";
+            if(D){
+                D.innerHTML= "D";
+                shapeBtn4.style.backgroundColor="transparent";
             }
         }
     }
     const clickQuizIcoB = () => {
+        const A = document.getElementById("quizIcoA");
+        const B = document.getElementById("quizIcoB");
+        const C = document.getElementById("quizIcoC");
+        const D = document.getElementById("quizIcoD");
         A.innerHTML= "A";
-        B.innerHTML= "<i class=\"bi bi-check2\"></i>";
-        document.getElementById("shapeBtn2").style.backgroundColor="skyblue";
-        if(document.getElementById("quizIcoC")){
-            document.getElementById("quizIcoC").innerHTML= "C";
-            if(document.getElementById("quizIcoD")){
-                document.getElementById("quizIcoD").innerHTML= "D";
+        shapeBtn1.style.backgroundColor="transparent";
+        B.innerHTML= "<i class='bi bi-check2'></i>";
+        shapeBtn2.style.backgroundColor="skyblue";
+        if(C){
+            C.innerHTML= "C";
+            shapeBtn3.style.backgroundColor="transparent";
+            if(D){
+                D.innerHTML= "D";
+                shapeBtn4.style.backgroundColor="transparent";
             }
         }
     }
     const clickQuizIcoC = () => {
+        const A = document.getElementById("quizIcoA");
+        const B = document.getElementById("quizIcoB");
+        const C = document.getElementById("quizIcoC");
+        const D = document.getElementById("quizIcoD");
         A.innerHTML= "A";
+        shapeBtn1.style.backgroundColor="transparent";
         B.innerHTML= "B";
-        document.getElementById("quizIcoC").innerHTML= "<i class=\"bi bi-check2\"></i>";
-        document.getElementById("shapeBtn3").style.backgroundColor="skyblue";
-        if(document.getElementById("quizIcoD")){
-            document.getElementById("quizIcoD").innerHTML= "D";
+        shapeBtn2.style.backgroundColor="transparent";
+        C.innerHTML= "<i class='bi bi-check2'></i>";
+        shapeBtn3.style.backgroundColor="skyblue";
+        if(D){
+            D.innerHTML= "D";
+            shapeBtn4.style.backgroundColor="transparent";
         }
     }
     const clickQuizIcoD = () => {
+        const A = document.getElementById("quizIcoA");
+        const B = document.getElementById("quizIcoB");
+        const C = document.getElementById("quizIcoC");
+        const D = document.getElementById("quizIcoD");
         A.innerHTML= "A";
+        shapeBtn1.style.backgroundColor="transparent";
         B.innerHTML= "B";
-        document.getElementById("quizIcoC").innerHTML= "C";
-        document.getElementById("quizIcoD").innerHTML= "<i class=\"bi bi-check2\"></i>";
-        document.getElementById("shapeBtn4").style.backgroundColor="skyblue";
+        shapeBtn2.style.backgroundColor="transparent";
+        C.innerHTML= "C";
+        shapeBtn3.style.backgroundColor="transparent";
+        D.innerHTML= "<i class='bi bi-check2'></i>";
+        shapeBtn4.style.backgroundColor="skyblue";
     }
     const addCheck = () => {
         const option1 = document.getElementById("option1").value;
         const option2 = document.getElementById("option2").value;
         const shapeBtn3 = document.getElementById("shapeBtn3");
         if(option1 && option2) {
-            document.getElementById("quiz-group").style.height="32%";
-            shapeBtn3.style.border="1px dashed darkgrey";
-            shapeBtn3.innerHTML= '<div class="quizIco" id="quizIcoC" onclick="clickQuizIcoC()">C</div>\n' +
-                '<input type="text" class="option" id="option3" onkeyup="addCheck2()" name="quizOption" placeholder="추가">\n';
+            if(!document.getElementById("option3")){
+                document.getElementById("quiz-group").style.height="32%";
+                shapeBtn3.style.border="1px dashed darkgrey";
+                shapeBtn3.innerHTML= '<div class="quizIco" id="quizIcoC" onclick="clickQuizIcoC()">C</div>\n' +
+                    '<input type="text" class="option" id="option3" onkeyup="addCheck2()" onblur="delCheck()" name="quizOption" placeholder="추가">\n';
+            }
         }
+
     }
     const addCheck2 = () => {
+        const option1 = document.getElementById("option1").value;
+        const option2 = document.getElementById("option2").value;
         const option3 = document.getElementById("option3").value;
         const shapeBtn3 = document.getElementById("shapeBtn3");
 
-        if(option3) {
+        if(option1 && option2 && option3) {
             shapeBtn3.style.border="1px solid darkgrey";
             document.getElementById("quiz-group").style.height="39%";
             const shapeBtn4 = document.getElementById("shapeBtn4");
@@ -1209,21 +1443,99 @@ const downSlide = () => {
                 '<input type="text" class="option" id="option4" onkeyup="addCheck3()" name="quizOption" placeholder="추가">\n';
         } else {
             shapeBtn3.style.border="1px dashed darkgrey";
+
         }
     }
     const addCheck3 = () => {
-        const option4 = document.getElementById("option4");
+        const option4 = document.getElementById("option4").value;
         const shapeBtn4 = document.getElementById("shapeBtn4");
-        if(option4.value) {
+        if(option4) {
             shapeBtn4.style.border="1px solid darkgrey";
         } else {
             shapeBtn4.style.border="1px dashed darkgrey";
-            option4.onblur=function (){
-                shapeBtn4.style.border="0";
+            $('#option4').on('blur', function (){
+                shapeBtn4.removeAttribute('style');
                 shapeBtn4.innerHTML="";
                 document.getElementById("quiz-group").style.height="32%";
-            }
+            })
+
         }
+    }
+    const delCheck = () => {
+        const option3 = document.getElementById("option3").value;
+        const shapeBtn3 = document.getElementById("shapeBtn3");
+        if(!document.getElementById("option4") && !option3) {
+            shapeBtn3.removeAttribute('style');
+            shapeBtn3.innerHTML="";
+            document.getElementById("quiz-group").style.height="23%";
+        }
+
+    }
+// 해시태그 기능
+    const hashtagFnc = () => {
+        document.getElementById("quiz-group").style.display="none";
+        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("mainMenu").style.display="none";
+        document.getElementById("survey-group").style.display="none";
+        document.getElementById("questionDiv").style.zIndex="31";
+        document.getElementById("survey-group").style.zIndex="31";
+        document.getElementById("quiz-group").style.zIndex="31";
+        document.getElementById("hashtagDiv").style.display="block";
+        document.getElementById("hashtagDiv").focus();
+        document.getElementById("hashtagDiv").style.zIndex="7100";
+        $('.slideUp').slideUp();
+        document.getElementById("reverse").style.display="none";
+        document.getElementById("endClose").style.display="block";
+    }
+// 언급태그 기능
+    const referenceFnc = () => {
+        document.getElementById("quiz-group").style.display="none";
+        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("mainMenu").style.display="none";
+        document.getElementById("survey-group").style.display="none";
+        document.getElementById("questionDiv").style.zIndex="31";
+        document.getElementById("survey-group").style.zIndex="31";
+        document.getElementById("quiz-group").style.zIndex="31";
+        document.getElementById("hashtagDiv").style.display="none";
+        document.getElementById("hashtagDiv").style.zIndex="31";
+        document.getElementById("referenceDiv").style.display="block";
+        document.getElementById("referenceDiv").style.zIndex="7100";
+        document.getElementById("reference-input").focus();
+        $('.slideUp').slideUp();
+        document.getElementById("reverse").style.display="none";
+        document.getElementById("endClose").style.display="block";
+    }
+// 위치태그 기능
+    const locationFnc = () => {
+        document.getElementById("mainMenu").style.display="none";
+        document.getElementById("reverse").style.display="none";
+        document.getElementById("locationGroup").style.display="block";
+      document.getElementById("locationGroup").style.zIndex="7100";
+    }
+    const searchLocation = () => {
+        const searchLocation = document.getElementById("location-input").value;
+        $.ajax({
+            type:"get",
+            url:"/storyBoard/findByLocation",
+            data:{"storyLocation": searchLocation},
+            dataType:"json",
+            success: function (locationList){
+                for(let location of locationList) {
+                    document.getElementById("locationList").innerHTML+=locationList[i];
+                }
+            }
+        })
+    }
+    const endLocation = () => {
+        document.getElementById("locationGroup").style.display="none";
+        document.getElementById("mainMenu").style.display="block";
+        const findLocation = document.getElementById("location-input").value;
+        document.getElementById("location-innerText").style.display="block";
+        document.getElementById("location-innerText").style.zIndex="7100";
+        document.getElementById("location-innerText").innerHTML+=findLocation;
+
     }
 </script>
 </html>

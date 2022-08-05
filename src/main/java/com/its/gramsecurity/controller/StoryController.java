@@ -7,7 +7,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -39,4 +41,9 @@ public class StoryController {
         return "storyPages/save";
     }
 
+    @GetMapping("/findByLocation")
+    public @ResponseBody List<StoryDTO> findByLocation(@ModelAttribute String storyLocation){
+        List<StoryDTO> storyDTOList = storyService.findByLocation(storyLocation);
+        return storyDTOList;
+    }
 }
