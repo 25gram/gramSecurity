@@ -87,6 +87,14 @@ public class BoardService {
         }
         return list;
     }
+    public List<LikesDTO> qqq(String memberName) {
+        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
+        List<LikesDTO> list = new ArrayList<>();
+        for (LikesEntity b : a) {
+            list.add(LikesDTO.toLikeList(b));
+        }
+        return list;
+    }
     public String likes(LikesDTO likesDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
         if (boardEntity.isPresent()){
@@ -111,23 +119,13 @@ public class BoardService {
         }
         return "no";
     }
-    public boolean likesDelete(LikesDTO likesDTO) {
-//        Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
-//        if (boardEntity.isPresent()){
-//            BoardEntity board = boardEntity.get();
-//            BoardDTO boardDTO = BoardDTO.toDTO(board);
-//            boardRepository.save(BoardEntity.toDelete(boardDTO));
-//        }
-//        Optional<LikesEntity> likesEntity = likesRepository.findByMemberNameAndBoardId(likesDTO.getMemberName(), likesDTO.getBoardId());
-//        if (likesEntity.isPresent()){
-//            LikesEntity likes = likesEntity.get();
-//            if (likes.getMemberName().equals(likesDTO.getMemberName()) && likes.getBoardId().equals(likesDTO.getBoardId())){
-//                likesRepository.delete(likes);
-//            }
-//        }
-//        Long id = likesDTO.getBoardId();
-//        boardRepository.likesDelete(id);
-        return true;
+    public List<BoardFileDTO> detail(Long id) {
+        List<BoardFileEntity> a = boardFileRepository.findByBoardId(id);
+        List<BoardFileDTO> list = new ArrayList<>();
+        for (BoardFileEntity b : a) {
+            list.add(BoardFileDTO.toListDTO(b));
+        }
+        return list;
     }
 
 }

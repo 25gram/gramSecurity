@@ -24,10 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-    @GetMapping("/")
-    public String aa(){
-        return "contents";
-    }
 
     @PostMapping("/fileSave")
     public String fileSave(@ModelAttribute BoardDTO boardDTO,
@@ -62,9 +58,9 @@ public class BoardController {
         System.out.println(likes);
         return likes;
     }
-    @PostMapping("/likes/delete")
-    public @ResponseBody boolean likesDelete(@ModelAttribute LikesDTO likesDTO,@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        boolean a = boardService.likesDelete(likesDTO);
-        return a;
+    @PostMapping("/detail")
+    public @ResponseBody List<BoardFileDTO> detail(@RequestParam("boardId") Long id) {
+        List<BoardFileDTO> boardFile = boardService.detail(id);
+        return boardFile;
     }
 }
