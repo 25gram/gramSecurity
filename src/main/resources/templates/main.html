@@ -467,7 +467,10 @@
 
             <div th:each="board : ${boardList}" style="overflow: hidden" class="feedZone">
                 <div class="feedWriter row">
-                    <div class="col-1 feedImg feedWriterItem"><i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i></div>
+                    <div class="col-1 feedImg feedWriterItem">
+<!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
+                        <img class="profile"th:src="@{|/upload/${board.memberProfileName}|}" alt="">
+                    </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
                     <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
                 </div>
@@ -1292,6 +1295,14 @@
                             .emojionearea .emojionearea-button{
                                 top:173px
                             }
+
+                            .profile{
+                                margin-top: 5px;
+                                border-radius: 50%;
+                                width: 50px;
+                                height: 50px;
+
+                            }
                         </style>
                         <!-- <div class="collapse-horizontal collapse" id="collapseWidthExample2">
                             <div class="collapseBody">               -->
@@ -1307,12 +1318,14 @@
                                                 <!-- 프로필 이미지 -->
                                                 <div class="col-3">
                                                     <img class="profileImg modal1"
-                                                         src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">
+                                                         th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg">
+<!--                                                    <img class="profileImg modal1"-->
+<!--                                                         src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">-->
                                                 </div>
 
                                                 <!-- 프로필 아이디 -->
                                                 <div class="col">
-                                                    <p class="profileId modal1">hasangsu82</p>
+                                                    <p class="profileId modal1"><span th:text="${memberDTO.memberName}"></span></p>
                                                 </div>
                                             </div>
 
