@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="shortcut icon" href="#">
+    <link rel="icon" href="favicon.ico">
+
 
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -235,7 +236,21 @@
             })
         };
 
-
+        function dropdown(){
+            $("#dropBtn").trigger("click")
+        }
+        // function dropSet(){
+        //     function aa(){
+        //         alert("aaaaaaa")
+        //     document.querySelector(".dropdown-menu").removeAttribute("position")
+        //     document.querySelector(".show").removeAttribute("position")
+        //     $(".dropdown-menu").removeAttr("position")
+        //     $(".show").removeAttr("position")
+        //     $(".dropdown-menu .show").removeAttr("position")
+        //     document.querySelector(".dropdown-menu .show").removeAttribute("position")}
+        //     aa()
+        //     // setTimeout(aa,1000)
+        // }
     </script>
 
     <style>
@@ -403,8 +418,28 @@
         .feedImg{
             margin: 0 0 0 15px;
         }
-        .feedWriterItem{
-
+        /* #dropBtn{
+            position: relative;
+            top: -27px;
+            left: 694px;
+        } */
+        .dropdown-item{
+            font-size: 15px;
+            color: #4E4E4E;
+        }
+        .dropdown-item2{
+            border-top: 1px solid rgb(214,214,214);
+            border-bottom: 1px solid rgb(214,214,214);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .dropdown-item1{
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .dropdown-item3{
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
     </style>
 
@@ -433,12 +468,34 @@
             <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)"
                onclick="iconEffect(1)"></i>
             <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)"
-               onclick="iconEffect(2)"></i>
-            <!-- <i id="footerItem3" class="fi fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)"
-               onclick="iconEffect(3)"></i> -->
-            <i class="fi fa-solid fa-user"></i>
-            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)"
-               onclick="iconEffect(4),logoutChk()"></i>
+               onclick="iconEffect(2)"style="margin-right:55px ;"></i>
+            <div class="dropdown dropBtn" style="height: 0;margin-top: -27px;">
+                <div id="dropBtn" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    <i class="fi fa-solid fa-user" onclick="ulSet()"></i>
+
+                </div>
+
+                <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding:0; margin:14px -29px 0 0 ;">
+                    <li><a class="dropdown-item dropdown-item1" href="#">My Home</a></li>
+                    <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
+                    <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a></li>
+                </ul>
+
+            </div>
+            <!-- dropdown start -->
+
+            <script>
+                function ulSet(){
+                    document.getElementById("dropUl").style.margin="14px -6px 0 0"
+                }
+            </script>
+
+
+            <!-- dropdown end -->
+
+            <!-- <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)"
+               onclick="iconEffect(4),logoutChk()" style="margin-right:10px ;"></i> -->
         </div>
     </div>
     <div>
@@ -449,14 +506,8 @@
 
     <!-- 스토리 구역 -->
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
-        <div class="storyZone row">
-
-            <div class="col">
-                <h5>스토리 구역입니다.</h5>
-            </div>
-            <div class="col">
-                <a href="/member/updateForm">업데이트</a>
-            </div>
+        <div class="storyZone">
+            <h5>스토리 구역입니다.</h5>
             <!--            <input type="text" th:value="${memberDTO.memberName}" id="id">-->
             <!--            <button th:onclick="followList()">followList</button>-->
         </div>
@@ -2125,6 +2176,7 @@
     </div>
 </div>
 <!--off canvas end-->
+
 
 
 
