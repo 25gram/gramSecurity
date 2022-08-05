@@ -474,16 +474,37 @@
 
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div onclick="detailGo()" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
+                        <div onclick="detailGo(this.id)" th:id="'m'+${board.id}" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
                             <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
                         </div>
                     </div>
                 </div>
 
-                <script>
-                    function detailGo(){
-                        $("#detailModalBtn").trigger("click")
+                <script th:inline="javascript">
+                    function detailGo(a){
+                        $.ajax({
+                            type: "post",
+                            url: "/board/detail",
+                            data: {"boardId": a[1]},
+                            dataType: "json",
+                            success: function (data) {
+                                console.log(data.length)
+                                let detail = document.getElementById("contentsBody_detail");
+                                let m ="";
+                                for (let i = 0; i < data.length; i++) {
+                                    if (data[i].boardImgName != null){
+                                        m += "<img src='" + '/upload/' + data[i].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                                    }
+                                    else if (data[i].boardVideoName != null){
+                                        m += "<video src='" + '/upload/' + data[i].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
+                                    }
+                                    m += "</div>"
+                                }
+                                detail.innerHTML = m;
+                            }
+                        });
+                        $("#detailModalBtn").trigger("click");
                     }
                 </script>
 
