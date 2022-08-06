@@ -16,23 +16,31 @@ public class StoryEntity {
     @Column
     private Long id;
 
-    @Column(length = 20, unique = true, nullable = false)
-    private String memberId;
+    @Column(length = 500, unique = true, nullable = false)
+    private String memberName;
 
-    @Column (length = 20, nullable = false)
+    @Column (length = 500, nullable = false)
     private String storyFileName;
 
     @Column
     private LocalDateTime storyCreatedTime;
 
     @Column
+    private String storyHashtag;
+
+    @Column
+    private String storyLocation;
+
+    @Column
     private int storyVisitStatus;
 
     public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO){
         StoryEntity storyEntity = new StoryEntity();
-        storyEntity.setMemberId(storyDTO.getMemberId());
+        storyEntity.setMemberName(storyDTO.getMemberName());
         storyEntity.setStoryFileName(storyDTO.getStoryFileName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
+        storyEntity.setStoryHashtag(storyDTO.getStoryHashtag());
+        storyEntity.setStoryLocation(storyDTO.getStoryLocation());
         return storyEntity;
     }
 }

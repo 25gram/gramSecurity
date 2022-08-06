@@ -1,5 +1,6 @@
 package com.its.gramsecurity.entity;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.LikesDTO;
 import lombok.Getter;
@@ -18,12 +19,11 @@ public class LikesEntity {
     @Column
     private Long id;
     @Column
-    private String memberId;
+    private String memberName;
     @Column
     private Long boardId;
     @Column
     private Integer likes;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
@@ -32,9 +32,9 @@ public class LikesEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-    public static LikesEntity toLikesEntity(LikesDTO likesDTO, Principal principal) {
+    public static LikesEntity toLikesEntity(LikesDTO likesDTO, PrincipalDetails principalDetails) {
         LikesEntity likes = new LikesEntity();
-        likes.setMemberId(principal.getName());
+        likes.setMemberName(principalDetails.getName());
         likes.setBoardId(likesDTO.getBoardId());
         likes.setLikes(likesDTO.getLikes());
         return likes;

@@ -7,7 +7,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -18,19 +20,19 @@ import java.util.List;
 @Controller
 public class StoryController {
     private final StoryService storyService;
-    String memberId = "admin";
+    String memberName = "admin";
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("id", 1);
-        model.addAttribute("memberId", memberId);
-        List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
+        model.addAttribute("memberName", memberName);
+        List<StoryDTO> storyDTOList = storyService.findByMemberName(memberName);
         model.addAttribute("storyList", storyDTOList);
         return "storyPages/test3";
     }
     @GetMapping("/myStory")
-    public String findByMemberId(Model model) {
-        List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
+    public String findByMemberName(Model model) {
+        List<StoryDTO> storyDTOList = storyService.findByMemberName(memberName);
         model.addAttribute("storyList", storyDTOList);
         return "storyPages/main";
     }
@@ -39,4 +41,9 @@ public class StoryController {
         return "storyPages/save";
     }
 
+    @GetMapping("/findByLocation")
+    public @ResponseBody List<StoryDTO> findByLocation(@ModelAttribute String storyLocation){
+        List<StoryDTO> storyDTOList = storyService.findByLocation(storyLocation);
+        return storyDTOList;
+    }
 }
