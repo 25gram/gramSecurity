@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,4 +24,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
     @Modifying
     @Query(value = "update BoardEntity b set b.likes=null where b.id=:id")
     void likesDelete(@Param("id") Long id);
+
+    List<BoardEntity> findByBoardWriter(String loginId);
 }

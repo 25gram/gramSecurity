@@ -2,6 +2,7 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Member;
 
 
 @Controller
@@ -21,6 +23,7 @@ import java.io.IOException;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
+    private final BoardService boardService;
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
@@ -49,8 +52,8 @@ public class MemberController {
     //회원삭제
     @GetMapping("/delete")
     public String delete(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String memberName = principalDetails.getName();
-        memberService.delete(memberName);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        memberService.delete(loginId);
         return "redirect:/member/logout";
     }
 
@@ -65,14 +68,25 @@ public class MemberController {
     //로그인체크
     @GetMapping("/loginCheck")
     public @ResponseBody void loginCheck(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String memberName = principalDetails.getName();
-        memberService.loginCheck(memberName);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        memberService.loginCheck(loginId);
     }
 
     //로그아웃 체크
     @GetMapping("/logoutCheck")
     public @ResponseBody void logoutCheck(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String memberName = principalDetails.getName();
-        memberService.logoutCheck(memberName);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        memberService.logoutCheck(loginId);
+    }
+
+    //업데이트 비밀번호 체크
+    @PostMapping("/passwordCheck")
+    public @ResponseBody String PasswordCheck(MemberDTO memberDTO,@AuthenticationPrincipal PrincipalDetails principalDetails){
+        MemberDTO passwordCheck=memberService.passwordCheck(memberDTO,principalDetails);
+        if(passwordCheck ==null){
+            return "no";
+        }else{
+            return "ok";
+        }
     }
 }
