@@ -458,6 +458,9 @@
 
 <div class="mainBody">
     <!-- 헤더구역 -->
+<!--    <th:block th:replace="layout/header :: header"></th:block>-->
+
+
     <div class="row headerZone">
         <div class="col">
             <p class="title" style="color:#4E4E4E">25gram</p>
@@ -465,6 +468,7 @@
 
 
         <div class="col headerItem" style="margin-top: 18px;text-align: right;">
+            <button id="hiddenBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" hidden></button>
             <i id="headerItem1" class="fi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"
                onmouseover="gray(5)" onmouseout="black(5)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
             <i id="headerItem2" class="fi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)"
