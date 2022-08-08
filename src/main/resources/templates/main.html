@@ -426,6 +426,7 @@
         .dropdown-item{
             font-size: 15px;
             color: #4E4E4E;
+            text-align: center;
         }
         .dropdown-item2{
             border-top: 1px solid rgb(214,214,214);
@@ -446,6 +447,7 @@
             border-radius: 50%;
             width: 50px;
             height: 50px;
+            cursor: pointer;
 
         }
     </style>
@@ -479,9 +481,10 @@
             <!-- <div style="width: 30px;"> -->
             <!-- <div class="dropdown dropBtn " style="height: 0;margin-top: -35px;">
                 <div id="dropBtn"  data-bs-toggle="dropdown" aria-expanded="false" > -->
-            <img onclick="ulSet()" class="dropdown" data-bs-toggle="dropdown" aria-expanded="false" th:src="${memberDTO.getMemberProfile()}" alt="" style="width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
+<!--            <img id="headerFrofile" onclick="ulSet()" onblur="" class="dropdown event-dropdown" data-bs-toggle="dropdown" aria-expanded="false" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4fmtzihrojODXt3EMmGnsnwll5RnsL_EHDQ&usqp=CAU" alt="" style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">-->
+             <img id="headerFrofile" onclick="ulSet()" class="dropdown event-dropdown" data-bs-toggle="dropdown" aria-expanded="false" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="" style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
 
-            <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
+            <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;" >
                 <li><a class="dropdown-item dropdown-item1" href="#">My Home</a></li>
                 <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a></li>
@@ -494,6 +497,42 @@
                 function ulSet(){
                     document.getElementById("dropUl").style.margin="11px -9px 0 0"
                 }
+                let circle=0
+                function circleReset(){
+                    console.log("circle : "+circle)
+                    if(circle==0){
+                        document.getElementById("headerFrofile").style.border="1px solid gray"
+                        circle=1
+                    }
+                    else if(circle==1){
+                        console.log("fhfkdk")
+                        document.getElementById("headerFrofile").style.border="1px solid transparent"
+                        circle=0
+                    }
+
+                }
+
+                // dropdown 메뉴가 보이기 직전에 호출되는 이벤트
+                $('.event-dropdown').on('show.bs.dropdown', function () {
+                    console.log("메뉴가 열리기 전 이벤트!");
+                    circleReset()
+                });
+
+                // dropdown 메뉴가 보이기 직후에 호출되는 이벤트
+                // $('.event-dropdown').on('shown.bs.dropdown', function () {
+                //     console.log("메뉴가 열린 후 이벤트!");  });
+                // dropdown 메뉴가 사라지기 직전에 호출되는 이벤트
+                $('.event-dropdown').on('hide.bs.dropdown', function () {
+                    console.log("메뉴가 닫히기 전 이벤트!");
+                    circleReset()
+                });
+                // dropdown 메뉴가 사라진 직후에 호출되는 이벤트
+                // $('.event-dropdown').on('hidden.bs.dropdown	', function () {
+                //         console.log("메뉴가 닫힌 후 이벤트!");  });
+
+
+
+
             </script>
 
 
@@ -526,14 +565,14 @@
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
                         <!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
-                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" th:alt="">
+                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" alt="">
                     </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
                     <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div onclick="detailGo()" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
+                        <div th:onclick="detailGo([[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
                             <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
                         </div>
@@ -541,7 +580,11 @@
                 </div>
 
                 <script>
-                    function detailGo(){
+                    function detailGo(writer,profile){
+                        console.log("detail writer: "+writer)
+                        console.log("detail profile: "+profile)
+                        $("#detailProfile").attr("src",/upload/+profile);
+                        $("#deTailProfileId").html(writer);
                         $("#detailModalBtn").trigger("click")
                     }
                 </script>
@@ -2009,12 +2052,15 @@
                                     <tr>
                                         <!-- 프로필 이미지 -->
                                         <td rowspan="2">
-                                            <img class="profileImg detail" src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">
+                                            <img id="detailProfile" class="profileImg detail" src="" alt="">
+<!--                                            <img id="detailProfile" class="profileImg detail" src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">-->
                                         </td>
 
                                         <td >
                                             <!-- 프로필 아이디 -->
-                                            <p class="profileId profileItem detail">hasangsu82</p>
+
+                                            <p id="deTailProfileId" class="profileId profileItem detail"></p>
+<!--                                            <p id="deTailProfileId" class="profileId profileItem detail">hasangsu82</p>-->
                                         </td>
                                     </tr>
                                     <tr>
@@ -2146,7 +2192,7 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        ...
+        <img src="/upload/1659928630114_1659928630114_1655196952595-20150623001631_0.jpg">
     </div>
 </div>
 <!--off canvas end-->
