@@ -1,5 +1,6 @@
 package com.its.gramsecurity.service;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
@@ -84,6 +85,16 @@ public class MemberService {
         }
         boardService.updateProfile(memberDTO,memberProfileName);
 
+    }
+
+    public MemberDTO passwordCheck(MemberDTO memberDTO,PrincipalDetails principalDetails){
+        MemberDTO loginDTO =findByLoginId(principalDetails.getMemberDTO().getLoginId());
+        String rawPassword =memberDTO.getMemberPassword();
+        if(encoder.matches(rawPassword,loginDTO.getMemberPassword())){
+            return loginDTO;
+        }else{
+            return null;
+        }
     }
 
     public MemberDTO findByLoginId(String LoginId) {
