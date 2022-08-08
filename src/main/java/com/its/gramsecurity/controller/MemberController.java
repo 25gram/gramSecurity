@@ -2,6 +2,7 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,7 @@ import java.io.IOException;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
+    private final BoardService boardService;
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
@@ -43,8 +45,6 @@ public class MemberController {
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO) throws IOException {
         memberService.update(memberDTO);
-        System.out.println("MemberController.update");
-        System.out.println("memberDTO = " + memberDTO);
         return "redirect:/main/main";
     }
 
