@@ -43,6 +43,8 @@ public class MemberController {
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO) throws IOException {
         memberService.update(memberDTO);
+        System.out.println("MemberController.update");
+        System.out.println("memberDTO = " + memberDTO);
         return "redirect:/main/main";
     }
 

@@ -44,9 +44,16 @@ public class MemberService {
         MemberEntity persistence = memberRepository.findByLoginId(memberDTO.getLoginId()).orElseThrow(() -> {
             return new IllegalArgumentException("회원찾기실패");
         });
+
         String rawPassword = memberDTO.getMemberPassword();
-        String encPassword = encoder.encode(rawPassword);
-        persistence.setMemberPassword(encPassword);
+        if (rawPassword.isBlank()) {
+            System.out.println("MemberService.update");
+            System.out.println("rawPassword = " + rawPassword);
+        }else{
+            String encPassword = encoder.encode(rawPassword);
+            persistence.setMemberPassword(encPassword);
+        }
+
         MemberDTO findDTO = findByLoginId(memberDTO.getLoginId());
         persistence.setMemberIntro(memberDTO.getMemberIntro());
         persistence.setMemberName(memberDTO.getMemberName());
@@ -86,6 +93,7 @@ public class MemberService {
             return null;
         }
     }
+
     public void delete(String loginId) {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(loginId);
         memberRepository.delete(optionalMemberEntity.get());
@@ -118,11 +126,12 @@ public class MemberService {
     }
 
     public List<MemberDTO> findAll() {
-        List<MemberEntity>memberEntityList=memberRepository.findAll();
-        List<MemberDTO>memberDTOList=new ArrayList<>();
-        for(MemberEntity member:memberEntityList){
-            MemberDTO memberDTO=MemberDTO.toDTO(member);
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (MemberEntity member : memberEntityList) {
+            MemberDTO memberDTO = MemberDTO.toDTO(member);
             memberDTOList.add(memberDTO);
-        }return memberDTOList;
+        }
+        return memberDTOList;
     }
 }
