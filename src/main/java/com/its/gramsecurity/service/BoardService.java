@@ -64,31 +64,34 @@ public class BoardService {
         Long id = boardFileRepository.save(BoardFileEntity.toSaveEntity(fileDTO, boardEntity)).getId();
         return BoardFileDTO.toDTO(boardFileRepository.findById(id).get());
     }
-    public List<BoardDTO> findAll(String memberName) {
+    public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntity = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
+//        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
         List<BoardDTO> board = new ArrayList<>();
-        int dd = 0;
-        if (a.size() == 0) {
-            for (BoardEntity boardList : boardEntity) {
-                board.add(BoardDTO.toBoardDTO(boardList));
-            }
-        } else {
-            for (BoardEntity boardList : boardEntity) {
-                if (a.get(dd).getBoardId() != boardList.getId()) {
-                    board.add(BoardDTO.toBoardDTO(boardList));
-                }
-                for (LikesEntity likes : a) {
-                    if (likes.getBoardId() == boardList.getId()) {
-                        board.add(BoardDTO.toBoardDTO2(boardList));
-                    }
-                }
-                dd++;
-                if (dd == a.size()) {
-                    dd = a.size() - 1;
-                }
-            }
+        for (BoardEntity boardList : boardEntity) {
+            board.add(BoardDTO.toBoardDTO(boardList));
         }
+//        int dd = 0;
+//        if (a.size() == 0) {
+//            for (BoardEntity boardList : boardEntity) {
+//                board.add(BoardDTO.toBoardDTO(boardList));
+//            }
+//        } else {
+//            for (BoardEntity boardList : boardEntity) {
+//                if (a.get(dd).getBoardId() != boardList.getId()) {
+//                    board.add(BoardDTO.toBoardDTO(boardList));
+//                }
+//                for (LikesEntity likes : a) {
+//                    if (likes.getBoardId() == boardList.getId()) {
+//                        board.add(BoardDTO.toBoardDTO2(boardList));
+//                    }
+//                }
+//                dd++;
+//                if (dd == a.size()) {
+//                    dd = a.size() - 1;
+//                }
+//            }
+//        }
         return board;
     }
     public List<BoardFileDTO> fileFindAll() {

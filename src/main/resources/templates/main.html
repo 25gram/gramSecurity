@@ -569,14 +569,14 @@
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
                         <!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
-<!--                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" alt="">-->
+                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" alt="">
                     </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
                     <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div th:onclick="detailGo(m+[[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
+                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
                             <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
                         </div>
@@ -652,11 +652,11 @@
                             }
                         });
                     }
-                    function detailGo(a,writer,profile){
-                        $("#detailProfile").attr("src",/upload/+profile);
+                    function detailGo(a,writer,profile) {
+                        $("#detailProfile").attr("src", /upload/ + profile);
                         $("#deTailProfileId").html(writer);
                         $("#detailModalBtn").trigger("click")
-                    }
+
                         qq1 = [];
                         for (let i = 0; i < 10; i++) {
                             qq1[i] = 0;
@@ -664,21 +664,20 @@
                         $.ajax({
                             type: "post",
                             url: "/board/detail",
-                            data: {"boardId": a[1]},
+                            data: {"boardId": a},
                             dataType: "json",
                             success: function (data) {
                                 let detail = document.getElementById("contentsBody_detail");
-                                let m ="<div>";
-                                if (data[0].boardImgName != null){
-                                    m += "<img src='" + '/upload/' + data[0].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                                let m = "<div>";
+                                if (data[0].boardImgName != null) {
+                                    m += "<img src='" + '/upload/' + data[0].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                                } else if (data[0].boardVideoName != null) {
+                                    m += "<video src='" + '/upload/' + data[0].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video>";
                                 }
-                                else if (data[0].boardVideoName != null){
-                                    m += "<video src='" + '/upload/' + data[0].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
-                                }
-                                if (data.length == 1){
+                                if (data.length == 1) {
                                     m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
                                     m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                                }else if (data.length > 1) {
+                                } else if (data.length > 1) {
                                     m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' > > </button><br>"
                                     m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
                                 }
@@ -687,6 +686,7 @@
                             }
                         });
                     }
+
                 </script>
 
                 <!-- 피드 좋아요,댓글 아이콘 -->
