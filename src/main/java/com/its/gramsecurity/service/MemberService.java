@@ -20,7 +20,8 @@ import java.util.Optional;
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
-
+    @Autowired
+    BoardService boardService;
     @Autowired
     private BCryptPasswordEncoder encoder;
 
@@ -81,7 +82,7 @@ public class MemberService {
                 persistence.setMemberProfileName(null);
             }
         }
-
+        boardService.updateProfile(memberDTO,memberProfileName);
 
     }
 
