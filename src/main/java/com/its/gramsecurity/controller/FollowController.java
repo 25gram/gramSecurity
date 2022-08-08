@@ -26,7 +26,7 @@ public class FollowController {
     @PostMapping("/request")
     public @ResponseBody List<FollowDTO> request_fw(FollowDTO followDTO,Model model,
                                                     @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String myId=principalDetails.getName();
+        String myId=principalDetails.getMemberDTO().getLoginId();
        followService.save(followDTO,myId);
         return null;
     }

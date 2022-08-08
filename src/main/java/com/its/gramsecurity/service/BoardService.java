@@ -88,8 +88,8 @@ public class BoardService {
         }
         return list;
     }
-    public List<LikesDTO> qqq(String memberName) {
-        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
+    public List<LikesDTO> qqq(String loginId) {
+        List<LikesEntity> a = likesRepository.findByMemberName(loginId);
         List<LikesDTO> list = new ArrayList<>();
         for (LikesEntity b : a) {
             list.add(LikesDTO.toLikeList(b));

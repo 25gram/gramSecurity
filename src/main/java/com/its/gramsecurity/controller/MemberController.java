@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Member;
 
 
 @Controller
@@ -76,5 +77,16 @@ public class MemberController {
     public @ResponseBody void logoutCheck(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         String loginId = principalDetails.getMemberDTO().getLoginId();
         memberService.logoutCheck(loginId);
+    }
+
+    //업데이트 비밀번호 체크
+    @PostMapping("/passwordCheck")
+    public @ResponseBody String PasswordCheck(MemberDTO memberDTO,@AuthenticationPrincipal PrincipalDetails principalDetails){
+        MemberDTO passwordCheck=memberService.passwordCheck(memberDTO,principalDetails);
+        if(passwordCheck ==null){
+            return "no";
+        }else{
+            return "ok";
+        }
     }
 }
