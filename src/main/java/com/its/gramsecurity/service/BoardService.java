@@ -2,6 +2,7 @@ package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.LikesDTO;
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.LikesEntity;
 import com.its.gramsecurity.repository.BoardFileRepository;
 import com.its.gramsecurity.repository.BoardRepository;
@@ -106,8 +107,8 @@ public class BoardService {
         }
         return list;
     }
-    public List<LikesDTO> qqq(String memberName) {
-        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
+    public List<LikesDTO> qqq(String loginId) {
+        List<LikesEntity> a = likesRepository.findByMemberName(loginId);
         List<LikesDTO> list = new ArrayList<>();
         List<BoardEntity> boardEntity = boardRepository.findAll();
         for (BoardEntity boardList : boardEntity) {
@@ -155,5 +156,20 @@ public class BoardService {
         }
         return list;
     }
+
+     void updateProfile(MemberDTO memberDTO,String fileName){
+        List<BoardEntity> blist=boardRepository.findByBoardWriter(memberDTO.getMemberName());
+
+        for (int i =0;i< blist.size();i++){
+            blist.get(i).setMemberProfileName(fileName);
+            boardRepository.save(blist.get(i));
+        }
+
+    }
+
+
+
+
+
 
 }

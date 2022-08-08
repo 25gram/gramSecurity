@@ -29,12 +29,13 @@ public class MainController {
     //메인피드
     @GetMapping("/main")
     public String main(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
-        String memberName = principalDetails.getName();
-        MemberDTO memberDTO = memberService.findByMemberName(memberName);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        MemberDTO memberDTO = memberService.findByLoginId(loginId);
         List<MemberDTO> findAll = memberService.findAll();
-        List<LikesDTO> likesList = boardService.qqq(memberName);
-        List<BoardDTO> boardList = boardService.findAll(memberName);
+        List<BoardDTO> boardList = boardService.findAll();
         List<BoardFileDTO> boardFileList = boardService.fileFindAll();
+//        List<LikesDTO> likesList = boardService.likesFindAll();
+        List<LikesDTO> likesList = boardService.qqq(loginId);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);

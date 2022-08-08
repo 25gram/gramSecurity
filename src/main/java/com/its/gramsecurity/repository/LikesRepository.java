@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface LikesRepository extends JpaRepository<LikesEntity,Long> {
     Optional<LikesEntity> findByMemberNameAndBoardId(String memberName,Long boardId);
 
-    List<LikesEntity> findByMemberName(String memberName);
+
+    List<LikesEntity> findByMemberName(String loginId);
 }
