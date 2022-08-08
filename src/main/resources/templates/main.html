@@ -441,6 +441,13 @@
             padding-top: 10px;
             padding-bottom: 10px;
         }
+        .profile {
+            margin-top: 5px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+
+        }
     </style>
 
 
@@ -517,11 +524,14 @@
 
             <div th:each="board : ${boardList}" style="overflow: hidden" class="feedZone">
                 <div class="feedWriter row">
-                    <div class="col-1 feedImg feedWriterItem"><i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i></div>
+                    <div class="col-1 feedImg feedWriterItem">
+                        <input type="hidden" name="boardId" th:value="${board.id}">
+                        <!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
+                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" alt="">
+                    </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
                     <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
                 </div>
-
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
                         <div onclick="detailGo()" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}">
