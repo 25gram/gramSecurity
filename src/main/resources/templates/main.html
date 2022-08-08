@@ -1345,13 +1345,12 @@
 
                                                 <!-- 프로필 이미지 -->
                                                 <div class="col-3">
-                                                    <img class="profileImg modal1"
-                                                         src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">
+                                                    <img class="profile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
                                                 </div>
 
                                                 <!-- 프로필 아이디 -->
                                                 <div class="col">
-                                                    <p class="profileId modal1">hasangsu82</p>
+                                                    <p class="profileId modal1"><span th:text="${memberDTO.memberName}"></span></p>
                                                 </div>
                                             </div>
 

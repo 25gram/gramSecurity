@@ -53,6 +53,7 @@ public class BoardEntity extends BaseEntity{
     private MemberEntity memberEntity;
     public static BoardEntity toSaveEntity(BoardDTO boardDTO, PrincipalDetails principalDetails) {
         BoardEntity board = new BoardEntity();
+
         board.setBoardWriter(principalDetails.getName());
         board.setMemberProfileName(principalDetails.getMemberDTO().getMemberProfileName());
         board.setBoardContents(boardDTO.getBoardContents());

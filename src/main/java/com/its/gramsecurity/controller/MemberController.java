@@ -51,8 +51,8 @@ public class MemberController {
     //회원삭제
     @GetMapping("/delete")
     public String delete(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String memberName = principalDetails.getName();
-        memberService.delete(memberName);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        memberService.delete(loginId);
         return "redirect:/member/logout";
     }
 
@@ -67,14 +67,14 @@ public class MemberController {
     //로그인체크
     @GetMapping("/loginCheck")
     public @ResponseBody void loginCheck(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String memberName = principalDetails.getName();
-        memberService.loginCheck(memberName);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        memberService.loginCheck(loginId);
     }
 
     //로그아웃 체크
     @GetMapping("/logoutCheck")
     public @ResponseBody void logoutCheck(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String memberName = principalDetails.getName();
-        memberService.logoutCheck(memberName);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        memberService.logoutCheck(loginId);
     }
 }
