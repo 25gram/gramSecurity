@@ -53,7 +53,6 @@ public class MemberService {
             String encPassword = encoder.encode(rawPassword);
             persistence.setMemberPassword(encPassword);
         }
-
         MemberDTO findDTO = findByLoginId(memberDTO.getLoginId());
         persistence.setMemberIntro(memberDTO.getMemberIntro());
         persistence.setMemberName(memberDTO.getMemberName());
@@ -62,6 +61,7 @@ public class MemberService {
         System.out.println(memberFile);
         String memberProfileName = memberFile.getOriginalFilename();
         memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
+        persistence.setMemberProfileName(memberProfileName);
         if (!Objects.equals(findDTO.getMemberProfileName(), memberDTO.getMemberProfileName())) {
             if (!memberFile.isEmpty()) {
                 memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;

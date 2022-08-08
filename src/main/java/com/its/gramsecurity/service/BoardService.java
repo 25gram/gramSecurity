@@ -2,6 +2,7 @@ package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.LikesDTO;
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.LikesEntity;
 import com.its.gramsecurity.repository.BoardFileRepository;
 import com.its.gramsecurity.repository.BoardRepository;
@@ -127,5 +128,6 @@ public class BoardService {
         }
         return list;
     }
+
 
 }
