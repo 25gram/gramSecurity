@@ -63,11 +63,30 @@ public class BoardService {
         Long id = boardFileRepository.save(BoardFileEntity.toSaveEntity(fileDTO, boardEntity)).getId();
         return BoardFileDTO.toDTO(boardFileRepository.findById(id).get());
     }
-    public List<BoardDTO> findAll() {
+    public List<BoardDTO> findAll(String memberName) {
         List<BoardEntity> boardEntity = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
         List<BoardDTO> board = new ArrayList<>();
-        for (BoardEntity boardList : boardEntity) {
-            board.add(BoardDTO.toBoardDTO(boardList));
+        int dd = 0;
+        if (a.size() == 0) {
+            for (BoardEntity boardList : boardEntity) {
+                board.add(BoardDTO.toBoardDTO(boardList));
+            }
+        } else {
+            for (BoardEntity boardList : boardEntity) {
+                if (a.get(dd).getBoardId() != boardList.getId()) {
+                    board.add(BoardDTO.toBoardDTO(boardList));
+                }
+                for (LikesEntity likes : a) {
+                    if (likes.getBoardId() == boardList.getId()) {
+                        board.add(BoardDTO.toBoardDTO2(boardList));
+                    }
+                }
+                dd++;
+                if (dd == a.size()) {
+                    dd = a.size() - 1;
+                }
+            }
         }
         return board;
     }
@@ -90,7 +109,16 @@ public class BoardService {
     public List<LikesDTO> qqq(String memberName) {
         List<LikesEntity> a = likesRepository.findByMemberName(memberName);
         List<LikesDTO> list = new ArrayList<>();
+        List<BoardEntity> boardEntity = boardRepository.findAll();
+        for (BoardEntity boardList : boardEntity) {
+            boardRepository.likesDelete(boardList.getId());
+        }
         for (LikesEntity b : a) {
+            for (BoardEntity boardList : boardEntity) {
+                if (boardList.getId() == b.getBoardId()) {
+                    boardRepository.likes(boardList.getId());
+                }
+            }
             list.add(LikesDTO.toLikeList(b));
         }
         return list;

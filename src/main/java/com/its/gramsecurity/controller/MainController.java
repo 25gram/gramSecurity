@@ -32,10 +32,9 @@ public class MainController {
         String memberName = principalDetails.getName();
         MemberDTO memberDTO = memberService.findByMemberName(memberName);
         List<MemberDTO> findAll = memberService.findAll();
-        List<BoardDTO> boardList = boardService.findAll();
-        List<BoardFileDTO> boardFileList = boardService.fileFindAll();
-//        List<LikesDTO> likesList = boardService.likesFindAll();
         List<LikesDTO> likesList = boardService.qqq(memberName);
+        List<BoardDTO> boardList = boardService.findAll(memberName);
+        List<BoardFileDTO> boardFileList = boardService.fileFindAll();
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
