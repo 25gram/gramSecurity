@@ -20,7 +20,7 @@ public class FollowService {
 
     //테스트코드 사용중
     public void save(FollowDTO followDTO,String myId) {
-        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberName(followDTO.getMyId());
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByLoginId(followDTO.getMyId());
         if(optionalMemberEntity.isPresent()){
             MemberEntity memberEntity=optionalMemberEntity.get();
             FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity,myId);

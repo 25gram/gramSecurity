@@ -105,7 +105,7 @@
         <input type="text" name="loginId" th:value="${memberDTO.loginId}" hidden><br>
         <p class="item">이메일</p> <input class="form-control" type="text" name="memberEmail" th:value="${memberDTO.memberEmail}" disabled style="background-color:transparent;border: 0;"><br>
         <p class="item">사용자 이름</p> <input class="form-control"type="text" name="memberName" id="memberName"th:value="${memberDTO.memberName}" ><br>
-        <p class="item">비밀번호</p> <input class="form-control"type="password" name="memberPassword" id="memberPassword" placeholder="비밀번호" ><br>
+        <p class="item">비밀번호</p> <input class="form-control"type="password" name="memberPassword" id="memberPassword" placeholder="비밀번호" onblur="pwc()" ><br>
 
         <p class="item">소개</p> <textarea class="form-control" name="memberIntro" id="memberIntro"></textarea><br>
 
@@ -154,6 +154,28 @@
         } else {
             document.getElementById('preview').src = "";
         }
+    }
+
+    function pwc(){
+        // let header = $("meta[name='_csrf_header']").attr('content');
+        // let token = $("meta[name='_csrf']").attr('content');
+        const memberPassword=document.getElementById("memberPassword").value;
+        $.ajax({
+            url:"/member/passwordCheck",
+            type:"post",
+            data:{
+                "memberPassword":memberPassword
+            },
+            dataType:"text",
+            // beforeSend:function (result){
+            //     result.setRequestHeader(header.token);
+            // },
+            success:function (result){
+                if(result=="no"){
+                    alert("비밀번호가 일치하지 않습니다.");
+                }
+            }
+        });
     }
 </script>
 </html>

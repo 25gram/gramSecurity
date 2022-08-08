@@ -22,8 +22,8 @@ public class CommentService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-    public void save(CommentDTO commentDTO,String memberName) {
-        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByMemberName(memberName);
+    public void save(CommentDTO commentDTO,String loginId) {
+        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByLoginId(loginId);
         Optional<BoardEntity>optionalBoardEntity=boardRepository.findById(commentDTO.getBoardId());
         if(optionalMemberEntity.isPresent() && optionalBoardEntity.isPresent()){
             MemberEntity memberEntity=optionalMemberEntity.get();
