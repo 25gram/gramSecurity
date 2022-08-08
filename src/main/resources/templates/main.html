@@ -455,7 +455,6 @@
 <body onload="loginChk()" style="background-color:#F2F3F5 ;">
 
 <div class="mainBody">
-
     <!-- 헤더구역 -->
     <div class="row headerZone">
         <div class="col">
@@ -480,7 +479,7 @@
             <!-- <div style="width: 30px;"> -->
             <!-- <div class="dropdown dropBtn " style="height: 0;margin-top: -35px;">
                 <div id="dropBtn"  data-bs-toggle="dropdown" aria-expanded="false" > -->
-            <img onclick="ulset()" class="dropdown" data-bs-toggle="dropdown" aria-expanded="false" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Won_Bin_LG.jpg" alt="" style="width:40px;height:40px;border-radius: 50%;margin-top:-14px ;">
+            <img onclick="ulSet()" class="dropdown" data-bs-toggle="dropdown" aria-expanded="false" th:src="${memberDTO.getMemberProfile()}" alt="" style="width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
 
             <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
                 <li><a class="dropdown-item dropdown-item1" href="#">My Home</a></li>
@@ -493,7 +492,7 @@
             </div>
             <script>
                 function ulSet(){
-                    document.getElementById("dropUl").style.margin="25px 0px 0 0"
+                    document.getElementById("dropUl").style.margin="11px -9px 0 0"
                 }
             </script>
 
@@ -527,7 +526,7 @@
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
                         <!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
-                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" alt="">
+                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" th:alt="">
                     </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
                     <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
