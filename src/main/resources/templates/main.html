@@ -145,15 +145,15 @@
 
         //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
         function logoutChk() {
-            // let header = $("meta[name='_csrf_header']").attr('content');
-            // let token = $("meta[name='_csrf']").attr('content');
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             alert("logout chk 호출")
             $.ajax({
                 url: "/member/logoutCheck",
                 type: "get",
-                // beforeSend:function (result){
-                //     result.setRequestHeader(header,token);
-                // },
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
                 success: function (e) {
                     console.log("logout chk suc")
                     location.href = "/member/logout"
@@ -167,14 +167,14 @@
         }
 
         function loginChk() {
-            // let header = $("meta[name='_csrf_header']").attr('content');
-            // let token = $("meta[name='_csrf']").attr('content');
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             console.log("login chk 호출")
             $.ajax({
                 url: "/member/loginCheck",
-                //     beforeSend:function(result){
-                //         result.setRequestHeader(header,token);
-                // },
+                    beforeSend:function(result){
+                        result.setRequestHeader(header,token);
+                },
                 success: function (e) {
                     console.log("login chk suc")
                 },
@@ -186,8 +186,8 @@
         }
 
         function followBTN() {
-            // let header = $("meta[name='_csrf_header']").attr('content');
-            // let token = $("meta[name='_csrf']").attr('content');
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             const memberName = document.getElementById("memberName").value;
             const yourId = "memberName";
             const yourName = "memberName";
@@ -205,9 +205,9 @@
                     "yourProfileName": yourProfileName,
                     "loginStatus": loginStatus
                 },
-                // beforeSend:function(result){
-                //     result.setRequestHeader(header,token);
-                // },
+                beforeSend:function(result){
+                    result.setRequestHeader(header,token);
+                },
                 success: function (result) {
                     console.log("suc");
                 },
@@ -218,8 +218,8 @@
         };
 
         function followList() {
-            // let header = $("meta[name='_csrf_header']").attr('content');
-            // let token = $("meta[name='_csrf']").attr('content');
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             const myId = "yourId";
             $.ajax({
                 url: "/follow/myList",
@@ -227,9 +227,9 @@
                 data: {
                     "myId": myId
                 },
-                // beforeSend:function (result){
-                //     result.setRequestHeader(header,token);
-                // },
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
                 success: function (result) {
 
                 }
@@ -587,6 +587,8 @@
                 <script th:inline="javascript">
 
                     function detailGo(object) {
+                        let header = $("meta[name='_csrf_header']").attr('content');
+                        let token = $("meta[name='_csrf']").attr('content');
                         let hssIndex=0;
                         $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
                         $("#deTailProfileId").html(object.boardWriter);
@@ -606,7 +608,7 @@
                             dataType: "json",
                             async:false,
                             beforeSend:function (result){
-                                result.setRequest(header,token);
+                                result.setRequestHeader(header,token);
                             },
                             success: function (data) {
                                 result=data;
@@ -1017,12 +1019,17 @@
         }
         function likes (id) {
             const loginId = [[${memberDTO.memberName}]];
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             console.log(loginId);
             $.ajax({
                 type: "post",
                 url: "/board/likes",
                 data: {"memberName":loginId, "boardId": id},
                 dataType: "text",
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
                 success: function (data) {
                     console.log(data);
                     const likeTest2 = document.getElementById("i"+id);
@@ -1039,11 +1046,17 @@
         }
         function likes2 (id) {
             const loginId = [[${memberDTO.memberName}]];
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+
             $.ajax({
                 type: "post",
                 url: "/board/likes",
                 data: {"memberName":loginId, "boardId": id},
                 dataType: "text",
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
                 success: function (data) {
                     console.log(data);
                     const likeTest2 = document.getElementById("d"+id);
@@ -1341,7 +1354,7 @@
 
                     <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm"
                           name="saveForm">
-                        <!--                    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
+                                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
                         <div>
                             <input type="file" id="boardFile" name="boardFile" onsubmit="return false;"
                                    onchange="uploadImgPreview(this);" multiple hidden>
@@ -1606,7 +1619,7 @@
                                             <div id="cText" class="cText modal1">
                                                 <div style="text-align: left">
                                                     <form action="/hhhhhhhh" id="contentsForm">
-                                                        <!--                                                    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
+                                                                                                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
                                                         <textarea name="fff" class="tete textArea modal1" id="text1"
                                                                   placeholder="문구 입력.."></textarea>
                                                     </form>
