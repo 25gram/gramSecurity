@@ -319,12 +319,13 @@
             border: 0;
             font-weight: 700;
             font-size: 20px;
+            padding: 0;
 
 
         }
         .inputLinkDiv {
             text-align: center;
-            width: 10%;
+            width: 24%;
             height: 5%;
             background-color: white;
             border-radius: 10px;
@@ -354,30 +355,39 @@
             background-color: transparent;
             position: absolute;
             z-index: 31;
+            top: 50%;
+            left: 40%;
             display: none;
+
         }
         .inputToday {
-            width: 15%;
+            width: 20%;
             height: 40px;
+            border: 0;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
             background-color: transparent;
             position: absolute;
-            top: 50%;
+            z-index: 6500;
         }
         .questionDiv {
             width: 100%;
             height: 20%;
             position: absolute;
             top: 40%;
+            left: 0;
+            z-index: 20;
             display: none;
 
         }
         .input-box {
-            width: 70%;
-            height: 100%;
+            width: 268px;
+            height: 119.44px;
             background-color: white;
             border: 1px solid transparent;
             border-radius: 10px;
-            padding-top: 10%;
+            padding-top: 4%;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -408,7 +418,7 @@
             height: 50px;
             border-radius: 50%;
             position: absolute;
-            top: -20%;
+            top: -15%;
             left: 45%;
         }
         .logoImg {
@@ -439,15 +449,17 @@
             text-align: center;
         }
         .survey-group {
-            width: 100%;
-            height: 30%;
+            width: 375.19px;
+            height: 187.19px;
             position: absolute;
             top: 30%;
+            left: 15%;
+            z-index: 31;
             display: none;
         }
         #question {
             color: white;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 8px auto;
             padding: 0;
             background-color: black;
             border: 0;
@@ -461,20 +473,21 @@
         }
         .survey {
             width: 90%;
-            height: 40px;
+            height: 35px;
             margin: 5px;
             background-color: lightgrey;
-            border: 0;            border-radius: 10px;
+            border: 0;
+            border-radius: 10px;
         }
         .quiz-group {
-            width: 54%;
-            height: 23%;
+            width: 187.59px;
+            height: 149.75px;
             position: absolute;
             top: 30%;
+            left: 29%;
             background-color: white;
             border: 0;
             border-radius: 10px;
-            margin-left: 23%;
             display: none;
 
         }
@@ -483,7 +496,7 @@
             height: 40px;
             border: 1px solid darkgrey;
             border-radius: 15px;
-            margin-top: 20px;
+            margin-top: 10px;
             background-color: transparent;
         }
         .quizDiv {
@@ -528,6 +541,7 @@
         }
         .optionDiv {
             width: 90%;
+            height: 128px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -551,6 +565,7 @@
             margin-left: auto;
             position: absolute;
             top: 50%;
+            z-index: 31;
             display: none;
         }
         .hashtag-input {
@@ -581,12 +596,13 @@
         }
         .hashtag {
             background-color: white;
-            width: 30%;
+            width: 25%;
             height: 40px;
             text-align: center;
             align-items: center;
             margin-right: auto;
             margin-left: auto;
+            border-radius: 10px;
         }
         .referenceDiv {
             width: 100%;
@@ -629,12 +645,13 @@
         }
         .reference {
             background-color: white;
-            width: 30%;
+            width: 25%;
             height: 40px;
             text-align: center;
             align-items: center;
             margin-right: auto;
             margin-left: auto;
+            border-radius: 10px;
         }
         .locationDiv {
             color: lightgray;
@@ -787,7 +804,7 @@
                         <input type="text"  class="survey" id="answer1" placeholder="예">
                         <input type="text"  class="survey" id="answer2" placeholder="아니요">
                         <input type="text"  class="survey" id="answer3" placeholder="다른 옵션 추가..." onkeyup="newInput()">
-                        <input type="text"  class="survey" id="answer4" placeholder="다른 옵션 추가..." style="display: none; margin-right: auto; margin-left: auto">
+                        <input type="text"  class="survey" id="answer4" placeholder="다른 옵션 추가..." onblur="option4()" style="display: none; margin-right: auto; margin-left: auto">
                     </div>
                 </div>
                 <div class="questionDiv" id="questionDiv">
@@ -1158,7 +1175,7 @@
     $('#reverseSlideContentDown').on('click', function() {
             document.getElementById("editBox").style.display="none";
             document.getElementById("reverse").style.display="block";
-            document.getElementById("reverse").style.zIndex="6100";
+            document.getElementById("reverse").style.zIndex="6900";
             let today = new Date();
             let year = today.getFullYear(); // 년도
             let month = today.getMonth() + 1;  // 월
@@ -1168,17 +1185,15 @@
     });
 // 다운슬라이드창 기능
     $('#reverseSlideContentUp').on('click', function() {
-        document.getElementById("reverse").style.zIndex="20";
-        $('.slideUp').slideUp();
+        downSlide();
     });
 const downSlide = () => {
-    document.getElementById("linkDiv").style.display="none";
     $('.slideUp').slideUp();
     document.getElementById("reverse").style.zIndex="20";
 }
 // 메인 이미지 위에 추가이미지 넣기
     const addImgFile = (input) => {
-        $('.slideUp').slideUp();
+        downSlide();
         document.getElementById("reverse").style.zIndex="20";
         if(input.files && input.files[0]) {
             // 이미지 파일인지 검사 (생략)
@@ -1221,6 +1236,7 @@ const downSlide = () => {
     addImgDiv.addEventListener("mousemove", drag2, false);
 
     function dragStart2(e) {
+        addImgDiv.style.display="9000";
         if (e.type === "touchstart") {
             initialX = e.touches[0].clientX - xOffset;
             initialY = e.touches[0].clientY - yOffset;
@@ -1237,8 +1253,8 @@ const downSlide = () => {
     function dragEnd2(e) {
         initialX = currentX;
         initialY = currentY;
-
         active = false;
+        addImgDiv.style.display="5000";
     }
 
     function drag2(e) {
@@ -1279,12 +1295,12 @@ const downSlide = () => {
     }
     $('#endLink').on('click', function (){
         document.getElementById("linkDiv").style.display="none";
-        $('.slideUp').slideUp();
+        downSlide();
         document.getElementById("reverse").style.display="none";
         const inputLinkDiv = document.getElementById("inputLinkDiv");
         const inputLink = document.getElementById("inputLink");
         inputLinkDiv.style.display="block";
-        inputLinkDiv.style.zIndex="6000";
+        inputLinkDiv.style.zIndex="6500";
         let stickerValue = document.getElementById("stickerInput").value;
         if(stickerValue) {
             inputLink.value=stickerValue;
@@ -1308,7 +1324,7 @@ const downSlide = () => {
     });
     const inputLinkDiv = document.getElementById("inputLinkDiv");
     inputLinkDiv.onmousedown = function(event) {
-
+        inputLinkDiv.style.zIndex="9000";
         let shiftX = event.clientX - inputLinkDiv.getBoundingClientRect().left;
         let shiftY = event.clientY - inputLinkDiv.getBoundingClientRect().top;
 
@@ -1328,6 +1344,7 @@ const downSlide = () => {
         inputLinkDiv.onmouseup = function() {
             document.removeEventListener('mousemove', onMouseMove);
             inputLinkDiv.onmouseup = null;
+            inputLinkDiv.style.zIndex="6500";
         };
     };
     inputLinkDiv.ondragstart = function() {
@@ -1338,12 +1355,12 @@ const downSlide = () => {
     const todayDiv = document.getElementById("todayDiv");
     $('#today').on('click', function (){
         dragToday.value=document.getElementById("today").value;
-        $('.slideUp').slideUp();
+        downSlide();
         todayDiv.style.display="block";
-        todayDiv.style.zIndex="6000";
+        todayDiv.style.zIndex="6500";
     })
     dragToday.onmousedown = function(event) {
-
+        dragToday.style.zIndex="9000";
         let shiftX = event.clientX - dragToday.getBoundingClientRect().left;
         let shiftY = event.clientY - dragToday.getBoundingClientRect().top;
 
@@ -1363,6 +1380,7 @@ const downSlide = () => {
         dragToday.onmouseup = function() {
             document.removeEventListener('mousemove', onMouseMove);
             dragToday.onmouseup = null;
+            dragToday.style.zIndex="6500";
         };
     };
     dragToday.ondragstart = function() {
@@ -1370,55 +1388,142 @@ const downSlide = () => {
     };
 // 질문태그 기능
     const questionFnc = () => {
+        $('#question2').attr('readonly', false);
+        $('#answer').attr('readonly', true);
         document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
         document.getElementById("questionGroup").style.display="block";
         document.getElementById("mainMenu").style.display="none";
+        document.getElementById("questionGroup").style.zIndex="5000";
         document.getElementById("questionDiv").style.display="block";
         document.getElementById("questionDiv").style.zIndex="7100";
         document.getElementById("endClose").style.display="block";
-
-        $('.slideUp').slideUp();
-        $('#question').attr('readonly', false);
-        $('#answer').attr('readonly', true);
+        downSlide();
         document.getElementById("reverse").style.display="none";
     }
 // 질문태그완료 기능
     const endQuestion = () => {
-        console.log("완료버튼");
         document.getElementById("questionGroup").style.backgroundColor="transparent";
         document.getElementById("mainMenu").style.display="block";
-        document.getElementById("questionDiv").style.zIndex="6000";
+        document.getElementById("questionDiv").style.zIndex="6500";
         document.getElementById("survey-group").style.zIndex="6000";
+        $('#question2').attr('readonly', true);
         $('#question').attr('readonly', true);
+        $('#answer1').attr('readonly', true);
+        $('#answer2').attr('readonly', true);
+        $('#answer3').attr('readonly', true);
+        $('#answer4').attr('readonly', true);
+        $('#quiz').attr('readonly', true);
+        $('#option1').attr('readonly', true);
+        $('#option2').attr('readonly', true);
+        $('#option3').attr('readonly', true);
+        $('#option4').attr('readonly', true);
+        $('#hashtag-input').attr('readonly', true);
+
+
         document.getElementById("endClose").style.display="none";
 
     }
+// 질문태그 드래그 기능
+    const questionDiv = document.getElementById("questionDiv");
+    questionDiv.onmousedown = function(event) {
+        questionDiv.style.zIndex="9000";
+        let shiftX = event.clientX - questionDiv.getBoundingClientRect().left;
+        let shiftY = event.clientY - questionDiv.getBoundingClientRect().top;
+
+        document.body.append(questionDiv);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+            questionDiv.style.left = pageX - shiftX + 'px';
+            questionDiv.style.top = pageY - shiftY + 'px';
+        }
+        document.addEventListener('mousemove', onMouseMove);
+
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
+        questionDiv.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            questionDiv.onmouseup = null;
+            questionDiv.style.zIndex="6500";
+        };
+    };
+    questionDiv.ondragstart = function() {
+        return false;
+    };
 // 설문태그 기능
     const surveyFnc = () => {
+        $('#question').attr('readonly', false);
+        $('#answer1').attr('readonly', false);
+        $('#answer2').attr('readonly', false);
+        $('#answer3').attr('readonly', false);
+        $('#answer4').attr('readonly', false);
         document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
         document.getElementById("questionGroup").style.display="block";
         document.getElementById("mainMenu").style.display="none";
         document.getElementById("questionDiv").style.zIndex="31";
         document.getElementById("survey-group").style.display="block";
         document.getElementById("survey-group").style.zIndex="7100";
-        $('.slideUp').slideUp();
+        downSlide();
         document.getElementById("reverse").style.display="none";
         document.getElementById("endClose").style.display="block";
-
-
-
     }
     let newInputStatus = true;
     // 설문답 추가기능
     const newInput = () => {
-        if(newInputStatus){
-            document.getElementById("surveyDiv").style.height="100%";
+        const answer3 = document.getElementById("answer3");
+        if(newInputStatus && answer3.value){
+            document.getElementById("survey-group").style.height="25%";
             document.getElementById("answer4").style.display="block";
             newInputStatus = false;
         }
     }
+    const option4 = () => {
+        const answer4 = document.querySelector("#answer4");
+        console.log(answer4.value);
+        if (answer4.value=="") {
+            answer4.style.display = "none";
+            document.getElementById("survey-group").style.height = "20%";
+            newInputStatus = true;
+        }
+    }
+// 설문태그 드래그 기능
+    const surveyGroup = document.getElementById("survey-group");
+    surveyGroup.onmousedown = function(event) {
+        surveyGroup.style.zIndex="9000";
+        let shiftX = event.clientX - surveyGroup.getBoundingClientRect().left;
+        let shiftY = event.clientY - surveyGroup.getBoundingClientRect().top;
+
+        document.body.append(surveyGroup);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+            surveyGroup.style.left = pageX - shiftX + 'px';
+            surveyGroup.style.top = pageY - shiftY + 'px';
+        }
+        document.addEventListener('mousemove', onMouseMove);
+
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
+        surveyGroup.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            surveyGroup.onmouseup = null;
+            surveyGroup.style.zIndex="6500";
+        };
+    };
+    surveyGroup.ondragstart = function() {
+        return false;
+    };
 // 퀴즈태그 기능
     const quizFnc = () => {
+        $('#quiz').attr('readonly', false);
+        $('#option1').attr('readonly', false);
+        $('#option2').attr('readonly', false);
+        $('#option3').attr('readonly', false);
+        $('#option4').attr('readonly', false);
         document.getElementById("quiz-group").style.display="block";
         document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
         document.getElementById("questionGroup").style.display="block";
@@ -1427,7 +1532,7 @@ const downSlide = () => {
         document.getElementById("questionDiv").style.zIndex="31";
         document.getElementById("survey-group").style.zIndex="31";
         document.getElementById("quiz-group").style.zIndex="7100";
-        $('.slideUp').slideUp();
+        downSlide();
         document.getElementById("reverse").style.display="none";
         document.getElementById("endClose").style.display="block";
     }
@@ -1509,7 +1614,7 @@ const downSlide = () => {
         const shapeBtn3 = document.getElementById("shapeBtn3");
         if(option1 && option2) {
             if(!document.getElementById("option3")){
-                document.getElementById("quiz-group").style.height="32%";
+                document.getElementById("quiz-group").style.height="22%";
                 shapeBtn3.style.border="1px dashed darkgrey";
                 shapeBtn3.innerHTML= '<div class="quizIco" id="quizIcoC" onclick="clickQuizIcoC()">C</div>\n' +
                     '<input type="text" class="option" id="option3" onkeyup="addCheck2()" onblur="delCheck()" name="quizOption" placeholder="추가">\n';
@@ -1525,7 +1630,7 @@ const downSlide = () => {
 
         if(option1 && option2 && option3) {
             shapeBtn3.style.border="1px solid darkgrey";
-            document.getElementById("quiz-group").style.height="39%";
+            document.getElementById("quiz-group").style.height="27%";
             const shapeBtn4 = document.getElementById("shapeBtn4");
             shapeBtn4.style.border="1px dashed darkgrey";
             shapeBtn4.innerHTML= '<div class="quizIco" id="quizIcoD" onclick="clickQuizIcoD()">D</div>\n' +
@@ -1545,7 +1650,7 @@ const downSlide = () => {
             $('#option4').on('blur', function (){
                 shapeBtn4.removeAttribute('style');
                 shapeBtn4.innerHTML="";
-                document.getElementById("quiz-group").style.height="32%";
+                document.getElementById("quiz-group").style.height="22%";
             })
 
         }
@@ -1556,12 +1661,42 @@ const downSlide = () => {
         if(!document.getElementById("option4") && !option3) {
             shapeBtn3.removeAttribute('style');
             shapeBtn3.innerHTML="";
-            document.getElementById("quiz-group").style.height="23%";
+            document.getElementById("quiz-group").style.height="149.75px";
         }
 
     }
+// 퀴즈태그 드래그 기능
+    const quizGroup = document.getElementById("quiz-group");
+    quizGroup.onmousedown = function(event) {
+        quizGroup.style.zIndex="9000";
+        let shiftX = event.clientX - quizGroup.getBoundingClientRect().left;
+        let shiftY = event.clientY - quizGroup.getBoundingClientRect().top;
+
+        document.body.append(quizGroup);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+            quizGroup.style.left = pageX - shiftX + 'px';
+            quizGroup.style.top = pageY - shiftY + 'px';
+        }
+        document.addEventListener('mousemove', onMouseMove);
+
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
+        quizGroup.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            quizGroup.onmouseup = null;
+            quizGroup.style.zIndex="6500";
+        };
+    };
+    quizGroup.ondragstart = function() {
+        return false;
+    };
 // 해시태그 기능
     const hashtagFnc = () => {
+        $('#hashtag-input').attr('readonly', false);
         document.getElementById("quiz-group").style.display="none";
         document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
         document.getElementById("questionGroup").style.display="block";
@@ -1573,10 +1708,39 @@ const downSlide = () => {
         document.getElementById("hashtagDiv").style.display="block";
         document.getElementById("hashtagDiv").focus();
         document.getElementById("hashtagDiv").style.zIndex="7100";
-        $('.slideUp').slideUp();
+        downSlide();
         document.getElementById("reverse").style.display="none";
         document.getElementById("endClose").style.display="block";
     }
+// 해시태그 드래그 기능
+    const hashtagDiv = document.getElementById("hashtagDiv");
+    hashtagDiv.onmousedown = function(event) {
+        hashtagDiv.style.zIndex="9000";
+        let shiftX = event.clientX - hashtagDiv.getBoundingClientRect().left;
+        let shiftY = event.clientY - hashtagDiv.getBoundingClientRect().top;
+
+        document.body.append(hashtagDiv);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+            hashtagDiv.style.left = pageX - shiftX + 'px';
+            hashtagDiv.style.top = pageY - shiftY + 'px';
+        }
+        document.addEventListener('mousemove', onMouseMove);
+
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
+        hashtagDiv.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            hashtagDiv.onmouseup = null;
+            hashtagDiv.style.zIndex="6500";
+        };
+    };
+    hashtagDiv.ondragstart = function() {
+        return false;
+    };
 // 언급태그 기능
     const referenceFnc = () => {
         document.getElementById("quiz-group").style.display="none";
@@ -1592,7 +1756,7 @@ const downSlide = () => {
         document.getElementById("referenceDiv").style.display="block";
         document.getElementById("referenceDiv").style.zIndex="7100";
         document.getElementById("reference-input").focus();
-        $('.slideUp').slideUp();
+        downSlide();
         document.getElementById("reverse").style.display="none";
         document.getElementById("endClose").style.display="block";
     }
