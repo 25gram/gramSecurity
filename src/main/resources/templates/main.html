@@ -607,67 +607,113 @@
                                 result.setRequestHeader(header,token);
                             },
                             success: function (data) {
+                                function showBtn(board){
+                                    let result=board*1;
+                                    function showRight(){
+                                        $("#detailRightBtn").show()
+                                    }
+                                    function hideRight(){
+                                        $("#detailRightBtn").hide()
+                                    }
+                                    function showLeft(){
+                                        $("#detailRightBtn").show()
+                                    }
+                                    function hideLeft(){
+                                        $("#detailLeftBtn").hide()
+                                    }
+                                    if(result==1){
+                                        hideLeft(),hideRight()
+                                    }else{
+                                        if(hssIndex==0){
+                                            hideLeft(),showRight()
+                                        }
+                                        if(hssIndex>0){
+                                            showRight(),showLeft()
+                                        }
+                                        if(hssIndex==(result)){
+                                            hideRight(),showLeft()
+                                        }
+                                        addImg()
+                                    }
 
+
+                                }
                                 let detail = document.getElementById("contentsBody_detail");
                                 let m = "";
-
-                                if (data[hssIndex].boardImgName != null) {
-                                    m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                } else if (data[hssIndex].boardVideoName != null) {
-                                    m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                addImg()
+                                function addImg(){
+                                     // showBtn(data.length)
+                                    if (data[hssIndex].boardImgName != null) {
+                                        m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                    } else if (data[hssIndex].boardVideoName != null) {
+                                        m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                    }
+                                    detail.style.filter="";
+                                    detail.innerHTML = m;
+                                    detail.style.filter=data[hssIndex].boardFilter;
                                 }
-                                detail.style.filter="";
-                                detail.innerHTML = m;
-                                detail.style.filter=data[hssIndex].boardFilter;
+                                // if (data[hssIndex].boardImgName != null) {
+                                //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                // } else if (data[hssIndex].boardVideoName != null) {
+                                //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                // }
+                                // detail.style.filter="";
+                                // detail.innerHTML = m;
+                                // detail.style.filter=data[hssIndex].boardFilter;
+                                //
+                                // if(data.length==1){
+                                //     $("#detailLeftBtn").hide()
+                                //     $("#detailRightBtn").hide()
+                                // }else {
+                                //     $("#detailLeftBtn").hide()
+                                //     $("#detailRightBtn").show()
+                                // }
 
-                                if(data.length==1){
-                                    $("#detailLeftBtn").hide()
-                                    $("#detailRightBtn").hide()
-                                }else {
-                                    $("#detailLeftBtn").hide()
-                                    $("#detailRightBtn").show()
-                                }
-
-                                if (data.length > 1) {
-                                    if(hssIndex<=data.length) {
+                                // if (data.length > 1) {
+                                //     if(hssIndex<=data.length) {
 
                                         $('#detailRightBtn').click(function () {
                                             if(hssIndex<data.length){
-                                                hssIndex += 1;}
-
-                                            if (data[hssIndex].boardImgName != null) {
-                                                m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            } else if (data[hssIndex].boardVideoName != null) {
-                                                m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                                hssIndex += 1;
+                                                showBtn(data.length)
                                             }
-                                            detail.innerHTML = m;
-                                            detail.style.filter=data[hssIndex].boardFilter
+                                            // if (data[hssIndex].boardImgName != null) {
+                                            //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                            // } else if (data[hssIndex].boardVideoName != null) {
+                                            //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                            // }
+                                            // detail.innerHTML = m;
+                                            // detail.style.filter=data[hssIndex].boardFilter
                                             console.log("right : "+hssIndex)
-                                            if(hssIndex==(data.length-1)){
-                                                $("#detailRightBtn").hide()
-                                                $("#detailLeftBtn").show()
-                                            }else {
-                                                $("#detailRightBtn").show()
-                                                $("#detailLeftBtn").show()
-
-                                            }
+                                            console.log("right data: "+data.length)
+                                            console.log("right data-1: "+data.length-1)
+                                            // if(hssIndex==(data.length-1)){
+                                            //     $("#detailRightBtn").hide()
+                                            //     $("#detailLeftBtn").show()
+                                            // }else {
+                                            //     $("#detailRightBtn").show()
+                                            //     $("#detailLeftBtn").show()
+                                            //
+                                            // }
                                         });
                                         $('#detailLeftBtn').click(function () {
                                             if(hssIndex>0){
-                                                hssIndex += -1;}
-                                            if(hssIndex>=0){
-                                                $("#detailRightBtn").show()
+                                                hssIndex += -1;
+                                                showBtn(data.length)
                                             }
-                                            if(hssIndex==0){
-                                                $("#detailLeftBtn").hide()
-                                            }
-                                            if (data[hssIndex].boardImgName != null) {
-                                                m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            } else if (data[hssIndex].boardVideoName != null) {
-                                                m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                            }
-                                            detail.innerHTML = m;
-                                            detail.style.filter=data[hssIndex].boardFilter
+                                            // if(hssIndex>=0){
+                                            //     $("#detailRightBtn").show()
+                                            // }
+                                            // if(hssIndex==0){
+                                            //     $("#detailLeftBtn").hide()
+                                            // }
+                                            // if (data[hssIndex].boardImgName != null) {
+                                            //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                            // } else if (data[hssIndex].boardVideoName != null) {
+                                            //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                            // }
+                                            // detail.innerHTML = m;
+                                            // detail.style.filter=data[hssIndex].boardFilter
                                             console.log("left : "+hssIndex)
 
                                         });
@@ -678,9 +724,10 @@
                                             $("#detailLeftBtn").unbind( "click" );
                                             $("#detailRightBtn").unbind( "click" );
                                         });
-                                    }
                                 }
-                            }
+
+                            //         }
+                            // }
                         });
                     }
 
