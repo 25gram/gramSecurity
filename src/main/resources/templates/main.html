@@ -599,16 +599,9 @@
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])"
-                             th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}"
-                             style="cursor: pointer">
-                            <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1"
-                                 th:src="@{|/upload/${boardFile2.boardImgName}|}"
-                                 th:style="'filter:' + ${boardFile2.boardFilter}" alt="">
-                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2"
-                                   th:src="@{|/upload/${boardFile2.boardVideoName}|}"
-                                   th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay"
-                                   loop="loop"></video>
+                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
+                            <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
+                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
                         </div>
                     </div>
                 </div>
@@ -616,35 +609,30 @@
                 <script th:inline="javascript">
                     console.log([[${likes}]]);
                     var qq1 = [];
-
                     function ccc(id) {
-                        let header = $("meta[name='_csrf_header']").attr('content');
-                        let token = $("meta[name='_csrf']").attr('content');
-                        qq1[id[1]]--;
+                        qq1[id[1]] --;
                         $.ajax({
                             type: "post",
                             url: "/board/detail",
                             data: {"boardId": id[1]},
                             dataType: "json",
-                            beforeSend: function (result) {
-                                result.setRequestHeader(token, header);
-                            },
                             success: function (data) {
                                 if (0 > qq1[id[1]]) {
-                                    qq1[id[1]]++;
+                                    qq1[id[1]] ++;
                                 }
                                 let detail = document.getElementById("contentsBody_detail");
-                                let m = "<div>";
-                                if (data[qq1[id[1]]].boardImgName != null) {
-                                    m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                                } else if (data[qq1[id[1]]].boardVideoName != null) {
-                                    m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video>";
+                                let m ="<div>";
+                                if (data[qq1[id[1]]].boardImgName != null){
+                                    m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                                }
+                                else if (data[qq1[id[1]]].boardVideoName != null){
+                                    m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
                                 }
                                 m += "</div>"
-                                if (qq1[id[1]] == 0) {
+                                if (qq1[id[1]] == 0){
                                     m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
                                     m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                                } else {
+                                }else {
                                     m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
                                     m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
                                 }
@@ -653,10 +641,7 @@
                             }
                         });
                     }
-
                     function cc(id) {
-                        let header = $("meta[name='_csrf_header']").attr('content');
-                        let token = $("meta[name='_csrf']").attr('content');
                         qq1[id[1]]++;
                         console.log(qq1[id[1]]);
                         $.ajax({
@@ -664,26 +649,24 @@
                             url: "/board/detail",
                             data: {"boardId": id[1]},
                             dataType: "json",
-                            beforeSend: function (result) {
-                                result.setRequestHeader(header, token);
-                            },
                             success: function (data) {
                                 if (data.length == qq1[id[1]]) {
-                                    qq1[id[1]]--;
+                                    qq1[id[1]] --;
                                 }
                                 console.log(data.length)
                                 let detail = document.getElementById("contentsBody_detail");
-                                let m = "<div>";
-                                if (data[qq1[id[1]]].boardImgName != null) {
-                                    m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                                } else if (data[qq1[id[1]]].boardVideoName != null) {
-                                    m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video>";
+                                let m ="<div>";
+                                if (data[qq1[id[1]]].boardImgName != null){
+                                    m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                                }
+                                else if (data[qq1[id[1]]].boardVideoName != null){
+                                    m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
                                 }
                                 m += "</div>"
-                                if (data.length - 1 != qq1[id[1]]) {
+                                if (data.length-1 != qq1[id[1]]){
                                     m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
                                     m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                                } else if (data.length - 1 == qq1[id[1]]) {
+                                }else if (data.length-1 == qq1[id[1]]) {
                                     m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
                                     m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
                                 }
@@ -692,13 +675,11 @@
                             }
                         });
                     }
-
-                    function detailGo(a, writer, profile) {
+                    function detailGo(a,writer,profile) {
                         $("#detailProfile").attr("src", /upload/ + profile);
                         $("#deTailProfileId").html(writer);
                         $("#detailModalBtn").trigger("click")
-                        let header = $("meta[name='_csrf_header']").attr('content');
-                        let token = $("meta[name='_csrf']").attr('content');
+
                         qq1 = [];
                         for (let i = 0; i < 10; i++) {
                             qq1[i] = 0;
@@ -708,29 +689,175 @@
                             url: "/board/detail",
                             data: {"boardId": a},
                             dataType: "json",
-                            beforeSend: function (result) {
-                                result.setRequestHeader(token, header);
-                            },
                             success: function (data) {
+                                result=data;
+                                console.log("result"+result)
                                 let detail = document.getElementById("contentsBody_detail");
-                                let m = "<div>";
+                                let m = "";
+                                if(data.length==1){
+                                    $("#detailLeftBtn").hide()
+                                    $("#detailRightBtn").hide()
+                                }else {
+                                    $("#detailLeftBtn").hide()
+                                }
                                 if (data[0].boardImgName != null) {
-                                    m += "<img src='" + '/upload/' + data[0].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                                    m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
                                 } else if (data[0].boardVideoName != null) {
-                                    m += "<video src='" + '/upload/' + data[0].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video>";
+                                    m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
                                 }
-                                if (data.length == 1) {
-                                    m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
-                                    m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                                } else if (data.length > 1) {
-                                    m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' > > </button><br>"
-                                    m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                                }
-                                m += "</div>"
                                 detail.innerHTML = m;
+                                 if (data.length > 1) {
+                                     if(hssIndex<=data.length) {
+
+                                         $('#detailRightBtn').click(function () {
+                                             if(hssIndex<data.length){
+                                             hssIndex += 1;}
+
+                                             if (data[0].boardImgName != null) {
+                                                 m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                             } else if (data[0].boardVideoName != null) {
+                                                 m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                             }
+                                             detail.innerHTML = m;
+                                                console.log("right : "+hssIndex)
+                                             if(hssIndex==(data.length-1)){
+                                                 $("#detailRightBtn").hide()
+                                                 $("#detailLeftBtn").show()
+                                             }else {
+                                                 $("#detailRightBtn").show()
+                                                 $("#detailLeftBtn").show()
+
+                                             }
+                                         });
+                                         $('#detailLeftBtn').click(function () {
+                                             if(hssIndex>0){
+                                             hssIndex -= 1;}
+                                            if(hssIndex>=0){
+                                                $("#detailRightBtn").show()
+                                            }
+                                            if(hssIndex==0){
+                                                $("#detailLeftBtn").hide()
+                                            }
+                                             if (data[0].boardImgName != null) {
+                                                 m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                             } else if (data[0].boardVideoName != null) {
+                                                 m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                             }
+                                             detail.innerHTML = m;
+                                             console.log("left : "+hssIndex)
+                                         });
+                                     }
+                                }
                             }
                         });
                     }
+
+
+
+                    console.log([[${likes}]]);
+                    // var qq1 = [];
+                    // function ccc(id) {
+                    //     qq1[id[1]] --;
+                    //     $.ajax({
+                    //         type: "post",
+                    //         url: "/board/detail",
+                    //         data: {"boardId": id[1]},
+                    //         dataType: "json",
+                    //         success: function (data) {
+                    //             if (0 > qq1[id[1]]) {
+                    //                 qq1[id[1]] ++;
+                    //             }
+                    //             let detail = document.getElementById("contentsBody_detail");
+                    //             let m ="<div>";
+                    //             if (data[qq1[id[1]]].boardImgName != null){
+                    //                 m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                    //             }
+                    //             else if (data[qq1[id[1]]].boardVideoName != null){
+                    //                 m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
+                    //             }
+                    //             m += "</div>"
+                    //             if (qq1[id[1]] == 0){
+                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
+                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
+                    //             }else {
+                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
+                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
+                    //             }
+                    //             m += "</div>";
+                    //             detail.innerHTML = m;
+                    //         }
+                    //     });
+                    // }
+                    // function cc(id) {
+                    //     qq1[id[1]]++;
+                    //     console.log("lcg : "+qq1[id[1]]);
+                    //     console.log("hss : "+id)
+                    //     $.ajax({
+                    //         type: "post",
+                    //         url: "/board/detail",
+                    //         data: {"boardId": id[1]},
+                    //         dataType: "json",
+                    //         success: function (data) {
+                    //             if (data.length == qq1[id[1]]) {
+                    //                 qq1[id[1]] --;
+                    //             }
+                    //             console.log(data.length)
+                    //             let detail = document.getElementById("contentsBody_detail");
+                    //             let m ="<div>";
+                    //             if (data[qq1[id[1]]].boardImgName != null){
+                    //                 m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                    //             }
+                    //             else if (data[qq1[id[1]]].boardVideoName != null){
+                    //                 m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
+                    //             }
+                    //             m += "</div>"
+                    //             if (data.length-1 != qq1[id[1]]){
+                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
+                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
+                    //             }else if (data.length-1 == qq1[id[1]]) {
+                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
+                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
+                    //             }
+                    //             m += "</div>";
+                    //             detail.innerHTML = m;
+                    //         }
+                    //     });
+                    // }
+                    // function detailGo(object) {
+                    //     $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
+                    //     $("#deTailProfileId").html(object.boardWriter);
+                    //     $("#detailModalBtn").trigger("click")
+                    //     let a = object.id
+                    //     qq1 = [];
+                    //     for (let i = 0; i < 10; i++) {
+                    //         qq1[i] = 0;
+                    //     }
+                    //     $.ajax({
+                    //         type: "post",
+                    //         url: "/board/detail",
+                    //         data: {"boardId": a},
+                    //         dataType: "json",
+                    //         success: function (data) {
+                    //             let detail = document.getElementById("contentsBody_detail");
+                    //             let m = "<div>";
+                    //             if (data[0].boardImgName != null) {
+                    //                 m += "<img src='" + '/upload/' + data[0].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
+                    //             } else if (data[0].boardVideoName != null) {
+                    //                 m += "<video src='" + '/upload/' + data[0].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video>";
+                    //             }
+                    //             if (data.length == 1) {
+                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
+                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
+                    //             } else if (data.length > 1) {
+                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' > > </button><br>"
+                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
+                    //             }
+                    //             m += "</div>"
+                    //             detail.innerHTML = m;
+                    //         }
+                    //     });
+                    // }
+
 
                 </script>
 
@@ -2010,6 +2137,9 @@
 
         <!--게시글 모달 끝-->
     </div>
+
+
+
     <!--    detail 모달 시작-->
 
     <style>
@@ -2144,6 +2274,20 @@
         .commentZone[class*="detail"] {
             width: 398px;
         }
+        .detailSlideBtn{
+            font-size: 35px;
+            color: rgba(0,0,0,0.4);
+        }
+        #detailLeftBtn{
+            position: relative;
+            top:371px;
+            left:-863px;
+        }
+        #detailRightBtn{
+            position: relative;
+            top: -400px;
+            left: -36px;
+        }
     </style>
 
     <script>
@@ -2241,8 +2385,7 @@
 
 
                         <!-- 오른쪽 화면 -->
-                        <div class="comment detail"
-                             style="margin-right: 20px;border-left: 1px solid rgb(214, 214, 214);">
+                        <div class="comment detail" style="margin-right: 20px;border-left: 1px solid rgb(214, 214, 214);">
 
                             <div class="profileZone input-group detail"
                                  style="border-bottom:rgb(214, 214, 214) 1px solid">
@@ -2340,8 +2483,14 @@
                                 </div>
 
                             </div>
-
+                            <div>
+                                <i id="detailRightBtn" class="fa-solid fa-circle-chevron-right detailSlideBtn" ></i>
+                            </div>
                         </div>
+                        <div>
+                        <i id="detailLeftBtn" class="fa-solid fa-circle-chevron-left detailSlideBtn" ></i>
+                        </div>
+
                         <!-- <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                           <button type="button" class="btn btn-primary">Understood</button>
@@ -2393,7 +2542,6 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <img src="/upload/1659928630114_1659928630114_1655196952595-20150623001631_0.jpg">
     </div>
 </div>
 <!--off canvas end-->
