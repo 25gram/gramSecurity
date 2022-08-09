@@ -2,8 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
-<!--    <meta name="_csrf" th:content="${_csrf.token}">-->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <meta name="_csrf" th:content="${_csrf.token}">
     <title>Title</title>
 
     <style>
@@ -808,7 +808,7 @@
                 <div class="mainMenu" id="mainMenu">
                 <div class="inputFileBtn">
                     <form action="/storyBoard/save" method="post" enctype="multipart/form-data">
-<!--                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
+                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
                         <input type="file" id="upImgFiles" name="imageFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
                         <div class="saveBtn" id="saveBtn"></div>
                     </form>
@@ -1604,12 +1604,14 @@ const downSlide = () => {
       document.getElementById("locationGroup").style.zIndex="7100";
     }
     const searchLocation = () => {
+
         const searchLocation = document.getElementById("location-input").value;
         $.ajax({
             type:"get",
             url:"/storyBoard/findByLocation",
             data:{"storyLocation": searchLocation},
             dataType:"json",
+
             success: function (locationList){
                 for(let location of locationList) {
                     document.getElementById("locationList").innerHTML+=locationList[i];

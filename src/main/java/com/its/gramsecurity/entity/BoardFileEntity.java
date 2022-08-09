@@ -1,11 +1,8 @@
 package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.dto.BoardFileDTO;
-import com.its.gramsecurity.repository.BoardFileRepository;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 

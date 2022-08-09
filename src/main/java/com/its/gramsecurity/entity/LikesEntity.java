@@ -32,7 +32,7 @@ public class LikesEntity {
 
     public static LikesEntity toLikesEntity(LikesDTO likesDTO, PrincipalDetails principalDetails) {
         LikesEntity likes = new LikesEntity();
-        likes.setMemberName(principalDetails.getName());
+        likes.setMemberName(principalDetails.getMemberDTO().getMemberName());
         likes.setBoardId(likesDTO.getBoardId());
         return likes;
     }
