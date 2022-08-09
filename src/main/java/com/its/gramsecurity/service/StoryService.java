@@ -14,9 +14,9 @@ import java.util.Optional;
 @Service
 public class StoryService {
     private final StoryRepository storyRepository;
-    public List<StoryDTO> findByMemberName(String memberName) {
+    public List<StoryDTO> findByMemberName(String loginId) {
         List<StoryDTO> storyDTOList = new ArrayList<>();
-        List<StoryEntity> storyEntityList = storyRepository.findByMemberName(memberName);
+        List<StoryEntity> storyEntityList = storyRepository.findByMemberName(loginId);
         for(StoryEntity story: storyEntityList) {
             storyDTOList.add(StoryDTO.toStoryDTO(story));
         }
@@ -30,4 +30,6 @@ public class StoryService {
             storyDTOList.add(StoryDTO.toStoryDTO(story));
         } return storyDTOList;
     }
+
+
 }

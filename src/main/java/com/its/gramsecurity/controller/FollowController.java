@@ -44,7 +44,6 @@ public class FollowController {
     public @ResponseBody String follow(@RequestParam("myId") String myId, Model model) {
         List<FollowDTO> followDTOList = followService.findAllByMyId(myId);
         model.addAttribute("followList", followDTOList);
-        System.out.println("myId = " + myId + ", model = " + model);
         return null;
     }
 
@@ -53,7 +52,6 @@ public class FollowController {
     public @ResponseBody String following(@RequestParam("yourId") String yourId, Model model) {
         List<FollowDTO> followingDTOList = followService.findAllByYourId(yourId);
         model.addAttribute("followingList", followingDTOList);
-        System.out.println("yourId = " + yourId + ", model = " + model);
         return null;
     }
 
