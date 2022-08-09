@@ -51,6 +51,8 @@ public class HomeController {
     @PostMapping("/duplicateChk")
     public @ResponseBody String duplicateChk(@RequestParam("memberEmail") String memberEmail,
                                              @RequestParam("loginId") String loginId) {
+        System.out.println("HomeController.duplicateChk");
+        System.out.println("memberEmail = " + memberEmail + ", loginId = " + loginId);
         MemberEntity memberEmailChk = memberService.duplicateChkEmail(memberEmail);
         MemberEntity loginIdChk = memberService.duplicateChkId(loginId);
         String result = null;
