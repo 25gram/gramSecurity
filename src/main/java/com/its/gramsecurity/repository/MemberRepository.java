@@ -17,14 +17,14 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
 
       @Transactional
       @Modifying
-      @Query(value = "update MemberEntity m set m.loginStatus=0 where m.memberName=:memberName")
-    void logoutCheck(@Param("memberName") String memberName);
+      @Query(value = "update MemberEntity m set m.loginStatus=0 where m.loginId=:loginId")
+    void logoutCheck(@Param("loginId") String loginId);
 
 
     @Transactional
       @Modifying
-      @Query(value = "update MemberEntity m set m.loginStatus=1 where m.memberName=:memberName")
-    void loginCheck(@Param("memberName") String memberName);
+      @Query(value = "update MemberEntity m set m.loginStatus=1 where m.loginId=:loginId")
+    void loginCheck(@Param("loginId") String loginId);
 
     Optional<MemberEntity> findByMemberEmail(String memberEmail);
 

@@ -22,8 +22,6 @@ public class LikesEntity {
     private String memberName;
     @Column
     private Long boardId;
-    @Column
-    private Integer likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
@@ -34,9 +32,8 @@ public class LikesEntity {
 
     public static LikesEntity toLikesEntity(LikesDTO likesDTO, PrincipalDetails principalDetails) {
         LikesEntity likes = new LikesEntity();
-        likes.setMemberName(principalDetails.getName());
+        likes.setMemberName(principalDetails.getMemberDTO().getMemberName());
         likes.setBoardId(likesDTO.getBoardId());
-        likes.setLikes(likesDTO.getLikes());
         return likes;
     }
 

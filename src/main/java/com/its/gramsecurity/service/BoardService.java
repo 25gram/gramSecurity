@@ -45,7 +45,7 @@ public class BoardService {
         int len1 = b.length;
         if (!boardFile.isEmpty()){
             fileName = System.currentTimeMillis()+ "_" + fileName;
-            String savePath = "D:\\springboot_img\\" + fileName;
+            String savePath = "C:\\springboot_img\\" + fileName;
             boardFile.transferTo(new File(savePath));
             for (int i = 0; i < len; i++){
                 if(ext.equalsIgnoreCase(a[i])){
@@ -66,10 +66,32 @@ public class BoardService {
     }
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntity = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+//        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
         List<BoardDTO> board = new ArrayList<>();
         for (BoardEntity boardList : boardEntity) {
             board.add(BoardDTO.toBoardDTO(boardList));
         }
+//        int dd = 0;
+//        if (a.size() == 0) {
+//            for (BoardEntity boardList : boardEntity) {
+//                board.add(BoardDTO.toBoardDTO(boardList));
+//            }
+//        } else {
+//            for (BoardEntity boardList : boardEntity) {
+//                if (a.get(dd).getBoardId() != boardList.getId()) {
+//                    board.add(BoardDTO.toBoardDTO(boardList));
+//                }
+//                for (LikesEntity likes : a) {
+//                    if (likes.getBoardId() == boardList.getId()) {
+//                        board.add(BoardDTO.toBoardDTO2(boardList));
+//                    }
+//                }
+//                dd++;
+//                if (dd == a.size()) {
+//                    dd = a.size() - 1;
+//                }
+//            }
+//        }
         return board;
     }
     public List<BoardFileDTO> fileFindAll() {
@@ -91,7 +113,16 @@ public class BoardService {
     public List<LikesDTO> qqq(String loginId) {
         List<LikesEntity> a = likesRepository.findByMemberName(loginId);
         List<LikesDTO> list = new ArrayList<>();
+        List<BoardEntity> boardEntity = boardRepository.findAll();
+        for (BoardEntity boardList : boardEntity) {
+            boardRepository.likesDelete(boardList.getId());
+        }
         for (LikesEntity b : a) {
+            for (BoardEntity boardList : boardEntity) {
+                if (boardList.getId() == b.getBoardId()) {
+                    boardRepository.likes(boardList.getId());
+                }
+            }
             list.add(LikesDTO.toLikeList(b));
         }
         return list;
@@ -132,19 +163,12 @@ public class BoardService {
      void updateProfile(MemberDTO memberDTO,String fileName){
         List<BoardEntity> blist=boardRepository.findByBoardWriter(memberDTO.getMemberName());
 
-         System.out.println("BoardService.updateProfile");
-         System.out.println("dto : "+memberDTO);
-         System.out.println("blist : "+blist);
-         System.out.println("profile : " + fileName);
         for (int i =0;i< blist.size();i++){
             blist.get(i).setMemberProfileName(fileName);
             boardRepository.save(blist.get(i));
         }
 
     }
-
-
-
 
 
 

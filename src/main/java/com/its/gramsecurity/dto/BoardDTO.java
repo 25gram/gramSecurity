@@ -2,6 +2,7 @@ package com.its.gramsecurity.dto;
 
 import com.its.gramsecurity.entity.BoardEntity;
 import com.its.gramsecurity.entity.BoardFileEntity;
+import com.its.gramsecurity.entity.LikesEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -39,8 +40,21 @@ public class BoardDTO {
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardTag(boardEntity.getBoardTag());
         boardDTO.setMemberProfileName(boardEntity.getMemberProfileName());
-        boardDTO.setLikes(boardEntity.getLikes());
+        boardDTO.setLikes(null);
         return boardDTO;
     }
+    public static BoardDTO toBoardDTO2(BoardEntity boardEntity){
+        BoardDTO boardDTO = new BoardDTO();
+        boardDTO.setId(boardEntity.getId());
+        boardDTO.setBoardWriter(boardEntity.getBoardWriter());
+        boardDTO.setBoardContents(boardEntity.getBoardContents());
+        boardDTO.setBoardLocation(boardEntity.getBoardLocation());
+        boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
+        boardDTO.setBoardTag(boardEntity.getBoardTag());
+        boardDTO.setMemberProfileName(boardEntity.getMemberProfileName());
+        boardDTO.setLikes(1);
+        return boardDTO;
+    }
+
 
 }

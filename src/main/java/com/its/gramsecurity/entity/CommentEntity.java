@@ -42,6 +42,4 @@ public class CommentEntity extends BaseEntity {
         commentEntity.setBoardEntity(boardEntity);
         return commentEntity;
     }
-
-
 }
