@@ -576,7 +576,7 @@
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
+                        <div id="detailGoBtn" th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
                             <!--                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">-->
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
                             <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
@@ -584,49 +584,50 @@
                     </div>
                 </div>
 
-                <script th:inline="javascript">
-
+                <script>
                     function detailGo(object) {
-                        let header = $("meta[name='_csrf_header']").attr('content');
-                        let token = $("meta[name='_csrf']").attr('content');
+
+                        console.log("detailgo 호출")
+                        let header=$("meta[name='_csrf_header']").attr('content');
+                        let token=$("meta[name='_csrf']").attr('content');
                         let hssIndex=0;
+
                         $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
                         $("#deTailProfileId").html(object.boardWriter);
                         $("#detailModalBtn").trigger("click")
-                        let header=$("meta[name='_csrf_header']").attr('content');
-                        let token=$("meta[name='_csrf']").attr('content');
-                        let a = object.id
-                        let result;
-                        let qq1 = [];
-                        for (let i = 0; i < 10; i++) {
-                            qq1[i] = 0;
-                        }
+
+
                         $.ajax({
                             type: "post",
                             url: "/board/detail",
-                            data: {"boardId": a},
+                            data: {"boardId": object.id},
                             dataType: "json",
-                            async:false,
+                            // async:false,
                             beforeSend:function (result){
                                 result.setRequestHeader(header,token);
                             },
                             success: function (data) {
-                                result=data;
-                                console.log("result"+result)
+
                                 let detail = document.getElementById("contentsBody_detail");
                                 let m = "";
+
+                                if (data[hssIndex].boardImgName != null) {
+                                    m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                } else if (data[hssIndex].boardVideoName != null) {
+                                    m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                }
+                                detail.style.filter="";
+                                detail.innerHTML = m;
+                                detail.style.filter=data[hssIndex].boardFilter;
+
                                 if(data.length==1){
                                     $("#detailLeftBtn").hide()
                                     $("#detailRightBtn").hide()
                                 }else {
                                     $("#detailLeftBtn").hide()
+                                    $("#detailRightBtn").show()
                                 }
-                                if (data[0].boardImgName != null) {
-                                    m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                } else if (data[0].boardVideoName != null) {
-                                    m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                }
-                                detail.innerHTML = m;
+
                                 if (data.length > 1) {
                                     if(hssIndex<=data.length) {
 
@@ -634,12 +635,13 @@
                                             if(hssIndex<data.length){
                                                 hssIndex += 1;}
 
-                                            if (data[0].boardImgName != null) {
+                                            if (data[hssIndex].boardImgName != null) {
                                                 m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            } else if (data[0].boardVideoName != null) {
+                                            } else if (data[hssIndex].boardVideoName != null) {
                                                 m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
                                             }
                                             detail.innerHTML = m;
+                                            detail.style.filter=data[hssIndex].boardFilter
                                             console.log("right : "+hssIndex)
                                             if(hssIndex==(data.length-1)){
                                                 $("#detailRightBtn").hide()
@@ -652,20 +654,29 @@
                                         });
                                         $('#detailLeftBtn').click(function () {
                                             if(hssIndex>0){
-                                                hssIndex -= 1;}
+                                                hssIndex += -1;}
                                             if(hssIndex>=0){
                                                 $("#detailRightBtn").show()
                                             }
                                             if(hssIndex==0){
                                                 $("#detailLeftBtn").hide()
                                             }
-                                            if (data[0].boardImgName != null) {
+                                            if (data[hssIndex].boardImgName != null) {
                                                 m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            } else if (data[0].boardVideoName != null) {
+                                            } else if (data[hssIndex].boardVideoName != null) {
                                                 m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
                                             }
                                             detail.innerHTML = m;
+                                            detail.style.filter=data[hssIndex].boardFilter
                                             console.log("left : "+hssIndex)
+
+                                        });
+                                        $('#detailClose').click(function () {
+
+                                            hssIndex=0;
+                                            $("#detailClose").unbind( "click" );
+                                            $("#detailLeftBtn").unbind( "click" );
+                                            $("#detailRightBtn").unbind( "click" );
                                         });
                                     }
                                 }
@@ -675,7 +686,7 @@
 
 
 
-                    console.log([[${likes}]]);
+                    // console.log([[${likes}]]);
                     // var qq1 = [];
                     // function ccc(id) {
                     //     qq1[id[1]] --;
@@ -786,7 +797,7 @@
                 <div class="feedBtnZone" th:id="uuu+${board.id}">
                     <button th:if="${board.likes == null}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i th:id="i+${board.id}" class="fa-regular fa-heart feedBtn" style="color: black"></i></button>
                     <button th:each="like:${likes}" th:if="${board.likes == 1 && board.id == like.boardId}" th:value="${board.id}" onclick="likes2(value)" style="border: 0;background-color: transparent;"><i th:id="d+${board.id}" class="fa-solid fa-heart feedBtn" style="color:red"></i></button>
-                    <i class="fa-regular fa-comment feedBtn"></i>
+                    <i class="fa-regular fa-comment feedBtn" id="detailGoBtn2"></i>
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
                 <div style="height: 0px;">
@@ -818,6 +829,11 @@
 
 
     </div>
+    <script>
+        $("#detailGoBtn2").click(function () {
+                     $("#detailGoBtn").trigger("click")
+        })
+    </script>
 
     <!-- 푸터 구역 -->
     <!-- <div class="footerZone">
@@ -2174,6 +2190,11 @@
             top: -400px;
             left: -36px;
         }
+        .detailClose{
+            position: relative;
+            top: -100px;
+            left: 363px;
+        }
     </style>
 
     <script>
@@ -2308,11 +2329,12 @@
 
                                 <!-- close button -->
                                 <!-- <div style="font-size: 20px;margin:0 0 0 170px;"><i class="fa-solid fa-xmark"></i></div> -->
-                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close"></button></div>
+<!--                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button></div>-->
 
 
 
                             </div>
+                                <div style="height: 0;font-size: 26px"><button id="detailClose" type="button" class="btn-close detail detailClose" data-bs-dismiss="modal" aria-label="Close" style="height: 0"></button></div>
 
 
 
