@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
-    <meta name="_csrf" th:content="${_csrf.token}">
+    <!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
+    <!--    <meta name="_csrf" th:content="${_csrf.token}">-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,7 +83,7 @@
                 document.getElementById("footerItem1").style.marginRight = '11px'
                 document.getElementById("footerItem1").style.marginLeft = '22px'
                 setTimeout(iconReset, 150, 1);
-                location.href = '/main/main'
+                location.href='/main/main'
             } else if (i == 2) {
                 document.getElementById("footerItem2").style.marginLeft = '22px'
                 document.getElementById("footerItem2").style.fontSize = '21px'
@@ -145,15 +145,15 @@
 
         //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
         function logoutChk() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            console.log("logout chk 호출")
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
+            alert("logout chk 호출")
             $.ajax({
                 url: "/member/logoutCheck",
                 type: "get",
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
+                // beforeSend:function (result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success: function (e) {
                     console.log("logout chk suc")
                     location.href = "/member/logout"
@@ -167,14 +167,14 @@
         }
 
         function loginChk() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             console.log("login chk 호출")
             $.ajax({
                 url: "/member/loginCheck",
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
+                //     beforeSend:function(result){
+                //         result.setRequestHeader(header,token);
+                // },
                 success: function (e) {
                     console.log("login chk suc")
                 },
@@ -186,8 +186,8 @@
         }
 
         function followBTN() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             const memberName = document.getElementById("memberName").value;
             const yourId = "memberName";
             const yourName = "memberName";
@@ -205,10 +205,9 @@
                     "yourProfileName": yourProfileName,
                     "loginStatus": loginStatus
                 },
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
-
+                // beforeSend:function(result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success: function (result) {
                     console.log("suc");
                 },
@@ -219,8 +218,8 @@
         };
 
         function followList() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
+            // let header = $("meta[name='_csrf_header']").attr('content');
+            // let token = $("meta[name='_csrf']").attr('content');
             const myId = "yourId";
             $.ajax({
                 url: "/follow/myList",
@@ -228,19 +227,18 @@
                 data: {
                     "myId": myId
                 },
-                beforeSend: function (result) {
-                    result.setRequestHeader(token, header);
-                },
+                // beforeSend:function (result){
+                //     result.setRequestHeader(header,token);
+                // },
                 success: function (result) {
 
                 }
             })
         };
 
-        function dropdown() {
+        function dropdown(){
             $("#dropBtn").trigger("click")
         }
-
         // function dropSet(){
         //     function aa(){
         //         alert("aaaaaaa")
@@ -264,14 +262,14 @@
 
         }
 
-        .b:not(.detail) i {
+        .b:not(.detail)i {
             font-size: 30px;
             margin-right: 15px;
         }
 
         .storyZone:not(.detail) {
             /*border-top: 1px rgb(214,214,214) solid;*/
-            border: 1px rgb(214, 214, 214) solid;
+            border: 1px rgb(214,214,214) solid;
             border-radius: 1em;
             height: 100px;
             margin: auto;
@@ -280,7 +278,6 @@
             background-color: white;
 
         }
-
         /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
         .mainBody:not(.detail) {
             /* margin-top: 30px; */
@@ -316,7 +313,7 @@
             margin: auto;
             margin-top: 10px;
             margin-bottom: 10px;
-            border: rgb(214, 214, 214) solid 1px;
+            border: rgb(214,214,214) solid 1px;
             border-radius: 1em;
             background-color: white;
         }
@@ -346,7 +343,6 @@
             padding-right: 65px;
             padding-left: 65px;
         }
-
         .contentsItem2:not(.detail) {
             margin: 24px;
             width: 450px;
@@ -363,8 +359,7 @@
         i {
             cursor: pointer;
         }
-
-        body {
+        body{
             -ms-overflow-style: none;
         }
 
@@ -372,95 +367,81 @@
             display: none;
         }
 
-        .feedSlideBtn {
+        .feedSlideBtn{
             font-size: 30px;
 
-            color: rgba(0, 0, 0, 0.4);
+            color: rgba(0,0,0,0.4);
             /* filter: invert(100); */
         }
-
-        .slideRight {
+        .slideRight{
             position: relative;
             top: -330px;
             left: 413px;
         }
-
-        .slideLeft {
+        .slideLeft{
             position: relative;
             top: -330px;
             left: -5px;
         }
-
-        .feedWriter {
+        .feedWriter{
             height: 60px;
             border-radius: 1em 1em 0 0;
         }
-
-        .feedBtnZone {
+        .feedBtnZone{
             height: 46px;
             text-align: right;
         }
-
-        .feedContentsZone {
+        .feedContentsZone{
             /* background-color: rgba(0, 0, 255,0.05); */
             height: 520px;
-            border-top: rgb(214, 214, 214) solid 1px;
-            border-bottom: rgb(214, 214, 214) solid 1px;
+            border-top: rgb(214,214,214) solid 1px;
+            border-bottom: rgb(214,214,214) solid 1px;
         }
 
-        .feedBtn {
+        .feedBtn{
             font-size: 25px;
             margin: 10px;
         }
-
-        .feedCommentZone {
-            background-color: rgba(128, 128, 128, 0.3);
+        .feedCommentZone{
+            background-color: rgba(128, 128, 128,0.3);
             height: 130px;
         }
-
-        .commentSaveZone {
+        .commentSaveZone{
             background-color: #66AFE9;
             height: 60px;
             border-radius: 0 0 1em 1em;
         }
-
-        .feedName {
+        .feedName{
             font-size: 18px;
             margin: 17px 0 0 10px;
         }
-
-        .feedImg {
+        .feedImg{
             margin: 0 0 0 15px;
         }
-
         /* #dropBtn{
             position: relative;
             top: -27px;
             left: 694px;
         } */
-        .dropdown-item {
+        .dropdown-item{
             font-size: 15px;
             color: #4E4E4E;
             text-align: center;
         }
-
-        .dropdown-item2 {
-            border-top: 1px solid rgb(214, 214, 214);
-            border-bottom: 1px solid rgb(214, 214, 214);
+        .dropdown-item2{
+            border-top: 1px solid rgb(214,214,214);
+            border-bottom: 1px solid rgb(214,214,214);
             padding-top: 10px;
             padding-bottom: 10px;
         }
-
-        .dropdown-item1 {
+        .dropdown-item1{
             padding-top: 10px;
             padding-bottom: 10px;
         }
-
-        .dropdown-item3 {
+        .dropdown-item3{
             padding-top: 10px;
             padding-bottom: 10px;
         }
-
         .profile {
             margin-top: 5px;
             border-radius: 50%;
@@ -491,8 +472,7 @@
             <i id="headerItem1" class="fi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"
                onmouseover="gray(5)" onmouseout="black(5)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
             <i id="headerItem2" class="fi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)"
-               onmouseout="black(6)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
-               aria-controls="offcanvasTop"></i>
+               onmouseout="black(6)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
             <i id="headerItem3" class="fi fa-regular fa-paper-plane" style="font-size: 28px;"
                onclick="black(7),iconEffect(7)" onmouseover="gray(7)" onmouseout="black(7)"></i>
 
@@ -500,42 +480,38 @@
             <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)"
                onclick="iconEffect(1)"></i>
             <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)"
-               onclick="iconEffect(2)" style="margin-right:25px ;"></i>
+               onclick="iconEffect(2)"style="margin-right:25px ;"></i>
             <!-- <div class="dropdown dropBtn" style="height: 0;width: 10px;"> -->
             <!-- <div style="width: 30px;"> -->
             <!-- <div class="dropdown dropBtn " style="height: 0;margin-top: -35px;">
                 <div id="dropBtn"  data-bs-toggle="dropdown" aria-expanded="false" > -->
             <!--            <img id="headerFrofile" onclick="ulSet()" onblur="" class="dropdown event-dropdown" data-bs-toggle="dropdown" aria-expanded="false" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4fmtzihrojODXt3EMmGnsnwll5RnsL_EHDQ&usqp=CAU" alt="" style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">-->
-            <img id="headerFrofile" onclick="ulSet()" class="dropdown event-dropdown" data-bs-toggle="dropdown"
-                 aria-expanded="false" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt=""
-                 style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
+            <img id="headerFrofile" onclick="ulSet()" class="dropdown event-dropdown" data-bs-toggle="dropdown" aria-expanded="false" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="" style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
 
-            <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
+            <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;" >
                 <li><a class="dropdown-item dropdown-item1" href="#">My Home</a></li>
                 <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
-                <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
-                </li>
+                <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a></li>
             </ul>
 
             <!-- dropdown start -->
             <div>
             </div>
             <script>
-                function ulSet() {
-                    document.getElementById("dropUl").style.margin = "11px -9px 0 0"
+                function ulSet(){
+                    document.getElementById("dropUl").style.margin="11px -9px 0 0"
                 }
-
-                let circle = 0
-
-                function circleReset() {
-                    console.log("circle : " + circle)
-                    if (circle == 0) {
-                        document.getElementById("headerFrofile").style.border = "1px solid gray"
-                        circle = 1
-                    } else if (circle == 1) {
+                let circle=0
+                function circleReset(){
+                    console.log("circle : "+circle)
+                    if(circle==0){
+                        document.getElementById("headerFrofile").style.border="1px solid gray"
+                        circle=1
+                    }
+                    else if(circle==1){
                         console.log("fhfkdk")
-                        document.getElementById("headerFrofile").style.border = "1px solid transparent"
-                        circle = 0
+                        document.getElementById("headerFrofile").style.border="1px solid transparent"
+                        circle=0
                     }
 
                 }
@@ -559,6 +535,8 @@
                 //         console.log("메뉴가 닫힌 후 이벤트!");  });
 
 
+
+
             </script>
 
 
@@ -569,8 +547,7 @@
         </div>
     </div>
     <div>
-        <button hidden id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop_detail">
+        <button hidden id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop_detail">
             Launch static backdrop modal
         </button>
     </div>
@@ -599,7 +576,8 @@
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
+                        <div th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
+                            <!--                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">-->
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
                             <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
                         </div>
@@ -607,80 +585,16 @@
                 </div>
 
                 <script th:inline="javascript">
-                    console.log([[${likes}]]);
-                    var qq1 = [];
-                    function ccc(id) {
-                        qq1[id[1]] --;
-                        $.ajax({
-                            type: "post",
-                            url: "/board/detail",
-                            data: {"boardId": id[1]},
-                            dataType: "json",
-                            success: function (data) {
-                                if (0 > qq1[id[1]]) {
-                                    qq1[id[1]] ++;
-                                }
-                                let detail = document.getElementById("contentsBody_detail");
-                                let m ="<div>";
-                                if (data[qq1[id[1]]].boardImgName != null){
-                                    m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                                }
-                                else if (data[qq1[id[1]]].boardVideoName != null){
-                                    m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
-                                }
-                                m += "</div>"
-                                if (qq1[id[1]] == 0){
-                                    m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                                    m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                                }else {
-                                    m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                                    m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                                }
-                                m += "</div>";
-                                detail.innerHTML = m;
-                            }
-                        });
-                    }
-                    function cc(id) {
-                        qq1[id[1]]++;
-                        console.log(qq1[id[1]]);
-                        $.ajax({
-                            type: "post",
-                            url: "/board/detail",
-                            data: {"boardId": id[1]},
-                            dataType: "json",
-                            success: function (data) {
-                                if (data.length == qq1[id[1]]) {
-                                    qq1[id[1]] --;
-                                }
-                                console.log(data.length)
-                                let detail = document.getElementById("contentsBody_detail");
-                                let m ="<div>";
-                                if (data[qq1[id[1]]].boardImgName != null){
-                                    m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                                }
-                                else if (data[qq1[id[1]]].boardVideoName != null){
-                                    m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
-                                }
-                                m += "</div>"
-                                if (data.length-1 != qq1[id[1]]){
-                                    m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                                    m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                                }else if (data.length-1 == qq1[id[1]]) {
-                                    m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
-                                    m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                                }
-                                m += "</div>";
-                                detail.innerHTML = m;
-                            }
-                        });
-                    }
-                    function detailGo(a,writer,profile) {
-                        $("#detailProfile").attr("src", /upload/ + profile);
-                        $("#deTailProfileId").html(writer);
+
+                    function detailGo(object) {
+                        let hssIndex=0;
+                        $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
+                        $("#deTailProfileId").html(object.boardWriter);
                         $("#detailModalBtn").trigger("click")
 
-                        qq1 = [];
+                        let a = object.id
+                        let result;
+                        let qq1 = [];
                         for (let i = 0; i < 10; i++) {
                             qq1[i] = 0;
                         }
@@ -689,6 +603,7 @@
                             url: "/board/detail",
                             data: {"boardId": a},
                             dataType: "json",
+                            async:false,
                             success: function (data) {
                                 result=data;
                                 console.log("result"+result)
@@ -706,47 +621,47 @@
                                     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
                                 }
                                 detail.innerHTML = m;
-                                 if (data.length > 1) {
-                                     if(hssIndex<=data.length) {
+                                if (data.length > 1) {
+                                    if(hssIndex<=data.length) {
 
-                                         $('#detailRightBtn').click(function () {
-                                             if(hssIndex<data.length){
-                                             hssIndex += 1;}
+                                        $('#detailRightBtn').click(function () {
+                                            if(hssIndex<data.length){
+                                                hssIndex += 1;}
 
-                                             if (data[0].boardImgName != null) {
-                                                 m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                             } else if (data[0].boardVideoName != null) {
-                                                 m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                             }
-                                             detail.innerHTML = m;
-                                                console.log("right : "+hssIndex)
-                                             if(hssIndex==(data.length-1)){
-                                                 $("#detailRightBtn").hide()
-                                                 $("#detailLeftBtn").show()
-                                             }else {
-                                                 $("#detailRightBtn").show()
-                                                 $("#detailLeftBtn").show()
+                                            if (data[0].boardImgName != null) {
+                                                m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                            } else if (data[0].boardVideoName != null) {
+                                                m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                            }
+                                            detail.innerHTML = m;
+                                            console.log("right : "+hssIndex)
+                                            if(hssIndex==(data.length-1)){
+                                                $("#detailRightBtn").hide()
+                                                $("#detailLeftBtn").show()
+                                            }else {
+                                                $("#detailRightBtn").show()
+                                                $("#detailLeftBtn").show()
 
-                                             }
-                                         });
-                                         $('#detailLeftBtn').click(function () {
-                                             if(hssIndex>0){
-                                             hssIndex -= 1;}
+                                            }
+                                        });
+                                        $('#detailLeftBtn').click(function () {
+                                            if(hssIndex>0){
+                                                hssIndex -= 1;}
                                             if(hssIndex>=0){
                                                 $("#detailRightBtn").show()
                                             }
                                             if(hssIndex==0){
                                                 $("#detailLeftBtn").hide()
                                             }
-                                             if (data[0].boardImgName != null) {
-                                                 m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                             } else if (data[0].boardVideoName != null) {
-                                                 m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                             }
-                                             detail.innerHTML = m;
-                                             console.log("left : "+hssIndex)
-                                         });
-                                     }
+                                            if (data[0].boardImgName != null) {
+                                                m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                            } else if (data[0].boardVideoName != null) {
+                                                m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                            }
+                                            detail.innerHTML = m;
+                                            console.log("left : "+hssIndex)
+                                        });
+                                    }
                                 }
                             }
                         });
@@ -863,26 +778,15 @@
 
                 <!-- 피드 좋아요,댓글 아이콘 -->
                 <div class="feedBtnZone" th:id="uuu+${board.id}">
-                    <button th:if="${board.likes == null}" th:value="${board.id}" onclick="likes(value)"
-                            style="border: 0;background-color: transparent"><i th:id="i+${board.id}"
-                                                                               class="fa-regular fa-heart feedBtn"
-                                                                               style="color: black"></i></button>
-                    <button th:each="like:${likes}" th:if="${board.likes == 1 && board.id == like.boardId}"
-                            th:value="${board.id}" onclick="likes2(value)"
-                            style="border: 0;background-color: transparent;"><i th:id="d+${board.id}"
-                                                                                class="fa-solid fa-heart feedBtn"
-                                                                                style="color:red"></i></button>
+                    <button th:if="${board.likes == null}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i th:id="i+${board.id}" class="fa-regular fa-heart feedBtn" style="color: black"></i></button>
+                    <button th:each="like:${likes}" th:if="${board.likes == 1 && board.id == like.boardId}" th:value="${board.id}" onclick="likes2(value)" style="border: 0;background-color: transparent;"><i th:id="d+${board.id}" class="fa-solid fa-heart feedBtn" style="color:red"></i></button>
                     <i class="fa-regular fa-comment feedBtn"></i>
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
                 <div style="height: 0px;">
                     <span th:text="${board.boardContents}"></span>
-                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}"
-                            onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i
-                            class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>
-                    <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}"
-                            onclick="feedRightSlider(value)" style="background-color: transparent;border: 0"><i
-                            class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
+                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}" onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>
+                    <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}" onclick="feedRightSlider(value)"style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
                 </div>
                 <!-- 댓글 표시 -->
                 <div class="feedCommentZone">
@@ -892,15 +796,13 @@
                 <!-- <div class="commentSaveZone">
                     <textarea class="feedText" name="" id="" cols="30" rows="10"></textarea>
                 </div> -->
-                <div class="row detail" style="height: 60px;">
+                <div class="row detail" style="height: 60px;" >
                     <div class="col-10 detail" style=" margin-top:0px;">
-                        <textarea class="text1_detail detail" name="" id="text1_feed" cols="30" rows="10"
-                                  placeholder="댓글 달기..."></textarea>
+                        <textarea class="text1_detail detail" name="" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
                     </div>
                     <!-- 댓글 저장 버튼 -->
                     <div class="col-2 detail">
-                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()"
-                           onmouseout="black1()">게시</p>
+                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
                     </div>
                 </div>
 
@@ -925,6 +827,10 @@
             <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)"
                onclick="iconEffect(4),logoutChk()"></i>
     </div></div> -->
+
+
+
+
 
 
     <!--게시글 모달 시작-->
@@ -1028,7 +934,6 @@
         .btnPointer:not(.detail) {
             cursor: pointer;
         }
-
         /*.modal {*/
         /*    transition: transform 10s ease-in-out;*/
         /*}*/
@@ -1055,110 +960,96 @@
         for (let i = 1; i <= s.length; i++) {
             sliderNum[i] = 0;
             // 한 게시물당 슬라이드 num 구하기
-            document.getElementById("l" + i).style.visibility = "hidden";
+            document.getElementById("l"+i).style.visibility = "hidden";
         }
-        for (let i = 1; i < s.length + 1; i++) {
+        for (let i = 1; i < s.length+1; i++){
             let c = 0;
-            for (let j = 0; j < d.length; j++) {
-                if (d[j].boardId == s[s.length - i].id) {
+            for (let j = 0; j < d.length; j++){
+                if (d[j].boardId == s[s.length-i].id){
                     c++
                 }
             }
             if (c == 1) {
-                document.getElementById("r" + i).style.visibility = "hidden";
+                document.getElementById("r"+i).style.visibility = "hidden";
             }
         }
-
         function feedRightSlider(a) {
             // a = id 값 벨류 받아오기
-            document.getElementById("l" + a).style.visibility = "visible";
-            let y = 0;
+            document.getElementById("l"+a).style.visibility = "visible";
+            let y=0;
             let zz = -498;
-            for (let i = 0; i < d.length; i++) {
-                if (d[i].boardId == s[s.length - a].id) {
+            for (let i = 0; i < d.length; i++){
+                if (d[i].boardId == s[s.length-a].id){
                     y++;
                     // 한게시물당 슬라이드 length 구하기
                 }
             }
-            if (sliderNum[a] + 1 < y) {
+            if (sliderNum[a]+1 < y){
                 sliderNum[a]++;
             }
-            if (sliderNum[a] == y - 1) {
-                document.getElementById("r" + a).style.visibility = "hidden";
+            if (sliderNum[a] == y-1) {
+                document.getElementById("r"+a).style.visibility = "hidden";
             }
-            for (let i = 0; i <= y; i++) {
+            for (let i =0; i <= y; i++) {
                 if (sliderNum[a] == i) {
-                    document.getElementById(a).style.transform = "translate(" + (zz * i) + "px)";
+                    document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
                 }
             }
         }
-
         function feedLeftSlider(a) {
             let zz = -498;
-            if (sliderNum[a] > 0) {
+            if(sliderNum[a] > 0) {
                 sliderNum[a]--;
             }
-            if (sliderNum[a] == 0) {
-                document.getElementById("l" + a).style.visibility = "hidden";
+            if (sliderNum[a] == 0){
+                document.getElementById("l"+a).style.visibility = "hidden";
             }
-            document.getElementById("r" + a).style.visibility = "visible";
-            for (let i = 0; i <= 10; i++) {
+            document.getElementById("r"+a).style.visibility = "visible";
+            for (let i =0; i <= 10; i++) {
                 if (sliderNum[a] == i) {
-                    document.getElementById(a).style.transform = "translate(" + (zz * i) + "px)";
+                    document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
                 }
             }
         }
-
-        function likes(id) {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
+        function likes (id) {
             const loginId = [[${memberDTO.memberName}]];
             console.log(loginId);
             $.ajax({
                 type: "post",
                 url: "/board/likes",
-                data: {"memberName": loginId, "boardId": id},
+                data: {"memberName":loginId, "boardId": id},
                 dataType: "text",
-                beforeSend: function (result) {
-                    result.setRequestHeader(token, header);
-                },
                 success: function (data) {
                     console.log(data);
-                    const likeTest2 = document.getElementById("i" + id);
+                    const likeTest2 = document.getElementById("i"+id);
                     if (data == "ok") {
-                        likeTest2.className = "fa-solid fa-heart feedBtn";
-                        likeTest2.style.color = "red";
+                        likeTest2.className="fa-solid fa-heart feedBtn";
+                        likeTest2.style.color ="red";
 
-                    } else {
-                        likeTest2.className = "fa-regular fa-heart feedBtn";
-                        likeTest2.style.color = "black";
+                    }else {
+                        likeTest2.className="fa-regular fa-heart feedBtn";
+                        likeTest2.style.color ="black";
                     }
                 }
             });
         }
-
-        function likes2(id) {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
+        function likes2 (id) {
             const loginId = [[${memberDTO.memberName}]];
             $.ajax({
                 type: "post",
                 url: "/board/likes",
-                data: {"memberName": loginId, "boardId": id},
+                data: {"memberName":loginId, "boardId": id},
                 dataType: "text",
-                beforeSend: function (result) {
-                    result.setRequestHeader(token, header);
-                },
                 success: function (data) {
                     console.log(data);
-                    const likeTest2 = document.getElementById("d" + id);
+                    const likeTest2 = document.getElementById("d"+id);
                     if (data == "ok") {
-                        likeTest2.className = "fa-solid fa-heart feedBtn";
-                        likeTest2.style.color = "red";
+                        likeTest2.className="fa-solid fa-heart feedBtn";
+                        likeTest2.style.color ="red";
 
-                    } else {
-                        likeTest2.className = "fa-regular fa-heart feedBtn";
-                        likeTest2.style.color = "black";
+                    }else {
+                        likeTest2.className="fa-regular fa-heart feedBtn";
+                        likeTest2.style.color ="black";
                     }
                 }
             });
@@ -1172,13 +1063,13 @@
                 console.log("test : 0")
 
                 // document.getElementById("modalSize").className = "modal-dialog modal-lg"
-                zone.style.width = '800px'
+                zone.style.width='800px'
             } else {
                 console.log("test : 1")
 
                 function sizeS() {
                     // document.getElementById("modalSize").className = "modal-dialog"
-                    zone.style.width = '500px'
+                    zone.style.width='500px'
                     document.getElementById("nextBtn").setAttribute("data-bs-toggle", "collapse")
                 }
 
@@ -1272,7 +1163,7 @@
             const boardFile = document.getElementById("boardFile").files;
             if (document.getElementById("boardFile").value != "") {
                 if (sliderNum2 + 1 < boardFile.length) {
-                    sliderNum2++;
+                    sliderNum2 ++;
                 }
                 if (classNum < boardFile.length) {
                     classNum++;
@@ -1290,7 +1181,7 @@
         function leftSlider() {
             if (document.getElementById("boardFile").value != "") {
                 if (sliderNum2 > 0) {
-                    sliderNum2--;
+                    sliderNum2 --;
                 }
                 if (classNum > 1) {
                     classNum--;
@@ -1420,18 +1311,15 @@
                     <div id="contentsHeader" class="contentsHeader row modal1">
                         <!-- <div id="contentsHeader" class="row" > -->
                         <div class="col" style="height: 50px;">
-                            <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()"
-                               class="fa-solid fa-arrow-left modal1"
+                            <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()" class="fa-solid fa-arrow-left modal1"
                                data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true"
                                aria-controls="collapseWidthExample" style="font-size:35px ; margin: 25px 0 0 20px;"></i>
                         </div>
 
                         <div class="col" style="text-align: right;height: 50px">
-                            <p onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn modal1"
-                               data-bs-toggle="collapse"
+                            <p onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn modal1" data-bs-toggle="collapse"
                                data-bs-target="#collapseWidthExample" aria-expanded="true"
-                               aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden">
-                                <b>Next</b>
+                               aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden"><b>Next</b>
                             </p>
                         </div>
                         <button style="margin:5px 5px 0 0;" type="button" class="btn-close" data-bs-dismiss="modal"
@@ -1443,14 +1331,13 @@
                 <div class="modal-body modal1">
 
                     <div id="nextBtn2" name="nextBtn2" class=" modal1" data-bs-toggle="collapse"
-                         data-bs-target="#collapseWidthExample2" aria-expanded="true"
-                         aria-controls="collapseWidthExample"
+                         data-bs-target="#collapseWidthExample2" aria-expanded="true" aria-controls="collapseWidthExample"
                          style="padding-right:0 ;" hidden><b>Next</b></div>
                     <!-- 여기서 테스트 하세요 -->
 
                     <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm"
                           name="saveForm">
-                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>
+                        <!--                    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
                         <div>
                             <input type="file" id="boardFile" name="boardFile" onsubmit="return false;"
                                    onchange="uploadImgPreview(this);" multiple hidden>
@@ -1484,13 +1371,11 @@
 
                                     <!-- 사진 선택 버튼 -->
                                     <div id="imgBtnZone" style="padding: 0;margin: 0;height: 0;">
-                                        <label for="filePlus" class="btnPointer modal1"><i id="imgBtn"
-                                                                                           onclick="imgBtnEffect()"
+                                        <label for="filePlus" class="btnPointer modal1"><i id="imgBtn" onclick="imgBtnEffect()"
                                                                                            name="imgBtn"
                                                                                            class=" modal1 fa-regular fa-file-image"
                                                                                            style="color:#0d6efd;font-size: 70px;position:absolute ;top:40%;left:40%"></i></label></button>
-                                        <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">
-                                            사진을
+                                        <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">사진을
                                             선택해주세요.</p>
                                     </div>
 
@@ -1570,22 +1455,19 @@
                                     <div class="rangeZone modal1">
                                         <div id="filterContrast" style="text-align: center;">
                                             <p class="filterTitle modal1">Contrast</p>
-                                            <input type="range" class="slider_range modal1" id="Range1"
-                                                   style="width:80%;"
+                                            <input type="range" class="slider_range modal1" id="Range1" style="width:80%;"
                                                    oninput="range('contrast')" min="100" max="300" value="100">
                                         </div>
 
                                         <div id="filterSaturate" style="text-align: center;">
                                             <p class="filterTitle modal1">Saturate</p>
-                                            <input type="range" class="slider_range modal1" id="Range2"
-                                                   style="width:80%;"
+                                            <input type="range" class="slider_range modal1" id="Range2" style="width:80%;"
                                                    oninput="range('saturate')" min="0" max="200" value="100">
                                         </div>
 
                                         <div id="filterBrightness" style="text-align: center;">
                                             <p class="filterTitle modal1">Brightness</p>
-                                            <input type="range" class="slider_range modal1" id="Range3"
-                                                   style="width:80%;"
+                                            <input type="range" class="slider_range modal1" id="Range3" style="width:80%;"
                                                    oninput="range('Brightness')" min="0" max="200" value="100">
                                         </div>
                                     </div>
@@ -1669,7 +1551,7 @@
                                 text-align: left;
                             }
 
-                            .modal1 > .emojionearea .emojionearea.form-control {
+                            .modal1>.emojionearea .emojionearea.form-control {
                                 font-size: 18px;
 
                             }
@@ -1689,8 +1571,8 @@
                                 border: 0;
                             }
 
-                            .emojionearea .emojionearea-button {
-                                top: 173px
+                            .emojionearea .emojionearea-button{
+                                top:173px
                             }
                         </style>
                         <!-- <div class="collapse-horizontal collapse" id="collapseWidthExample2">
@@ -1706,14 +1588,12 @@
 
                                                 <!-- 프로필 이미지 -->
                                                 <div class="col-3" style="margin-left: 10px">
-                                                    <img class="profile"
-                                                         th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
+                                                    <img class="profile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
                                                 </div>
 
                                                 <!-- 프로필 아이디 -->
                                                 <div class="col">
-                                                    <p class="profileId modal1"><span
-                                                            th:text="${memberDTO.memberName}"></span></p>
+                                                    <p class="profileId modal1"><span th:text="${memberDTO.memberName}"></span></p>
                                                 </div>
                                             </div>
 
@@ -1722,7 +1602,7 @@
                                             <div id="cText" class="cText modal1">
                                                 <div style="text-align: left">
                                                     <form action="/hhhhhhhh" id="contentsForm">
-                                                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                                                        <!--                                                    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
                                                         <textarea name="fff" class="tete textArea modal1" id="text1"
                                                                   placeholder="문구 입력.."></textarea>
                                                     </form>
@@ -1747,10 +1627,8 @@
                                                 <div id="replyZone" class="row">
                                                     <p class="col chkBoxItem modal1">댓글 기능 해제</p>
                                                     <div class="col-2 form-check form-switch chkBoxItem modal1">
-                                                        <input value="false" onchange="replyChk()"
-                                                               class="form-check-input modal1"
-                                                               type="checkbox" role="switch"
-                                                               id="flexSwitchCheckDefault">
+                                                        <input value="false" onchange="replyChk()" class="form-check-input modal1"
+                                                               type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1760,10 +1638,8 @@
                                                 <div id="likeZone" class="row">
                                                     <p class="col chkBoxItem modal1">좋아요 및 조회수 감추기</p>
                                                     <div class="col-2 form-check form-switch chkBoxItem modal1">
-                                                        <input value="false" onchange="likeChk()"
-                                                               class="form-check-input modal1"
-                                                               type="checkbox" role="switch"
-                                                               id="flexSwitchCheckDefault1">
+                                                        <input value="false" onchange="likeChk()" class="form-check-input modal1"
+                                                               type="checkbox" role="switch" id="flexSwitchCheckDefault1">
                                                     </div>
                                                 </div>
                                             </div>
@@ -2113,8 +1989,7 @@
                         </div>
                         <div class="col" id="addBtnZone" style="height:50px; text-align: right; margin-top:10px">
                             <label for="filePlus"><i id="addBtn" onclick="addBtnEffect()" name="addBtn"
-                                                     class="fa-regular fa-clone btnPointer modal1"
-                                                     style="font-size:30px"
+                                                     class="fa-regular fa-clone btnPointer modal1" style="font-size:30px"
                                                      hidden></i></label>
                         </div>
                     </div>
@@ -2144,30 +2019,28 @@
 
     <style>
 
-        .input-group[class*="detail"] {
-            flex-wrap: nowrap
+        .input-group[class*="detail"]{
+            flex-wrap:nowrap
         }
-
-        .contentsItem_detail[class*="detail"] {
+        .contentsItem_detail[class*="detail"]{
             /* margin:64px 130px 24px 30px; width:450px; height:650px;  */
             /*margin:64px 24px 24px 24px; width:450px; height:650px;*/
             margin: 85px 24px 24px 24px;
             width: 400px;
             height: 600px;
         }
-
-        .modal[class*="detail"] {
+        .modal[class*="detail"]{
             --bs-modal-border-width: 1px;
-            --bs-modal-width: 850px
+            --bs-modal-width:850px
             /* --bs-modal-width: 500px; */
         }
 
-        .detail > .emojionearea .emojionearea-editor:empty:before {
+        .detail>.emojionearea .emojionearea-editor:empty:before{
             margin-top: 12px;
         }
 
 
-        .contentsImg[class*="detail"] {
+        .contentsImg[class*="detail"]{
             margin: 20px;
             width: 520px;
             background-color: black;
@@ -2175,22 +2048,21 @@
             /* border: 1px solid; */
         }
 
-        .comment[class*="detail"] {
+        .comment[class*="detail"]{
             padding: 0;
             margin: 0;
             width: 400px;
             /* border: 1px solid; */
         }
 
-        .detail > .emojionearea {
+        .detail>.emojionearea{
             min-height: 60px;
             max-height: 60px;
             border: 0;
 
             /* height: 50px; */
         }
-
-        .detail > .emojionearea .emojionearea-editor {
+        .detail>.emojionearea .emojionearea-editor{
             margin: 0px;
             min-height: 60px;
             max-height: 60px;
@@ -2198,21 +2070,22 @@
         }
 
 
-        .detail > .emojionearea.focused {
-            border-color: #66AFE9;
-            outline: 0;
-            -moz-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(102, 175, 233, 0);
-            -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(102, 175, 233, 0);
-            box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(102, 175, 233, 0)
+        .detail>.emojionearea.focused{
+            border-color:#66AFE9;
+            outline:0;
+            -moz-box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0);
+            -webkit-box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0);
+            box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0)
         }
 
 
-        body {
+
+        body{
             font-family: 'Noto Sans KR', sans-serif;
         }
 
 
-        .profileImg[class*="detail"] {
+        .profileImg[class*="detail"]{
             margin: 0px 0 0 20px;
             border-radius: 50%;
             /* border: 2px solid rgb(218, 218, 218) ; */
@@ -2221,57 +2094,53 @@
 
         }
 
-        .profileId[class*="detail"] {
-            margin: 0px 0 0 0;
+        .profileId[class*="detail"]{
+            margin: 0px 0 0 0 ;
             font-size: 20px;
         }
 
-        .detail > .emojionearea, .emojionearea.form-control {
+        .detail>.emojionearea, .emojionearea.form-control{
             font-size: 16px;
         }
-
-        .detail > .emojionearea .emojionearea-button {
-            top: 18px
+        .detail>.emojionearea .emojionearea-button{
+            top:18px
         }
 
 
-        .profileZone[class*="detail"] {
+
+
+        .profileZone[class*="detail"]{
             margin: 5px 0 16px 0;
         }
 
-        .profileItem[class*="detail"] {
+        .profileItem[class*="detail"]{
             margin: 0 0 0 20px;
         }
-
-        .profileTag[class*="detail"] {
-            color: dimgrey;
+        .profileTag[class*="detail"]{
+            color:dimgrey;
             font-size: 12px;
         }
 
-        .commentList[class*="detail"] {
+        .commentList[class*="detail"]{
             /* background-color: yellow; */
             height: 509px;
-            border-bottom: rgb(214, 214, 214) 1px solid
-        }
-
-        .commentListItem[class*="detail"] {
+            border-bottom:rgb(214, 214, 214) 1px solid       }
+        .commentListItem[class*="detail"]{
             font-size: 25px;
             margin: 10px 0 0 20px;
         }
 
-        .likeListZone[class*="detail"] {
+        .likeListZone[class*="detail"]{
             height: 80px;
             /* background-color: blue; */
-            border-bottom: rgb(214, 214, 214) 1px solid
+            border-bottom:rgb(214, 214, 214) 1px solid
         }
-
-        .saveCommentBtn[class*="detail"] {
+        .saveCommentBtn[class*="detail"]{
             margin: 17px 0 0 0;
             padding: 0;
             border: 0;
         }
-
-        .commentZone[class*="detail"] {
+        .commentZone[class*="detail"]{
             width: 398px;
         }
         .detailSlideBtn{
@@ -2292,74 +2161,74 @@
 
     <script>
 
-        function black1() {
-            document.getElementById("saveCommentBtn_detail").style.color = "black"
+        function black1(){
+            document.getElementById("saveCommentBtn_detail").style.color="black"
         }
-
-        function gray1() {
-            document.getElementById("saveCommentBtn_detail").style.color = "gray"
+        function gray1(){
+            document.getElementById("saveCommentBtn_detail").style.color="gray"
         }
 
         // function like(i){
         //     let likeBtn = document.getElementById("likeBtn")
 
         // }
-        let likeNum = 0;
-
-        function like() {
-            let header = $("meta[name='csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            if (likeNum == 0) {
-                document.getElementById("likeBtn_detail").className = "fa-solid fa-heart commentListItem"
-                document.getElementById("likeBtn_detail").style.color = "red"
-                likeNum = 1;
-            } else if (likeNum == 1) {
-                document.getElementById("likeBtn_detail").className = "fa-regular fa-heart commentListItem"
-                document.getElementById("likeBtn_detail").style.color = "black"
-                likeNum = 0;
+        let likeNum=0;
+        function like(){
+            if(likeNum==0){
+                document.getElementById("likeBtn_detail").className="fa-solid fa-heart commentListItem"
+                document.getElementById("likeBtn_detail").style.color="red"
+                likeNum=1;
+            }else if(likeNum==1){
+                document.getElementById("likeBtn_detail").className="fa-regular fa-heart commentListItem"
+                document.getElementById("likeBtn_detail").style.color="black"
+                likeNum=0;
             }
 
             // 이곳에 좋아요 컬럼 변경하는 내용을 작성해주세요
             $.ajax({
-                url: "",
-                type: "get",
-                data: {},
-                dataType: "",
-                beforeSend: function (result) {
-                    result.setRequestHeader(token, header);
-                },
-                success: function (e) {
+                url:"",
+                type:"get",
+                data:{},
+                dataType:"",
+
+                success:function(e){
                     console.log("like ajax suc")
                 },
-                error: function () {
+                error:function(){
                     console.log("like ajax err")
                 }
 
             })
 
 
+
         }
 
-        function focusComment() {
+        function focusComment(){
             $(".emojionearea-editor").focus();
         }
+
+
+
+
 
 
     </script>
 
 
+
+
     <!-- Modal -->
-    <div class="modal fade detail" id="staticBackdrop_detail" data-bs-backdrop="static" data-bs-keyboard="false"
-         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade detail" id="staticBackdrop_detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog detail">
-            <div class="modal-content detail" style="">
+            <div class="modal-content detail" style="" >
                 <!-- <div class="modal-header">
                   <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div> -->
                 <div class="modal-body detail" style="padding: 0; margin: 0 0 0 0px; height: 770px">
 
-                    <div class="input-group mainBody detail">
+                    <div class="input-group mainBody detail" >
                         <!-- <div class="input-group mainBody" style="width:900px; height: 780px; margin:10px 0 0 10px;"> -->
 
                         <!-- 왼쪽 화면 -->
@@ -2371,24 +2240,29 @@
                                 <div id="contentsBody_detail" class="contentsBody_detail detail">
 
                                     <!-- 이미지 넣는 곳 -->
-                                    <img id="contentsItem_detail" class="contentsItem_detail detail"
-                                         src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt="">
+                                    <img id="contentsItem_detail"  class="contentsItem_detail detail" src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt="">
                                     <!-- <img style="border:solid 10px rgba(0,0,0,1)" id="contentsItem"  class="contentsItem" src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt=""> -->
 
                                 </div>
 
 
+
                             </div>
+
+
+
 
 
                         </div>
 
 
-                        <!-- 오른쪽 화면 -->
-                        <div class="comment detail" style="margin-right: 20px;border-left: 1px solid rgb(214, 214, 214);">
 
-                            <div class="profileZone input-group detail"
-                                 style="border-bottom:rgb(214, 214, 214) 1px solid">
+
+
+                        <!-- 오른쪽 화면 -->
+                        <div class="comment detail" style="margin-right: 20px;border-left: 1px solid rgb(214, 214, 214);height: 770px">
+
+                            <div class="profileZone input-group detail" style="border-bottom:rgb(214, 214, 214) 1px solid">
                                 <!-- 게시글 작성자 프로필 구역 -->
 
                                 <table style="margin-top: 10px;">
@@ -2399,7 +2273,7 @@
                                             <!--                                            <img id="detailProfile" class="profileImg detail" src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">-->
                                         </td>
 
-                                        <td>
+                                        <td >
                                             <!-- 프로필 아이디 -->
 
                                             <p id="deTailProfileId" class="profileId profileItem detail"></p>
@@ -2409,7 +2283,7 @@
                                     <tr>
                                         <td>
                                             <!-- 위치 태그 -->
-                                            <p class="profileTag profileItem detail">인천일보 아카데미</p>
+                                            <p class="profileTag profileItem detail" >인천일보 아카데미</p>
                                         </td>
 
                                     </tr>
@@ -2417,17 +2291,19 @@
 
                                 <!-- close button -->
                                 <!-- <div style="font-size: 20px;margin:0 0 0 170px;"><i class="fa-solid fa-xmark"></i></div> -->
-                                <div style="margin:10px 0 0 160px;">
-                                    <button type="button" class="btn-close detail" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
+                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close"></button></div>
+
 
 
                             </div>
 
 
+
+
                             <!-- 댓글 구역 -->
                             <div id="commentZone" class="commentZone detail">
+
+
 
 
                                 <!-- 댓글 리스트 구역 -->
@@ -2448,18 +2324,17 @@
                                              like 함수 파라미터로 컬럼에 저장되어있는
                                              좋아요클릭 여부를 넣어주세요(1또는 0, 디폴트는 0)
                                          -->
-                                        <i id="likeBtn detail" onclick="like(0)"
-                                           class="fa-regular fa-heart commentListItem detail"></i>
+                                        <i id="likeBtn detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>
                                         <!-- <i class="fa-solid fa-heart"></i> -->
                                     </div>
 
 
                                     <!-- 댓글 버튼 -->
                                     <div class="commentBtn detail">
-                                        <i onclick="focusComment()"
-                                           class="fa-regular fa-comment commentListItem detail"></i>
+                                        <i onclick="focusComment()" class="fa-regular fa-comment commentListItem detail"></i>
                                     </div>
                                 </div>
+
 
 
                                 <!-- 좋아요 리스트 구역 -->
@@ -2470,15 +2345,13 @@
 
                                 <!-- 댓글 작성 -->
 
-                                <div class="row detail" style="height: 60px;">
+                                <div class="row detail" style="height: 60px;" >
                                     <div class="col-10 detail" style=" margin-top:0px;">
-                                        <textarea class="text1_detail detail" name="" id="text1_detail" cols="30"
-                                                  rows="10" placeholder="댓글 달기..."></textarea>
+                                        <textarea class="text1_detail detail" name="" id="text1_detail" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
                                     </div>
                                     <!-- 댓글 저장 버튼 -->
                                     <div class="col-2 detail">
-                                        <p onclick="" id="saveCommentBtn_detail" class="saveCommentBtn btn detail"
-                                           onmouseover="gray1()" onmouseout="black1()">게시</p>
+                                        <p onclick="" id="saveCommentBtn_detail" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
                                     </div>
                                 </div>
 
@@ -2488,7 +2361,7 @@
                             </div>
                         </div>
                         <div>
-                        <i id="detailLeftBtn" class="fa-solid fa-circle-chevron-left detailSlideBtn" ></i>
+                            <i id="detailLeftBtn" class="fa-solid fa-circle-chevron-left detailSlideBtn" ></i>
                         </div>
 
                         <!-- <div class="modal-footer">
@@ -2500,12 +2373,13 @@
             </div>
 
 
+
         </div>
     </div>
 
     <script>
         $(".text1_detail").emojioneArea({
-            pickerPosition: "top",
+            pickerPosition:"top",
             searchPosition: "bottom",
             filtersPosition: "bottom",
 
@@ -2530,8 +2404,7 @@
         margin-top: 0px;
 
     }
-
-    .offcanvas {
+    .offcanvas{
         max-width: 500px;
     }
 
@@ -2545,6 +2418,8 @@
     </div>
 </div>
 <!--off canvas end-->
+
+
 
 
 </body>
