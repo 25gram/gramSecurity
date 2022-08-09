@@ -45,7 +45,7 @@ public class BoardService {
         int len1 = b.length;
         if (!boardFile.isEmpty()){
             fileName = System.currentTimeMillis()+ "_" + fileName;
-            String savePath = "C:\\springboot_img\\" + fileName;
+            String savePath = "D:\\springboot_img\\" + fileName;
             boardFile.transferTo(new File(savePath));
             for (int i = 0; i < len; i++){
                 if(ext.equalsIgnoreCase(a[i])){

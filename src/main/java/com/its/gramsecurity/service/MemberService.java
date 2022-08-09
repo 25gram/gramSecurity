@@ -67,7 +67,7 @@ public class MemberService {
         if (!Objects.equals(findDTO.getMemberProfileName(), memberDTO.getMemberProfileName())) {
             if (!memberFile.isEmpty()) {
                 memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
-                String savePath = "C:\\springboot_img\\" + memberProfileName;
+                String savePath = "D:\\springboot_img\\" + memberProfileName;
                 memberFile.transferTo(new File(savePath));
                 persistence.setMemberProfileName(memberProfileName);
             } else {
@@ -76,7 +76,7 @@ public class MemberService {
         } else if (findDTO.getMemberProfileName() == null) {
             if (!memberFile.isEmpty()) {
                 memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
-                String savePath = "C:\\springboot_img\\" + memberProfileName;
+                String savePath = "D:\\springboot_img\\" + memberProfileName;
                 memberFile.transferTo(new File(savePath));
                 persistence.setMemberProfileName(memberProfileName);
             } else {
