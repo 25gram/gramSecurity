@@ -63,4 +63,5 @@ public class BoardController {
         List<BoardFileDTO> boardFile = boardService.detail(id);
         return boardFile;
     }
+
 }
