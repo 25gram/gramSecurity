@@ -29,6 +29,7 @@ public class CommentDTO {
         commentDTO.setId(commentEntity.getId());
         commentDTO.setCommentWriter(commentEntity.getCommentWriter());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
+        commentDTO.setBoardId(commentEntity.getBoardEntity().getId());
         return commentDTO;
 
     }
