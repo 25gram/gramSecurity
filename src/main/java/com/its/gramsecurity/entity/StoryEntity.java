@@ -26,10 +26,34 @@ public class StoryEntity {
     private LocalDateTime storyCreatedTime;
 
     @Column
-    private String storyHashtag;
+    private String storyImgTag;
 
     @Column
-    private String storyLocation;
+    private String storyTextTag;
+
+    @Column
+    private String storyTodayTag;
+
+    @Column
+    private String storyLinkTag;
+
+    @Column
+    private String storyQuestionTag;
+
+    @Column
+    private String storySurveyTag;
+
+    @Column
+    private String storyQuizTag;
+
+    @Column
+    private String storyReferenceTag;
+
+    @Column
+    private String storyHashTag;
+
+    @Column
+    private String storyLocationTag;
 
     @Column
     private int storyVisitStatus;
@@ -39,8 +63,15 @@ public class StoryEntity {
         storyEntity.setMemberName(storyDTO.getMemberName());
         storyEntity.setStoryFileName(storyDTO.getStoryFileName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
-        storyEntity.setStoryHashtag(storyDTO.getStoryHashtag());
-        storyEntity.setStoryLocation(storyDTO.getStoryLocation());
+        storyEntity.setStoryTextTag(storyDTO.getStoryTextTag());
+        storyEntity.setStoryTodayTag(storyDTO.getStoryTodayTag());
+        storyEntity.setStoryLinkTag(storyDTO.getStoryLinkTag());
+        storyEntity.setStoryQuestionTag(storyDTO.getStoryQuestionTag());
+        storyEntity.setStorySurveyTag(storyDTO.getStorySurveyTag());
+        storyEntity.setStoryQuizTag(storyDTO.getStoryQuizTag());
+        storyEntity.setStoryHashTag(storyDTO.getStoryHashTag());
+        storyEntity.setStoryReferenceTag(storyDTO.getStoryReferenceTag());
+        storyEntity.setStoryLocationTag(storyDTO.getStoryLocationTag());
         return storyEntity;
     }
 }
