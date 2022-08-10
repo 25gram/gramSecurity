@@ -25,14 +25,16 @@ public class CommentController {
         String loginId= principalDetails.getMemberDTO().getLoginId();
         commentService.save(commentDTO,loginId);
         List<CommentDTO>commentDTOList=commentService.findAll(commentDTO.getBoardId());
-        return null;
+        System.out.println("CommentController.save");
+        System.out.println("commentDTOList"+commentDTOList);
+        return commentDTOList;
     }
 
     //댓글 리스트 출력
-    @GetMapping("/list")
-    public @ResponseBody String findComment(@RequestParam("boardId")Long boardId, Model model){
+    @PostMapping("/list")
+    public @ResponseBody List<CommentDTO> findComment(@RequestParam("boardId")Long boardId, Model model){
         List<CommentDTO>commentDTOList=commentService.findAll(boardId);
         model.addAttribute("commentDTOList",commentDTOList);
-        return null;
+        return commentDTOList;
     }
 }

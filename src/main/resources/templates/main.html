@@ -721,7 +721,7 @@
                     <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}" onclick="feedRightSlider(value)"style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
                 </div>
                 <!-- 댓글 표시 -->
-                <div class="feedCommentZone">
+                <div class="feedCommentZone" id="feedCommentZone">
 
                 </div>
                 <!-- 댓글작성 -->
@@ -730,20 +730,44 @@
                 </div> -->
                 <div class="row detail" style="height: 60px;" >
                     <div class="col-10 detail" style=" margin-top:0px;">
-                        <textarea class="text1_detail detail" name="" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
+                        <textarea class="text1_detail detail" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
                     </div>
                     <!-- 댓글 저장 버튼 -->
-                    <div class="col-2 detail">
-                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
+                    <div class="col-2 detail" th:id="comment+${board.id}">
+                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
                     </div>
                 </div>
-
             </div>
 
         </div>
 
 
     </div>
+    <script th:inline="javascript">
+        $("saveCommentBtn_feed").onclick=commentSave();
+        function commentSave(id){
+            console.log(id)
+            let header=$("meta[name='_csrf_header']").attr('content');
+            let token=$("meta[name='_csrf']").attr('content');
+            const text = document.getElementById("text1_feed");
+            console.log(text.value);
+        $.ajax({
+            type: "post",
+            url: "/comment/commentSave",
+            data: {"commentContents" : text.value, "boardId" : id},
+            dataType: "json",
+            beforeSend:function (result){
+                result.setRequestHeader(header,token);
+            },
+            success: function (data) {
+                const comment = document.getElementById("feedCommentZone");
+                data[0].board_id;
+                console.log(data[2].boardId);
+                // comment.innerHTML = data[0].commentContents;
+            }
+        });
+        }
+    </script>
     <script>
         $("#detailGoBtn2").click(function () {
             $("#detailGoBtn").trigger("click")
@@ -876,21 +900,51 @@
         /*}*/
     </style>
     <script th:inline="javascript">
-        // const oo = [[${likes}]];
-        // const ii = [[${boardList}]];
-        // console.log(ii.length);
-        // // const uu = document.getElementById("uuu");
-        // console.log(oo[0].boardId);
-        // for (let i = 0; i < ii.length; i++) {
-        //     const uu = document.getElementById("uuu"+1);
-        //     console.log(uu)
-        //     console.log(i);
-        //     if (oo[i].boardId == ii[i].id) {
-        //         uu.innerHTML = "<i class='fa-regular fa-heart feedBtn'></i>";
-        //     }else if(ii[i].id == 1){
-        //         uu.innerHTML = "<i class='fa-solid fa-heart feedBtn'></i>";
-        //     }
-        // }
+        let header2=$("meta[name='_csrf_header']").attr('content');
+        let token2=$("meta[name='_csrf']").attr('content');
+        $.ajax({
+            type: "post",
+            url: "/board/find",
+            dataType: "json",
+            beforeSend:function (result){
+                result.setRequestHeader(header2,token2);
+            },
+            success: function (data) {
+                console.log(data);
+                let likeIndex = [];
+                const like = [[${likes}]];
+                for (let i = 0; i < data.length; i++) {
+                    likeIndex[i]=0;
+                    for (let j =0; j < like.length; j++) {
+                        if (like[j].boardId == data[i].id){
+                            likeIndex[i]++;
+                        }
+                    }
+                }
+
+                let likeNum = 1;
+
+                for (let i = 0; i < data.length; i++){
+                    const likeMain = document.getElementById("like"+likeNum);
+                    let icon = "";
+                    if (data[i].likes == 1){
+                        icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
+                        icon += "<i class='fa-regular fa-comment feedBtn'></i>";
+                        icon += "<span id='k" + likeNum + "'>"+"좋아요"+likeIndex[i]+"개"+"</span>";
+                        likeMain.innerHTML = icon;
+                    }else {
+                        icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
+                        icon += "<i class='fa-regular fa-comment feedBtn'></i>";
+                        icon += "<span id='k" + likeNum + "'>"+"좋아요"+likeIndex[i]+"개"+"</span>";
+                        likeMain.innerHTML = icon;
+                    }
+                    likeNum++;
+                }
+
+            }
+        });
+
+
         const d = [[${boardFile}]];
         const s = [[${boardList}]];
         let sliderNum = [];
@@ -1076,8 +1130,7 @@
         }
 
         function submitBtn() {
-            // $('#submitBtn').trigger("click")
-
+            document.getElementById("cText2").value = document.getElementById("text1").value;
             document.getElementById("saveForm").submit();
             // location.href='/main/main'
         }
@@ -1286,7 +1339,8 @@
 
                     <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm"
                           name="saveForm">
-                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                                            <input type="hidden" id="cText2" name="boardContents">
                         <div>
                             <input type="file" id="boardFile" name="boardFile" onsubmit="return false;"
                                    onchange="uploadImgPreview(this);" multiple hidden>
@@ -1550,14 +1604,12 @@
                                             <!-- 글 작성 구역 -->
                                             <div id="cText" class="cText modal1">
                                                 <div style="text-align: left">
-                                                    <form action="/hhhhhhhh" id="contentsForm">
-                                                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
-                                                        <textarea name="fff" class="tete textArea modal1" id="text1"
+                                                                                                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                                                        <textarea name="boardContents" class="tete textArea modal1" id="text1"
                                                                   placeholder="문구 입력.."></textarea>
-                                                    </form>
                                                 </div>
-
                                             </div>
+
 
                                             <!-- tag 검색어 리스트 구역 -->
 
