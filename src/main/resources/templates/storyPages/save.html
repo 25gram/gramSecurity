@@ -1844,13 +1844,17 @@ const downSlide = () => {
       document.getElementById("locationGroup").style.zIndex="7100";
     }
     const searchLocation = () => {
-
+        let header=$("meta[name='_csrf_header']").attr('content');
+        let token=$("meta[name='_csrf']").attr('content');
         const searchLocation = document.getElementById("inputLocation").value;
         $.ajax({
             type:"get",
             url:"/storyBoard/findByLocation",
             data:{"storyLocation": searchLocation},
             dataType:"json",
+            beforeSend:function (result){
+                result.setRequestHeader(header,token);
+            },
 
             success: function (locationList){
                 for(let location of locationList) {
