@@ -45,13 +45,6 @@ public class TestClass {
     }
 
 
-    @Test
-    @Transactional
-    public void memberSave(){
-        IntStream.rangeClosed(1,20).forEach(i->{
-            memberService.save(newMember(i));
-        });
-    }
 
 //    @Test
 //    @Transactional

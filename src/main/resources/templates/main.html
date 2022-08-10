@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-        <meta name="_csrf_header" th:content="${_csrf.headerName}">
-        <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <meta name="_csrf" th:content="${_csrf.token}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -172,8 +172,8 @@
             console.log("login chk 호출")
             $.ajax({
                 url: "/member/loginCheck",
-                    beforeSend:function(result){
-                        result.setRequestHeader(header,token);
+                beforeSend:function(result){
+                    result.setRequestHeader(header,token);
                 },
                 success: function (e) {
                     console.log("login chk suc")
@@ -258,7 +258,10 @@
         .title:not(.detail) {
             font-family: 'Dosis', sans-serif;
             font-size: 40px;
-            margin: 0px 0 0 10px;
+            margin: 0;
+            color:#4E4E4E;
+            text-align: end;
+
 
         }
 
@@ -299,6 +302,7 @@
             margin-top: 0px;
             margin-bottom: 0px;
             background-color: white;
+            min-width: 1120px;
         }
 
         .feedZone:not(.detail) {
@@ -450,6 +454,21 @@
             cursor: pointer;
 
         }
+        .searchInput{
+            background-color: #F2F3F5;
+        }
+        .searchGroup>input::placeholder {
+            font-size: 16px;
+            color: rgb(168, 168, 168);
+
+        }
+        .form-control:focus {
+            background-color: #F2F3F5;
+            border-color:#ced4da;
+            box-shadow: 0 0 0 0 rgba(74, 74, 75, 0.25);
+            color: gray;
+            /* box-shadow: 0 0 0 0.2rem rgba(74, 74, 75, 0.25); */
+        }
     </style>
 
 
@@ -462,12 +481,22 @@
 
 
     <div class="row headerZone">
-        <div class="col">
-            <p class="title" style="color:#4E4E4E">25gram</p>
+        <div class="col-4">
+            <p class="title">25gram</p>
         </div>
 
+        <div class="col">
+            <div  class="container" style="width: 300px;">
+                <div class="input-group searchGroup" style="margin-top:11px ;">
+                    <div class="input-group-text" style="background-color:#F2F3F5;color:rgb(168, 168, 168)">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input id="searchInput" type="text" class="searchInput form-control" placeholder="검색" style="border-left:0 ;">
+                </div>
+            </div></div>
 
-        <div class="col headerItem" style="margin-top: 18px;text-align: right;">
+
+        <div class="col-4 headerItem" style="margin-top: 18px;text-align: start;">
             <button id="hiddenBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" hidden></button>
             <i id="headerItem1" class="fi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"
                onmouseover="gray(5)" onmouseout="black(5)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
@@ -586,63 +615,58 @@
 
                 <script>
                     function detailGo(object) {
-
                         console.log("detailgo 호출")
                         let header=$("meta[name='_csrf_header']").attr('content');
                         let token=$("meta[name='_csrf']").attr('content');
                         let hssIndex=0;
-
+                        let result=0;
                         $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
                         $("#deTailProfileId").html(object.boardWriter);
                         $("#detailModalBtn").trigger("click")
 
+                        showBtn(0)
+                        function showBtn(board){
+                            result=board*1;
+                            function showRight(){
+                                $("#detailRightBtn").show()
+                            }
+                            function hideRight(){
+                                $("#detailRightBtn").hide()
+                            }
+                            function showLeft(){
+                                $("#detailLeftBtn").show()
+                            }
+                            function hideLeft(){
+                                $("#detailLeftBtn").hide()
+                            }
+                            if(board<=1){
+                                hideLeft(),hideRight()
+                            }
 
+                            else{
+                                if(hssIndex==0){
+                                    hideLeft(),showRight()
+                                }else{
+                                    showLeft(),showRight()
+                                    if(hssIndex == (result-1)){
+                                        hideRight(),showLeft()
+                                    }}}}
                         $.ajax({
                             type: "post",
                             url: "/board/detail",
                             data: {"boardId": object.id},
                             dataType: "json",
-                            // async:false,
                             beforeSend:function (result){
                                 result.setRequestHeader(header,token);
                             },
                             success: function (data) {
-                                function showBtn(board){
-                                    let result=board*1;
-                                    function showRight(){
-                                        $("#detailRightBtn").show()
-                                    }
-                                    function hideRight(){
-                                        $("#detailRightBtn").hide()
-                                    }
-                                    function showLeft(){
-                                        $("#detailRightBtn").show()
-                                    }
-                                    function hideLeft(){
-                                        $("#detailLeftBtn").hide()
-                                    }
-                                    if(result==1){
-                                        hideLeft(),hideRight()
-                                    }else{
-                                        if(hssIndex==0){
-                                            hideLeft(),showRight()
-                                        }
-                                        if(hssIndex>0){
-                                            showRight(),showLeft()
-                                        }
-                                        if(hssIndex==(result)){
-                                            hideRight(),showLeft()
-                                        }
-                                        addImg()
-                                    }
 
-
-                                }
+                                console.log("detailGo data: "+data.length)
                                 let detail = document.getElementById("contentsBody_detail");
                                 let m = "";
+                                showBtn(data.length)
                                 addImg()
                                 function addImg(){
-                                     // showBtn(data.length)
                                     if (data[hssIndex].boardImgName != null) {
                                         m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
                                     } else if (data[hssIndex].boardVideoName != null) {
@@ -652,85 +676,36 @@
                                     detail.innerHTML = m;
                                     detail.style.filter=data[hssIndex].boardFilter;
                                 }
-                                // if (data[hssIndex].boardImgName != null) {
-                                //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                // } else if (data[hssIndex].boardVideoName != null) {
-                                //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                // }
-                                // detail.style.filter="";
-                                // detail.innerHTML = m;
-                                // detail.style.filter=data[hssIndex].boardFilter;
-                                //
-                                // if(data.length==1){
-                                //     $("#detailLeftBtn").hide()
-                                //     $("#detailRightBtn").hide()
-                                // }else {
-                                //     $("#detailLeftBtn").hide()
-                                //     $("#detailRightBtn").show()
-                                // }
 
-                                // if (data.length > 1) {
-                                //     if(hssIndex<=data.length) {
+                                $('#detailRightBtn').click(function () {
+                                    if(hssIndex<result && ((data.length)*1)-1 != hssIndex ){
+                                        hssIndex += 1;
+                                        addImg()
+                                    }
+                                    showBtn(data.length)
 
-                                        $('#detailRightBtn').click(function () {
-                                            if(hssIndex<data.length){
-                                                hssIndex += 1;
-                                                showBtn(data.length)
-                                            }
-                                            // if (data[hssIndex].boardImgName != null) {
-                                            //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            // } else if (data[hssIndex].boardVideoName != null) {
-                                            //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                            // }
-                                            // detail.innerHTML = m;
-                                            // detail.style.filter=data[hssIndex].boardFilter
-                                            console.log("right : "+hssIndex)
-                                            console.log("right data: "+data.length)
-                                            console.log("right data-1: "+data.length-1)
-                                            // if(hssIndex==(data.length-1)){
-                                            //     $("#detailRightBtn").hide()
-                                            //     $("#detailLeftBtn").show()
-                                            // }else {
-                                            //     $("#detailRightBtn").show()
-                                            //     $("#detailLeftBtn").show()
-                                            //
-                                            // }
-                                        });
-                                        $('#detailLeftBtn').click(function () {
-                                            if(hssIndex>0){
-                                                hssIndex += -1;
-                                                showBtn(data.length)
-                                            }
-                                            // if(hssIndex>=0){
-                                            //     $("#detailRightBtn").show()
-                                            // }
-                                            // if(hssIndex==0){
-                                            //     $("#detailLeftBtn").hide()
-                                            // }
-                                            // if (data[hssIndex].boardImgName != null) {
-                                            //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            // } else if (data[hssIndex].boardVideoName != null) {
-                                            //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                            // }
-                                            // detail.innerHTML = m;
-                                            // detail.style.filter=data[hssIndex].boardFilter
-                                            console.log("left : "+hssIndex)
+                                    console.log("right index: "+hssIndex)
+                                    console.log("right length: "+data.length)
 
-                                        });
-                                        $('#detailClose').click(function () {
+                                });
+                                $('#detailLeftBtn').click(function () {
+                                    if(hssIndex>0){
+                                        hssIndex += -1;
+                                        showBtn(data.length)
+                                        addImg()
+                                    }
 
-                                            hssIndex=0;
-                                            $("#detailClose").unbind( "click" );
-                                            $("#detailLeftBtn").unbind( "click" );
-                                            $("#detailRightBtn").unbind( "click" );
+                                    console.log("left : "+hssIndex)
 
-                                        });
-                                }
+                                });
+                                $('#detailClose').click(function () {
 
-                            //         }
-                            // }
-                        });
-                    }
+                                    hssIndex=0;
+                                    $("#detailClose").unbind( "click" );
+                                    $("#detailLeftBtn").unbind( "click" );
+                                    $("#detailRightBtn").unbind( "click" );
+                                });
+                            } }); }
 
 
                 </script>
@@ -864,8 +839,8 @@
             /* border: 1px solid rgba(221, 220, 220,0) ; */
             border: 1px solid rgb(221, 220, 220);
             width: 300px;
-            height: 597px;
-            margin-top: 3px;
+            height: 600px;
+            /*margin-top: 3px;*/
         }
 
 
@@ -1028,10 +1003,10 @@
             }
         }
         function likes (id) {
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
-            console.log(id)
             const loginId = [[${memberDTO.memberName}]];
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            console.log(loginId);
             $.ajax({
                 type: "post",
                 url: "/board/likes",
@@ -1041,39 +1016,43 @@
                     result.setRequestHeader(header,token);
                 },
                 success: function (data) {
-                    $.ajax({
-                        type: "post",
-                        url: "/board/count",
-                        dataType: "json",
-                        beforeSend:function (result){
-                            result.setRequestHeader(header,token);
-                        },
-                        success: function (like) {
-                            let likeIndex = [];
-                            const board = [[${boardList}]];
-                            for (let i = 0; i < board.length; i++) {
-                                likeIndex[i]=0;
-                                for (let j =0; j < like.length; j++) {
-                                    if (like[j].boardId == board[i].id){
-                                        likeIndex[i]++;
-                                    }
-                                }
-                            }
-                            const likeTest2 = document.getElementById("i"+id);
-                            const likeIcon = document.getElementById("k"+id);
-                            console.log(likeTest2)
-                            console.log(like)
-                            if (data == "ok") {
-                                likeTest2.className="fa-solid fa-heart feedBtn";
-                                likeTest2.style.color ="red";
-                                likeIcon.innerHTML = "좋아요"+ likeIndex[board.length-id] + "개";
-                            }else {
-                                likeTest2.className="fa-regular fa-heart feedBtn";
-                                likeTest2.style.color ="black";
-                                likeIcon.innerHTML = "좋아요"+ likeIndex[board.length-id] + "개";
-                            }
-                        }
-                    });
+                    console.log(data);
+                    const likeTest2 = document.getElementById("i"+id);
+                    if (data == "ok") {
+                        likeTest2.className="fa-solid fa-heart feedBtn";
+                        likeTest2.style.color ="red";
+
+                    }else {
+                        likeTest2.className="fa-regular fa-heart feedBtn";
+                        likeTest2.style.color ="black";
+                    }
+                }
+            });
+        }
+        function likes2 (id) {
+            const loginId = [[${memberDTO.memberName}]];
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+
+            $.ajax({
+                type: "post",
+                url: "/board/likes",
+                data: {"memberName":loginId, "boardId": id},
+                dataType: "text",
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
+                success: function (data) {
+                    console.log(data);
+                    const likeTest2 = document.getElementById("d"+id);
+                    if (data == "ok") {
+                        likeTest2.className="fa-solid fa-heart feedBtn";
+                        likeTest2.style.color ="red";
+
+                    }else {
+                        likeTest2.className="fa-regular fa-heart feedBtn";
+                        likeTest2.style.color ="black";
+                    }
                 }
             });
         }
@@ -1541,7 +1520,7 @@
                             }
 
                             .chkBox[class*="modal1"]:not(.detail) {
-                                border-bottom: 1px solid rgb(226, 226, 226);
+                                border-top: 1px solid rgb(226, 226, 226);
                                 padding: 0;
                                 height: 59px;
                                 text-align: left;
@@ -1587,7 +1566,7 @@
 
                             .tagResult[class*="modal1"]:not(.detail) {
                                 background-color: red;
-                                height: 197px
+                                height: 200px
                                 /* height:230px */
                             }
 
@@ -2202,19 +2181,19 @@
         let likeNum=0;
         function like(){
             if(likeNum==0){
-                document.getElementById("likeBtn_detail").className="fa-solid fa-heart commentListItem detail"
+                document.getElementById("likeBtn_detail").className="fa-solid fa-heart commentListItem"
                 document.getElementById("likeBtn_detail").style.color="red"
                 likeNum=1;
             }else if(likeNum==1){
-                document.getElementById("likeBtn_detail").className="fa-regular fa-heart commentListItem detail"
+                document.getElementById("likeBtn_detail").className="fa-regular fa-heart commentListItem"
                 document.getElementById("likeBtn_detail").style.color="black"
                 likeNum=0;
             }
 
             // 이곳에 좋아요 컬럼 변경하는 내용을 작성해주세요
             $.ajax({
-                url:"/board/likes",
-                type:"post",
+                url:"",
+                type:"get",
                 data:{},
                 dataType:"",
 
@@ -2318,12 +2297,12 @@
 
                                 <!-- close button -->
                                 <!-- <div style="font-size: 20px;margin:0 0 0 170px;"><i class="fa-solid fa-xmark"></i></div> -->
-<!--                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button></div>-->
+                                <!--                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button></div>-->
 
 
 
                             </div>
-                                <div style="height: 0;font-size: 26px"><button id="detailClose" type="button" class="btn-close detail detailClose" data-bs-dismiss="modal" aria-label="Close" style="height: 0"></button></div>
+                            <div style="height: 0;font-size: 26px"><button id="detailClose" type="button" class="btn-close detail detailClose" data-bs-dismiss="modal" aria-label="Close" style="height: 0"></button></div>
 
 
 
@@ -2352,7 +2331,7 @@
                                              like 함수 파라미터로 컬럼에 저장되어있는
                                              좋아요클릭 여부를 넣어주세요(1또는 0, 디폴트는 0)
                                          -->
-                                        <i id="likeBtn_detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>
+                                        <i id="likeBtn detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>
                                         <!-- <i class="fa-solid fa-heart"></i> -->
                                     </div>
 
