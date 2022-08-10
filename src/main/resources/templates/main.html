@@ -682,10 +682,8 @@
                 </script>
 
                 <!-- 피드 좋아요,댓글 아이콘 -->
-                <div class="feedBtnZone" th:id="uuu+${board.id}">
-                    <button th:if="${board.likes == null}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i th:id="i+${board.id}" class="fa-regular fa-heart feedBtn" style="color: black"></i></button>
-                    <button th:each="like:${likes}" th:if="${board.likes == 1 && board.id == like.boardId}" th:value="${board.id}" onclick="likes2(value)" style="border: 0;background-color: transparent;"><i th:id="d+${board.id}" class="fa-solid fa-heart feedBtn" style="color:red"></i></button>
-                    <i class="fa-regular fa-comment feedBtn" id="detailGoBtn2"></i>
+                <div class="feedBtnZone" th:id="like+${board.id}">
+
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
                 <div style="height: 0px;">
