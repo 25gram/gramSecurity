@@ -939,10 +939,16 @@
     const storyQuizTag= document.getElementById("quizDiv");
     const storyHashTag= document.getElementById("hashtag");
     const storyLocationTag= document.getElementById("locationTag");
+    let header=$("meta[name='_csrf_header']").attr('content');
+    let token =$("meta[name='_csrf']").attr('content');
+
 
     $.ajax({
         type: "post",
         url: "/storyBoard/save",
+        beforeSend:function (result){
+            result.setRequestHeader(header,token);
+        },
         data: {"storyTextTag": storyTextTag,
             "storyFile": storyFile,
             "storyImgTag": storyImgTag,
