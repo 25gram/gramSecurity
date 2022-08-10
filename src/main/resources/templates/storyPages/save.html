@@ -47,7 +47,7 @@
             width: 100%;
             height: 50px;
             position: absolute;
-            z-index: 6111;
+            z-index: 5000;
         }
         .editMenu {
             width: 200px;
@@ -93,7 +93,7 @@
             width: 100%;
         }
 
-        .editMenu5 {
+        .saveStory {
             text-align: center;
             padding-top: 10px;
             border-radius: 50%;
@@ -120,7 +120,7 @@
             height: 50px;
             display: none;
             position: absolute;
-            z-index: 999;
+            z-index: 6500;
             top: 50%;
         }
         .rangBar {
@@ -266,13 +266,15 @@
             padding-top: 0;
             margin-right: 45px;
         }
-        .dragDiv {
-            width: 100px;
-            height: 100px;
-        }
+
         .addImg {
             width: 100%;
             height: 100%;
+        }
+        #imgDrag {
+            position: absolute;
+            top: 50%;
+            left: 25%;
         }
         .addImgDiv {
             width: 100%;
@@ -281,7 +283,7 @@
             position: absolute;
             overflow: hidden;
             display: none;
-            z-index: 5000;
+            z-index: 3000;
         }
         .linkDiv {
             padding-top: 30px;
@@ -325,8 +327,8 @@
         }
         .inputLinkDiv {
             text-align: center;
-            width: 24%;
-            height: 5%;
+            width: 120px;
+            height: 39px;
             background-color: white;
             border-radius: 10px;
             border: 0;
@@ -381,7 +383,7 @@
             display: none;
 
         }
-        .input-box {
+        .questionBox {
             width: 268px;
             height: 119.44px;
             background-color: white;
@@ -426,17 +428,19 @@
             height: 100%;
             border-radius: 50%;
         }
-        .questionGroup {
+        .tagGroup {
             width: 100%;
             height: 100%;
             border-radius: 3%;
             position: absolute;
-            z-index: 12;
+            z-index: 31;
         }
         .endClose {
-            width: 100%;
-            padding-left: 90%;
+            width: 60px;
+            position: absolute;
+            left: 90%;
             display: none;
+            z-index: 3000;
         }
         .surveyDiv {
             width: 70%;
@@ -448,7 +452,7 @@
             margin-right: auto;
             text-align: center;
         }
-        .survey-group {
+        .surveyGroup {
             width: 375.19px;
             height: 187.19px;
             position: absolute;
@@ -479,7 +483,7 @@
             border: 0;
             border-radius: 10px;
         }
-        .quiz-group {
+        .quizGroup {
             width: 187.59px;
             height: 149.75px;
             position: absolute;
@@ -568,7 +572,7 @@
             z-index: 31;
             display: none;
         }
-        .hashtag-input {
+        .inputHashTag {
             width: 75%;
             height: 40px;
             background-color: transparent;
@@ -617,7 +621,7 @@
             top: 50%;
             display: none;
         }
-        .reference-input {
+        .inputReference {
             width: 75%;
             height: 40px;
             background-color: transparent;
@@ -652,6 +656,7 @@
             margin-right: auto;
             margin-left: auto;
             border-radius: 10px;
+            position: absolute;
         }
         .locationDiv {
             color: lightgray;
@@ -668,7 +673,7 @@
             top: 10%;
             left: 10%;
         }
-        .location-input {
+        .inputLocation {
             color: lightgray;
             width: 75%;
             height: 30px;
@@ -704,9 +709,11 @@
             background-color: rgba(0,0,0,0.9);
             display: none;
         }
-        .location-innerText {
-            width: 25%;
+        .locationTag {
+            width: 115px;
             height: 30px;
+            border-radius: 10px;
+            border: 0;
             background-color: white;
             text-align: center;
             line-height: 30px;
@@ -738,15 +745,13 @@
         </div>
         <div class="saveBox" id="saveBox">
             <div class="filePreview" id="filePreview"></div>
-            <div class="addImgDiv" id="addImgDiv">
-                <div class="dragDiv" id="dragDiv">
+            <button type="button" class="locationTag" id="locationTag"><i class="bi bi-geo-alt-fill"></i></button>
+            <div class="tagGroup" id="tagGroup">
+                <div class="addImgDiv" id="addImgDiv">
                     <div id="imgDrag">
                         <img class="addImg" id="addImg">
                     </div>
                 </div>
-            </div>
-            <div class="location-innerText" id="location-innerText"><i class="bi bi-geo-alt-fill"></i></div>
-            <div class="questionGroup" id="questionGroup">
                 <div class="endClose" id="endClose">
                 <input type="button" class="btn btn-outline-primary" onclick="endQuestion()" value="완료">
                 </div>
@@ -757,24 +762,24 @@
                     <div class="locationDiv" id="locationDiv">
                         <div class="location">
                             <div class="search" id="search"><i class="bi bi-search"></i></div>
-                            <input type="text"  class="location-input" id="location-input" onkeyup="searchLocation()" placeholder="위치 검색..." autofocus>
+                            <input type="text"  class="inputLocation" id="inputLocation" onkeyup="searchLocation()" placeholder="위치 검색..." autofocus>
                         </div>
                     </div>
                     <div class="locationList" id="locationList"></div>
                 </div>
                 <div class="referenceDiv" id="referenceDiv">
-                    <div class="reference">
+                    <div class="reference" id="reference">
                         <div class="at" id="at">@</div>
-                        <input type="text"  class="reference-input" id="reference-input" placeholder="언급">
+                        <input type="text"  class="inputReference" id="inputReference" placeholder="언급">
                     </div>
                 </div>
                 <div class="hashtagDiv" id="hashtagDiv">
-                    <div class="hashtag">
+                    <div class="hashtag" id="hashtag">
                         <div class="sharp" id="sharp">#</div>
-                        <input type="text"  class="hashtag-input" id="hashtag-input" placeholder="해시태그">
+                        <input type="text"  class="inputHashTag" id="inputHashTag" placeholder="해시태그">
                     </div>
                 </div>
-                <div class="quiz-group" id="quiz-group">
+                <div class="quizGroup" id="quizGroup">
                     <div class="quizDiv" id="quizDiv">
                         <div class="shapeQuestion">
                             <input type="text"  class="quiz" id="quiz" placeholder="내가 좋아하는 것은...">
@@ -798,7 +803,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="survey-group" id="survey-group">
+                <div class="surveyGroup" id="surveyGroup">
                     <div class="surveyDiv" id="surveyDiv">
                         <input type="text"  class="survey" id="question" placeholder="질문을 입력하세요">
                         <input type="text"  class="survey" id="answer1" placeholder="예">
@@ -808,7 +813,7 @@
                     </div>
                 </div>
                 <div class="questionDiv" id="questionDiv">
-                    <div class="input-box">
+                    <div class="questionBox" id="questionBox">
                         <div id="circleLogo"><img src="https://cdn.mindgil.com/news/photo/202201/73470_12193_834.png" class="logoImg" alt="유재석사진"></div>
                         <input type="text" id="question2" value="무엇이든 물어보세요!">
                         <input type="text" id="answer" placeholder="무엇이든 물어보세요!">
@@ -836,10 +841,10 @@
                     <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
                     <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
                 </div>
-                <button class="editMenu5 btn-primary" id="editMenu5"><i class="bi bi-chevron-right"></i></button>
+                <button class="saveStory btn-primary" id="saveStory"><i class="bi bi-chevron-right"></i></button>
             </div>
             <div class="inputTextDiv" id="inputTextDiv">
-                <input class="inputText" type="text" id="text1" name="text1">
+                <input class="inputText" type="text" id="mainInputText" name="mainInputText">
             </div>
             <div class="fontMenu" id="fontMenu">
                 <div class="editFont" id="editFont">
@@ -924,14 +929,39 @@
     </div>
 </body>
 <script type="text/javascript">
+    const storyTextTag= document.getElementById("mainInputText");
+    const storyFile= document.getElementById("upImgFiles");
+    const storyImgTag= document.getElementById("addFile");
+    const storyTodayTag= document.getElementById("today");
+    const storyLinkTag= document.getElementById("inputLink");
+    const storyQuestionTag= document.getElementById("questionBox");
+    const storySurveyTag= document.getElementById("surveyDiv");
+    const storyQuizTag= document.getElementById("quizDiv");
+    const storyHashTag= document.getElementById("hashtag");
+    const storyLocationTag= document.getElementById("locationTag");
+
+    $.ajax({
+        type: "post",
+        url: "/storyBoard/save",
+        data: {"storyTextTag": storyTextTag,
+            "storyFile": storyFile,
+            "storyImgTag": storyImgTag,
+            "storyTodayTag": storyTodayTag,
+            "storyLinkTag": storyLinkTag,
+            "storyQuestionTag": storyQuestionTag,
+            "storySurveyTag": storySurveyTag,
+            "storyQuizTag": storyQuizTag,
+            "storyHashTag": storyHashTag,
+            "storyLocationTag": storyLocationTag}
+    })
 // 메인 업로드 이미지 보여주기 기능
     function uploadImgPreview(obj) {
         document.getElementById("filePreview").innerHTML="";
         document.getElementById("filePreview").style.backgroundImage="";
         const editMenu = document.getElementById("editMenu");
-        const editMenu5 = document.getElementById("editMenu5");
+        const saveStory = document.getElementById("saveStory");
         editMenu.style.display="block";
-        editMenu5.style.display="block";
+        saveStory.style.display="block";
 
         const file = document.getElementById("upImgFiles");
             if (file.files[0] == null){
@@ -1018,11 +1048,11 @@
 
     slider.addEventListener('input', function() {
         let size = slider.value;
-        document.getElementById("text1").style.fontSize = size + "px";
+        document.getElementById("mainInputText").style.fontSize = size + "px";
     });
     function ShowSliderValue(sVal){
         let obValueView = document.getElementById("slider_value_view");
-        let textSize = document.getElementById("text1");
+        let textSize = document.getElementById("mainInputText");
         obValueView.innerHTML = sVal
     }
     const RangeSlider = function(){
@@ -1033,7 +1063,7 @@
     };
     RangeSlider();
 // 인풋창 드래그 앤 드롭 기능
-    var text1 = document.querySelector("#text1");
+    var mainInputText = document.querySelector("#mainInputText");
     var inputTextDiv = document.querySelector("#inputTextDiv");
 
     var active = false;
@@ -1053,6 +1083,7 @@
     inputTextDiv.addEventListener("mousemove", drag, false);
 
     function dragStart(e) {
+        inputTextDiv.style.zIndex="9000";
         if (e.type === "touchstart") {
             initialX = e.touches[0].clientX - xOffset;
             initialY = e.touches[0].clientY - yOffset;
@@ -1061,7 +1092,7 @@
             initialY = e.clientY - yOffset;
         }
 
-        if (e.target === text1) {
+        if (e.target === mainInputText) {
             active = true;
         }
 
@@ -1090,7 +1121,7 @@
             xOffset = currentX;
             yOffset = currentY;
 
-            setTranslate(currentX, currentY, text1);
+            setTranslate(currentX, currentY, mainInputText);
         }
     }
     function setTranslate(xPos, yPos, el) {
@@ -1104,8 +1135,8 @@
         document.getElementById("fontMenu").style.zIndex="7100";
         document.getElementById("inputTextDiv").style.display="block";
         document.getElementById("inputTextDiv").style.zIndex="7200";
-        const text1 = document.getElementById("text1");
-        text1.focus();
+        const mainInputText = document.getElementById("mainInputText");
+        mainInputText.focus();
     }
     const editFnc2 = () => {
 
@@ -1124,15 +1155,15 @@
             if($('#icon1').hasClass("bi-text-center")) {
                 $('#icon1').removeClass('bi-text-center');
                 $('#icon1').addClass('bi-text-left');
-                document.getElementById("text1").style.textAlign="left";
+                document.getElementById("mainInputText").style.textAlign="left";
             } else if($('#icon1').hasClass("bi-text-left")) {
                 $('#icon1').removeClass('bi-text-left');
                 $('#icon1').addClass('bi-text-right');
-                document.getElementById("text1").style.textAlign="right";
+                document.getElementById("mainInputText").style.textAlign="right";
             } else if($('#icon1').hasClass("bi-text-right")) {
                 $('#icon1').removeClass('bi-text-right');
                 $('#icon1').addClass('bi-text-center');
-                document.getElementById("text1").style.textAlign="center";
+                document.getElementById("mainInputText").style.textAlign="center";
             }
     }
 // 글자 색상변경 기능
@@ -1141,7 +1172,7 @@
         document.getElementById("colorCircles").style.display="block";
     }
     const colorChange = (clickId) => {
-        document.getElementById("text1").style.color = document.getElementById(clickId).style.backgroundColor;
+        document.getElementById("mainInputText").style.color = document.getElementById(clickId).style.backgroundColor;
     }
 // 글자 폰트변경 기능
     const editFnc1c = () => {
@@ -1149,7 +1180,7 @@
         document.getElementById("fontDiv").style.display="block";
     }
     const fontChange = (clickId) => {
-        document.getElementById("text1").style.fontFamily=document.getElementById(clickId).style.fontFamily;
+        document.getElementById("mainInputText").style.fontFamily=document.getElementById(clickId).style.fontFamily;
     }
 // 글자편집 완료 버튼 기능
     const editFnc1d = () => {
@@ -1158,7 +1189,12 @@
         document.getElementById("inputTextDiv").style.zIndex="1000";
         document.getElementById("fontMenu").style.display = "none";
         document.getElementById("mainMenu").style.display = "block";
-        $("#text1").attr("readonly", true);
+        const mainInputText = document.getElementById("mainInputText");
+        console.log(typeof mainInputText);
+        $("#mainInputText").attr("readonly", true);
+        console.log(document.getElementById("mainInputText"));
+        console.log(document.getElementById("mainInputText").value);
+        console.log(document.getElementById("mainInputText").getAttribute("style"));
     }
 
 // 업슬라이드창 기능
@@ -1173,9 +1209,10 @@
     });
 // 이모지아이콘 클릭시 업슬라이드창 띄우기 (오늘날짜 버튼에 날짜넣기)
     $('#reverseSlideContentDown').on('click', function() {
+            document.getElementById("tagGroup").style.zIndex="3000";
             document.getElementById("editBox").style.display="none";
             document.getElementById("reverse").style.display="block";
-            document.getElementById("reverse").style.zIndex="6900";
+            document.getElementById("reverse").style.zIndex="7100";
             let today = new Date();
             let year = today.getFullYear(); // 년도
             let month = today.getMonth() + 1;  // 월
@@ -1216,7 +1253,6 @@ const downSlide = () => {
     });
 // 추가이미지 드래그 앤 드롭 기능
     var addImg = document.querySelector("#addImg");
-    var addImgDiv = document.querySelector("#addImgDiv");
     let imgDrag = document.getElementById("imgDrag");
 
     var active = false;
@@ -1227,16 +1263,16 @@ const downSlide = () => {
     var xOffset = 0;
     var yOffset = 0;
 
-    addImgDiv.addEventListener("touchstart", dragStart2, false);
-    addImgDiv.addEventListener("touchend", dragEnd2, false);
-    addImgDiv.addEventListener("touchmove", drag2, false);
+    imgDrag.addEventListener("touchstart", dragStart2, false);
+    imgDrag.addEventListener("touchend", dragEnd2, false);
+    imgDrag.addEventListener("touchmove", drag2, false);
 
-    addImgDiv.addEventListener("mousedown", dragStart2, false);
-    addImgDiv.addEventListener("mouseup", dragEnd2, false);
-    addImgDiv.addEventListener("mousemove", drag2, false);
+    imgDrag.addEventListener("mousedown", dragStart2, false);
+    imgDrag.addEventListener("mouseup", dragEnd2, false);
+    imgDrag.addEventListener("mousemove", drag2, false);
 
     function dragStart2(e) {
-        addImgDiv.style.display="9000";
+        imgDrag.style.zIndex="9000";
         if (e.type === "touchstart") {
             initialX = e.touches[0].clientX - xOffset;
             initialY = e.touches[0].clientY - yOffset;
@@ -1254,7 +1290,7 @@ const downSlide = () => {
         initialX = currentX;
         initialY = currentY;
         active = false;
-        addImgDiv.style.display="5000";
+        imgDrag.style.zIndex="5000";
     }
 
     function drag2(e) {
@@ -1386,14 +1422,14 @@ const downSlide = () => {
     dragToday.ondragstart = function() {
         return false;
     };
-// 질문태그 기능
+    // 질문태그 기능
     const questionFnc = () => {
         $('#question2').attr('readonly', false);
         $('#answer').attr('readonly', true);
-        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
-        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("tagGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("tagGroup").style.display="block";
         document.getElementById("mainMenu").style.display="none";
-        document.getElementById("questionGroup").style.zIndex="5000";
+        document.getElementById("tagGroup").style.zIndex="6500";
         document.getElementById("questionDiv").style.display="block";
         document.getElementById("questionDiv").style.zIndex="7100";
         document.getElementById("endClose").style.display="block";
@@ -1402,10 +1438,11 @@ const downSlide = () => {
     }
 // 질문태그완료 기능
     const endQuestion = () => {
-        document.getElementById("questionGroup").style.backgroundColor="transparent";
+        document.getElementById("tagGroup").style.backgroundColor="transparent";
+        document.getElementById("tagGroup").style.zIndex="5000";
         document.getElementById("mainMenu").style.display="block";
         document.getElementById("questionDiv").style.zIndex="6500";
-        document.getElementById("survey-group").style.zIndex="6000";
+        document.getElementById("surveyGroup").style.zIndex="6000";
         $('#question2').attr('readonly', true);
         $('#question').attr('readonly', true);
         $('#answer1').attr('readonly', true);
@@ -1417,8 +1454,8 @@ const downSlide = () => {
         $('#option2').attr('readonly', true);
         $('#option3').attr('readonly', true);
         $('#option4').attr('readonly', true);
-        $('#hashtag-input').attr('readonly', true);
-
+        $('#inputHashTag').attr('readonly', true);
+        $('#inputReference').attr('readonly', true);
 
         document.getElementById("endClose").style.display="none";
 
@@ -1446,7 +1483,7 @@ const downSlide = () => {
         questionDiv.onmouseup = function() {
             document.removeEventListener('mousemove', onMouseMove);
             questionDiv.onmouseup = null;
-            questionDiv.style.zIndex="6500";
+            questionDiv.style.zIndex="7000";
         };
     };
     questionDiv.ondragstart = function() {
@@ -1459,12 +1496,13 @@ const downSlide = () => {
         $('#answer2').attr('readonly', false);
         $('#answer3').attr('readonly', false);
         $('#answer4').attr('readonly', false);
-        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
-        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("tagGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("tagGroup").style.display="block";
+        document.getElementById("tagGroup").style.zIndex="6500";
         document.getElementById("mainMenu").style.display="none";
         document.getElementById("questionDiv").style.zIndex="31";
-        document.getElementById("survey-group").style.display="block";
-        document.getElementById("survey-group").style.zIndex="7100";
+        document.getElementById("surveyGroup").style.display="block";
+        document.getElementById("surveyGroup").style.zIndex="7100";
         downSlide();
         document.getElementById("reverse").style.display="none";
         document.getElementById("endClose").style.display="block";
@@ -1474,7 +1512,7 @@ const downSlide = () => {
     const newInput = () => {
         const answer3 = document.getElementById("answer3");
         if(newInputStatus && answer3.value){
-            document.getElementById("survey-group").style.height="25%";
+            document.getElementById("surveyGroup").style.height="25%";
             document.getElementById("answer4").style.display="block";
             newInputStatus = false;
         }
@@ -1484,12 +1522,12 @@ const downSlide = () => {
         console.log(answer4.value);
         if (answer4.value=="") {
             answer4.style.display = "none";
-            document.getElementById("survey-group").style.height = "20%";
+            document.getElementById("surveyGroup").style.height = "20%";
             newInputStatus = true;
         }
     }
 // 설문태그 드래그 기능
-    const surveyGroup = document.getElementById("survey-group");
+    const surveyGroup = document.getElementById("surveyGroup");
     surveyGroup.onmousedown = function(event) {
         surveyGroup.style.zIndex="9000";
         let shiftX = event.clientX - surveyGroup.getBoundingClientRect().left;
@@ -1524,14 +1562,14 @@ const downSlide = () => {
         $('#option2').attr('readonly', false);
         $('#option3').attr('readonly', false);
         $('#option4').attr('readonly', false);
-        document.getElementById("quiz-group").style.display="block";
-        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
-        document.getElementById("questionGroup").style.display="block";
+        document.getElementById("quizGroup").style.display="block";
+        document.getElementById("tagGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("tagGroup").style.display="block";
+        document.getElementById("tagGroup").style.zIndex="6500";
         document.getElementById("mainMenu").style.display="none";
-        document.getElementById("survey-group").style.display="none";
         document.getElementById("questionDiv").style.zIndex="31";
-        document.getElementById("survey-group").style.zIndex="31";
-        document.getElementById("quiz-group").style.zIndex="7100";
+        document.getElementById("surveyGroup").style.zIndex="31";
+        document.getElementById("quizGroup").style.zIndex="7100";
         downSlide();
         document.getElementById("reverse").style.display="none";
         document.getElementById("endClose").style.display="block";
@@ -1614,7 +1652,7 @@ const downSlide = () => {
         const shapeBtn3 = document.getElementById("shapeBtn3");
         if(option1 && option2) {
             if(!document.getElementById("option3")){
-                document.getElementById("quiz-group").style.height="22%";
+                document.getElementById("quizGroup").style.height="22%";
                 shapeBtn3.style.border="1px dashed darkgrey";
                 shapeBtn3.innerHTML= '<div class="quizIco" id="quizIcoC" onclick="clickQuizIcoC()">C</div>\n' +
                     '<input type="text" class="option" id="option3" onkeyup="addCheck2()" onblur="delCheck()" name="quizOption" placeholder="추가">\n';
@@ -1630,7 +1668,7 @@ const downSlide = () => {
 
         if(option1 && option2 && option3) {
             shapeBtn3.style.border="1px solid darkgrey";
-            document.getElementById("quiz-group").style.height="27%";
+            document.getElementById("quizGroup").style.height="27%";
             const shapeBtn4 = document.getElementById("shapeBtn4");
             shapeBtn4.style.border="1px dashed darkgrey";
             shapeBtn4.innerHTML= '<div class="quizIco" id="quizIcoD" onclick="clickQuizIcoD()">D</div>\n' +
@@ -1650,7 +1688,7 @@ const downSlide = () => {
             $('#option4').on('blur', function (){
                 shapeBtn4.removeAttribute('style');
                 shapeBtn4.innerHTML="";
-                document.getElementById("quiz-group").style.height="22%";
+                document.getElementById("quizGroup").style.height="22%";
             })
 
         }
@@ -1661,12 +1699,12 @@ const downSlide = () => {
         if(!document.getElementById("option4") && !option3) {
             shapeBtn3.removeAttribute('style');
             shapeBtn3.innerHTML="";
-            document.getElementById("quiz-group").style.height="149.75px";
+            document.getElementById("quizGroup").style.height="149.75px";
         }
 
     }
 // 퀴즈태그 드래그 기능
-    const quizGroup = document.getElementById("quiz-group");
+    const quizGroup = document.getElementById("quizGroup");
     quizGroup.onmousedown = function(event) {
         quizGroup.style.zIndex="9000";
         let shiftX = event.clientX - quizGroup.getBoundingClientRect().left;
@@ -1696,15 +1734,16 @@ const downSlide = () => {
     };
 // 해시태그 기능
     const hashtagFnc = () => {
-        $('#hashtag-input').attr('readonly', false);
-        document.getElementById("quiz-group").style.display="none";
-        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
-        document.getElementById("questionGroup").style.display="block";
+        $('#inputHashTag').attr('readonly', false);
+        document.getElementById("quizGroup").style.display="none";
+        document.getElementById("tagGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("tagGroup").style.display="block";
+        document.getElementById("tagGroup").style.zIndex="6500";
         document.getElementById("mainMenu").style.display="none";
-        document.getElementById("survey-group").style.display="none";
+        document.getElementById("surveyGroup").style.display="none";
         document.getElementById("questionDiv").style.zIndex="31";
-        document.getElementById("survey-group").style.zIndex="31";
-        document.getElementById("quiz-group").style.zIndex="31";
+        document.getElementById("surveyGroup").style.zIndex="31";
+        document.getElementById("quizGroup").style.zIndex="31";
         document.getElementById("hashtagDiv").style.display="block";
         document.getElementById("hashtagDiv").focus();
         document.getElementById("hashtagDiv").style.zIndex="7100";
@@ -1743,23 +1782,54 @@ const downSlide = () => {
     };
 // 언급태그 기능
     const referenceFnc = () => {
-        document.getElementById("quiz-group").style.display="none";
-        document.getElementById("questionGroup").style.backgroundColor="rgba(100,100,100,0.9)";
-        document.getElementById("questionGroup").style.display="block";
+        $('#inputReference').attr('readonly', false);
+        document.getElementById("quizGroup").style.display="none";
+        document.getElementById("tagGroup").style.backgroundColor="rgba(100,100,100,0.9)";
+        document.getElementById("tagGroup").style.display="block";
+        document.getElementById("tagGroup").style.zIndex="6500";
         document.getElementById("mainMenu").style.display="none";
-        document.getElementById("survey-group").style.display="none";
+        document.getElementById("surveyGroup").style.display="none";
         document.getElementById("questionDiv").style.zIndex="31";
-        document.getElementById("survey-group").style.zIndex="31";
-        document.getElementById("quiz-group").style.zIndex="31";
+        document.getElementById("surveyGroup").style.zIndex="31";
+        document.getElementById("quizGroup").style.zIndex="31";
         document.getElementById("hashtagDiv").style.display="none";
         document.getElementById("hashtagDiv").style.zIndex="31";
         document.getElementById("referenceDiv").style.display="block";
         document.getElementById("referenceDiv").style.zIndex="7100";
-        document.getElementById("reference-input").focus();
+        document.getElementById("inputReference").focus();
         downSlide();
         document.getElementById("reverse").style.display="none";
         document.getElementById("endClose").style.display="block";
     }
+// 언급태그 드래그기능
+    const reference = document.getElementById("reference");
+    reference.onmousedown = function(event) {
+        reference.style.zIndex="9000";
+        let shiftX = event.clientX - reference.getBoundingClientRect().left;
+        let shiftY = event.clientY - reference.getBoundingClientRect().top;
+
+        document.body.append(reference);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+            reference.style.left = pageX - shiftX + 'px';
+            reference.style.top = pageY - shiftY + 'px';
+        }
+        document.addEventListener('mousemove', onMouseMove);
+
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
+        reference.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            reference.onmouseup = null;
+            reference.style.zIndex="6500";
+        };
+    };
+    reference.ondragstart = function() {
+        return false;
+    };
 // 위치태그 기능
     const locationFnc = () => {
         document.getElementById("mainMenu").style.display="none";
@@ -1769,7 +1839,7 @@ const downSlide = () => {
     }
     const searchLocation = () => {
 
-        const searchLocation = document.getElementById("location-input").value;
+        const searchLocation = document.getElementById("inputLocation").value;
         $.ajax({
             type:"get",
             url:"/storyBoard/findByLocation",
@@ -1786,11 +1856,39 @@ const downSlide = () => {
     const endLocation = () => {
         document.getElementById("locationGroup").style.display="none";
         document.getElementById("mainMenu").style.display="block";
-        const findLocation = document.getElementById("location-input").value;
-        document.getElementById("location-innerText").style.display="block";
-        document.getElementById("location-innerText").style.zIndex="7100";
-        document.getElementById("location-innerText").innerHTML+=findLocation;
+        const findLocation = document.getElementById("inputLocation").value;
+        document.getElementById("locationTag").style.display="block";
+        document.getElementById("locationTag").style.zIndex="7100";
+        document.getElementById("locationTag").innerHTML+=findLocation;
 
     }
+    const locationTag = document.getElementById("locationTag");
+    locationTag.onmousedown = function(event) {
+        locationTag.style.zIndex="9000";
+        let shiftX = event.clientX - locationTag.getBoundingClientRect().left;
+        let shiftY = event.clientY - locationTag.getBoundingClientRect().top;
+
+        document.body.append(locationTag);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+            locationTag.style.left = pageX - shiftX + 'px';
+            locationTag.style.top = pageY - shiftY + 'px';
+        }
+        document.addEventListener('mousemove', onMouseMove);
+
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
+        locationTag.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            locationTag.onmouseup = null;
+            locationTag.style.zIndex="6500";
+        };
+    };
+    locationTag.ondragstart = function() {
+        return false;
+    };
 </script>
 </html>

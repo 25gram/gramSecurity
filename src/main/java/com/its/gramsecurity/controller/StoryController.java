@@ -42,8 +42,8 @@ public class StoryController {
     }
 
     @GetMapping("/findByLocation")
-    public @ResponseBody List<StoryDTO> findByLocation(@ModelAttribute String storyLocation){
-        List<StoryDTO> storyDTOList = storyService.findByLocation(storyLocation);
+    public @ResponseBody List<StoryDTO> findByStoryLocationTag(@ModelAttribute String storyLocationTag){
+        List<StoryDTO> storyDTOList = storyService.findByStoryLocationTag(storyLocationTag);
         return storyDTOList;
     }
 }
