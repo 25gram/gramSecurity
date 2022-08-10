@@ -586,63 +586,58 @@
 
                 <script>
                     function detailGo(object) {
-
                         console.log("detailgo 호출")
                         let header=$("meta[name='_csrf_header']").attr('content');
                         let token=$("meta[name='_csrf']").attr('content');
                         let hssIndex=0;
-
+                        let result=0;
                         $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
                         $("#deTailProfileId").html(object.boardWriter);
                         $("#detailModalBtn").trigger("click")
 
+                        showBtn(0)
+                        function showBtn(board){
+                            result=board*1;
+                            function showRight(){
+                                $("#detailRightBtn").show()
+                            }
+                            function hideRight(){
+                                $("#detailRightBtn").hide()
+                            }
+                            function showLeft(){
+                                $("#detailLeftBtn").show()
+                            }
+                            function hideLeft(){
+                                $("#detailLeftBtn").hide()
+                            }
+                            if(board<=1){
+                                hideLeft(),hideRight()
+                            }
 
+                            else{
+                                    if(hssIndex==0){
+                                        hideLeft(),showRight()
+                                    }else{
+                                        showLeft(),showRight()
+                                            if(hssIndex == (result-1)){
+                                            hideRight(),showLeft()
+                                        }}}}
                         $.ajax({
                             type: "post",
                             url: "/board/detail",
                             data: {"boardId": object.id},
                             dataType: "json",
-                            // async:false,
                             beforeSend:function (result){
                                 result.setRequestHeader(header,token);
                             },
                             success: function (data) {
-                                function showBtn(board){
-                                    let result=board*1;
-                                    function showRight(){
-                                        $("#detailRightBtn").show()
-                                    }
-                                    function hideRight(){
-                                        $("#detailRightBtn").hide()
-                                    }
-                                    function showLeft(){
-                                        $("#detailRightBtn").show()
-                                    }
-                                    function hideLeft(){
-                                        $("#detailLeftBtn").hide()
-                                    }
-                                    if(result==1){
-                                        hideLeft(),hideRight()
-                                    }else{
-                                        if(hssIndex==0){
-                                            hideLeft(),showRight()
-                                        }
-                                        if(hssIndex>0){
-                                            showRight(),showLeft()
-                                        }
-                                        if(hssIndex==(result)){
-                                            hideRight(),showLeft()
-                                        }
-                                        addImg()
-                                    }
 
-
-                                }
+                                console.log("detailGo data: "+data.length)
                                 let detail = document.getElementById("contentsBody_detail");
                                 let m = "";
+                                showBtn(data.length)
                                 addImg()
                                 function addImg(){
-                                     // showBtn(data.length)
                                     if (data[hssIndex].boardImgName != null) {
                                         m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
                                     } else if (data[hssIndex].boardVideoName != null) {
@@ -652,68 +647,25 @@
                                     detail.innerHTML = m;
                                     detail.style.filter=data[hssIndex].boardFilter;
                                 }
-                                // if (data[hssIndex].boardImgName != null) {
-                                //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                // } else if (data[hssIndex].boardVideoName != null) {
-                                //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                // }
-                                // detail.style.filter="";
-                                // detail.innerHTML = m;
-                                // detail.style.filter=data[hssIndex].boardFilter;
-                                //
-                                // if(data.length==1){
-                                //     $("#detailLeftBtn").hide()
-                                //     $("#detailRightBtn").hide()
-                                // }else {
-                                //     $("#detailLeftBtn").hide()
-                                //     $("#detailRightBtn").show()
-                                // }
-
-                                // if (data.length > 1) {
-                                //     if(hssIndex<=data.length) {
 
                                         $('#detailRightBtn').click(function () {
-                                            if(hssIndex<data.length){
+                                            if(hssIndex<result && ((data.length)*1)-1 != hssIndex ){
                                                 hssIndex += 1;
-                                                showBtn(data.length)
+                                                addImg()
                                             }
-                                            // if (data[hssIndex].boardImgName != null) {
-                                            //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            // } else if (data[hssIndex].boardVideoName != null) {
-                                            //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                            // }
-                                            // detail.innerHTML = m;
-                                            // detail.style.filter=data[hssIndex].boardFilter
-                                            console.log("right : "+hssIndex)
-                                            console.log("right data: "+data.length)
-                                            console.log("right data-1: "+data.length-1)
-                                            // if(hssIndex==(data.length-1)){
-                                            //     $("#detailRightBtn").hide()
-                                            //     $("#detailLeftBtn").show()
-                                            // }else {
-                                            //     $("#detailRightBtn").show()
-                                            //     $("#detailLeftBtn").show()
-                                            //
-                                            // }
+                                                showBtn(data.length)
+
+                                            console.log("right index: "+hssIndex)
+                                            console.log("right length: "+data.length)
+
                                         });
                                         $('#detailLeftBtn').click(function () {
                                             if(hssIndex>0){
                                                 hssIndex += -1;
                                                 showBtn(data.length)
+                                                addImg()
                                             }
-                                            // if(hssIndex>=0){
-                                            //     $("#detailRightBtn").show()
-                                            // }
-                                            // if(hssIndex==0){
-                                            //     $("#detailLeftBtn").hide()
-                                            // }
-                                            // if (data[hssIndex].boardImgName != null) {
-                                            //     m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
-                                            // } else if (data[hssIndex].boardVideoName != null) {
-                                            //     m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
-                                            // }
-                                            // detail.innerHTML = m;
-                                            // detail.style.filter=data[hssIndex].boardFilter
+
                                             console.log("left : "+hssIndex)
 
                                         });
@@ -724,118 +676,7 @@
                                             $("#detailLeftBtn").unbind( "click" );
                                             $("#detailRightBtn").unbind( "click" );
                                         });
-                                }
-
-                            //         }
-                            // }
-                        });
-                    }
-
-
-
-                    // console.log([[${likes}]]);
-                    // var qq1 = [];
-                    // function ccc(id) {
-                    //     qq1[id[1]] --;
-                    //     $.ajax({
-                    //         type: "post",
-                    //         url: "/board/detail",
-                    //         data: {"boardId": id[1]},
-                    //         dataType: "json",
-                    //         success: function (data) {
-                    //             if (0 > qq1[id[1]]) {
-                    //                 qq1[id[1]] ++;
-                    //             }
-                    //             let detail = document.getElementById("contentsBody_detail");
-                    //             let m ="<div>";
-                    //             if (data[qq1[id[1]]].boardImgName != null){
-                    //                 m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                    //             }
-                    //             else if (data[qq1[id[1]]].boardVideoName != null){
-                    //                 m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
-                    //             }
-                    //             m += "</div>"
-                    //             if (qq1[id[1]] == 0){
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                    //             }else {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                    //             }
-                    //             m += "</div>";
-                    //             detail.innerHTML = m;
-                    //         }
-                    //     });
-                    // }
-                    // function cc(id) {
-                    //     qq1[id[1]]++;
-                    //     console.log("lcg : "+qq1[id[1]]);
-                    //     console.log("hss : "+id)
-                    //     $.ajax({
-                    //         type: "post",
-                    //         url: "/board/detail",
-                    //         data: {"boardId": id[1]},
-                    //         dataType: "json",
-                    //         success: function (data) {
-                    //             if (data.length == qq1[id[1]]) {
-                    //                 qq1[id[1]] --;
-                    //             }
-                    //             console.log(data.length)
-                    //             let detail = document.getElementById("contentsBody_detail");
-                    //             let m ="<div>";
-                    //             if (data[qq1[id[1]]].boardImgName != null){
-                    //                 m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                    //             }
-                    //             else if (data[qq1[id[1]]].boardVideoName != null){
-                    //                 m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
-                    //             }
-                    //             m += "</div>"
-                    //             if (data.length-1 != qq1[id[1]]){
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                    //             }else if (data.length-1 == qq1[id[1]]) {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                    //             }
-                    //             m += "</div>";
-                    //             detail.innerHTML = m;
-                    //         }
-                    //     });
-                    // }
-                    // function detailGo(object) {
-                    //     $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
-                    //     $("#deTailProfileId").html(object.boardWriter);
-                    //     $("#detailModalBtn").trigger("click")
-                    //     let a = object.id
-                    //     qq1 = [];
-                    //     for (let i = 0; i < 10; i++) {
-                    //         qq1[i] = 0;
-                    //     }
-                    //     $.ajax({
-                    //         type: "post",
-                    //         url: "/board/detail",
-                    //         data: {"boardId": a},
-                    //         dataType: "json",
-                    //         success: function (data) {
-                    //             let detail = document.getElementById("contentsBody_detail");
-                    //             let m = "<div>";
-                    //             if (data[0].boardImgName != null) {
-                    //                 m += "<img src='" + '/upload/' + data[0].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                    //             } else if (data[0].boardVideoName != null) {
-                    //                 m += "<video src='" + '/upload/' + data[0].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video>";
-                    //             }
-                    //             if (data.length == 1) {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                    //             } else if (data.length > 1) {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' > > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                    //             }
-                    //             m += "</div>"
-                    //             detail.innerHTML = m;
-                    //         }
-                    //     });
-                    // }
+                                } }); }
 
 
                 </script>
