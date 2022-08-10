@@ -40,21 +40,8 @@ public class BoardDTO {
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardTag(boardEntity.getBoardTag());
         boardDTO.setMemberProfileName(boardEntity.getMemberProfileName());
-        boardDTO.setLikes(null);
+        boardDTO.setLikes(boardEntity.getLikes());
         return boardDTO;
     }
-    public static BoardDTO toBoardDTO2(BoardEntity boardEntity){
-        BoardDTO boardDTO = new BoardDTO();
-        boardDTO.setId(boardEntity.getId());
-        boardDTO.setBoardWriter(boardEntity.getBoardWriter());
-        boardDTO.setBoardContents(boardEntity.getBoardContents());
-        boardDTO.setBoardLocation(boardEntity.getBoardLocation());
-        boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
-        boardDTO.setBoardTag(boardEntity.getBoardTag());
-        boardDTO.setMemberProfileName(boardEntity.getMemberProfileName());
-        boardDTO.setLikes(1);
-        return boardDTO;
-    }
-
 
 }

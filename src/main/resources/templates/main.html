@@ -723,6 +723,7 @@
                                             $("#detailClose").unbind( "click" );
                                             $("#detailLeftBtn").unbind( "click" );
                                             $("#detailRightBtn").unbind( "click" );
+
                                         });
                                 }
 
@@ -732,119 +733,11 @@
                     }
 
 
-
-                    // console.log([[${likes}]]);
-                    // var qq1 = [];
-                    // function ccc(id) {
-                    //     qq1[id[1]] --;
-                    //     $.ajax({
-                    //         type: "post",
-                    //         url: "/board/detail",
-                    //         data: {"boardId": id[1]},
-                    //         dataType: "json",
-                    //         success: function (data) {
-                    //             if (0 > qq1[id[1]]) {
-                    //                 qq1[id[1]] ++;
-                    //             }
-                    //             let detail = document.getElementById("contentsBody_detail");
-                    //             let m ="<div>";
-                    //             if (data[qq1[id[1]]].boardImgName != null){
-                    //                 m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                    //             }
-                    //             else if (data[qq1[id[1]]].boardVideoName != null){
-                    //                 m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
-                    //             }
-                    //             m += "</div>"
-                    //             if (qq1[id[1]] == 0){
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                    //             }else {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                    //             }
-                    //             m += "</div>";
-                    //             detail.innerHTML = m;
-                    //         }
-                    //     });
-                    // }
-                    // function cc(id) {
-                    //     qq1[id[1]]++;
-                    //     console.log("lcg : "+qq1[id[1]]);
-                    //     console.log("hss : "+id)
-                    //     $.ajax({
-                    //         type: "post",
-                    //         url: "/board/detail",
-                    //         data: {"boardId": id[1]},
-                    //         dataType: "json",
-                    //         success: function (data) {
-                    //             if (data.length == qq1[id[1]]) {
-                    //                 qq1[id[1]] --;
-                    //             }
-                    //             console.log(data.length)
-                    //             let detail = document.getElementById("contentsBody_detail");
-                    //             let m ="<div>";
-                    //             if (data[qq1[id[1]]].boardImgName != null){
-                    //                 m += "<img src='" + '/upload/' + data[qq1[id[1]]].boardImgName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                    //             }
-                    //             else if (data[qq1[id[1]]].boardVideoName != null){
-                    //                 m += "<video src='" + '/upload/' + data[qq1[id[1]]].boardVideoName + '' + "'"+" class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>"+"</video>";
-                    //             }
-                    //             m += "</div>"
-                    //             if (data.length-1 != qq1[id[1]]){
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)'> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                    //             }else if (data.length-1 == qq1[id[1]]) {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)'> < </button>"
-                    //             }
-                    //             m += "</div>";
-                    //             detail.innerHTML = m;
-                    //         }
-                    //     });
-                    // }
-                    // function detailGo(object) {
-                    //     $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
-                    //     $("#deTailProfileId").html(object.boardWriter);
-                    //     $("#detailModalBtn").trigger("click")
-                    //     let a = object.id
-                    //     qq1 = [];
-                    //     for (let i = 0; i < 10; i++) {
-                    //         qq1[i] = 0;
-                    //     }
-                    //     $.ajax({
-                    //         type: "post",
-                    //         url: "/board/detail",
-                    //         data: {"boardId": a},
-                    //         dataType: "json",
-                    //         success: function (data) {
-                    //             let detail = document.getElementById("contentsBody_detail");
-                    //             let m = "<div>";
-                    //             if (data[0].boardImgName != null) {
-                    //                 m += "<img src='" + '/upload/' + data[0].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''>";
-                    //             } else if (data[0].boardVideoName != null) {
-                    //                 m += "<video src='" + '/upload/' + data[0].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video>";
-                    //             }
-                    //             if (data.length == 1) {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' hidden> > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                    //             } else if (data.length > 1) {
-                    //                 m += "<button id='" + 'p' + data[0].boardId + "'" + "onclick='cc(this.id)' > > </button><br>"
-                    //                 m += "<button id='" + 'q' + data[0].boardId + "'" + "onclick='ccc(this.id)' hidden> < </button>"
-                    //             }
-                    //             m += "</div>"
-                    //             detail.innerHTML = m;
-                    //         }
-                    //     });
-                    // }
-
-
                 </script>
 
                 <!-- 피드 좋아요,댓글 아이콘 -->
-                <div class="feedBtnZone" th:id="uuu+${board.id}">
-                    <button th:if="${board.likes == null}" th:value="${board.id}" onclick="likes(value)" style="border: 0;background-color: transparent"><i th:id="i+${board.id}" class="fa-regular fa-heart feedBtn" style="color: black"></i></button>
-                    <button th:each="like:${likes}" th:if="${board.likes == 1 && board.id == like.boardId}" th:value="${board.id}" onclick="likes2(value)" style="border: 0;background-color: transparent;"><i th:id="d+${board.id}" class="fa-solid fa-heart feedBtn" style="color:red"></i></button>
-                    <i class="fa-regular fa-comment feedBtn" id="detailGoBtn2"></i>
+                <div class="feedBtnZone" th:id="like+${board.id}">
+
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
                 <div style="height: 0px;">
@@ -1008,21 +901,50 @@
         /*}*/
     </style>
     <script th:inline="javascript">
-        // const oo = [[${likes}]];
-        // const ii = [[${boardList}]];
-        // console.log(ii.length);
-        // // const uu = document.getElementById("uuu");
-        // console.log(oo[0].boardId);
-        // for (let i = 0; i < ii.length; i++) {
-        //     const uu = document.getElementById("uuu"+1);
-        //     console.log(uu)
-        //     console.log(i);
-        //     if (oo[i].boardId == ii[i].id) {
-        //         uu.innerHTML = "<i class='fa-regular fa-heart feedBtn'></i>";
-        //     }else if(ii[i].id == 1){
-        //         uu.innerHTML = "<i class='fa-solid fa-heart feedBtn'></i>";
-        //     }
-        // }
+        let header2=$("meta[name='_csrf_header']").attr('content');
+        let token2=$("meta[name='_csrf']").attr('content');
+        $.ajax({
+            type: "post",
+            url: "/board/find",
+            dataType: "json",
+            beforeSend:function (result){
+                result.setRequestHeader(header2,token2);
+            },
+            success: function (data) {
+                console.log(data);
+                let likeIndex = [];
+                const like = [[${likes}]];
+                for (let i = 0; i < data.length; i++) {
+                    likeIndex[i]=0;
+                    for (let j =0; j < like.length; j++) {
+                        if (like[j].boardId == data[i].id){
+                            likeIndex[i]++;
+                        }
+                    }
+                }
+
+                let likeNum = 1;
+
+                for (let i = 0; i < data.length; i++){
+                    const likeMain = document.getElementById("like"+likeNum);
+                    let icon = "";
+                    if (data[i].likes == 1){
+                        icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
+                        icon += "<i class='fa-regular fa-comment feedBtn'></i>";
+                        icon += "<span id='k" + likeNum + "'>"+"좋아요"+likeIndex[i]+"개"+"</span>";
+                        likeMain.innerHTML = icon;
+                    }else {
+                        icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
+                        icon += "<i class='fa-regular fa-comment feedBtn'></i>";
+                        icon += "<span id='k" + likeNum + "'>"+"좋아요"+likeIndex[i]+"개"+"</span>";
+                        likeMain.innerHTML = icon;
+                    }
+                    likeNum++;
+                }
+
+            }
+        });
+
         const d = [[${boardFile}]];
         const s = [[${boardList}]];
         let sliderNum = [];
@@ -1081,10 +1003,10 @@
             }
         }
         function likes (id) {
+            let header=$("meta[name='_csrf_header']").attr('content');
+            let token=$("meta[name='_csrf']").attr('content');
+            console.log(id)
             const loginId = [[${memberDTO.memberName}]];
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            console.log(loginId);
             $.ajax({
                 type: "post",
                 url: "/board/likes",
@@ -1094,43 +1016,39 @@
                     result.setRequestHeader(header,token);
                 },
                 success: function (data) {
-                    console.log(data);
-                    const likeTest2 = document.getElementById("i"+id);
-                    if (data == "ok") {
-                        likeTest2.className="fa-solid fa-heart feedBtn";
-                        likeTest2.style.color ="red";
-
-                    }else {
-                        likeTest2.className="fa-regular fa-heart feedBtn";
-                        likeTest2.style.color ="black";
-                    }
-                }
-            });
-        }
-        function likes2 (id) {
-            const loginId = [[${memberDTO.memberName}]];
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-
-            $.ajax({
-                type: "post",
-                url: "/board/likes",
-                data: {"memberName":loginId, "boardId": id},
-                dataType: "text",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
-                },
-                success: function (data) {
-                    console.log(data);
-                    const likeTest2 = document.getElementById("d"+id);
-                    if (data == "ok") {
-                        likeTest2.className="fa-solid fa-heart feedBtn";
-                        likeTest2.style.color ="red";
-
-                    }else {
-                        likeTest2.className="fa-regular fa-heart feedBtn";
-                        likeTest2.style.color ="black";
-                    }
+                    $.ajax({
+                        type: "post",
+                        url: "/board/count",
+                        dataType: "json",
+                        beforeSend:function (result){
+                            result.setRequestHeader(header,token);
+                        },
+                        success: function (like) {
+                            let likeIndex = [];
+                            const board = [[${boardList}]];
+                            for (let i = 0; i < board.length; i++) {
+                                likeIndex[i]=0;
+                                for (let j =0; j < like.length; j++) {
+                                    if (like[j].boardId == board[i].id){
+                                        likeIndex[i]++;
+                                    }
+                                }
+                            }
+                            const likeTest2 = document.getElementById("i"+id);
+                            const likeIcon = document.getElementById("k"+id);
+                            console.log(likeTest2)
+                            console.log(like)
+                            if (data == "ok") {
+                                likeTest2.className="fa-solid fa-heart feedBtn";
+                                likeTest2.style.color ="red";
+                                likeIcon.innerHTML = "좋아요"+ likeIndex[board.length-id] + "개";
+                            }else {
+                                likeTest2.className="fa-regular fa-heart feedBtn";
+                                likeTest2.style.color ="black";
+                                likeIcon.innerHTML = "좋아요"+ likeIndex[board.length-id] + "개";
+                            }
+                        }
+                    });
                 }
             });
         }
@@ -2260,19 +2178,19 @@
         let likeNum=0;
         function like(){
             if(likeNum==0){
-                document.getElementById("likeBtn_detail").className="fa-solid fa-heart commentListItem"
+                document.getElementById("likeBtn_detail").className="fa-solid fa-heart commentListItem detail"
                 document.getElementById("likeBtn_detail").style.color="red"
                 likeNum=1;
             }else if(likeNum==1){
-                document.getElementById("likeBtn_detail").className="fa-regular fa-heart commentListItem"
+                document.getElementById("likeBtn_detail").className="fa-regular fa-heart commentListItem detail"
                 document.getElementById("likeBtn_detail").style.color="black"
                 likeNum=0;
             }
 
             // 이곳에 좋아요 컬럼 변경하는 내용을 작성해주세요
             $.ajax({
-                url:"",
-                type:"get",
+                url:"/board/likes",
+                type:"post",
                 data:{},
                 dataType:"",
 
@@ -2410,7 +2328,7 @@
                                              like 함수 파라미터로 컬럼에 저장되어있는
                                              좋아요클릭 여부를 넣어주세요(1또는 0, 디폴트는 0)
                                          -->
-                                        <i id="likeBtn detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>
+                                        <i id="likeBtn_detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>
                                         <!-- <i class="fa-solid fa-heart"></i> -->
                                     </div>
 
