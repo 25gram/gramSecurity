@@ -746,7 +746,7 @@
                     <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}" onclick="feedRightSlider(value)"style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
                 </div>
                 <!-- 댓글 표시 -->
-                <div class="feedCommentZone">
+                <div class="feedCommentZone" id="feedCommentZone">
 
                 </div>
                 <!-- 댓글작성 -->
@@ -755,23 +755,47 @@
                 </div> -->
                 <div class="row detail" style="height: 60px;" >
                     <div class="col-10 detail" style=" margin-top:0px;">
-                        <textarea class="text1_detail detail" name="" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
+                        <textarea class="text1_detail detail" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
                     </div>
                     <!-- 댓글 저장 버튼 -->
-                    <div class="col-2 detail">
-                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
+                    <div class="col-2 detail" th:id="comment+${board.id}">
+                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
                     </div>
                 </div>
-
             </div>
 
         </div>
 
 
     </div>
+    <script th:inline="javascript">
+        $("saveCommentBtn_feed").onclick=commentSave();
+        function commentSave(id){
+            console.log(id)
+            let header=$("meta[name='_csrf_header']").attr('content');
+            let token=$("meta[name='_csrf']").attr('content');
+            const text = document.getElementById("text1_feed");
+            console.log(text.value);
+        $.ajax({
+            type: "post",
+            url: "/comment/commentSave",
+            data: {"commentContents" : text.value, "boardId" : id},
+            dataType: "json",
+            beforeSend:function (result){
+                result.setRequestHeader(header,token);
+            },
+            success: function (data) {
+                const comment = document.getElementById("feedCommentZone");
+                data[0].board_id;
+                console.log(data[2].boardId);
+                // comment.innerHTML = data[0].commentContents;
+            }
+        });
+        }
+    </script>
     <script>
         $("#detailGoBtn2").click(function () {
-                     $("#detailGoBtn").trigger("click")
+            $("#detailGoBtn").trigger("click")
         })
     </script>
 
@@ -944,6 +968,7 @@
 
             }
         });
+
 
         const d = [[${boardFile}]];
         const s = [[${boardList}]];
@@ -1126,7 +1151,7 @@
         }
 
         function submitBtn() {
-            // $('#submitBtn').trigger("click")
+            document.getElementById("cText2").value = document.getElementById("text1").value;
             document.getElementById("saveForm").submit();
             // location.href='/main/main'
         }
@@ -1336,6 +1361,7 @@
                     <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm"
                           name="saveForm">
                                             <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                                            <input type="hidden" id="cText2" name="boardContents">
                         <div>
                             <input type="file" id="boardFile" name="boardFile" onsubmit="return false;"
                                    onchange="uploadImgPreview(this);" multiple hidden>
@@ -1599,14 +1625,12 @@
                                             <!-- 글 작성 구역 -->
                                             <div id="cText" class="cText modal1">
                                                 <div style="text-align: left">
-                                                    <form action="/hhhhhhhh" id="contentsForm">
                                                                                                             <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
-                                                        <textarea name="fff" class="tete textArea modal1" id="text1"
+                                                        <textarea name="boardContents" class="tete textArea modal1" id="text1"
                                                                   placeholder="문구 입력.."></textarea>
-                                                    </form>
                                                 </div>
-
                                             </div>
+
 
                                             <!-- tag 검색어 리스트 구역 -->
 
