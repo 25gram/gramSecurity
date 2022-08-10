@@ -66,32 +66,10 @@ public class BoardService {
     }
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntity = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-//        List<LikesEntity> a = likesRepository.findByMemberName(memberName);
         List<BoardDTO> board = new ArrayList<>();
         for (BoardEntity boardList : boardEntity) {
             board.add(BoardDTO.toBoardDTO(boardList));
         }
-//        int dd = 0;
-//        if (a.size() == 0) {
-//            for (BoardEntity boardList : boardEntity) {
-//                board.add(BoardDTO.toBoardDTO(boardList));
-//            }
-//        } else {
-//            for (BoardEntity boardList : boardEntity) {
-//                if (a.get(dd).getBoardId() != boardList.getId()) {
-//                    board.add(BoardDTO.toBoardDTO(boardList));
-//                }
-//                for (LikesEntity likes : a) {
-//                    if (likes.getBoardId() == boardList.getId()) {
-//                        board.add(BoardDTO.toBoardDTO2(boardList));
-//                    }
-//                }
-//                dd++;
-//                if (dd == a.size()) {
-//                    dd = a.size() - 1;
-//                }
-//            }
-//        }
         return board;
     }
     public List<BoardFileDTO> fileFindAll() {
@@ -102,17 +80,10 @@ public class BoardService {
         }
         return board;
     }
-    public List<LikesDTO> likesFindAll() {
+    public List<LikesDTO> likesFindAll(String loginId) {
         List<LikesEntity> likesEntity = likesRepository.findAll();
         List<LikesDTO> list = new ArrayList<>();
-        for (LikesEntity likes : likesEntity) {
-            list.add(LikesDTO.toLikeList(likes));
-        }
-        return list;
-    }
-    public List<LikesDTO> qqq(String loginId) {
         List<LikesEntity> a = likesRepository.findByMemberName(loginId);
-        List<LikesDTO> list = new ArrayList<>();
         List<BoardEntity> boardEntity = boardRepository.findAll();
         for (BoardEntity boardList : boardEntity) {
             boardRepository.likesDelete(boardList.getId());
@@ -123,7 +94,9 @@ public class BoardService {
                     boardRepository.likes(boardList.getId());
                 }
             }
-            list.add(LikesDTO.toLikeList(b));
+        }
+        for (LikesEntity likes : likesEntity) {
+            list.add(LikesDTO.toLikeList(likes));
         }
         return list;
     }
@@ -169,7 +142,23 @@ public class BoardService {
         }
 
     }
-
+    public List<LikesDTO> count() {
+        List<LikesEntity> likesEntity = likesRepository.findAll();
+        List<LikesDTO> list = new ArrayList<>();
+        for (LikesEntity likes : likesEntity) {
+            list.add(LikesDTO.toLikeList(likes));
+        }
+        return list;
+    }
+    public List<BoardDTO> boardFind () {
+        List<BoardEntity> boardEntity = boardRepository.findAll();
+        System.out.println(boardEntity);
+        List<BoardDTO> board = new ArrayList<>();
+        for (BoardEntity boardList : boardEntity) {
+            board.add(BoardDTO.toBoardDTO(boardList));
+        }
+        return board;
+    }
 
 
 }
