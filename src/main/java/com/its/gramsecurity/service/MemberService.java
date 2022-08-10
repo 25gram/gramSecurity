@@ -27,8 +27,6 @@ public class MemberService {
     private BCryptPasswordEncoder encoder;
 
     public MemberEntity save(MemberDTO memberDTO) throws IOException {
-        System.out.println("MemberService.save");
-        System.out.println("memberDTO = " + memberDTO);
         MultipartFile memberProfile = memberDTO.getMemberProfile();
         String memberProfileName = memberProfile.getOriginalFilename();
         if (!memberProfile.isEmpty()) {
@@ -158,5 +156,14 @@ public class MemberService {
             memberDTOList.add(memberDTO);
         }
         return memberDTOList;
+    }
+
+    public List<MemberDTO> search(String searchInput) {
+        List<MemberEntity>memberEntityList=memberRepository.findByMemberNameContaining(searchInput);
+        List<MemberDTO>memberDTOList=new ArrayList<>();
+        for(MemberEntity memberEntity:memberEntityList){
+            memberDTOList.add(MemberDTO.toDTO(memberEntity));
+        }return memberDTOList;
+
     }
 }
