@@ -26,10 +26,23 @@ public class MemberService {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    public void save(MemberDTO memberDTO) {
-        MemberEntity memberEntity = MemberEntity.toSaveEntity(memberDTO);
-        memberRepository.save(memberEntity);
+    public MemberEntity save(MemberDTO memberDTO) throws IOException {
+        System.out.println("MemberService.save");
+        System.out.println("memberDTO = " + memberDTO);
+        MultipartFile memberProfile = memberDTO.getMemberProfile();
+        String memberProfileName = memberProfile.getOriginalFilename();
+        if (!memberProfile.isEmpty()) {
+            String savePath = "C:\\springboot_img\\" + memberProfileName;
+            memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
+            memberProfile.transferTo(new File(savePath));
+            memberDTO.setMemberProfileName(memberProfileName);
+        } else{
+            memberDTO.setMemberProfileName("noProfile.png");
+        }
+        return memberRepository.save(MemberEntity.toSaveEntity(memberDTO));
+
     }
+
 
     public MemberDTO findByMemberName(String memberName) {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberName(memberName);
@@ -51,7 +64,7 @@ public class MemberService {
         if (rawPassword.isBlank()) {
             System.out.println("MemberService.update");
             System.out.println("rawPassword = " + rawPassword);
-        }else{
+        } else {
             String encPassword = encoder.encode(rawPassword);
             persistence.setMemberPassword(encPassword);
         }
@@ -83,16 +96,16 @@ public class MemberService {
                 persistence.setMemberProfileName(null);
             }
         }
-        boardService.updateProfile(memberDTO,memberProfileName);
+        boardService.updateProfile(memberDTO, memberProfileName);
 
     }
 
-    public MemberDTO passwordCheck(MemberDTO memberDTO,PrincipalDetails principalDetails){
-        MemberDTO loginDTO =findByLoginId(principalDetails.getMemberDTO().getLoginId());
-        String rawPassword =memberDTO.getMemberPassword();
-        if(encoder.matches(rawPassword,loginDTO.getMemberPassword())){
+    public MemberDTO passwordCheck(MemberDTO memberDTO, PrincipalDetails principalDetails) {
+        MemberDTO loginDTO = findByLoginId(principalDetails.getMemberDTO().getLoginId());
+        String rawPassword = memberDTO.getMemberPassword();
+        if (encoder.matches(rawPassword, loginDTO.getMemberPassword())) {
             return loginDTO;
-        }else{
+        } else {
             return null;
         }
     }

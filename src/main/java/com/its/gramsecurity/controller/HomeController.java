@@ -11,7 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.lang.reflect.Member;
 import java.security.Principal;
 
@@ -38,11 +40,11 @@ public class HomeController {
 
     //password 암호화 저장
     @PostMapping("/join")
-    public String join(@ModelAttribute MemberDTO memberDTO) {
+    public String join(@ModelAttribute MemberDTO memberDTO) throws IOException {
         memberDTO.setRole("ROLE_USER");
         String rawPassword = memberDTO.getMemberPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        memberDTO.setMemberPassword(encPassword);
+         memberDTO.setMemberPassword(encPassword);
         memberService.save(memberDTO);
         return "redirect:/home/";
     }

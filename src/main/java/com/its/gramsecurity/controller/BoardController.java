@@ -63,5 +63,16 @@ public class BoardController {
         List<BoardFileDTO> boardFile = boardService.detail(id);
         return boardFile;
     }
+    @PostMapping("/find")
+    public @ResponseBody List<BoardDTO> board2() {
+        List<BoardDTO> boardFile = boardService.boardFind();
+        System.out.println(boardFile);
+        return boardFile;
+    }
+    @PostMapping("/count")
+    public @ResponseBody List<LikesDTO> count() {
+        List<LikesDTO> list = boardService.count();
+        return list;
+    }
 
 }
