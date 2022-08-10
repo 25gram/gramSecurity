@@ -743,36 +743,36 @@
 
 
     </div>
-    <script th:inline="javascript">
-        $("saveCommentBtn_feed").onclick=commentSave();
-        function commentSave(id){
-            console.log(id)
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
-            const text = document.getElementById("text1_feed");
-            console.log(text.value);
-        $.ajax({
-            type: "post",
-            url: "/comment/commentSave",
-            data: {"commentContents" : text.value, "boardId" : id},
-            dataType: "json",
-            beforeSend:function (result){
-                result.setRequestHeader(header,token);
-            },
-            success: function (data) {
-                const comment = document.getElementById("feedCommentZone");
-                data[0].board_id;
-                console.log(data[2].boardId);
-                // comment.innerHTML = data[0].commentContents;
-            }
-        });
-        }
-    </script>
-    <script>
-        $("#detailGoBtn2").click(function () {
-            $("#detailGoBtn").trigger("click")
-        })
-    </script>
+<!--    <script th:inline="javascript">-->
+<!--        $("saveCommentBtn_feed").onclick=commentSave();-->
+<!--        function commentSave(id){-->
+<!--            console.log(id)-->
+<!--            let header=$("meta[name='_csrf_header']").attr('content');-->
+<!--            let token=$("meta[name='_csrf']").attr('content');-->
+<!--            const text = document.getElementById("text1_feed");-->
+<!--            console.log(text.value);-->
+<!--        $.ajax({-->
+<!--            type: "post",-->
+<!--            url: "/comment/commentSave",-->
+<!--            data: {"commentContents" : text.value, "boardId" : id},-->
+<!--            dataType: "json",-->
+<!--            beforeSend:function (result){-->
+<!--                result.setRequestHeader(header,token);-->
+<!--            },-->
+<!--            success: function (data) {-->
+<!--                const comment = document.getElementById("feedCommentZone");-->
+<!--                data[0].board_id;-->
+<!--                console.log(data[2].boardId);-->
+<!--                // comment.innerHTML = data[0].commentContents;-->
+<!--            }-->
+<!--        });-->
+<!--        }-->
+<!--    </script>-->
+<!--    <script>-->
+<!--        $("#detailGoBtn2").click(function () {-->
+<!--            $("#detailGoBtn").trigger("click")-->
+<!--        })-->
+<!--    </script>-->
 
     <!-- 푸터 구역 -->
     <!-- <div class="footerZone">
@@ -1003,10 +1003,10 @@
             }
         }
         function likes (id) {
+            let header=$("meta[name='_csrf_header']").attr('content');
+            let token=$("meta[name='_csrf']").attr('content');
+            console.log(id)
             const loginId = [[${memberDTO.memberName}]];
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            console.log(loginId);
             $.ajax({
                 type: "post",
                 url: "/board/likes",
@@ -1016,43 +1016,38 @@
                     result.setRequestHeader(header,token);
                 },
                 success: function (data) {
-                    console.log(data);
-                    const likeTest2 = document.getElementById("i"+id);
-                    if (data == "ok") {
-                        likeTest2.className="fa-solid fa-heart feedBtn";
-                        likeTest2.style.color ="red";
-
-                    }else {
-                        likeTest2.className="fa-regular fa-heart feedBtn";
-                        likeTest2.style.color ="black";
-                    }
-                }
-            });
-        }
-        function likes2 (id) {
-            const loginId = [[${memberDTO.memberName}]];
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-
-            $.ajax({
-                type: "post",
-                url: "/board/likes",
-                data: {"memberName":loginId, "boardId": id},
-                dataType: "text",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
-                },
-                success: function (data) {
-                    console.log(data);
-                    const likeTest2 = document.getElementById("d"+id);
-                    if (data == "ok") {
-                        likeTest2.className="fa-solid fa-heart feedBtn";
-                        likeTest2.style.color ="red";
-
-                    }else {
-                        likeTest2.className="fa-regular fa-heart feedBtn";
-                        likeTest2.style.color ="black";
-                    }
+                    $.ajax({
+                        type: "post",
+                        url: "/board/count",
+                        dataType: "json",
+                        beforeSend:function (result){
+                            result.setRequestHeader(header,token);
+                        },
+                        success: function (likes) {
+                            let like = [];
+                            const board = [[${boardList}]];
+                            for (let i = 0; i < board.length; i++) {
+                                like[i]=0;
+                                for (let j =0; j < likes.length; j++) {
+                                    if (likes[j].boardId == board[i].id){
+                                        like[i]++;
+                                        console.log(like[i])
+                                    }
+                                }
+                            }
+                            const likeTest2 = document.getElementById("i"+id);
+                            const likeIndex = document.getElementById("k"+id);
+                            if (data == "ok") {
+                                likeTest2.className="fa-solid fa-heart feedBtn";
+                                likeTest2.style.color ="red";
+                                likeIndex.innerHTML = "좋아요"+ like[board.length-id] + "개";
+                            }else {
+                                likeTest2.className="fa-regular fa-heart feedBtn";
+                                likeTest2.style.color ="black";
+                                likeIndex.innerHTML = "좋아요"+ like[board.length-id] + "개";
+                            }
+                        }
+                    });
                 }
             });
         }
