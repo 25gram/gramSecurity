@@ -47,6 +47,7 @@ public class StoryController {
     @PostMapping("/save")
     public @ResponseBody String save(@ModelAttribute StoryDTO storyDTO) {
         System.out.println("storyDTO = " + storyDTO);
+        System.out.println(storyDTO.getStoryLinkTag());
         return null;
     }
 
