@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script type="text/javascript" src="/js/gram25.js"></script>
+    <script type="text/javascript" th:src="@{/js/gram25.js}"></script>
+
+
+
+
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
     <meta charset="UTF-8">
@@ -10,7 +16,7 @@
 
     <link rel="icon" href="favicon.ico">
 
-
+    <link rel="stylesheet" href="">
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -275,8 +281,10 @@
         }
 
         .fi:not(.detail):hover {
-            opacity: 0.5;
-            transition: 0.5 ease;
+            opacity: 0.5 ;
+
+
+            transition:  opacity 150ms;
         }
 
 
@@ -451,6 +459,87 @@
             top: 103px;
             z-index: 5000;
         }
+        /*.contentsItem_img {*/
+        /*    display: inline-block;*/
+        /*    !*background: yellow;*!*/
+        /*    padding: 10px;*/
+        /*    animation: fadein 3s;*/
+        /*    -moz-animation: fadein 3s; !* Firefox *!*/
+        /*    -webkit-animation: fadein 3s; !* Safari and Chrome *!*/
+        /*    -o-animation: fadein 3s; !* Opera *!*/
+        /*    !*animation: fadeout 3s;*!*/
+        /*    !*-moz-animation: fadeout 3s; !* Firefox *!*!*/
+        /*    !*-webkit-animation: fadeout 3s; !* Safari and Chrome *!*!*/
+        /*    !*-o-animation: fadeout 3s; !* Opera *!*!*/
+        /*    animation-fill-mode: forwards;*/
+        /*}*/
+        /*@keyframes fadein {*/
+        /*    from {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*}*/
+        /*@-moz-keyframes fadein { !* Firefox *!*/
+        /*    from {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*}*/
+        /*@-webkit-keyframes fadein { !* Safari and Chrome *!*/
+        /*    from {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*}*/
+        /*@-o-keyframes fadein { !* Opera *!*/
+        /*    from {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*}*/
+        /*@keyframes fadeout {*/
+        /*    from {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*}*/
+        /*@-moz-keyframes fadeout { !* Firefox *!*/
+        /*    from {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*}*/
+        /*@-webkit-keyframes fadeout { !* Safari and Chrome *!*/
+        /*    from {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*}*/
+        /*@-o-keyframes fadeout { !* Opera *!*/
+        /*    from {*/
+        /*        opacity: 1;*/
+        /*    }*/
+        /*    to {*/
+        /*        opacity: 0;*/
+        /*    }*/
+        /*}*/
+
+
+
     </style>
 
 
@@ -790,9 +879,9 @@
                                 likeList(object.id)
                                 function addImg(){
                                     if (data[hssIndex].boardImgName != null) {
-                                        m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt=''></div>";
+                                        m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail contentsItem_img detail' id='contentsItem_detail' alt=''></div>";
                                     } else if (data[hssIndex].boardVideoName != null) {
-                                        m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
+                                        m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail contentsItem_video' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
                                     }
                                     detail.style.filter="";
                                     detail.innerHTML = m;
