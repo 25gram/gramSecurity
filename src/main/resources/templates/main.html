@@ -37,44 +37,7 @@
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
 
     <script>
-        function gray(i) {
-            console.log("gray")
-            if (i == 1) {
-                document.getElementById("footerItem1").style.color = 'gray';
-            } else if (i == 2) {
-                document.getElementById("footerItem2").style.color = 'gray';
-            } else if (i == 3) {
-                document.getElementById("footerItem3").style.color = 'gray';
-            } else if (i == 4) {
-                document.getElementById("footerItem4").style.color = 'gray';
-            } else if (i == 5) {
-                document.getElementById("headerItem1").style.color = 'gray';
-            } else if (i == 6) {
-                document.getElementById("headerItem2").style.color = 'gray';
-            } else if (i == 7) {
-                document.getElementById("headerItem3").style.color = 'gray';
-            }
 
-        }
-
-        function black(i) {
-            if (i == 1) {
-                // $('#footerItem1').style.color="gray";
-                document.getElementById("footerItem1").style.color = 'black';
-            } else if (i == 2) {
-                document.getElementById("footerItem2").style.color = 'black';
-            } else if (i == 3) {
-                document.getElementById("footerItem3").style.color = 'black';
-            } else if (i == 4) {
-                document.getElementById("footerItem4").style.color = 'black';
-            } else if (i == 5) {
-                document.getElementById("headerItem1").style.color = 'black';
-            } else if (i == 6) {
-                document.getElementById("headerItem2").style.color = 'black';
-            } else if (i == 7) {
-                document.getElementById("headerItem3").style.color = 'black';
-            }
-        }
 
         function iconEffect(i) {
 
@@ -95,23 +58,17 @@
                 document.getElementById("footerItem3").style.marginRight = '11px'
                 setTimeout(iconReset, 150, 3);
             } else if (i == 4) {
-                // document.getElementById("footerItem4").style.fontSize='28px'
-                // document.getElementById("footerItem4").style.marginRight='2px'
                 document.getElementById("footerItem4").className = "fi fa-solid fa-door-open"
                 setTimeout(iconReset, 150, 4);
             } else if (i == 5) {
-                // document.getElementById("footerItem4").style.fontSize='28px'
-                // document.getElementById("footerItem4").style.marginRight='2px'
                 document.getElementById("headerItem1").className = "fi fa-solid fa-square-plus"
                 setTimeout(iconReset, 150, 5);
             } else if (i == 6) {
-                // document.getElementById("footerItem4").style.fontSize='28px'
-                // document.getElementById("footerItem4").style.marginRight='2px'
+
                 document.getElementById("headerItem2").className = "fi fa-solid fa-heart"
                 setTimeout(iconReset, 150, 6);
             } else if (i == 7) {
-                // document.getElementById("footerItem4").style.fontSize='28px'
-                // document.getElementById("footerItem4").style.marginRight='2px'
+
                 document.getElementById("headerItem3").className = "fi fa-solid fa-paper-plane"
                 setTimeout(iconReset, 150, 7);
             }
@@ -143,7 +100,6 @@
             }
         }
 
-        //어리아ㅓ이ㅏㅓㅇ라ㅓㅇ리ㅏ얼
         function logoutChk() {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
@@ -239,18 +195,7 @@
         function dropdown(){
             $("#dropBtn").trigger("click")
         }
-        // function dropSet(){
-        //     function aa(){
-        //         alert("aaaaaaa")
-        //     document.querySelector(".dropdown-menu").removeAttribute("position")
-        //     document.querySelector(".show").removeAttribute("position")
-        //     $(".dropdown-menu").removeAttr("position")
-        //     $(".show").removeAttr("position")
-        //     $(".dropdown-menu .show").removeAttr("position")
-        //     document.querySelector(".dropdown-menu .show").removeAttribute("position")}
-        //     aa()
-        //     // setTimeout(aa,1000)
-        // }
+
     </script>
 
     <style>
@@ -303,6 +248,7 @@
             margin-bottom: 0px;
             background-color: white;
             min-width: 1120px;
+            user-select: none;
         }
 
         .feedZone:not(.detail) {
@@ -327,6 +273,12 @@
             font-size: 25px;
             margin-right: 9px;
         }
+
+        .fi:not(.detail):hover {
+            opacity: 0.5;
+            transition: 0.5 ease;
+        }
+
 
         .footerItem:not(.detail) {
             margin: 18px 0 0 8px;
@@ -431,21 +383,16 @@
             font-size: 15px;
             color: #4E4E4E;
             text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            /* border-top: 1px solid rgb(214,214,214);
+            border-bottom: 1px solid rgb(214,214,214); */
         }
-        .dropdown-item2{
+        /* .dropdown-item2{
             border-top: 1px solid rgb(214,214,214);
             border-bottom: 1px solid rgb(214,214,214);
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        .dropdown-item1{
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        .dropdown-item3{
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
+                   }
+         */
         .profile {
             margin-top: 5px;
             border-radius: 50%;
@@ -456,6 +403,8 @@
         }
         .searchInput{
             background-color: #F2F3F5;
+            border-left:0 ;
+            padding-left: 0;
         }
         .searchGroup>input::placeholder {
             font-size: 16px;
@@ -466,8 +415,41 @@
             background-color: #F2F3F5;
             border-color:#ced4da;
             box-shadow: 0 0 0 0 rgba(74, 74, 75, 0.25);
-            color: gray;
+            color: rgb(77, 76, 76);
             /* box-shadow: 0 0 0 0.2rem rgba(74, 74, 75, 0.25); */
+        }
+        #searchX{
+            position: relative;
+            top: -32px;
+            left: 252px;
+            z-index: 1;
+            color: #4E4E4E;
+        }
+        .searchZone{
+            height: 0;
+        }
+        #dropUl1{
+            padding: 0px;
+            position: relative;
+            /* inset: 0px auto auto 0px;
+            margin: 0px;
+            transform: translate(0px, 2px);
+            top: 61px;
+            left: 447px; */
+            width: 350px;
+            height: 300px;
+            min-height: 300px;
+            overflow: scroll;
+        }
+        .spin{
+            width: 100px;
+            height: 100px;
+            font-size: 50px;
+            color: gray;
+            position: relative;
+            left: 88px;
+            top: 103px;
+            z-index: 5000;
         }
     </style>
 
@@ -476,6 +458,7 @@
 <body onload="loginChk()" style="background-color:#F2F3F5 ;">
 
 <div class="mainBody">
+
     <!-- 헤더구역 -->
     <!--    <th:block th:replace="layout/header :: header"></th:block>-->
 
@@ -486,47 +469,188 @@
         </div>
 
         <div class="col">
-            <div  class="container" style="width: 300px;">
+            <div class="container" style="width: 300px;">
                 <div class="input-group searchGroup" style="margin-top:11px ;">
-                    <div class="input-group-text" style="background-color:#F2F3F5;color:rgb(168, 168, 168)">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                    <div id="searchIcon" class="drop-item input-group-text" style="background-color:#F2F3F5;color:rgb(168, 168, 168);">
+                        <i class="drop-item fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <input id="searchInput" type="text" class="searchInput form-control" placeholder="검색" style="border-left:0 ;">
+
+                    <input  onclick="popoverCss('a')"  onkeydown="roll(0)" onkeyup="roll(2)" readonly style="color: gray;cursor: pointer;" id="searchInput" type="text" class="drop-item searchInput form-control" placeholder="검색" >
+
                 </div>
+
+
+                <p id="searchDrop"class="drop-item dropdown searchDrop" data-bs-toggle="dropdown" aria-expanded="true" data-bs-auto-close="inside" style="margin: 0;width: 0;height: 0;"></p>
+                <div id="spinZone" hidden style="width: 0;height:0">
+                    <i class="spinner-border spin"></i>
+                </div>
+                <div id="spinDisplayZone" >
+                    <ul id="dropUl1" class="drop-item dropdown-menu dropdown-menu-end" style="padding: 0;" >
+                        <div id="spinDisplay" >
+                            <li><a class="drop-item dropdown-item d-item" href="#">drop1</a></li>
+                            <li><a class="drop-item dropdown-item d-item" href="#">drop2</a></li>
+                            <li><a class="drop-item dropdown-item d-item" >drop3</a></li>
+                            <li><a class="drop-item dropdown-item d-item" >drop4</a></li>
+                            <li><a class="drop-item dropdown-item d-item" >drop5</a></li>
+                        </div>
+                    </ul>
+                </div>
+                <div hidden id="searchZone" class="searchZone drop-item ">
+                    <i id="searchX" onclick="popoverCss('b')"  class="drop-item fa-regular fa-circle-xmark"  role="status"></i>
+                </div>
+
+
+
             </div></div>
+
+        <script>
+
+
+
+
+        </script>
+
+
+
+
 
 
         <div class="col-4 headerItem" style="margin-top: 18px;text-align: start;">
             <button id="hiddenBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" hidden></button>
-            <i id="headerItem1" class="fi fa-regular fa-square-plus" onclick="black(5),iconEffect(5)"
-               onmouseover="gray(5)" onmouseout="black(5)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
-            <i id="headerItem2" class="fi fa-regular fa-heart" onclick="black(6),iconEffect(6)" onmouseover="gray(6)"
-               onmouseout="black(6)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
+            <i id="headerItem1" class="fi fa-regular fa-square-plus" onclick="iconEffect(5)"
+               data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+            <i id="headerItem2" class="fi fa-regular fa-heart" onclick="iconEffect(6)"
+               data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
             <i id="headerItem3" class="fi fa-regular fa-paper-plane" style="font-size: 28px;"
-               onclick="black(7),iconEffect(7)" onmouseover="gray(7)" onmouseout="black(7)"></i>
+               onclick="iconEffect(7)"></i>
 
 
-            <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)"
+            <i id="footerItem1" class="fi fa-solid fa-house"
                onclick="iconEffect(1)"></i>
-            <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)"
+            <i id="footerItem2" class="fi fa-solid fa-magnifying-glass"
                onclick="iconEffect(2)"style="margin-right:25px ;"></i>
-            <!-- <div class="dropdown dropBtn" style="height: 0;width: 10px;"> -->
-            <!-- <div style="width: 30px;"> -->
-            <!-- <div class="dropdown dropBtn " style="height: 0;margin-top: -35px;">
-                <div id="dropBtn"  data-bs-toggle="dropdown" aria-expanded="false" > -->
-            <!--            <img id="headerFrofile" onclick="ulSet()" onblur="" class="dropdown event-dropdown" data-bs-toggle="dropdown" aria-expanded="false" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4fmtzihrojODXt3EMmGnsnwll5RnsL_EHDQ&usqp=CAU" alt="" style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">-->
+
             <img id="headerFrofile" onclick="ulSet()" class="dropdown event-dropdown" data-bs-toggle="dropdown" aria-expanded="false" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="" style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
 
-            <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;" >
+            <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
                 <li><a class="dropdown-item dropdown-item1" href="#">My Home</a></li>
                 <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a></li>
             </ul>
 
-            <!-- dropdown start -->
             <div>
             </div>
+
             <script>
+
+
+
+
+
+
+                let rollInt=0;
+                let timer;
+                function roll(e){
+                    if(rollInt==0){
+                        document.getElementById("searchX").className="spinner-border spinner-border-sm"
+                        document.getElementById("spinZone").removeAttribute("hidden");
+                        document.getElementById("spinDisplay").style.display="none";
+                        rollInt=1
+                        clearTimeout(timer)
+                    }else if(rollInt==1){
+                        clearTimeout(timer)
+                    }
+                    if(e==2){
+                        function rollBack(){
+                            document.getElementById("spinZone").setAttribute("hidden","hidden");
+                            document.getElementById("spinDisplay").style.display="block"
+
+                            document.getElementById("searchX").className="fa-regular fa-circle-xmark"
+                            rollInt=0;
+                        }
+                        timer= setTimeout(rollBack,500)
+                    }
+                }
+
+                let popInt=0
+                function popoverCss(e){
+                    if(e=="a"){
+                        if(popInt==0){
+                            popInt=1
+                            console.log("클릭이벤트 실행1")
+
+                            document.getElementById("searchDrop").style.position="relative";
+                            document.getElementById("searchDrop").style.inset="0px auto auto 0px";
+                            document.getElementById("searchDrop").style.transform="translate(0px, 2px)";
+                            document.getElementById("searchDrop").style.top="10px";
+                            document.getElementById("searchDrop").style.left="315px";
+                            document.getElementById("searchDrop").style.zIndex="-1";
+                            document.getElementById("dropUl1").style.boxShadow="4px 5px 12px -5px grey";
+                            $("#searchDrop").trigger("click");
+
+
+                        }}else{
+                        popInt=0;
+                        console.log("클릭이벤트 실행2")
+                        $("#searchDrop").trigger("click")
+                    }
+
+                }
+
+                // popover 메뉴가 보이기 직전에 호출되는 이벤트
+                $('.searchDrop').on('show.bs.dropdown', function () {
+                    console.log("메뉴가 열리기 전 이벤트!2");
+
+                    $("#searchInput").removeAttr('readonly');
+                    $("#searchZone").show();
+                    $("#searchIcon").hide();
+                    $("#searchZone").removeAttr("hidden");
+                    $(".searchGroup").removeClass("input-group")
+                    document.getElementById("searchInput").style.border='1px solid #ced4da';
+                    document.getElementById("searchInput").style.padding='0.375rem 0.75rem';
+                    document.getElementById("searchInput").style.color='black';
+                });
+                let body;
+                // popover 메뉴가 보이기 직후에 호출되는 이벤트
+                $('.searchDrop').on('shown.bs.dropdown', function () {
+                    console.log("메뉴가 열린 후 이벤트!2");
+                    body=document.querySelectorAll('body')
+                    $(body).click(function(e){
+
+                        if(!$(e.target).hasClass('drop-item')){
+                            console.log('레이어팝업 외의 영역입니다')
+                            popoverCss('b');
+                        }
+
+                    });
+                });
+
+
+                // popover 메뉴가 사라지기 직전에 호출되는 이벤트
+                $('.searchDrop').on('hide.bs.dropdown', function () {
+                    console.log("메뉴가 닫히기 전 이벤트!2");
+
+                    $("#searchInput").attr('readonly');
+
+                    $("#searchIcon").show();
+                    $(".searchGroup").addClass("input-group")
+                    $("#searchZone").hide();
+                    document.getElementById("searchInput").style.borderLeft=0;
+                    document.getElementById("searchInput").style.paddingLeft=0;
+                    document.getElementById("searchInput").style.color='gray';
+                    popInt=0
+
+                });
+                // popover 메뉴가 사라진 직후에 호출되는 이벤트
+                $('.searchDrop').on('hidden.bs.dropdown', function () {
+                    console.log("메뉴가 닫힌 후 이벤트!2");
+                    $(body).unbind( "click" );
+                    $("#searchX").unbind( "click" );
+                });
+
+
+
+
                 function ulSet(){
                     document.getElementById("dropUl").style.margin="11px -9px 0 0"
                 }
@@ -549,6 +673,7 @@
                 $('.event-dropdown').on('show.bs.dropdown', function () {
                     console.log("메뉴가 열리기 전 이벤트!");
                     circleReset()
+                    document.getElementById("dropUl").style.boxShadow="4px 5px 12px -5px grey";
                 });
 
                 // dropdown 메뉴가 보이기 직후에 호출되는 이벤트
@@ -566,13 +691,9 @@
 
 
 
-            </script>
+                //          </script>
 
 
-            <!-- dropdown end -->
-
-            <!-- <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)"
-               onclick="iconEffect(4),logoutChk()" style="margin-right:10px ;"></i> -->
         </div>
     </div>
     <div>
@@ -585,6 +706,7 @@
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone">
             <h5>스토리 구역입니다.</h5>
+
             <!--            <input type="text" th:value="${memberDTO.memberName}" id="id">-->
             <!--            <button th:onclick="followList()">followList</button>-->
         </div>
@@ -730,13 +852,14 @@
                 </div> -->
                 <div class="row detail" style="height: 60px;" >
                     <div class="col-10 detail" style=" margin-top:0px;">
-                        <textarea class="text1_detail detail" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
+                        <textarea class="text1_detail detail" name="" id="text1_feed" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
                     </div>
                     <!-- 댓글 저장 버튼 -->
-                    <div class="col-2 detail" th:id="comment+${board.id}">
-                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
+                    <div class="col-2 detail">
+                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -792,20 +915,6 @@
         })
     </script>
 
-    <!-- 푸터 구역 -->
-    <!-- <div class="footerZone">
-        <div class="footerItem">
-
-            <i id="footerItem1" class="fi fa-solid fa-house " onmouseover="gray(1)" onmouseout="black(1)"
-               onclick="iconEffect(1)"></i>
-            <i id="footerItem2" class="fi fa-solid fa-magnifying-glass" onmouseover="gray(2)" onmouseout="black(2)"
-               onclick="iconEffect(2)"></i>
-            <i id="footerItem3" class="fi fa-solid fa-clapperboard" onmouseover="gray(3)" onmouseout="black(3)"
-               onclick="iconEffect(3)"></i>
-            <i class="fi fa-solid fa-user"></i>
-            <i id="footerItem4" class="fi fa-solid fa-door-closed" onmouseover="gray(4)" onmouseout="black(4)"
-               onclick="iconEffect(4),logoutChk()"></i>
-    </div></div> -->
 
 
 
@@ -1176,7 +1285,8 @@
         }
 
         function submitBtn() {
-            document.getElementById("cText2").value = document.getElementById("text1").value;
+            // $('#submitBtn').trigger("click")
+
             document.getElementById("saveForm").submit();
             // location.href='/main/main'
         }
@@ -1385,8 +1495,7 @@
 
                     <form action="/board/fileSave" method="post" enctype="multipart/form-data" id="saveForm"
                           name="saveForm">
-                                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
-                                            <input type="hidden" id="cText2" name="boardContents">
+                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
                         <div>
                             <input type="file" id="boardFile" name="boardFile" onsubmit="return false;"
                                    onchange="uploadImgPreview(this);" multiple hidden>
@@ -1650,12 +1759,14 @@
                                             <!-- 글 작성 구역 -->
                                             <div id="cText" class="cText modal1">
                                                 <div style="text-align: left">
-                                                                                                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
-                                                        <textarea name="boardContents" class="tete textArea modal1" id="text1"
+                                                    <form action="/hhhhhhhh" id="contentsForm">
+                                                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                                                        <textarea name="fff" class="tete textArea modal1" id="text1"
                                                                   placeholder="문구 입력.."></textarea>
+                                                    </form>
                                                 </div>
-                                            </div>
 
+                                            </div>
 
                                             <!-- tag 검색어 리스트 구역 -->
 
@@ -1721,13 +1832,6 @@
                                                     events: {
                                                         keypress: function () {
                                                             console.log("key events")
-                                                            //    $("textarea:contains('#')")
-                                                            //  document.addEventListener("keypress",checkKeyPressed,false)
-                                                            //  function checkKeyPressed(e){
-                                                            //     if (e.keyCode === 65) {
-                                                            //     alert("The 'a' key is pressed.");
-                                                            //     }
-                                                            //  }
 
                                                             window.addEventListener("keydown", keysPressed, false);
                                                             window.addEventListener("keyup", keysReleased, false);
@@ -1769,11 +1873,7 @@
 
                                                         }
                                                     }
-                                                    //    tonesStyle:"bullet",
-                                                    //    standalone: true,
-                                                    //     autocomplete: false
-                                                    //    container: "#container",
-                                                    //    inline:false
+
                                                 });
 
                                                 // 체크박스 토글 밸류 변경 함수
@@ -1803,9 +1903,7 @@
 
 
                         </div>
-                        <!--슬라이더버튼-->
-                        <!-- <button onclick="leftSlider()">앞으로</button>
-                        <button onclick="rightSlider()">뒤로</button> -->
+
                         <!--파일추가 할 인풋창-->
                         <input type="file" name="filePlus" id="filePlus" onsubmit="return false;" onchange="plus(this)"
                                multiple hidden>
@@ -2070,8 +2168,7 @@
             flex-wrap:nowrap
         }
         .contentsItem_detail[class*="detail"]{
-            /* margin:64px 130px 24px 30px; width:450px; height:650px;  */
-            /*margin:64px 24px 24px 24px; width:450px; height:650px;*/
+
             margin: 85px 24px 24px 24px;
             width: 400px;
             height: 600px;
@@ -2079,7 +2176,6 @@
         .modal[class*="detail"]{
             --bs-modal-border-width: 1px;
             --bs-modal-width:850px
-            /* --bs-modal-width: 500px; */
         }
 
         .detail>.emojionearea .emojionearea-editor:empty:before{
@@ -2273,11 +2369,8 @@
     <!-- Modal -->
     <div class="modal fade detail" id="staticBackdrop_detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog detail">
-            <div class="modal-content detail" style="" >
-                <!-- <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div> -->
+            <div class="modal-content detail">
+
                 <div class="modal-body detail" style="padding: 0; margin: 0 0 0 0px; height: 770px">
 
                     <div class="input-group mainBody detail" >
@@ -2434,13 +2527,6 @@
             pickerPosition:"top",
             searchPosition: "bottom",
             filtersPosition: "bottom",
-
-
-            //    tonesStyle:"bullet",
-            //    standalone: true,
-            //     autocomplete: false
-            //    container: "#container",
-            //    inline:false
         });
     </script>
     <!--    detail 모달 끝-->
@@ -2448,7 +2534,6 @@
 
     <!--off canvas start-->
 
-    <!--<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Toggle top offcanvas</button>-->
 </div>
 <style>
     .offcanvas.offcanvas-top {
@@ -2470,6 +2555,7 @@
     </div>
 </div>
 <!--off canvas end-->
+
 
 
 
