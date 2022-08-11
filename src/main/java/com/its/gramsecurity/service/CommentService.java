@@ -34,8 +34,7 @@ public class CommentService {
 
     }
 
-    public List<CommentDTO> findAll(Long boardId) {
-
+    public List<CommentDTO> findAll() {
         List<CommentEntity>commentEntityList=commentRepository.findAll();
         System.out.println(commentEntityList);
         List<CommentDTO>commentDTOList=new ArrayList<>();
