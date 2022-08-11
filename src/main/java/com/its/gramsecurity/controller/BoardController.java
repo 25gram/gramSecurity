@@ -82,6 +82,8 @@ public class BoardController {
     public String search(@RequestParam("searchInput") String searchInput,Model model){
         List<MemberDTO>memberDTOList=memberService.search(searchInput);
         model.addAttribute("searchList",memberDTOList);
+        System.out.println("BoardController.search");
+        System.out.println("searchInput = " + searchInput + ", model = " + model);
         return null;
     }
 }
