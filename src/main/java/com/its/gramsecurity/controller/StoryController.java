@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -46,4 +43,11 @@ public class StoryController {
         List<StoryDTO> storyDTOList = storyService.findByStoryLocationTag(storyLocationTag);
         return storyDTOList;
     }
+
+    @PostMapping("/save")
+    public @ResponseBody String save(@ModelAttribute StoryDTO storyDTO) {
+        System.out.println("storyDTO = " + storyDTO);
+        return null;
+    }
+
 }
