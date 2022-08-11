@@ -77,9 +77,11 @@ public class BoardController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam("searchInput") String searchInput,Model model){
+    public @ResponseBody String search(@RequestParam("searchInput") String searchInput,Model model){
+        System.out.println("BoardController.search");
+        System.out.println("searchInput = " + searchInput + ", model = " + model);
         List<MemberDTO>memberDTOList=memberService.search(searchInput);
         model.addAttribute("searchList",memberDTOList);
-        return null;
+        return "memberDTOList";
     }
 }
