@@ -841,7 +841,7 @@
                     <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
                     <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
                 </div>
-                <button class="saveStory btn-primary" id="saveStory"><i class="bi bi-chevron-right"></i></button>
+                <button class="saveStory btn-primary" id="saveStory" onclick="saveFnc()"><i class="bi bi-chevron-right"></i></button>
             </div>
             <div class="inputTextDiv" id="inputTextDiv">
                 <input class="inputText" type="text" id="mainInputText" name="mainInputText">
@@ -929,38 +929,66 @@
     </div>
 </body>
 <script type="text/javascript">
-    const storyTextTag= document.getElementById("mainInputText");
-    const storyFile= document.getElementById("upImgFiles");
-    const storyImgTag= document.getElementById("addFile");
-    const storyTodayTag= document.getElementById("today");
-    const storyLinkTag= document.getElementById("inputLink");
-    const storyQuestionTag= document.getElementById("questionBox");
-    const storySurveyTag= document.getElementById("surveyDiv");
-    const storyQuizTag= document.getElementById("quizDiv");
-    const storyHashTag= document.getElementById("hashtag");
-    const storyLocationTag= document.getElementById("locationTag");
-    let header=$("meta[name='_csrf_header']").attr('content');
-    let token =$("meta[name='_csrf']").attr('content');
+    let storyTextTag= null;
+    let storyFile= null;
+    let storyImgTag= null;
+    let storyTodayTag= null;
+    let storyLinkTag= null;
+    let storyQuestionTag= null;
+    let storySurveyTag= null;
+    let storyQuizTag= null;
+    let storyHashTag= null;
+    let storyLocationTag= null;
 
+    const saveFnc = () => {
+        storyTextTag= document.getElementById("mainInputText");
+        storyFile= document.getElementById("upImgFiles");
+        storyImgTag= document.getElementById("addFile");
+        storyTodayTag= document.getElementById("today");
+        storyLinkTag= document.getElementById("inputLink");
+        storyQuestionTag= document.getElementById("questionBox");
+        storySurveyTag= document.getElementById("surveyDiv");
+        storyQuizTag= document.getElementById("quizDiv");
+        storyHashTag= document.getElementById("hashtag");
+        storyLocationTag= document.getElementById("locationTag");
+        let header=$("meta[name='_csrf_header']").attr('content');
+        let token =$("meta[name='_csrf']").attr('content');
+        console.log(storyTextTag);
+        console.log(storyFile);
+        console.log(storyImgTag);
+        console.log(storyTodayTag);
+        console.log(storyLinkTag);
+        console.log(storyQuestionTag);
+        console.log(storySurveyTag);
+        console.log(storyQuizTag);
+        console.log(storyHashTag);
+        console.log(storyLocationTag);
 
-    $.ajax({
-        type: "post",
-        url: "/storyBoard/save",
-        beforeSend:function (result){
-            result.setRequestHeader(header,token);
-        },
-        data: {"storyTextTag": storyTextTag,
-            "storyFile": storyFile,
-            "storyImgTag": storyImgTag,
-            "storyTodayTag": storyTodayTag,
-            "storyLinkTag": storyLinkTag,
-            "storyQuestionTag": storyQuestionTag,
-            "storySurveyTag": storySurveyTag,
-            "storyQuizTag": storyQuizTag,
-            "storyHashTag": storyHashTag,
-            "storyLocationTag": storyLocationTag}
-    })
-// 메인 업로드 이미지 보여주기 기능
+        $.ajax({
+            type: "post",
+            url: "/storyBoard/save",
+            beforeSend:function (result){
+                result.setRequestHeader(header,token);
+            },
+            data: {"storyTextTag": storyTextTag,
+                "storyFile": storyFile,
+                "storyImgTag": storyImgTag,
+                "storyTodayTag": storyTodayTag,
+                "storyLinkTag": storyLinkTag,
+                "storyQuestionTag": storyQuestionTag,
+                "storySurveyTag": storySurveyTag,
+                "storyQuizTag": storyQuizTag,
+                "storyHashTag": storyHashTag,
+                "storyLocationTag": storyLocationTag},
+            success: function () {
+                console.log("저장성공");
+            },
+            error: function () {
+                console.log("저장실패");
+            }
+        });
+    }
+    // 메인 업로드 이미지 보여주기 기능
     function uploadImgPreview(obj) {
         document.getElementById("filePreview").innerHTML="";
         document.getElementById("filePreview").style.backgroundImage="";
@@ -1195,12 +1223,8 @@
         document.getElementById("inputTextDiv").style.zIndex="1000";
         document.getElementById("fontMenu").style.display = "none";
         document.getElementById("mainMenu").style.display = "block";
-        const mainInputText = document.getElementById("mainInputText");
-        console.log(typeof mainInputText);
         $("#mainInputText").attr("readonly", true);
-        console.log(document.getElementById("mainInputText"));
-        console.log(document.getElementById("mainInputText").value);
-        console.log(document.getElementById("mainInputText").getAttribute("style"));
+
     }
 
 // 업슬라이드창 기능

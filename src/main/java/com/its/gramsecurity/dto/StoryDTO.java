@@ -27,6 +27,19 @@ public class StoryDTO {
     private String storyLocationTag;
     private int storyVisitStatus;
 
+    public StoryDTO(String storyImgTag, String storyTextTag, String storyTodayTag, String storyLinkTag, String storyQuestionTag, String storySurveyTag, String storyQuizTag, String storyHashTag, String storyReferenceTag, String storyLocationTag) {
+        this.storyImgTag = storyImgTag;
+        this.storyTextTag = storyTextTag;
+        this.storyTodayTag = storyTodayTag;
+        this.storyLinkTag = storyLinkTag;
+        this.storyQuestionTag = storyQuestionTag;
+        this.storySurveyTag = storySurveyTag;
+        this.storyQuizTag = storyQuizTag;
+        this.storyHashTag = storyHashTag;
+        this.storyReferenceTag = storyReferenceTag;
+        this.storyLocationTag = storyLocationTag;
+    }
+
     public static StoryDTO toStoryDTO (StoryEntity storyEntity) {
         StoryDTO storyDTO = new StoryDTO();
         storyDTO.setId(storyEntity.getId());
