@@ -23,8 +23,8 @@ public class StoryService {
         return storyDTOList;
     }
 
-    public List<StoryDTO> findByLocation(String storyLocation) {
-        List<StoryEntity> storyEntityList = storyRepository.findByStoryLocation(storyLocation);
+    public List<StoryDTO> findByStoryLocationTag(String storyLocationTag) {
+        List<StoryEntity> storyEntityList = storyRepository.findByStoryLocationTag(storyLocationTag);
         List<StoryDTO> storyDTOList = new ArrayList<>();
         for(StoryEntity story: storyEntityList){
             storyDTOList.add(StoryDTO.toStoryDTO(story));

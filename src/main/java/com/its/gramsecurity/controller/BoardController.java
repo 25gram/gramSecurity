@@ -4,7 +4,9 @@ import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
 import com.its.gramsecurity.dto.LikesDTO;
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.BoardService;
+import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final MemberService memberService;
 
     @PostMapping("/fileSave")
     public String fileSave(@ModelAttribute BoardDTO boardDTO,
@@ -73,4 +76,10 @@ public class BoardController {
         return list;
     }
 
+    @GetMapping("/search")
+    public String search(@RequestParam("searchInput") String searchInput,Model model){
+        List<MemberDTO>memberDTOList=memberService.search(searchInput);
+        model.addAttribute("searchList",memberDTOList);
+        return null;
+    }
 }
