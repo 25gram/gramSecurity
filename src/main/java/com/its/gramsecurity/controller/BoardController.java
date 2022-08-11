@@ -55,7 +55,6 @@ public class BoardController {
     @PostMapping("/likes")
     public @ResponseBody String likes(@ModelAttribute LikesDTO likesDTO,@AuthenticationPrincipal PrincipalDetails principalDetails) {
         String likes = boardService.likes(likesDTO,principalDetails);
-        System.out.println(likes);
         return likes;
     }
     @PostMapping("/detail")
@@ -66,7 +65,6 @@ public class BoardController {
     @PostMapping("/find")
     public @ResponseBody List<BoardDTO> board2() {
         List<BoardDTO> boardFile = boardService.boardFind();
-        System.out.println(boardFile);
         return boardFile;
     }
     @PostMapping("/count")
