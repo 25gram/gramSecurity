@@ -258,13 +258,13 @@
 
     <!-- 프로필 사진 -->
     <div id="mypageProfileZone" class="mypageProfileZone" >
-        <img id="mypageProfile" class="mypageProfile" src="https://file.mk.co.kr/meet/neds/2022/01/image_readtop_2022_54835_16425432614918752.jpg" alt="">
+        <img id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
 
     </div>
 
     <!-- 프로필 이름 -->
     <div id="mypageNameZone" class="mypageNameZone">
-        <p id="mypageName" class="mypageName">havana 1016</p>
+        <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
     </div>
 
     <!-- 정보수정 버튼 -->
@@ -310,7 +310,7 @@
 
     <!-- 자기소개 -->
     <div id="aboutMe" class="aboutMe">
-        일반적인 b형 남자 사람
+        <p th:text="${memberDTO.memberIntro}">
     </div>
 
     <!-- 이름 및 자기소개 끝-->
