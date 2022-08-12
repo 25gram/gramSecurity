@@ -158,8 +158,8 @@ public class MemberService {
         return memberDTOList;
     }
 
-    public List<MemberDTO> search(String searchInput) {
-        List<MemberEntity>memberEntityList=memberRepository.findByMemberNameContaining(searchInput);
+    public List<MemberDTO> search(String search) {
+        List<MemberEntity>memberEntityList=memberRepository.searchResult(search);
         List<MemberDTO>memberDTOList=new ArrayList<>();
         for(MemberEntity memberEntity:memberEntityList){
             memberDTOList.add(MemberDTO.toDTO(memberEntity));
