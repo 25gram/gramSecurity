@@ -29,6 +29,9 @@ public class StoryEntity {
     private String loginId;
 
     @Column
+    private String memberName;
+
+    @Column
     private LocalDateTime storyCreatedTime;
 
     @Column (length = 1000)
@@ -67,6 +70,7 @@ public class StoryEntity {
     public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, MemberEntity memberEntity){
         StoryEntity storyEntity = new StoryEntity();
         storyEntity.setLoginId(memberEntity.getLoginId());
+        storyEntity.setMemberName(memberEntity.getMemberName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
         storyEntity.setStoryTextTag(storyDTO.getStoryTextTag());
         storyEntity.setStoryTodayTag(storyDTO.getStoryTodayTag());

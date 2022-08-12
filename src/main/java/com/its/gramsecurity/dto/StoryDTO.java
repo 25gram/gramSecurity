@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Data
 public class StoryDTO {
     private Long id;
-
     private String loginId;
+    private String memberName;
     private String storyFileName;
     private MultipartFile storyFile;
     private LocalDateTime storyCreatedTime;
@@ -48,6 +48,7 @@ public class StoryDTO {
         StoryDTO storyDTO = new StoryDTO();
         storyDTO.setId(storyEntity.getId());
         storyDTO.setLoginId(storyEntity.getLoginId());
+        storyDTO.setMemberName(storyEntity.getMemberName());
         storyDTO.setStoryFileName(storyEntity.getStoryFileName());
         storyDTO.setStoryCreatedTime(storyEntity.getStoryCreatedTime());
         storyDTO.setStoryImgTag(storyEntity.getStoryImgTag());

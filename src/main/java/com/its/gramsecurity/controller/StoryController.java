@@ -1,18 +1,15 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
-import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.StoryDTO;
 import com.its.gramsecurity.service.MemberService;
 import com.its.gramsecurity.service.StoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,6 +25,7 @@ public class StoryController {
     public String index(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String loginId = principalDetails.getMemberDTO().getLoginId();
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+        System.out.println("storyDTOList = " + storyDTOList);
         model.addAttribute("storyList", storyDTOList);
         return "storyIndex";
     }
@@ -36,7 +34,7 @@ public class StoryController {
         String loginId = principalDetails.getMemberDTO().getLoginId();
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         model.addAttribute("storyList", storyDTOList);
-        return "storyPages/main";
+        return "myStory";
     }
     @GetMapping("/save-form")
     public String saveForm() {
