@@ -91,7 +91,10 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    String mypage(){
+    String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,Model model){
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        MemberDTO memberDTO = memberService.findByLoginId(loginId);
+        model.addAttribute("memberDTO", memberDTO);
         return "memberPages/myPage";
     }
 }
