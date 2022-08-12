@@ -49,11 +49,15 @@ public class StoryController {
 
     @PostMapping("/save")
     public @ResponseBody String save(@ModelAttribute StoryDTO storyDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
+        System.out.println("storyDTO1 = " + storyDTO);
+
+        System.out.println("1" + principalDetails);
         storyService.save(storyDTO,principalDetails);
-        System.out.println("storyDTO = " + storyDTO);
+
+        System.out.println("storyDTO2 = " + storyDTO);
         System.out.println(storyDTO.getStoryFile());
         System.out.println(storyDTO.getStoryImgFile());
-        return "storyPages/main";
+        return "ok";
     }
 
 }

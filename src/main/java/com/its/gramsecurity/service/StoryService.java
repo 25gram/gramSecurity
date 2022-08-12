@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -20,7 +19,7 @@ public class StoryService {
     private final StoryRepository storyRepository;
     public List<StoryDTO> findByMemberId(Long memberId) {
         List<StoryDTO> storyDTOList = new ArrayList<>();
-        List<StoryEntity> storyEntityList = storyRepository.findByMemberId(memberId);
+        List<StoryEntity> storyEntityList = storyRepository.findByMemberEntity_Id(memberId);
         for(StoryEntity story: storyEntityList) {
             storyDTOList.add(StoryDTO.toStoryDTO(story));
         }

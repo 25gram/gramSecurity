@@ -31,34 +31,34 @@ public class StoryEntity {
     @Column
     private LocalDateTime storyCreatedTime;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyImgTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyTextTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyTodayTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyLinkTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyQuestionTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storySurveyTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyQuizTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyReferenceTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyHashTag;
 
-    @Column (length = 30000)
+    @Column (length = 16000)
     private String storyLocationTag;
 
     @Column

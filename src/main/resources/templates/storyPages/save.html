@@ -1039,8 +1039,8 @@
                 "storyReferenceTag": storyReferenceTag,
                 "storyLocationTag": storyLocationTag
             },
-
-            success: function () {
+            dataType:"text",
+            success: function (data) {
                 const addImgFile = document.getElementById("addFile").files;
                 const dataTranster = new DataTransfer();
                 Array.from(addImgFile)
@@ -1052,9 +1052,9 @@
                 document.getElementById("storyFile").submit();
                 console.log("저장성공");
             },
-            error: function () {
-                console.log("저장실패");
-            }
+            // error: function () {
+            //     console.log("저장실패");
+            // }
         });
     }
     // 메인 업로드 이미지 보여주기 기능
