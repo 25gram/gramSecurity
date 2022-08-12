@@ -89,4 +89,9 @@ public class MemberController {
             return "ok";
         }
     }
+
+    @GetMapping("/mypage")
+    String mypage(){
+        return "memberPages/myPage";
+    }
 }
