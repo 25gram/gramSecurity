@@ -78,10 +78,10 @@ public class BoardController {
     }
 
     @GetMapping("/search")
-    public @ResponseBody List<MemberDTO> search(@ModelAttribute String  memberName, Model model){
+    public @ResponseBody List<MemberDTO> search(@RequestParam String  search, Model model){
         System.out.println("BoardController.search");
-        System.out.println("memberName = " + memberName + ", model = " + model);
-        List<MemberDTO>memberDTOList=memberService.search(memberName);
+        System.out.println("search = " + search);
+        List<MemberDTO>memberDTOList=memberService.search(search);
         model.addAttribute("searchList",memberDTOList);
         System.out.println("memberDTOList = " + memberDTOList);
         return memberDTOList;

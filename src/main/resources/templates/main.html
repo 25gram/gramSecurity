@@ -110,8 +110,8 @@
             $.ajax({
                 url: "/member/logoutCheck",
                 type: "get",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (e) {
                     console.log("logout chk suc")
@@ -595,11 +595,11 @@
                 <div id="spinDisplayZone">
                     <ul id="dropUl1" class="drop-item dropdown-menu dropdown-menu-end" style="padding: 0;">
                         <div id="spinDisplay">
-                            <li><a class="drop-item dropdown-item d-item" href="#">drop1</a></li>
-                            <li><a class="drop-item dropdown-item d-item" href="#">drop2</a></li>
-                            <li><a class="drop-item dropdown-item d-item">drop3</a></li>
-                            <li><a class="drop-item dropdown-item d-item">drop4</a></li>
-                            <li><a class="drop-item dropdown-item d-item">drop5</a></li>
+<!--                            <li><a class="drop-item dropdown-item d-item" id="seaRes" href="#">drop1</a></li>-->
+<!--                            <li><a class="drop-item dropdown-item d-item" href="#">drop2</a></li>-->
+<!--                            <li><a class="drop-item dropdown-item d-item">drop3</a></li>-->
+<!--                            <li><a class="drop-item dropdown-item d-item">drop4</a></li>-->
+<!--                            <li><a class="drop-item dropdown-item d-item">drop5</a></li>-->
                         </div>
                     </ul>
                 </div>
@@ -660,7 +660,7 @@
                             type: "get",
                             url: "/board/search",
                             data: {
-                                "searchInputVal": searchInputVal
+                                "search": searchInputVal
                             },
                             dataType: "json",
                             beforeSend: function (result) {
@@ -668,12 +668,31 @@
                             },
                             success: function (res) {
                                 console.log(res);
-                            }, error: function (res) {
-                                console.log("놉");
+                                let serRes = res;
+                                let content = "";
+                                for(let i in res) {
+                                    content += '<li><a className="drop-item dropdown-item d-item" href="#">' + res[i].memberName + '</a></li>'
+                                }
+                                document.getElementById("spinDisplay").innerHTML = content;
+
                             }
                         })
                     })
                 }
+
+
+                // function getResult(res) {
+                //     const spinDisplay = document.getElementById("spinDisplay");
+                //     let content=res;
+                //     let searchResult =
+                //                 <div id="spinDisplay">
+                //                     for (let j = 0; j < res.length; j++) {
+                //                     let item = ` <a className="drop-item dropdown-item d-item" th:text=${content.memberName}
+                //                     href="#"/>`;
+                //                 }
+                //                 </div>;
+                //     spinDisplay.innerHTML=searchResult;
+                // }
 
 
                 let rollInt = 0;
@@ -1011,7 +1030,8 @@
                     </div>
                     <!-- 댓글 저장 버튼 -->
                     <div class="col-2 detail">
-                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
+                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()"
+                           onmouseout="black1()">게시</p>
                     </div>
                 </div>
 
@@ -1022,10 +1042,11 @@
 
     </div>
     <script th:inline="javascript">
-        $("#feedCommentZone1").onclick=commentList(0);
-        function commentList(id){
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
+        $("#feedCommentZone1").onclick = commentList(0);
+
+        function commentList(id) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             $.ajax({
                 type: "post",
                 url: "/comment/list",
@@ -1059,12 +1080,12 @@
                         const comment = document.getElementById("feedCommentZone" + commentNum);
                         comment.innerHTML = "";
                         for (let j = 0; j < data.length; j++) {
-                            if (data[j].boardId == board[i].id && stop < 2){
+                            if (data[j].boardId == board[i].id && stop < 2) {
                                 comment.innerHTML += "<span>" + data[j].commentContents + "</span>";
                                 stop++;
                             }
-                            if (stop == 2 && commentIndex[i] != 0){
-                                comment.innerHTML += "<span>" + "댓글 " + (commentIndex[i]-2) + "개 모두 보기" + "</span>"
+                            if (stop == 2 && commentIndex[i] != 0) {
+                                comment.innerHTML += "<span>" + "댓글 " + (commentIndex[i] - 2) + "개 모두 보기" + "</span>"
                                 stop++
                             }
                         }
@@ -1072,14 +1093,14 @@
                     }
                     if (id != 0) {
                         commentDetail.innerHTML = "";
-                        for (let i = data.length-1; i > 0; i--) {
-                            if (id == data[i].boardId && stopDetail < commentIndex[board.length-id]) {
+                        for (let i = data.length - 1; i > 0; i--) {
+                            if (id == data[i].boardId && stopDetail < commentIndex[board.length - id]) {
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 stopDetail++;
-                                commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1()' onmouseout='black1()'>" + "게시" + "</p>"
+                                commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1()' onmouseout='black1()'>" + "게시" + "</p>"
                             }
                         }
-                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
                         // commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail'" + "게시" + "</p>"
                     }
                 }
@@ -1092,7 +1113,7 @@
             const commentContents = document.getElementById("text1_feed" + id);
             const contentsDetail = document.getElementById("text1_detail");
             let contents;
-            if (id2 == 1){
+            if (id2 == 1) {
                 contents = contentsDetail.value;
             } else {
                 contents = commentContents.value;
@@ -1101,7 +1122,7 @@
             $.ajax({
                 type: "post",
                 url: "/comment/commentSave",
-                data: {"commentContents" : contents ,"boardId" : id},
+                data: {"commentContents": contents, "boardId": id},
                 dataType: "json",
                 beforeSend: function (result) {
                     result.setRequestHeader(header, token);
@@ -1113,34 +1134,34 @@
                     let commentIndex = [];
                     let stop;
                     let stopDetail = 0;
-                    const comment = document.getElementById("feedCommentZone"+id);
-                        commentIndex[id]=0;
-                        for (let j = 0; j < data.length; j++) {
-                            if (id == data[j].boardId){
-                                commentIndex[id]++;
-                            }
+                    const comment = document.getElementById("feedCommentZone" + id);
+                    commentIndex[id] = 0;
+                    for (let j = 0; j < data.length; j++) {
+                        if (id == data[j].boardId) {
+                            commentIndex[id]++;
                         }
-                        if (commentIndex[id]-2 == 0) {
-                            commentIndex[id] = 0;
+                    }
+                    if (commentIndex[id] - 2 == 0) {
+                        commentIndex[id] = 0;
+                    }
+                    comment.innerHTML = "";
+                    stop = 0;
+                    for (let j = 0; j < data.length; j++) {
+                        if (data[j].boardId == id && stop < 2) {
+                            comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
+                            stop++;
                         }
-                        comment.innerHTML = "";
-                        stop = 0;
-                        for (let j = 0; j < data.length; j++) {
-                            if (data[j].boardId == id && stop < 2){
-                                comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
-                                stop++;
-                            }
-                            if (stop == 2 && commentIndex[id] != 0){
-                                comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[id]-2) + "개 모두 보기" + "</span>"
-                                stop++
-                            }
+                        if (stop == 2 && commentIndex[id] != 0) {
+                            comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[id] - 2) + "개 모두 보기" + "</span>"
+                            stop++
                         }
-                        for (let i = data.length-1; i > 0; i--) {
-                            if (id == data[i].boardId && stopDetail < commentIndex[id]) {
-                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
-                                stopDetail++;
-                            }
+                    }
+                    for (let i = data.length - 1; i > 0; i--) {
+                        if (id == data[i].boardId && stopDetail < commentIndex[id]) {
+                            commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
+                            stopDetail++;
                         }
+                    }
 
                 }
             });
@@ -2573,11 +2594,12 @@
 
     <script>
 
-        function black1(){
-            document.getElementById("saveCommentBtn_detail").style.color="black"
+        function black1() {
+            document.getElementById("saveCommentBtn_detail").style.color = "black"
         }
-        function gray1(){
-            document.getElementById("saveCommentBtn_detail").style.color="gray"
+
+        function gray1() {
+            document.getElementById("saveCommentBtn_detail").style.color = "gray"
         }
 
         // function like(i){

@@ -37,6 +37,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "SELECT * FROM  member_entity where memberName LIKE CONCAT('%',memberName,'%')",nativeQuery = true)
-    List<MemberEntity> searchResult(String memberName);
+    @Query(value = "SELECT * FROM  member_entity where memberName LIKE CONCAT('%',:search,'%')",nativeQuery = true)
+    List<MemberEntity> searchResult(String search);
 }
