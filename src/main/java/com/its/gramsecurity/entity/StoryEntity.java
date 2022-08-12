@@ -2,7 +2,9 @@ package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.StoryDTO;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.type.PrimitiveCharacterArrayNClobType;
 
@@ -11,7 +13,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-@Table
+@Table(name="story_entity")
+@NoArgsConstructor
 public class StoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
