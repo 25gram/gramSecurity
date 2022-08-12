@@ -8,6 +8,7 @@ import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,11 +78,12 @@ public class BoardController {
     }
 
     @GetMapping("/search")
-    public @ResponseBody String search(@RequestParam("searchInput") String searchInput,Model model){
+    public @ResponseBody List<MemberDTO> search(@ModelAttribute String  memberName, Model model){
         System.out.println("BoardController.search");
-        System.out.println("searchInput = " + searchInput + ", model = " + model);
-        List<MemberDTO>memberDTOList=memberService.search(searchInput);
+        System.out.println("memberName = " + memberName + ", model = " + model);
+        List<MemberDTO>memberDTOList=memberService.search(memberName);
         model.addAttribute("searchList",memberDTOList);
-        return "memberDTOList";
+        System.out.println("memberDTOList = " + memberDTOList);
+        return memberDTOList;
     }
 }

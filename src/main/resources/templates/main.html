@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script type="text/javascript" src="/js/gram25.js"></script>
-    <script type="text/javascript" th:src="@{/js/gram25.js}"></script>
-
-
-
+    <!--    <script type="text/javascript" src="/js/gram25.js"></script>-->
+    <!--    <script type="text/javascript" th:src="@{/js/gram25.js}"></script>-->
 
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
@@ -52,7 +49,7 @@
                 document.getElementById("footerItem1").style.marginRight = '11px'
                 document.getElementById("footerItem1").style.marginLeft = '22px'
                 setTimeout(iconReset, 150, 1);
-                location.href='/main/main'
+                location.href = '/main/main'
             } else if (i == 2) {
                 document.getElementById("footerItem2").style.marginLeft = '22px'
                 document.getElementById("footerItem2").style.fontSize = '21px'
@@ -113,8 +110,8 @@
             $.ajax({
                 url: "/member/logoutCheck",
                 type: "get",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (e) {
                     console.log("logout chk suc")
@@ -134,8 +131,8 @@
             console.log("login chk 호출")
             $.ajax({
                 url: "/member/loginCheck",
-                beforeSend:function(result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (e) {
                     console.log("login chk suc")
@@ -167,8 +164,8 @@
                     "yourProfileName": yourProfileName,
                     "loginStatus": loginStatus
                 },
-                beforeSend:function(result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (result) {
                     console.log("suc");
@@ -189,8 +186,8 @@
                 data: {
                     "myId": myId
                 },
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (result) {
 
@@ -198,7 +195,7 @@
             })
         };
 
-        function dropdown(){
+        function dropdown() {
             $("#dropBtn").trigger("click")
         }
 
@@ -210,20 +207,20 @@
             font-family: 'Dosis', sans-serif;
             font-size: 40px;
             margin: 0;
-            color:#4E4E4E;
+            color: #4E4E4E;
             text-align: end;
 
 
         }
 
-        .b:not(.detail)i {
+        .b:not(.detail) i {
             font-size: 30px;
             margin-right: 15px;
         }
 
         .storyZone:not(.detail) {
             /*border-top: 1px rgb(214,214,214) solid;*/
-            border: 1px rgb(214,214,214) solid;
+            border: 1px rgb(214, 214, 214) solid;
             border-radius: 1em;
             height: 100px;
             margin: auto;
@@ -232,6 +229,7 @@
             background-color: white;
 
         }
+
         /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
         .mainBody:not(.detail) {
             /* margin-top: 30px; */
@@ -269,7 +267,7 @@
             margin: auto;
             margin-top: 10px;
             margin-bottom: 10px;
-            border: rgb(214,214,214) solid 1px;
+            border: rgb(214, 214, 214) solid 1px;
             border-radius: 1em;
             background-color: white;
         }
@@ -281,10 +279,10 @@
         }
 
         .fi:not(.detail):hover {
-            opacity: 0.5 ;
+            opacity: 0.5;
 
 
-            transition:  opacity 150ms;
+            transition: opacity 150ms;
         }
 
 
@@ -307,6 +305,7 @@
             padding-right: 65px;
             padding-left: 65px;
         }
+
         .contentsItem2:not(.detail) {
             margin: 24px;
             width: 450px;
@@ -323,7 +322,8 @@
         i {
             cursor: pointer;
         }
-        body{
+
+        body {
             -ms-overflow-style: none;
         }
 
@@ -331,63 +331,73 @@
             display: none;
         }
 
-        .feedSlideBtn{
+        .feedSlideBtn {
             font-size: 30px;
 
-            color: rgba(0,0,0,0.4);
+            color: rgba(0, 0, 0, 0.4);
             /* filter: invert(100); */
         }
-        .slideRight{
+
+        .slideRight {
             position: relative;
             top: -330px;
             left: 413px;
         }
-        .slideLeft{
+
+        .slideLeft {
             position: relative;
             top: -330px;
             left: -5px;
         }
-        .feedWriter{
+
+        .feedWriter {
             height: 60px;
             border-radius: 1em 1em 0 0;
         }
-        .feedBtnZone{
+
+        .feedBtnZone {
             height: 46px;
             text-align: right;
         }
-        .feedContentsZone{
+
+        .feedContentsZone {
             /* background-color: rgba(0, 0, 255,0.05); */
             height: 520px;
-            border-top: rgb(214,214,214) solid 1px;
-            border-bottom: rgb(214,214,214) solid 1px;
+            border-top: rgb(214, 214, 214) solid 1px;
+            border-bottom: rgb(214, 214, 214) solid 1px;
         }
 
-        .feedBtn{
+        .feedBtn {
             font-size: 25px;
             margin: 10px;
         }
-        .feedCommentZone{
-            background-color: rgba(128, 128, 128,0.3);
+
+        .feedCommentZone {
+            background-color: rgba(128, 128, 128, 0.3);
             height: 130px;
         }
-        .commentSaveZone{
+
+        .commentSaveZone {
             background-color: #66AFE9;
             height: 60px;
             border-radius: 0 0 1em 1em;
         }
-        .feedName{
+
+        .feedName {
             font-size: 18px;
             margin: 17px 0 0 10px;
         }
-        .feedImg{
+
+        .feedImg {
             margin: 0 0 0 15px;
         }
+
         /* #dropBtn{
             position: relative;
             top: -27px;
             left: 694px;
         } */
-        .dropdown-item{
+        .dropdown-item {
             font-size: 15px;
             color: #4E4E4E;
             text-align: center;
@@ -396,6 +406,7 @@
             /* border-top: 1px solid rgb(214,214,214);
             border-bottom: 1px solid rgb(214,214,214); */
         }
+
         /* .dropdown-item2{
             border-top: 1px solid rgb(214,214,214);
             border-bottom: 1px solid rgb(214,214,214);
@@ -409,34 +420,40 @@
             cursor: pointer;
 
         }
-        .searchInput{
+
+        .searchInput {
             background-color: #F2F3F5;
-            border-left:0 ;
+            border-left: 0;
             padding-left: 0;
         }
-        .searchGroup>input::placeholder {
+
+        .searchGroup > input::placeholder {
             font-size: 16px;
             color: rgb(168, 168, 168);
 
         }
+
         .form-control:focus {
             background-color: #F2F3F5;
-            border-color:#ced4da;
+            border-color: #ced4da;
             box-shadow: 0 0 0 0 rgba(74, 74, 75, 0.25);
             color: rgb(77, 76, 76);
             /* box-shadow: 0 0 0 0.2rem rgba(74, 74, 75, 0.25); */
         }
-        #searchX{
+
+        #searchX {
             position: relative;
             top: -32px;
             left: 252px;
             z-index: 1;
             color: #4E4E4E;
         }
-        .searchZone{
+
+        .searchZone {
             height: 0;
         }
-        #dropUl1{
+
+        #dropUl1 {
             padding: 0px;
             position: relative;
             /* inset: 0px auto auto 0px;
@@ -449,7 +466,8 @@
             min-height: 300px;
             overflow: scroll;
         }
-        .spin{
+
+        .spin {
             width: 100px;
             height: 100px;
             font-size: 50px;
@@ -459,6 +477,7 @@
             top: 103px;
             z-index: 5000;
         }
+
         /*.contentsItem_img {*/
         /*    display: inline-block;*/
         /*    !*background: yellow;*!*/
@@ -539,7 +558,6 @@
         /*}*/
 
 
-
     </style>
 
 
@@ -559,47 +577,45 @@
         <div class="col">
             <div class="container" style="width: 300px;">
                 <div class="input-group searchGroup" style="margin-top:11px ;">
-                    <div id="searchIcon" class="drop-item input-group-text" style="background-color:#F2F3F5;color:rgb(168, 168, 168);">
+                    <div id="searchIcon" class="drop-item input-group-text"
+                         style="background-color:#F2F3F5;color:rgb(168, 168, 168);">
                         <i class="drop-item fa-solid fa-magnifying-glass"></i>
                     </div>
 
-                    <input  onclick="popoverCss('a'),sub()"  onkeydown="roll(0)" onkeyup="roll(2)" readonly style="color: gray;cursor: pointer;" id="searchInput" type="text" class="drop-item searchInput form-control" placeholder="검색" >
+                    <input onclick="popoverCss('a')" onkeydown="roll(0)" onkeyup="roll(2)" readonly
+                           style="color: gray;cursor: pointer;" id="searchInput" type="text"
+                           class="drop-item searchInput form-control" placeholder="검색">
 
                 </div>
-
-                <p id="searchDrop"class="drop-item dropdown searchDrop" data-bs-toggle="dropdown" aria-expanded="true" data-bs-auto-close="inside" style="margin: 0;width: 0;height: 0;"></p>
+                <p id="searchDrop" class="drop-item dropdown searchDrop" data-bs-toggle="dropdown" aria-expanded="true"
+                   data-bs-auto-close="inside" style="margin: 0;width: 0;height: 0;"></p>
                 <div id="spinZone" hidden style="width: 0;height:0">
                     <i class="spinner-border spin"></i>
                 </div>
-                <div id="spinDisplayZone" >
-                    <ul id="dropUl1" class="drop-item dropdown-menu dropdown-menu-end" style="padding: 0;" >
-                        <div id="spinDisplay" >
+                <div id="spinDisplayZone">
+                    <ul id="dropUl1" class="drop-item dropdown-menu dropdown-menu-end" style="padding: 0;">
+                        <div id="spinDisplay">
                             <li><a class="drop-item dropdown-item d-item" href="#">drop1</a></li>
                             <li><a class="drop-item dropdown-item d-item" href="#">drop2</a></li>
-                            <li><a class="drop-item dropdown-item d-item" >drop3</a></li>
-                            <li><a class="drop-item dropdown-item d-item" >drop4</a></li>
-                            <li><a class="drop-item dropdown-item d-item" >drop5</a></li>
+                            <li><a class="drop-item dropdown-item d-item">drop3</a></li>
+                            <li><a class="drop-item dropdown-item d-item">drop4</a></li>
+                            <li><a class="drop-item dropdown-item d-item">drop5</a></li>
                         </div>
                     </ul>
                 </div>
                 <div hidden id="searchZone" class="searchZone drop-item ">
-                    <i id="searchX" onclick="popoverCss('b')"  class="drop-item fa-regular fa-circle-xmark"  role="status"></i>
+                    <i id="searchX" onclick="popoverCss('b')" class="drop-item fa-regular fa-circle-xmark"
+                       role="status"></i>
                 </div>
 
 
-
-            </div></div>
+            </div>
+        </div>
 
         <script>
 
 
-
-
         </script>
-
-
-
-
 
 
         <div class="col-4 headerItem" style="margin-top: 18px;text-align: start;">
@@ -615,69 +631,100 @@
             <i id="footerItem1" class="fi fa-solid fa-house"
                onclick="iconEffect(1)"></i>
             <i id="footerItem2" class="fi fa-solid fa-magnifying-glass"
-               onclick="iconEffect(2)"style="margin-right:25px ;"></i>
+               onclick="iconEffect(2)" style="margin-right:25px ;"></i>
 
-            <img id="headerFrofile" onclick="ulSet()" class="dropdown event-dropdown" data-bs-toggle="dropdown" aria-expanded="false" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="" style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
+            <img id="headerFrofile" onclick="ulSet()" class="dropdown event-dropdown" data-bs-toggle="dropdown"
+                 aria-expanded="false" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt=""
+                 style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
 
             <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
                 <li><a class="dropdown-item dropdown-item1" href="#">My Home</a></li>
                 <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
-                <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a></li>
+                <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
+                </li>
             </ul>
 
             <div>
             </div>
 
             <script>
+                function sub() {
+                    console.log("함수호출");
+                    let header = $("meta[name='_csrf_header']").attr('content');
+                    let token = $("meta[name='_csrf']").attr('content');
+                    const searchInput = document.getElementById("searchInput");
+                    const searchInputVal = searchInput.value;
+                    console.log(searchInputVal);
+                    searchInput.addEventListener('keyup', () => {
+                        $.ajax({
+                            type: "get",
+                            url: "/board/search",
+                            data: {
+                                "searchInputVal": searchInputVal
+                            },
+                            dataType: "json",
+                            beforeSend: function (result) {
+                                result.setRequestHeader(header, token);
+                            },
+                            success: function (res) {
+                                console.log(res);
+                            }, error: function (res) {
+                                console.log("놉");
+                            }
+                        })
+                    })
+                }
 
 
-
-
-
-
-                let rollInt=0;
+                let rollInt = 0;
                 let timer;
-                function roll(e){
-                    if(rollInt==0){
-                        document.getElementById("searchX").className="spinner-border spinner-border-sm"
+
+                function roll(e) {
+                    if (rollInt == 0) {
+                        document.getElementById("searchX").className = "spinner-border spinner-border-sm"
                         document.getElementById("spinZone").removeAttribute("hidden");
-                        document.getElementById("spinDisplay").style.display="none";
-                        rollInt=1
+                        document.getElementById("spinDisplay").style.display = "none";
+                        rollInt = 1
+
                         clearTimeout(timer)
-                    }else if(rollInt==1){
+                    } else if (rollInt == 1) {
+                        sub();
                         clearTimeout(timer)
                     }
-                    if(e==2){
-                        function rollBack(){
-                            document.getElementById("spinZone").setAttribute("hidden","hidden");
-                            document.getElementById("spinDisplay").style.display="block"
+                    if (e == 2) {
+                        function rollBack() {
+                            document.getElementById("spinZone").setAttribute("hidden", "hidden");
+                            document.getElementById("spinDisplay").style.display = "block"
 
-                            document.getElementById("searchX").className="fa-regular fa-circle-xmark"
-                            rollInt=0;
+                            document.getElementById("searchX").className = "fa-regular fa-circle-xmark"
+                            rollInt = 0;
                         }
-                        timer= setTimeout(rollBack,500)
+
+                        timer = setTimeout(rollBack, 500)
                     }
                 }
 
-                let popInt=0
-                function popoverCss(e){
-                    if(e=="a"){
-                        if(popInt==0){
-                            popInt=1
+                let popInt = 0
+
+                function popoverCss(e) {
+                    if (e == "a") {
+                        if (popInt == 0) {
+                            popInt = 1
                             console.log("클릭이벤트 실행1")
 
-                            document.getElementById("searchDrop").style.position="relative";
-                            document.getElementById("searchDrop").style.inset="0px auto auto 0px";
-                            document.getElementById("searchDrop").style.transform="translate(0px, 2px)";
-                            document.getElementById("searchDrop").style.top="10px";
-                            document.getElementById("searchDrop").style.left="315px";
-                            document.getElementById("searchDrop").style.zIndex="-1";
-                            document.getElementById("dropUl1").style.boxShadow="4px 5px 12px -5px grey";
+                            document.getElementById("searchDrop").style.position = "relative";
+                            document.getElementById("searchDrop").style.inset = "0px auto auto 0px";
+                            document.getElementById("searchDrop").style.transform = "translate(0px, 2px)";
+                            document.getElementById("searchDrop").style.top = "10px";
+                            document.getElementById("searchDrop").style.left = "315px";
+                            document.getElementById("searchDrop").style.zIndex = "-1";
+                            document.getElementById("dropUl1").style.boxShadow = "4px 5px 12px -5px grey";
                             $("#searchDrop").trigger("click");
 
 
-                        }}else{
-                        popInt=0;
+                        }
+                    } else {
+                        popInt = 0;
                         console.log("클릭이벤트 실행2")
                         $("#searchDrop").trigger("click")
                     }
@@ -693,18 +740,18 @@
                     $("#searchIcon").hide();
                     $("#searchZone").removeAttr("hidden");
                     $(".searchGroup").removeClass("input-group")
-                    document.getElementById("searchInput").style.border='1px solid #ced4da';
-                    document.getElementById("searchInput").style.padding='0.375rem 0.75rem';
-                    document.getElementById("searchInput").style.color='black';
+                    document.getElementById("searchInput").style.border = '1px solid #ced4da';
+                    document.getElementById("searchInput").style.padding = '0.375rem 0.75rem';
+                    document.getElementById("searchInput").style.color = 'black';
                 });
                 let body;
                 // popover 메뉴가 보이기 직후에 호출되는 이벤트
                 $('.searchDrop').on('shown.bs.dropdown', function () {
                     console.log("메뉴가 열린 후 이벤트!2");
-                    body=document.querySelectorAll('body')
-                    $(body).click(function(e){
+                    body = document.querySelectorAll('body')
+                    $(body).click(function (e) {
 
-                        if(!$(e.target).hasClass('drop-item')){
+                        if (!$(e.target).hasClass('drop-item')) {
                             console.log('레이어팝업 외의 영역입니다')
                             popoverCss('b');
                         }
@@ -722,36 +769,35 @@
                     $("#searchIcon").show();
                     $(".searchGroup").addClass("input-group")
                     $("#searchZone").hide();
-                    document.getElementById("searchInput").style.borderLeft=0;
-                    document.getElementById("searchInput").style.paddingLeft=0;
-                    document.getElementById("searchInput").style.color='gray';
-                    popInt=0
+                    document.getElementById("searchInput").style.borderLeft = 0;
+                    document.getElementById("searchInput").style.paddingLeft = 0;
+                    document.getElementById("searchInput").style.color = 'gray';
+                    popInt = 0
 
                 });
                 // popover 메뉴가 사라진 직후에 호출되는 이벤트
                 $('.searchDrop').on('hidden.bs.dropdown', function () {
                     console.log("메뉴가 닫힌 후 이벤트!2");
-                    $(body).unbind( "click" );
-                    $("#searchX").unbind( "click" );
+                    $(body).unbind("click");
+                    $("#searchX").unbind("click");
                 });
 
 
-
-
-                function ulSet(){
-                    document.getElementById("dropUl").style.margin="11px -9px 0 0"
+                function ulSet() {
+                    document.getElementById("dropUl").style.margin = "11px -9px 0 0"
                 }
-                let circle=0
-                function circleReset(){
-                    console.log("circle : "+circle)
-                    if(circle==0){
-                        document.getElementById("headerFrofile").style.border="1px solid gray"
-                        circle=1
-                    }
-                    else if(circle==1){
+
+                let circle = 0
+
+                function circleReset() {
+                    console.log("circle : " + circle)
+                    if (circle == 0) {
+                        document.getElementById("headerFrofile").style.border = "1px solid gray"
+                        circle = 1
+                    } else if (circle == 1) {
                         console.log("fhfkdk")
-                        document.getElementById("headerFrofile").style.border="1px solid transparent"
-                        circle=0
+                        document.getElementById("headerFrofile").style.border = "1px solid transparent"
+                        circle = 0
                     }
 
                 }
@@ -760,7 +806,7 @@
                 $('.event-dropdown').on('show.bs.dropdown', function () {
                     console.log("메뉴가 열리기 전 이벤트!");
                     circleReset()
-                    document.getElementById("dropUl").style.boxShadow="4px 5px 12px -5px grey";
+                    document.getElementById("dropUl").style.boxShadow = "4px 5px 12px -5px grey";
                 });
 
                 // dropdown 메뉴가 보이기 직후에 호출되는 이벤트
@@ -776,15 +822,14 @@
                 //         console.log("메뉴가 닫힌 후 이벤트!");  });
 
 
-
-
                 //          </script>
 
 
         </div>
     </div>
     <div>
-        <button hidden id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop_detail">
+        <button hidden id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop_detail">
             Launch static backdrop modal
         </button>
     </div>
@@ -814,10 +859,16 @@
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div id="detailGoBtn" th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
+                        <div id="detailGoBtn" th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}"
+                             th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
                             <!--                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">-->
-                            <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1" th:src="@{|/upload/${boardFile2.boardImgName}|}" th:style="'filter:' + ${boardFile2.boardFilter}"   alt="">
-                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2" th:src="@{|/upload/${boardFile2.boardVideoName}|}" th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay" loop="loop"></video>
+                            <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1"
+                                 th:src="@{|/upload/${boardFile2.boardImgName}|}"
+                                 th:style="'filter:' + ${boardFile2.boardFilter}" alt="">
+                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2"
+                                   th:src="@{|/upload/${boardFile2.boardVideoName}|}"
+                                   th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay"
+                                   loop="loop"></video>
                         </div>
                     </div>
                 </div>
@@ -825,97 +876,108 @@
                 <script>
                     function detailGo(object) {
                         console.log("detailgo 호출")
-                        let header=$("meta[name='_csrf_header']").attr('content');
-                        let token=$("meta[name='_csrf']").attr('content');
-                        let hssIndex=0;
-                        let result=0;
+                        let header = $("meta[name='_csrf_header']").attr('content');
+                        let token = $("meta[name='_csrf']").attr('content');
+                        let hssIndex = 0;
+                        let result = 0;
                         $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
                         $("#deTailProfileId").html(object.boardWriter);
                         $("#detailModalBtn").trigger("click");
                         showBtn(0)
-                        function showBtn(board){
-                            result=board*1;
-                            function showRight(){
+
+                        function showBtn(board) {
+                            result = board * 1;
+
+                            function showRight() {
                                 $("#detailRightBtn").show()
                             }
-                            function hideRight(){
+
+                            function hideRight() {
                                 $("#detailRightBtn").hide()
                             }
-                            function showLeft(){
+
+                            function showLeft() {
                                 $("#detailLeftBtn").show()
                             }
-                            function hideLeft(){
+
+                            function hideLeft() {
                                 $("#detailLeftBtn").hide()
                             }
-                            if(board<=1){
-                                hideLeft(),hideRight()
-                            }
 
-                            else{
-                                if(hssIndex==0){
-                                    hideLeft(),showRight()
-                                }else{
-                                    showLeft(),showRight()
-                                    if(hssIndex == (result-1)){
-                                        hideRight(),showLeft()
-                                    }}}}
+                            if (board <= 1) {
+                                hideLeft(), hideRight()
+                            } else {
+                                if (hssIndex == 0) {
+                                    hideLeft(), showRight()
+                                } else {
+                                    showLeft(), showRight()
+                                    if (hssIndex == (result - 1)) {
+                                        hideRight(), showLeft()
+                                    }
+                                }
+                            }
+                        }
+
                         $.ajax({
                             type: "post",
                             url: "/board/detail",
                             data: {"boardId": object.id},
                             dataType: "json",
-                            beforeSend:function (result){
-                                result.setRequestHeader(header,token);
+                            beforeSend: function (result) {
+                                result.setRequestHeader(header, token);
                             },
                             success: function (data) {
 
-                                console.log("detailGo data: "+data.length)
+                                console.log("detailGo data: " + data.length)
                                 let detail = document.getElementById("contentsBody_detail");
                                 let m = "";
                                 showBtn(data.length);
                                 addImg();
                                 likeList(object.id);
                                 commentList(object.id);
-                                function addImg(){
+
+                                function addImg() {
                                     if (data[hssIndex].boardImgName != null) {
                                         m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail contentsItem_img detail' id='contentsItem_detail' alt=''></div>";
                                     } else if (data[hssIndex].boardVideoName != null) {
                                         m = "<div><video src='" + '/upload/' + data[hssIndex].boardVideoName + '' + "'" + " class='contentsItem_detail detail contentsItem_video' id='contentsItem_detail' alt='' autoplay='autoplay' loop='loop'>" + "</video></div>";
                                     }
-                                    detail.style.filter="";
+                                    detail.style.filter = "";
                                     detail.innerHTML = m;
-                                    detail.style.filter=data[hssIndex].boardFilter;
+                                    detail.style.filter = data[hssIndex].boardFilter;
                                 }
 
                                 $('#detailRightBtn').click(function () {
-                                    if(hssIndex<result && ((data.length)*1)-1 != hssIndex ){
+                                    if (hssIndex < result && ((data.length) * 1) - 1 != hssIndex) {
                                         hssIndex += 1;
                                         addImg()
                                     }
                                     showBtn(data.length)
 
-                                    console.log("right index: "+hssIndex)
-                                    console.log("right length: "+data.length)
+                                    console.log("right index: " + hssIndex)
+                                    console.log("right length: " + data.length)
 
                                 });
                                 $('#detailLeftBtn').click(function () {
-                                    if(hssIndex>0){
+                                    if (hssIndex > 0) {
                                         hssIndex += -1;
                                         showBtn(data.length)
                                         addImg()
                                     }
 
-                                    console.log("left : "+hssIndex)
+                                    console.log("left : " + hssIndex)
 
                                 });
                                 $('#detailClose').click(function () {
 
-                                    hssIndex=0;
-                                    $("#detailClose").unbind( "click" );
-                                    $("#detailLeftBtn").unbind( "click" );
-                                    $("#detailRightBtn").unbind( "click" );
+                                    hssIndex = 0;
+                                    $("#detailClose").unbind("click");
+                                    $("#detailLeftBtn").unbind("click");
+                                    $("#detailRightBtn").unbind("click");
                                 });
-                            } }); }
+                            }
+                        });
+                    }
 
 
                 </script>
@@ -926,8 +988,12 @@
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
                 <div style="height: 0px;">
-                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}" onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>
-                    <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}" onclick="feedRightSlider(value)"style="background-color: transparent;border: 0"><i class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
+                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}"
+                            onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i
+                            class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>
+                    <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}"
+                            onclick="feedRightSlider(value)" style="background-color: transparent;border: 0"><i
+                            class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
                     <span th:text="${board.boardContents}"></span>
                 </div>
                 <!-- 댓글 표시 -->
@@ -940,11 +1006,13 @@
                 </div> -->
                 <div class="row detail" style="height: 60px;">
                     <div class="col-10 detail" style=" margin-top:0px;" id="1">
-                        <textarea class="text1_detail detail" th:id="text1_feed+${board.id}" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
+                        <textarea class="text1_detail detail" th:id="text1_feed+${board.id}" cols="30" rows="10"
+                                  placeholder="댓글 달기..."></textarea>
                     </div>
                     <!-- 댓글 저장 버튼 -->
                     <div class="col-2 detail">
-                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
+                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()"
+                           onmouseout="black1()">게시</p>
                     </div>
                 </div>
 
@@ -955,17 +1023,18 @@
 
     </div>
     <script th:inline="javascript">
-        $("#feedCommentZone1").onclick=commentList(0);
-        function commentList(id){
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
+        $("#feedCommentZone1").onclick = commentList(0);
+
+        function commentList(id) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             $.ajax({
                 type: "post",
                 url: "/comment/list",
                 data: {},
                 dataType: "json",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (data) {
                     let commentIndex = [];
@@ -977,29 +1046,29 @@
                     const commentDetail = document.getElementById("commentList");
                     const commentDetailBtn = document.getElementById("detailCommentBtn");
                     for (let i = 0; i < board.length; i++) {
-                        commentIndex[i]=0;
+                        commentIndex[i] = 0;
                         for (let j = 0; j < data.length; j++) {
-                            if (board[i].id == data[j].boardId){
+                            if (board[i].id == data[j].boardId) {
                                 commentIndex[i]++;
                             }
                         }
-                        if (commentIndex[i]-2 == 0) {
+                        if (commentIndex[i] - 2 == 0) {
                             commentIndex[i] = 0;
                         }
                     }
                     for (let i = 0; i < board.length; i++) {
                         stop = 0;
                         commentLength = 0;
-                        const comment = document.getElementById("feedCommentZone"+commentNum);
+                        const comment = document.getElementById("feedCommentZone" + commentNum);
                         comment.innerHTML = "";
                         for (let j = 0; j < data.length; j++) {
-                            if (data[j].boardId == board[i].id && stop < 2){
+                            if (data[j].boardId == board[i].id && stop < 2) {
                                 comment.innerHTML += "<span>" + data[j].commentContents + "</span>";
                                 stop++;
                                 comment.innerHTML += "<i style='margin-right: auto' class='fa-solid fa-heart commentListItem detail'></i><br>";
                             }
-                            if (stop == 2 && commentIndex[i] != 0){
-                                comment.innerHTML += "<span>" + "댓글 " + (commentIndex[i]-2) + "개 모두 보기" + "</span>"
+                            if (stop == 2 && commentIndex[i] != 0) {
+                                comment.innerHTML += "<span>" + "댓글 " + (commentIndex[i] - 2) + "개 모두 보기" + "</span>"
                                 stop++
                             }
                         }
@@ -1007,35 +1076,36 @@
                     }
                     if (id != 0) {
                         commentDetail.innerHTML = "";
-                        for (let i = data.length-1; i > 0; i--) {
-                            if (id == data[i].boardId && stopDetail < commentIndex[board.length-id]) {
+                        for (let i = data.length - 1; i > 0; i--) {
+                            if (id == data[i].boardId && stopDetail < commentIndex[board.length - id]) {
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 stopDetail++;
-                                commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1()' onmouseout='black1()'>" + "게시" + "</p>"
+                                commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1()' onmouseout='black1()'>" + "게시" + "</p>"
                             }
                         }
                     }
                 }
             });
         }
-        function commentSave(id,id2){
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
-            const  commentContents = document.getElementById("text1_feed"+id);
-            const  contentsDetail = document.getElementById("text1_detail");
+
+        function commentSave(id, id2) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            const commentContents = document.getElementById("text1_feed" + id);
+            const contentsDetail = document.getElementById("text1_detail");
             let contents;
-            if (id2 == 1){
+            if (id2 == 1) {
                 contents = contentsDetail.value;
-            }else {
+            } else {
                 contents = commentContents.value;
             }
             $.ajax({
                 type: "post",
                 url: "/comment/commentSave",
-                data: {"commentContents" : contents ,"boardId" : id},
+                data: {"commentContents": contents, "boardId": id},
                 dataType: "json",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (data) {
                     document.querySelector(".emojionearea-editor").innerHTML = "";
@@ -1044,39 +1114,38 @@
                     let commentIndex = [];
                     let stop;
                     let stopDetail = 0;
-                    const comment = document.getElementById("feedCommentZone"+id);
-                        commentIndex[id]=0;
-                        for (let j = 0; j < data.length; j++) {
-                            if (id == data[j].boardId){
-                                commentIndex[id]++;
-                            }
+                    const comment = document.getElementById("feedCommentZone" + id);
+                    commentIndex[id] = 0;
+                    for (let j = 0; j < data.length; j++) {
+                        if (id == data[j].boardId) {
+                            commentIndex[id]++;
                         }
-                        if (commentIndex[id]-2 == 0) {
-                            commentIndex[id] = 0;
+                    }
+                    if (commentIndex[id] - 2 == 0) {
+                        commentIndex[id] = 0;
+                    }
+                    comment.innerHTML = "";
+                    stop = 0;
+                    for (let j = 0; j < data.length; j++) {
+                        if (data[j].boardId == id && stop < 2) {
+                            comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
+                            stop++;
                         }
-                        comment.innerHTML = "";
-                        stop = 0;
-                        for (let j = 0; j < data.length; j++) {
-                            if (data[j].boardId == id && stop < 2){
-                                comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
-                                stop++;
-                            }
-                            if (stop == 2 && commentIndex[id] != 0){
-                                comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[id]-2) + "개 모두 보기" + "</span>"
-                                stop++
-                            }
+                        if (stop == 2 && commentIndex[id] != 0) {
+                            comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[id] - 2) + "개 모두 보기" + "</span>"
+                            stop++
                         }
-                        for (let i = data.length-1; i > 0; i--) {
-                            if (id == data[i].boardId && stopDetail < commentIndex[id]) {
-                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
-                                stopDetail++;
-                            }
+                    }
+                    for (let i = data.length - 1; i > 0; i--) {
+                        if (id == data[i].boardId && stopDetail < commentIndex[id]) {
+                            commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
+                            stopDetail++;
                         }
+                    }
 
                 }
             });
         }
-
 
 
     </script>
@@ -1085,11 +1154,6 @@
             $("#detailGoBtn").trigger("click")
         })
     </script>
-
-
-
-
-
 
 
     <!--게시글 모달 시작-->
@@ -1193,13 +1257,15 @@
         .btnPointer:not(.detail) {
             cursor: pointer;
         }
+
         /*.modal {*/
         /*    transition: transform 10s ease-in-out;*/
         /*}*/
     </style>
     <script th:inline="javascript">
-        $("#like1").onclick=likeList(0);
-        function likeList (id) {
+        $("#like1").onclick = likeList(0);
+
+        function likeList(id) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
             $.ajax({
@@ -1239,7 +1305,7 @@
                                     icon += "<i class='fa-regular fa-comment feedBtn'></i>";
                                     icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
-                                    if (likeNum == id){
+                                    if (likeNum == id) {
                                         detailIcon += "<i class='fa-solid fa-heart commentListItem detail' style='color: red' id='like_detail' onclick='likes(" + data[i].id + ',' + 1 + ")'></i>"
                                         detailIcon += "<span id='like_count'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                         likeDetail.innerHTML = detailIcon;
@@ -1269,86 +1335,89 @@
         for (let i = 1; i <= s.length; i++) {
             sliderNum[i] = 0;
             // 한 게시물당 슬라이드 num 구하기
-            document.getElementById("l"+i).style.visibility = "hidden";
+            document.getElementById("l" + i).style.visibility = "hidden";
         }
-        for (let i = 1; i < s.length+1; i++){
+        for (let i = 1; i < s.length + 1; i++) {
             let c = 0;
-            for (let j = 0; j < d.length; j++){
-                if (d[j].boardId == s[s.length-i].id){
+            for (let j = 0; j < d.length; j++) {
+                if (d[j].boardId == s[s.length - i].id) {
                     c++
                 }
             }
             if (c == 1) {
-                document.getElementById("r"+i).style.visibility = "hidden";
+                document.getElementById("r" + i).style.visibility = "hidden";
             }
         }
+
         function feedRightSlider(a) {
             // a = id 값 벨류 받아오기
-            document.getElementById("l"+a).style.visibility = "visible";
-            let y=0;
+            document.getElementById("l" + a).style.visibility = "visible";
+            let y = 0;
             let zz = -498;
-            for (let i = 0; i < d.length; i++){
-                if (d[i].boardId == s[s.length-a].id){
+            for (let i = 0; i < d.length; i++) {
+                if (d[i].boardId == s[s.length - a].id) {
                     y++;
                     // 한게시물당 슬라이드 length 구하기
                 }
             }
-            if (sliderNum[a]+1 < y){
+            if (sliderNum[a] + 1 < y) {
                 sliderNum[a]++;
             }
-            if (sliderNum[a] == y-1) {
-                document.getElementById("r"+a).style.visibility = "hidden";
+            if (sliderNum[a] == y - 1) {
+                document.getElementById("r" + a).style.visibility = "hidden";
             }
-            for (let i =0; i <= y; i++) {
+            for (let i = 0; i <= y; i++) {
                 if (sliderNum[a] == i) {
-                    document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
+                    document.getElementById(a).style.transform = "translate(" + (zz * i) + "px)";
                 }
             }
         }
+
         function feedLeftSlider(a) {
             let zz = -498;
-            if(sliderNum[a] > 0) {
+            if (sliderNum[a] > 0) {
                 sliderNum[a]--;
             }
-            if (sliderNum[a] == 0){
-                document.getElementById("l"+a).style.visibility = "hidden";
+            if (sliderNum[a] == 0) {
+                document.getElementById("l" + a).style.visibility = "hidden";
             }
-            document.getElementById("r"+a).style.visibility = "visible";
-            for (let i =0; i <= 10; i++) {
+            document.getElementById("r" + a).style.visibility = "visible";
+            for (let i = 0; i <= 10; i++) {
                 if (sliderNum[a] == i) {
-                    document.getElementById(a).style.transform = "translate(" + (zz*i) + "px)";
+                    document.getElementById(a).style.transform = "translate(" + (zz * i) + "px)";
                 }
             }
         }
-        function likes (id,id2) {
+
+        function likes(id, id2) {
             console.log(id2);
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             console.log(id)
             const loginId = [[${memberDTO.memberName}]];
             $.ajax({
                 type: "post",
                 url: "/board/likes",
-                data: {"memberName":loginId, "boardId": id},
+                data: {"memberName": loginId, "boardId": id},
                 dataType: "text",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (data) {
                     $.ajax({
                         type: "post",
                         url: "/board/count",
                         dataType: "json",
-                        beforeSend:function (result){
-                            result.setRequestHeader(header,token);
+                        beforeSend: function (result) {
+                            result.setRequestHeader(header, token);
                         },
                         success: function (likes) {
                             let like = [];
                             const board = [[${boardList}]];
                             for (let i = 0; i < board.length; i++) {
-                                like[i]=0;
-                                for (let j =0; j < likes.length; j++) {
-                                    if (likes[j].boardId == board[i].id){
+                                like[i] = 0;
+                                for (let j = 0; j < likes.length; j++) {
+                                    if (likes[j].boardId == board[i].id) {
                                         like[i]++;
                                         console.log(like[i])
                                     }
@@ -1356,25 +1425,25 @@
                             }
                             const likeDetail = document.getElementById("like_detail");
                             const like_count = document.getElementById("like_count");
-                            const likeTest2 = document.getElementById("i"+id);
-                            const likeIndex = document.getElementById("k"+id);
+                            const likeTest2 = document.getElementById("i" + id);
+                            const likeIndex = document.getElementById("k" + id);
                             if (data == "ok") {
-                                likeTest2.className="fa-solid fa-heart feedBtn";
-                                likeTest2.style.color ="red";
-                                likeIndex.innerHTML = "좋아요"+ like[board.length-id] + "개";
-                                if (id2 == 1){
+                                likeTest2.className = "fa-solid fa-heart feedBtn";
+                                likeTest2.style.color = "red";
+                                likeIndex.innerHTML = "좋아요" + like[board.length - id] + "개";
+                                if (id2 == 1) {
                                     likeDetail.className = 'fa-solid fa-heart commentListItem detail';
                                     likeDetail.style.color = "red";
-                                    like_count.innerHTML = "좋아요"+ like[board.length-id] + "개";
+                                    like_count.innerHTML = "좋아요" + like[board.length - id] + "개";
                                 }
-                            }else {
-                                likeTest2.className="fa-regular fa-heart feedBtn";
-                                likeTest2.style.color ="black";
-                                likeIndex.innerHTML = "좋아요"+ like[board.length-id] + "개";
-                                if (id2 == 1){
+                            } else {
+                                likeTest2.className = "fa-regular fa-heart feedBtn";
+                                likeTest2.style.color = "black";
+                                likeIndex.innerHTML = "좋아요" + like[board.length - id] + "개";
+                                if (id2 == 1) {
                                     likeDetail.className = 'fa-regular fa-heart commentListItem detail';
                                     likeDetail.style.color = "black";
-                                    like_count.innerHTML = "좋아요"+ like[board.length-id] + "개";
+                                    like_count.innerHTML = "좋아요" + like[board.length - id] + "개";
                                 }
                             }
                         }
@@ -1391,13 +1460,13 @@
                 console.log("test : 0")
 
                 // document.getElementById("modalSize").className = "modal-dialog modal-lg"
-                zone.style.width='800px'
+                zone.style.width = '800px'
             } else {
                 console.log("test : 1")
 
                 function sizeS() {
                     // document.getElementById("modalSize").className = "modal-dialog"
-                    zone.style.width='500px'
+                    zone.style.width = '500px'
                     document.getElementById("nextBtn").setAttribute("data-bs-toggle", "collapse")
                 }
 
@@ -1492,7 +1561,7 @@
             const boardFile = document.getElementById("boardFile").files;
             if (document.getElementById("boardFile").value != "") {
                 if (sliderNum2 + 1 < boardFile.length) {
-                    sliderNum2 ++;
+                    sliderNum2++;
                 }
                 if (classNum < boardFile.length) {
                     classNum++;
@@ -1510,7 +1579,7 @@
         function leftSlider() {
             if (document.getElementById("boardFile").value != "") {
                 if (sliderNum2 > 0) {
-                    sliderNum2 --;
+                    sliderNum2--;
                 }
                 if (classNum > 1) {
                     classNum--;
@@ -1640,15 +1709,18 @@
                     <div id="contentsHeader" class="contentsHeader row modal1">
                         <!-- <div id="contentsHeader" class="row" > -->
                         <div class="col" style="height: 50px;">
-                            <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()" class="fa-solid fa-arrow-left modal1"
+                            <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()"
+                               class="fa-solid fa-arrow-left modal1"
                                data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true"
                                aria-controls="collapseWidthExample" style="font-size:35px ; margin: 25px 0 0 20px;"></i>
                         </div>
 
                         <div class="col" style="text-align: right;height: 50px">
-                            <p onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn modal1" data-bs-toggle="collapse"
+                            <p onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn modal1"
+                               data-bs-toggle="collapse"
                                data-bs-target="#collapseWidthExample" aria-expanded="true"
-                               aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden"><b>Next</b>
+                               aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden">
+                                <b>Next</b>
                             </p>
                         </div>
                         <button style="margin:5px 5px 0 0;" type="button" class="btn-close" data-bs-dismiss="modal"
@@ -1660,7 +1732,8 @@
                 <div class="modal-body modal1">
 
                     <div id="nextBtn2" name="nextBtn2" class=" modal1" data-bs-toggle="collapse"
-                         data-bs-target="#collapseWidthExample2" aria-expanded="true" aria-controls="collapseWidthExample"
+                         data-bs-target="#collapseWidthExample2" aria-expanded="true"
+                         aria-controls="collapseWidthExample"
                          style="padding-right:0 ;" hidden><b>Next</b></div>
                     <!-- 여기서 테스트 하세요 -->
 
@@ -1700,11 +1773,13 @@
 
                                     <!-- 사진 선택 버튼 -->
                                     <div id="imgBtnZone" style="padding: 0;margin: 0;height: 0;">
-                                        <label for="filePlus" class="btnPointer modal1"><i id="imgBtn" onclick="imgBtnEffect()"
+                                        <label for="filePlus" class="btnPointer modal1"><i id="imgBtn"
+                                                                                           onclick="imgBtnEffect()"
                                                                                            name="imgBtn"
                                                                                            class=" modal1 fa-regular fa-file-image"
                                                                                            style="color:#0d6efd;font-size: 70px;position:absolute ;top:40%;left:40%"></i></label></button>
-                                        <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">사진을
+                                        <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">
+                                            사진을
                                             선택해주세요.</p>
                                     </div>
 
@@ -1784,19 +1859,22 @@
                                     <div class="rangeZone modal1">
                                         <div id="filterContrast" style="text-align: center;">
                                             <p class="filterTitle modal1">Contrast</p>
-                                            <input type="range" class="slider_range modal1" id="Range1" style="width:80%;"
+                                            <input type="range" class="slider_range modal1" id="Range1"
+                                                   style="width:80%;"
                                                    oninput="range('contrast')" min="100" max="300" value="100">
                                         </div>
 
                                         <div id="filterSaturate" style="text-align: center;">
                                             <p class="filterTitle modal1">Saturate</p>
-                                            <input type="range" class="slider_range modal1" id="Range2" style="width:80%;"
+                                            <input type="range" class="slider_range modal1" id="Range2"
+                                                   style="width:80%;"
                                                    oninput="range('saturate')" min="0" max="200" value="100">
                                         </div>
 
                                         <div id="filterBrightness" style="text-align: center;">
                                             <p class="filterTitle modal1">Brightness</p>
-                                            <input type="range" class="slider_range modal1" id="Range3" style="width:80%;"
+                                            <input type="range" class="slider_range modal1" id="Range3"
+                                                   style="width:80%;"
                                                    oninput="range('Brightness')" min="0" max="200" value="100">
                                         </div>
                                     </div>
@@ -1880,7 +1958,7 @@
                                 text-align: left;
                             }
 
-                            .modal1>.emojionearea .emojionearea.form-control {
+                            .modal1 > .emojionearea .emojionearea.form-control {
                                 font-size: 18px;
 
                             }
@@ -1900,8 +1978,8 @@
                                 border: 0;
                             }
 
-                            .emojionearea .emojionearea-button{
-                                top:173px
+                            .emojionearea .emojionearea-button {
+                                top: 173px
                             }
                         </style>
                         <!-- <div class="collapse-horizontal collapse" id="collapseWidthExample2">
@@ -1917,12 +1995,14 @@
 
                                                 <!-- 프로필 이미지 -->
                                                 <div class="col-3" style="margin-left: 10px">
-                                                    <img class="profile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
+                                                    <img class="profile"
+                                                         th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
                                                 </div>
 
                                                 <!-- 프로필 아이디 -->
                                                 <div class="col">
-                                                    <p class="profileId modal1"><span th:text="${memberDTO.memberName}"></span></p>
+                                                    <p class="profileId modal1"><span
+                                                            th:text="${memberDTO.memberName}"></span></p>
                                                 </div>
                                             </div>
 
@@ -1956,8 +2036,10 @@
                                                 <div id="replyZone" class="row">
                                                     <p class="col chkBoxItem modal1">댓글 기능 해제</p>
                                                     <div class="col-2 form-check form-switch chkBoxItem modal1">
-                                                        <input value="false" onchange="replyChk()" class="form-check-input modal1"
-                                                               type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                        <input value="false" onchange="replyChk()"
+                                                               class="form-check-input modal1"
+                                                               type="checkbox" role="switch"
+                                                               id="flexSwitchCheckDefault">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1967,8 +2049,10 @@
                                                 <div id="likeZone" class="row">
                                                     <p class="col chkBoxItem modal1">좋아요 및 조회수 감추기</p>
                                                     <div class="col-2 form-check form-switch chkBoxItem modal1">
-                                                        <input value="false" onchange="likeChk()" class="form-check-input modal1"
-                                                               type="checkbox" role="switch" id="flexSwitchCheckDefault1">
+                                                        <input value="false" onchange="likeChk()"
+                                                               class="form-check-input modal1"
+                                                               type="checkbox" role="switch"
+                                                               id="flexSwitchCheckDefault1">
                                                     </div>
                                                 </div>
                                             </div>
@@ -2305,7 +2389,8 @@
                         </div>
                         <div class="col" id="addBtnZone" style="height:50px; text-align: right; margin-top:10px">
                             <label for="filePlus"><i id="addBtn" onclick="addBtnEffect()" name="addBtn"
-                                                     class="fa-regular fa-clone btnPointer modal1" style="font-size:30px"
+                                                     class="fa-regular fa-clone btnPointer modal1"
+                                                     style="font-size:30px"
                                                      hidden></i></label>
                         </div>
                     </div>
@@ -2330,31 +2415,32 @@
     </div>
 
 
-
     <!--    detail 모달 시작-->
 
     <style>
 
-        .input-group[class*="detail"]{
-            flex-wrap:nowrap
+        .input-group[class*="detail"] {
+            flex-wrap: nowrap
         }
-        .contentsItem_detail[class*="detail"]{
+
+        .contentsItem_detail[class*="detail"] {
 
             margin: 85px 24px 24px 24px;
             width: 400px;
             height: 600px;
         }
-        .modal[class*="detail"]{
+
+        .modal[class*="detail"] {
             --bs-modal-border-width: 1px;
-            --bs-modal-width:850px
+            --bs-modal-width: 850px
         }
 
-        .detail>.emojionearea .emojionearea-editor:empty:before{
+        .detail > .emojionearea .emojionearea-editor:empty:before {
             margin-top: 12px;
         }
 
 
-        .contentsImg[class*="detail"]{
+        .contentsImg[class*="detail"] {
             margin: 20px;
             width: 520px;
             background-color: black;
@@ -2362,21 +2448,22 @@
             /* border: 1px solid; */
         }
 
-        .comment[class*="detail"]{
+        .comment[class*="detail"] {
             padding: 0;
             margin: 0;
             width: 400px;
             /* border: 1px solid; */
         }
 
-        .detail>.emojionearea{
+        .detail > .emojionearea {
             min-height: 60px;
             max-height: 60px;
             border: 0;
 
             /* height: 50px; */
         }
-        .detail>.emojionearea .emojionearea-editor{
+
+        .detail > .emojionearea .emojionearea-editor {
             margin: 0px;
             min-height: 60px;
             max-height: 60px;
@@ -2384,22 +2471,21 @@
         }
 
 
-        .detail>.emojionearea.focused{
-            border-color:#66AFE9;
-            outline:0;
-            -moz-box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0);
-            -webkit-box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0);
-            box-shadow:inset 0 0px 0px rgba(0,0,0,0),0 0 0px rgba(102,175,233,0)
+        .detail > .emojionearea.focused {
+            border-color: #66AFE9;
+            outline: 0;
+            -moz-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(102, 175, 233, 0);
+            -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(102, 175, 233, 0);
+            box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(102, 175, 233, 0)
         }
 
 
-
-        body{
+        body {
             font-family: 'Noto Sans KR', sans-serif;
         }
 
 
-        .profileImg[class*="detail"]{
+        .profileImg[class*="detail"] {
             margin: 0px 0 0 20px;
             border-radius: 50%;
             /* border: 2px solid rgb(218, 218, 218) ; */
@@ -2408,70 +2494,78 @@
 
         }
 
-        .profileId[class*="detail"]{
-            margin: 0px 0 0 0 ;
+        .profileId[class*="detail"] {
+            margin: 0px 0 0 0;
             font-size: 20px;
         }
 
-        .detail>.emojionearea, .emojionearea.form-control{
+        .detail > .emojionearea, .emojionearea.form-control {
             font-size: 16px;
         }
-        .detail>.emojionearea .emojionearea-button{
-            top:18px
+
+        .detail > .emojionearea .emojionearea-button {
+            top: 18px
         }
 
 
-
-
-        .profileZone[class*="detail"]{
+        .profileZone[class*="detail"] {
             margin: 5px 0 16px 0;
         }
 
-        .profileItem[class*="detail"]{
+        .profileItem[class*="detail"] {
             margin: 0 0 0 20px;
         }
-        .profileTag[class*="detail"]{
-            color:dimgrey;
+
+        .profileTag[class*="detail"] {
+            color: dimgrey;
             font-size: 12px;
         }
 
-        .commentList[class*="detail"]{
+        .commentList[class*="detail"] {
             /* background-color: yellow; */
             height: 509px;
-            border-bottom:rgb(214, 214, 214) 1px solid       }
-        .commentListItem[class*="detail"]{
+            border-bottom: rgb(214, 214, 214) 1px solid
+        }
+
+        .commentListItem[class*="detail"] {
             font-size: 25px;
             margin: 10px 0 0 20px;
         }
 
-        .likeListZone[class*="detail"]{
+        .likeListZone[class*="detail"] {
             height: 80px;
             /* background-color: blue; */
-            border-bottom:rgb(214, 214, 214) 1px solid
+            border-bottom: rgb(214, 214, 214) 1px solid
         }
-        .saveCommentBtn[class*="detail"]{
+
+        .saveCommentBtn[class*="detail"] {
             margin: 17px 0 0 0;
             padding: 0;
             border: 0;
         }
-        .commentZone[class*="detail"]{
+
+        .commentZone[class*="detail"] {
             width: 398px;
         }
-        .detailSlideBtn{
+
+        .detailSlideBtn {
             font-size: 35px;
-            color: rgba(0,0,0,0.4);
+            color: rgba(0, 0, 0, 0.4);
         }
-        #detailLeftBtn{
+
+        #detailLeftBtn {
             position: relative;
-            top:371px;
-            left:-863px;
+            top: 371px;
+            left: -863px;
         }
-        #detailRightBtn{
+
+        #detailRightBtn {
             position: relative;
             top: -400px;
             left: -36px;
         }
-        .detailClose{
+
+        .detailClose {
             position: relative;
             top: -100px;
             left: 363px;
@@ -2480,11 +2574,12 @@
 
     <script>
 
-        function black1(){
-            document.getElementById("saveCommentBtn_detail").style.color="black"
+        function black1() {
+            document.getElementById("saveCommentBtn_detail").style.color = "black"
         }
-        function gray1(){
-            document.getElementById("saveCommentBtn_detail").style.color="gray"
+
+        function gray1() {
+            document.getElementById("saveCommentBtn_detail").style.color = "gray"
         }
 
         // function like(i){
@@ -2523,28 +2618,23 @@
         //
         // }
 
-        function focusComment(){
+        function focusComment() {
             $(".emojionearea-editor").focus();
         }
-
-
-
-
 
 
     </script>
 
 
-
-
     <!-- Modal -->
-    <div class="modal fade detail" id="staticBackdrop_detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade detail" id="staticBackdrop_detail" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog detail">
             <div class="modal-content detail">
 
                 <div class="modal-body detail" style="padding: 0; margin: 0 0 0 0px; height: 770px">
 
-                    <div class="input-group mainBody detail" >
+                    <div class="input-group mainBody detail">
                         <!-- <div class="input-group mainBody" style="width:900px; height: 780px; margin:10px 0 0 10px;"> -->
 
                         <!-- 왼쪽 화면 -->
@@ -2556,29 +2646,25 @@
                                 <div id="contentsBody_detail" class="contentsBody_detail detail">
 
                                     <!-- 이미지 넣는 곳 -->
-                                    <img id="contentsItem_detail"  class="contentsItem_detail detail" src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt="">
+                                    <img id="contentsItem_detail" class="contentsItem_detail detail"
+                                         src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt="">
                                     <!-- <img style="border:solid 10px rgba(0,0,0,1)" id="contentsItem"  class="contentsItem" src="https://www.queen.co.kr/news/photo/201910/320536_59033_3350.jpg" alt=""> -->
 
                                 </div>
 
 
-
                             </div>
-
-
-
 
 
                         </div>
 
 
-
-
-
                         <!-- 오른쪽 화면 -->
-                        <div class="comment detail" style="margin-right: 20px;border-left: 1px solid rgb(214, 214, 214);height: 770px">
+                        <div class="comment detail"
+                             style="margin-right: 20px;border-left: 1px solid rgb(214, 214, 214);height: 770px">
 
-                            <div class="profileZone input-group detail" style="border-bottom:rgb(214, 214, 214) 1px solid">
+                            <div class="profileZone input-group detail"
+                                 style="border-bottom:rgb(214, 214, 214) 1px solid">
                                 <!-- 게시글 작성자 프로필 구역 -->
 
                                 <table style="margin-top: 10px;">
@@ -2589,7 +2675,7 @@
                                             <!--                                            <img id="detailProfile" class="profileImg detail" src="https://www.thedailypost.kr/news/photo/old/qBFlA.jpg" alt="">-->
                                         </td>
 
-                                        <td >
+                                        <td>
                                             <!-- 프로필 아이디 -->
 
                                             <p id="deTailProfileId" class="profileId profileItem detail"></p>
@@ -2599,7 +2685,7 @@
                                     <tr>
                                         <td>
                                             <!-- 위치 태그 -->
-                                            <p class="profileTag profileItem detail" >인천일보 아카데미</p>
+                                            <p class="profileTag profileItem detail">인천일보 아카데미</p>
                                         </td>
 
                                     </tr>
@@ -2610,17 +2696,15 @@
                                 <!--                                <div style="margin:10px 0 0 160px;"><button  type="button" class="btn-close detail" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/main/main'"></button></div>-->
 
 
-
                             </div>
-                            <div style="height: 0;font-size: 26px"><button id="detailClose" type="button" class="btn-close detail detailClose" data-bs-dismiss="modal" aria-label="Close" style="height: 0"></button></div>
-
-
+                            <div style="height: 0;font-size: 26px">
+                                <button id="detailClose" type="button" class="btn-close detail detailClose"
+                                        data-bs-dismiss="modal" aria-label="Close" style="height: 0"></button>
+                            </div>
 
 
                             <!-- 댓글 구역 -->
                             <div id="commentZone" class="commentZone detail">
-
-
 
 
                                 <!-- 댓글 리스트 구역 -->
@@ -2641,16 +2725,16 @@
                                              like 함수 파라미터로 컬럼에 저장되어있는
                                              좋아요클릭 여부를 넣어주세요(1또는 0, 디폴트는 0)
                                          -->
-<!--                                        <i id="likeBtn_detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>-->
+                                        <!--                                        <i id="likeBtn_detail" onclick="like(0)" class="fa-regular fa-heart commentListItem detail"></i>-->
                                         <!-- <i class="fa-solid fa-heart"></i> -->
                                     </div>
 
                                     <!-- 댓글 버튼 -->
                                     <div class="commentBtn detail">
-                                        <i onclick="focusComment()" class="fa-regular fa-comment commentListItem detail"></i>
+                                        <i onclick="focusComment()"
+                                           class="fa-regular fa-comment commentListItem detail"></i>
                                     </div>
                                 </div>
-
 
 
                                 <!-- 좋아요 리스트 구역 -->
@@ -2661,23 +2745,24 @@
 
                                 <!-- 댓글 작성 -->
 
-                                <div class="row detail" style="height: 60px;" >
+                                <div class="row detail" style="height: 60px;">
                                     <div class="col-10 detail" style=" margin-top:0px;">
-                                        <textarea class="text1_detail detail" name="" id="text1_detail" cols="30" rows="10" placeholder="댓글 달기..."></textarea>
+                                        <textarea class="text1_detail detail" name="" id="text1_detail" cols="30"
+                                                  rows="10" placeholder="댓글 달기..."></textarea>
                                     </div>
                                     <!-- 댓글 저장 버튼 -->
                                     <div class="col-2 detail" id="detailCommentBtn">
-<!--                                        <p onclick="" id="saveCommentBtn_detail" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>-->
+                                        <!--                                        <p onclick="" id="saveCommentBtn_detail" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>-->
                                     </div>
                                 </div>
 
                             </div>
                             <div>
-                                <i id="detailRightBtn" class="fa-solid fa-circle-chevron-right detailSlideBtn" ></i>
+                                <i id="detailRightBtn" class="fa-solid fa-circle-chevron-right detailSlideBtn"></i>
                             </div>
                         </div>
                         <div>
-                            <i id="detailLeftBtn" class="fa-solid fa-circle-chevron-left detailSlideBtn" ></i>
+                            <i id="detailLeftBtn" class="fa-solid fa-circle-chevron-left detailSlideBtn"></i>
                         </div>
 
                         <!-- <div class="modal-footer">
@@ -2689,13 +2774,12 @@
             </div>
 
 
-
         </div>
     </div>
 
     <script>
         $(".text1_detail").emojioneArea({
-            pickerPosition:"top",
+            pickerPosition: "top",
             searchPosition: "bottom",
             filtersPosition: "bottom",
         });
@@ -2712,7 +2796,8 @@
         margin-top: 0px;
 
     }
-    .offcanvas{
+
+    .offcanvas {
         max-width: 500px;
     }
 
@@ -2726,9 +2811,6 @@
     </div>
 </div>
 <!--off canvas end-->
-
-
-
 
 
 </body>
