@@ -1,8 +1,10 @@
 package com.its.gramsecurity.entity;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.StoryDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.type.PrimitiveCharacterArrayNClobType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +17,10 @@ public class StoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="story_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="member_id")
+    private MemberEntity memberEntity;
 
     @Column
     private String storyFileName;
