@@ -42,7 +42,10 @@ public class MainController {
         model.addAttribute("likes",likesList);
         return "main";
     }
-
+    @GetMapping("/story")
+    String story(){
+        return "/storyPages/save";
+    }
 
 
 }
