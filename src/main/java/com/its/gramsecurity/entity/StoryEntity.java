@@ -64,9 +64,9 @@ public class StoryEntity {
     @Column
     private int storyVisitStatus;
 
-    public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, PrincipalDetails principalDetails){
+    public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, PrincipalDetails principalDetails,MemberEntity memberEntity){
         StoryEntity storyEntity = new StoryEntity();
-        storyEntity.setMemberEntity(principalDetails.getMemberEntity());
+        storyEntity.setMemberEntity(memberEntity);
         storyEntity.setLoginId(principalDetails.getMemberDTO().getLoginId());
         storyEntity.setStoryFileName(storyDTO.getStoryFileName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
