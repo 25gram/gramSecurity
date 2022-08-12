@@ -81,9 +81,9 @@ public class BoardController {
     public @ResponseBody List<MemberDTO> search(@RequestParam String  search, Model model){
         System.out.println("BoardController.search");
         System.out.println("search = " + search);
-        List<MemberDTO>memberDTOList=memberService.search(search);
-        model.addAttribute("searchList",memberDTOList);
-        System.out.println("memberDTOList = " + memberDTOList);
-        return memberDTOList;
+        List<MemberDTO> result = memberService.search(search);
+        model.addAttribute("searchList",result);
+        System.out.println("memberDTOList = " + result);
+        return result;
     }
 }
