@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +33,10 @@ public class CommentEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
+    @OneToMany(mappedBy = "commentEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    List<LikesEntity> likesEntityList = new ArrayList<>();
+    @OneToMany(mappedBy = "commentEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    List<RippleEntity> rippleEntityList = new ArrayList<>();
 
 
     public static CommentEntity toSaveEntity(CommentDTO commentDTO, MemberEntity memberEntity,BoardEntity boardEntity){

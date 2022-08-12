@@ -20,8 +20,8 @@ public class LikesEntity {
     private Long id;
     @Column
     private String memberName;
-    @Column
-    private Long boardId;
+//    @Column
+//    private Long boardId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
@@ -29,11 +29,18 @@ public class LikesEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private CommentEntity commentEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ripple_id")
+    private RippleEntity rippleEntity;
 
-    public static LikesEntity toLikesEntity(LikesDTO likesDTO, PrincipalDetails principalDetails) {
+    public static LikesEntity toLikesEntity(LikesDTO likesDTO, MemberEntity memberEntity, BoardEntity boardEntity) {
         LikesEntity likes = new LikesEntity();
-        likes.setMemberName(principalDetails.getMemberDTO().getMemberName());
-        likes.setBoardId(likesDTO.getBoardId());
+        likes.setMemberName(memberEntity.getMemberName());
+        likes.setBoardEntity(boardEntity);
+//        likes.setCommentEntity(commentEntity);
         return likes;
     }
 

@@ -3,14 +3,10 @@ package com.its.gramsecurity.service;
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.dto.MemberDTO;
-import com.its.gramsecurity.entity.LikesEntity;
-import com.its.gramsecurity.repository.BoardFileRepository;
-import com.its.gramsecurity.repository.BoardRepository;
+import com.its.gramsecurity.entity.*;
+import com.its.gramsecurity.repository.*;
 import com.its.gramsecurity.dto.BoardDTO;
 import com.its.gramsecurity.dto.BoardFileDTO;
-import com.its.gramsecurity.entity.BoardEntity;
-import com.its.gramsecurity.entity.BoardFileEntity;
-import com.its.gramsecurity.repository.LikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +26,8 @@ public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
     private final LikesRepository likesRepository;
+    private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
     public BoardDTO fileSave(BoardDTO boardDTO, PrincipalDetails principalDetails) {
         Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,principalDetails)).getId();
         return BoardDTO.toDTO(boardRepository.findById(id).get());
@@ -90,7 +88,7 @@ public class BoardService {
         }
         for (LikesEntity b : a) {
             for (BoardEntity boardList : boardEntity) {
-                if (boardList.getId() == b.getBoardId()) {
+                if (boardList.getId() == b.getBoardEntity().getId()) {
                     boardRepository.likes(boardList.getId());
                 }
             }
@@ -101,20 +99,25 @@ public class BoardService {
         return list;
     }
     public String likes(LikesDTO likesDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        Optional<MemberEntity> memberEntity = memberRepository.findByLoginId(loginId);
         Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
-        if (boardEntity.isPresent()){
+//        Optional<CommentEntity> commentEntity = commentRepository.findById(likesDTO.getCommentId());
+        if (boardEntity.isPresent()  && memberEntity.isPresent()){
+            MemberEntity member = memberEntity.get();
             BoardEntity board = boardEntity.get();
+//            CommentEntity comment = commentEntity.get();
             if (board.getLikes() == null) {
-                LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, principalDetails));
+                LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, member, board));
                 LikesDTO.toLikeSave(likesEntity2);
                 Long id = likesDTO.getBoardId();
                 boardRepository.likes(id);
                 return "ok";
             }else if (board.getLikes() == 1) {
-                Optional<LikesEntity> likesEntity = likesRepository.findByMemberNameAndBoardId(likesDTO.getMemberName(), likesDTO.getBoardId());
+                Optional<LikesEntity> likesEntity = likesRepository.findByMemberNameAndBoardEntity(likesDTO.getMemberName(), board);
                 if (likesEntity.isPresent()){
                     LikesEntity likes = likesEntity.get();
-                    if (likes.getMemberName().equals(likesDTO.getMemberName()) && likes.getBoardId().equals(likesDTO.getBoardId())){
+                    if (likes.getMemberName().equals(likesDTO.getMemberName()) && likes.getBoardEntity().getId().equals(likesDTO.getBoardId())){
                         likesRepository.delete(likes);
                     }
                 }

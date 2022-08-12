@@ -944,7 +944,8 @@
                     </div>
                     <!-- 댓글 저장 버튼 -->
                     <div class="col-2 detail">
-                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()" onmouseout="black1()">게시</p>
+<!--                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1(1)" onmouseout="black1(1)">게시</p>-->
+                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed" class="saveCommentBtn btn detail">게시</p>
                     </div>
                 </div>
 
@@ -957,6 +958,7 @@
     <script th:inline="javascript">
         $("#feedCommentZone1").onclick=commentList(0);
         function commentList(id){
+            console.log(id)
             let header=$("meta[name='_csrf_header']").attr('content');
             let token=$("meta[name='_csrf']").attr('content');
             $.ajax({
@@ -972,7 +974,6 @@
                     const board = [[${boardList}]];
                     let commentNum = board.length;
                     let stop;
-                    let stopDetail = 0;
                     let commentLength;
                     const commentDetail = document.getElementById("commentList");
                     const commentDetailBtn = document.getElementById("detailCommentBtn");
@@ -994,12 +995,12 @@
                         comment.innerHTML = "";
                         for (let j = 0; j < data.length; j++) {
                             if (data[j].boardId == board[i].id && stop < 2){
-                                comment.innerHTML += "<span>" + data[j].commentContents + "</span>";
+                                comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
+                                comment.innerHTML += '<i class="bi bi-heart" onclick="likes(' + data[j].boardId + "," + data[j].id + ')"></i>';
                                 stop++;
-                                comment.innerHTML += "<i style='margin-right: auto' class='fa-solid fa-heart commentListItem detail'></i><br>";
                             }
                             if (stop == 2 && commentIndex[i] != 0){
-                                comment.innerHTML += "<span>" + "댓글 " + (commentIndex[i]-2) + "개 모두 보기" + "</span>"
+                                comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[i]-2) + "개 모두 보기" + "</span>"
                                 stop++
                             }
                         }
@@ -1007,13 +1008,14 @@
                     }
                     if (id != 0) {
                         commentDetail.innerHTML = "";
-                        for (let i = data.length-1; i > 0; i--) {
-                            if (id == data[i].boardId && stopDetail < commentIndex[board.length-id]) {
-                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
-                                stopDetail++;
-                                commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1()' onmouseout='black1()'>" + "게시" + "</p>"
+                        for (let i = data.length-1; i >= 0; i--) {
+                            if (id == data[i].boardId) {
+                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span>";
+                                commentDetail.innerHTML += '<i class="bi bi-heart"></i><br>';
                             }
                         }
+                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        // commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail'" + "게시" + "</p>"
                     }
                 }
             });
@@ -1024,54 +1026,57 @@
             const  commentContents = document.getElementById("text1_feed"+id);
             const  contentsDetail = document.getElementById("text1_detail");
             let contents;
+            console.log(commentContents)
             if (id2 == 1){
                 contents = contentsDetail.value;
             }else {
                 contents = commentContents.value;
             }
+            console.log(contents)
             $.ajax({
                 type: "post",
                 url: "/comment/commentSave",
-                data: {"commentContents" : contents ,"boardId" : id},
+                data: {"commentContents" : contents, "boardId" : id},
                 dataType: "json",
                 beforeSend:function (result){
                     result.setRequestHeader(header,token);
                 },
                 success: function (data) {
-                    document.querySelector(".emojionearea-editor").innerHTML = "";
+                    // document.querySelector(".emojionearea-editor").innerHTML = "";
+                    commentContents.value = "";
                     const commentDetail = document.getElementById("commentList");
-                    commentDetail.innerHTML = "";
                     let commentIndex = [];
                     let stop;
-                    let stopDetail = 0;
                     const comment = document.getElementById("feedCommentZone"+id);
-                        commentIndex[id]=0;
-                        for (let j = 0; j < data.length; j++) {
-                            if (id == data[j].boardId){
-                                commentIndex[id]++;
-                            }
+                    commentIndex[id]=0;
+                    for (let j = 0; j < data.length; j++) {
+                        if (id == data[j].boardId){
+                            commentIndex[id]++;
                         }
-                        if (commentIndex[id]-2 == 0) {
-                            commentIndex[id] = 0;
+                    }
+                    if (commentIndex[id]-2 == 0) {
+                        commentIndex[id] = 0;
+                    }
+                    comment.innerHTML = "";
+                    stop = 0;
+                    for (let j = 0; j < data.length; j++) {
+                        if (data[j].boardId == id && stop < 2){
+                            comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
+                            comment.innerHTML += '<i class="bi bi-heart"></i>';
+                            stop++;
                         }
-                        comment.innerHTML = "";
-                        stop = 0;
-                        for (let j = 0; j < data.length; j++) {
-                            if (data[j].boardId == id && stop < 2){
-                                comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
-                                stop++;
-                            }
-                            if (stop == 2 && commentIndex[id] != 0){
-                                comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[id]-2) + "개 모두 보기" + "</span>"
-                                stop++
-                            }
+                        if (stop == 2 && commentIndex[id] != 0){
+                            comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[id]-2) + "개 모두 보기" + "</span>"
+                            stop++
                         }
-                        for (let i = data.length-1; i > 0; i--) {
-                            if (id == data[i].boardId && stopDetail < commentIndex[id]) {
-                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
-                                stopDetail++;
-                            }
+                    }
+                    commentDetail.innerHTML = "";
+                    for (let i = data.length-1; i >= 0; i--) {
+                        if (id == data[i].boardId) {
+                            commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span>";
+                            commentDetail.innerHTML += '<i class="bi bi-heart"></i><br>';
                         }
+                    }
 
                 }
             });
@@ -2480,11 +2485,15 @@
 
     <script>
 
-        function black1(){
-            document.getElementById("saveCommentBtn_detail").style.color="black"
+        function black1(a){
+            if (a == 1) {
+                document.getElementById("saveCommentBtn_detail").style.color="black"
+            }
         }
-        function gray1(){
-            document.getElementById("saveCommentBtn_detail").style.color="gray"
+        function gray1(a){
+            if (a == 1) {
+                document.getElementById("saveCommentBtn_detail").style.color="gray"
+            }
         }
 
         // function like(i){
