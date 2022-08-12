@@ -374,8 +374,8 @@
             z-index: 6500;
         }
         .questionDiv {
-            width: 270px;
-            height: 130px;
+            width: 213px;
+            height: 108px;
             position: absolute;
             top: 40%;
             left: 0;
@@ -389,7 +389,7 @@
             background-color: white;
             border: 1px solid transparent;
             border-radius: 10px;
-            padding-top: 5%;
+            padding-top: 9%;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -453,8 +453,8 @@
             text-align: center;
         }
         .surveyGroup {
-            width: 375.19px;
-            height: 187.19px;
+            width: 193px;
+            height: 143px;
             position: absolute;
             top: 30%;
             left: 15%;
@@ -534,6 +534,7 @@
             margin-top: 7px;
             margin-left: 4px;
             line-height: 23px;
+            padding-left: 5px;
         }
         .option {
             width: 80%;
@@ -554,12 +555,14 @@
         }
         #shapeBtn3 {
             border: 0;
+            display: none;
         }
         #shapeBtn4 {
             border: 0;
+            display: none;
         }
         .hashtagDiv {
-            width: 100%;
+            width: 130px;
             height: 40px;
             font-size: 20px;
             color: hotpink;
@@ -600,7 +603,7 @@
         }
         .hashtag {
             background-color: white;
-            width: 25%;
+            width: 100%;
             height: 40px;
             text-align: center;
             align-items: center;
@@ -792,18 +795,20 @@
                         </div>
                         <div class="optionDiv" id="optionDiv">
                             <div class="shapeBtn" id="shapeBtn1">
-                                <button class="quizIco" id="quizIcoA" onclick="clickQuizIcoA()">A</button>
+                                <button type="button" class="quizIco" id="quizIcoA" onmousedown="clickQuizIcoA()">A</button>
                                 <input type="text" class="option" id="option1" onkeyup="addCheck()" name="quizOption" placeholder="옵션1">
                             </div>
                             <div class="shapeBtn" id="shapeBtn2">
-                                <button class="quizIco" id="quizIcoB" onclick="clickQuizIcoB()">B</button>
+                                <button type="button" class="quizIco" id="quizIcoB" onmousedown="clickQuizIcoB()">B</button>
                                 <input type="text" class="option" id="option2" onkeyup="addCheck()" name="quizOption" placeholder="옵션2">
                             </div>
                             <div class="shapeBtn" id="shapeBtn3">
-
+                                <button type="button" class="quizIco" id="quizIcoC" onmousedown="clickQuizIcoC()" >C</button>
+                                <input type="text" class="option" id="option3" onkeyup="addCheck2()" onblur="delCheck()" name="quizOption" placeholder="추가">
                             </div>
                             <div class="shapeBtn" id="shapeBtn4">
-
+                                <button type="button" class="quizIco" id="quizIcoD" onmousedown="clickQuizIcoD()">D</button>
+                                <input type="text" class="option" id="option4" onkeyup="addCheck3()" name="quizOption" placeholder="추가">
                             </div>
 
                         </div>
@@ -835,10 +840,10 @@
             </div>
                 <div class="mainMenu" id="mainMenu">
                 <div class="inputFileBtn">
-                    <form action="/storyBoard/save" method="post" enctype="multipart/form-data">
+                    <form action="/storyBoard/save" method="post" id="storyFile" enctype="multipart/form-data">
                         <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
-                        <input type="file" id="upImgFiles" name="imageFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
-                        <div class="saveBtn" id="saveBtn"></div>
+                        <input type="file" id="hiddenFile" name="storyImgFile"onsubmit="return false;"  hidden>
+                        <input type="file" id="upImgFiles" name="storyFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
                     </form>
                 </div>
                 <div class="editMenu" id="editMenu">
@@ -847,7 +852,7 @@
                     <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
                     <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
                 </div>
-                <button class="saveStory btn-primary" id="saveStory" onclick="saveFnc()"><i class="bi bi-chevron-right"></i></button>
+                <button type="button" class="saveStory btn-primary" id="saveStory" onclick="saveFnc()"><i class="bi bi-chevron-right"></i></button>
             </div>
             <div class="inputTextDiv" id="inputTextDiv">
                 <input class="inputText" type="text" id="mainInputText" name="mainInputText">
@@ -911,10 +916,12 @@
                         <button type="button" class="btnFnc btn-secondary" onclick="quizFnc()">퀴즈</button>
                     </div>
                     <div class="btnFncDiv">
-                        <button type="button" class="btnFnc btn-secondary" onclick="linkTag()">링크</button>
-                        <label for="addFile" class="addFileLabel"><img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
-                        <input type="file" accept="image/*" class="bi bi-images" id="addFile"  name="addFile" onchange="addImgFile(this)" style="display: none">
-                        <input type="button" class="btnFnc btn-secondary" id="today">
+                            <button type="button" class="btnFnc btn-secondary" onclick="linkTag()">링크</button>
+                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                            <label for="addFile" class="addFileLabel">
+                            <img src="https://icon-library.com/images/photo-icon/photo-icon-12.jpg" width="30" style="border-radius: 50%; padding-top: 6px" alt="imgFile"></label>
+                            <input type="file" accept="image/*" class="bi bi-images" id="addFile"  name="storyImgFile" onchange="addImgFile(this)" onsubmit="return false" style="display: none">
+                            <input type="button" class="btnFnc btn-secondary" id="today">
                     </div>
                 </div>
                 <div class="linkDiv" id="linkDiv">
@@ -935,6 +942,7 @@
     </div>
 </body>
 <script type="text/javascript">
+
     const tagGroup = document.getElementById("tagGroup");
     const reverse = document.getElementById("reverse")
     const inputToday = document.getElementById("inputToday");
@@ -953,20 +961,54 @@
     const mainMenu = document.getElementById("mainMenu");
     const editBox = document.getElementById("editBox");
     const endClose = document.getElementById("endClose");
-
+    const inputLink = document.getElementById("inputLink");
+    const question2 = document.getElementById("question2");
+    const answer = document.getElementById("answer");
+    const question = document.getElementById("question");
+    const answer1 = document.getElementById("answer1");
+    const answer2 = document.getElementById("answer2");
+    const answer3 = document.getElementById("answer3");
+    const answer4 = document.getElementById("answer4");
+    const quiz = document.getElementById("quiz");
+    const option1 = document.getElementById("option1");
+    const option2 = document.getElementById("option2");
+    const option3 = document.getElementById("option3");
+    const option4 = document.getElementById("option4");
+    const inputHashTag = document.getElementById("inputHashTag");
+    const inputReference = document.getElementById("inputReference");
     const saveFnc = () => {
         let header=$("meta[name='_csrf_header']").attr('content');
         let token =$("meta[name='_csrf']").attr('content');
-        mainInputText.setAttribute("value", mainInputText.value);
-        const storyTextTag= mainInputText.outerHTML;
+
         const storyFile= document.getElementById("upImgFiles").outerHTML;
         const storyImgTag= document.getElementById("addFile").outerHTML;
+
+        mainInputText.setAttribute("value", mainInputText.value);
+        const storyTextTag= mainInputText.outerHTML;
         const storyTodayTag= document.getElementById("today").outerHTML;
+        inputLink.setAttribute("value", inputLink.value);
         const storyLinkTag= document.getElementById("inputLink").outerHTML;
+        // 로고이미지 주소변경
+        question2.setAttribute("value", question2.value);
+        answer.setAttribute("value", answer.value);
+        $(answer).attr("readonly", false);
         const storyQuestionTag= document.getElementById("questionBox").outerHTML;
+        question.setAttribute("value", question.value);
+        answer1.setAttribute("value", answer1.value);
+        answer2.setAttribute("value", answer2.value);
+        answer3.setAttribute("value", answer3.value);
+        answer4.setAttribute("value", answer4.value);
         const storySurveyTag= document.getElementById("surveyDiv").outerHTML;
+        quiz.setAttribute("value", quiz.value);
+        option1.setAttribute("value", option1.value);
+        option2.setAttribute("value", option2.value);
+        option3.setAttribute("value", option3.value);
+        option4.setAttribute("value", option4.value);
         const storyQuizTag= document.getElementById("quizDiv").outerHTML;
+        inputHashTag.setAttribute("value", inputHashTag.value);
         const storyHashTag= document.getElementById("hashtag").outerHTML;
+        inputReference.setAttribute("value", inputReference.value);
+        const storyReferenceTag = document.getElementById("inputReference").outerHTML;
         const storyLocationTag= document.getElementById("locationTag").outerHTML;
         console.log(storyTextTag);
         console.log(storyFile);
@@ -977,8 +1019,8 @@
         console.log(storySurveyTag);
         console.log(storyQuizTag);
         console.log(storyHashTag);
+        console.log(storyReferenceTag);
         console.log(storyLocationTag);
-
 
         $.ajax({
             type: "post",
@@ -986,20 +1028,28 @@
             beforeSend:function (result){
                 result.setRequestHeader(header,token);
             },
-            data: {"storyTextTag": storyTextTag,
+            data: {
                 "storyTextTag": storyTextTag,
-                "storyFile": storyFile,
-                "storyImgTag": storyImgTag,
                 "storyTodayTag": storyTodayTag,
                 "storyLinkTag": storyLinkTag,
                 "storyQuestionTag": storyQuestionTag,
                 "storySurveyTag": storySurveyTag,
                 "storyQuizTag": storyQuizTag,
                 "storyHashTag": storyHashTag,
-                "storyLocationTag": storyLocationTag},
+                "storyReferenceTag": storyReferenceTag,
+                "storyLocationTag": storyLocationTag
+            },
 
             success: function () {
-
+                const addImgFile = document.getElementById("addFile").files;
+                const dataTranster = new DataTransfer();
+                Array.from(addImgFile)
+                    .forEach(file => {
+                    dataTranster.items.add(file);
+                });
+                document.querySelector('#hiddenFile').files = dataTranster.files;
+                document.getElementById("hiddenFile").files=addImgFile;
+                document.getElementById("storyFile").submit();
                 console.log("저장성공");
             },
             error: function () {
@@ -1632,86 +1682,79 @@ const downSlide = () => {
     const C = document.getElementById("quizIcoC");
     const D = document.getElementById("quizIcoD");
 
-    $('.quizIco').on('click', function (){
-        console.log("ok");
-
-        let clickId = $(this).attr('id');
-        let divId = $(this).closest('div').attr('id');
-
-        if(clickId.value=="A"){
-            B.value="B";
-            shapeBtn2.style.backgroundColor="transparent";
-            C.value="C";
-            shapeBtn3.style.backgroundColor="transparent";
-            D.value="D";
-            shapeBtn4.style.backgroundColor="transparent";
-        } else if(clickId.value=="B") {
-            A.value="A";
-            shapeBtn1.style.backgroundColor="transparent";
-            C.value="C";
-            shapeBtn3.style.backgroundColor="transparent";
-            D.value="D";
-            shapeBtn4.style.backgroundColor="transparent";
-
-        } else if(clickId.value=="C") {
-            A.value="A";
-            shapeBtn1.style.backgroundColor="transparent";
-            B.value="B";
-            shapeBtn2.style.backgroundColor="transparent";
-            D.value="D";
-            shapeBtn4.style.backgroundColor="transparent";
-        } else if(clickId.value=="D") {
-            A.value="A";
-            shapeBtn1.style.backgroundColor="transparent";
-            B.value="B";
-            shapeBtn2.style.backgroundColor="transparent";
-            C.value="C";
-            shapeBtn3.style.backgroundColor="transparent";
-        }
-        clickId.innerHTML= "<i class='bi bi-check2'></i>";
-        divId.style.backgroundColor="skyblue";
-    });
+    // $('.quizIco').mousedown(function(){
+    //     console.log("ok");
+    //
+    //     let btnId = $(this).attr('id');
+    //     let btnDivId = $(this).closest('div').attr('id');
+    //     let clickId = document.getElementById(btnId);
+    //     let divId = document.getElementById(btnDivId);
+    //     console.log(divId);
+    //     console.log(clickId);
+    //
+    //     if(clickId.value=="A"){
+    //         B.value="B";
+    //         shapeBtn2.style.backgroundColor="transparent";
+    //         C.value="C";
+    //         shapeBtn3.style.backgroundColor="transparent";
+    //         D.value="D";
+    //         shapeBtn4.style.backgroundColor="transparent";
+    //     } else if(clickId.value=="B") {
+    //         A.value="A";
+    //         shapeBtn1.style.backgroundColor="transparent";
+    //         C.value="C";
+    //         shapeBtn3.style.backgroundColor="transparent";
+    //         D.value="D";
+    //         shapeBtn4.style.backgroundColor="transparent";
+    //
+    //     } else if(clickId.value=="C") {
+    //         A.value="A";
+    //         shapeBtn1.style.backgroundColor="transparent";
+    //         B.value="B";
+    //         shapeBtn2.style.backgroundColor="transparent";
+    //         D.value="D";
+    //         shapeBtn4.style.backgroundColor="transparent";
+    //     } else if(clickId.value=="D") {
+    //         A.value="A";
+    //         shapeBtn1.style.backgroundColor="transparent";
+    //         B.value="B";
+    //         shapeBtn2.style.backgroundColor="transparent";
+    //         C.value="C";
+    //         shapeBtn3.style.backgroundColor="transparent";
+    //     }
+    //     clickId.innerHTML= "<i class='bi bi-check2'></i>";
+    //     divId.style.backgroundColor="skyblue";
+    // });
     const clickQuizIcoA = () => {
-
         A.innerHTML= "<i class='bi bi-check2'></i>";
         shapeBtn1.style.backgroundColor="skyblue";
         B.innerHTML= "B";
         shapeBtn2.style.backgroundColor="transparent";
-        if(C){
-            C.innerHTML= "C";
-            shapeBtn3.style.backgroundColor="transparent";
-            if(D){
-                D.innerHTML= "D";
-                shapeBtn4.style.backgroundColor="transparent";
-            }
-        }
+        C.innerHTML= "C";
+        shapeBtn3.style.backgroundColor="transparent";
+        D.innerHTML= "D";
+        shapeBtn4.style.backgroundColor="transparent";
     }
     const clickQuizIcoB = () => {
         A.innerHTML= "A";
         shapeBtn1.style.backgroundColor="transparent";
         B.innerHTML= "<i class='bi bi-check2'></i>";
         shapeBtn2.style.backgroundColor="skyblue";
-        if(C){
-            C.innerHTML= "C";
-            shapeBtn3.style.backgroundColor="transparent";
-            if(D){
-                D.innerHTML= "D";
-                shapeBtn4.style.backgroundColor="transparent";
-            }
-        }
+        C.innerHTML= "C";
+        shapeBtn3.style.backgroundColor="transparent";
+        D.innerHTML= "D";
+        shapeBtn4.style.backgroundColor="transparent";
     }
     const clickQuizIcoC = () => {
-        A.innerHTML= "A";
-        shapeBtn1.style.backgroundColor="transparent";
-        B.innerHTML= "B";
-        shapeBtn2.style.backgroundColor="transparent";
-        C.innerHTML= "<i class='bi bi-check2'></i>";
-        shapeBtn3.style.backgroundColor="skyblue";
-        if(D){
-            D.innerHTML= "D";
-            shapeBtn4.style.backgroundColor="transparent";
-        }
-    }
+       A.innerHTML= "A";
+       shapeBtn1.style.backgroundColor="transparent";
+       B.innerHTML= "B";
+       shapeBtn2.style.backgroundColor="transparent";
+       C.innerHTML= "<i class='bi bi-check2'></i>";
+       shapeBtn3.style.backgroundColor="skyblue";
+       D.innerHTML= "D";
+       shapeBtn4.style.backgroundColor="transparent";
+    };
     const clickQuizIcoD = () => {
         A.innerHTML= "A";
         shapeBtn1.style.backgroundColor="transparent";
@@ -1723,49 +1766,36 @@ const downSlide = () => {
         shapeBtn4.style.backgroundColor="skyblue";
     }
     const addCheck = () => {
-        const option1 = document.getElementById("option1").value;
-        const option2 = document.getElementById("option2").value;
-        const shapeBtn3 = document.getElementById("shapeBtn3");
-        if(option1 && option2) {
-            if(!document.getElementById("option3")){
-                quizGroup.style.height="16%";
+        if(option1.value && option2.value) {
+            if(option3.value==""){
+                quizGroup.style.height="200px";
+                shapeBtn3.style.display="block";
                 shapeBtn3.style.border="1px dashed darkgrey";
-                shapeBtn3.innerHTML= '<button class="quizIco" id="quizIcoC" onclick="clickQuizIcoC()">C</button>\n' +
-                    '<input type="text" class="option" id="option3" onkeyup="addCheck2()" onblur="delCheck()" name="quizOption" placeholder="추가">\n';
             }
         }
 
     }
     const addCheck2 = () => {
-        const option1 = document.getElementById("option1").value;
-        const option2 = document.getElementById("option2").value;
-        const option3 = document.getElementById("option3").value;
-        const shapeBtn3 = document.getElementById("shapeBtn3");
 
-        if(option1 && option2 && option3) {
+        if(option1.value && option2.value && option3.value) {
             shapeBtn3.style.border="1px solid darkgrey";
-            quizGroup.style.height="20%";
-            const shapeBtn4 = document.getElementById("shapeBtn4");
+            quizGroup.style.height="250px";
             shapeBtn4.style.border="1px dashed darkgrey";
-            shapeBtn4.innerHTML= '<button class="quizIco" id="quizIcoD" onclick="clickQuizIcoD()">D</button>\n' +
-                '<input type="text" class="option" id="option4" onkeyup="addCheck3()" name="quizOption" placeholder="추가">\n';
+            shapeBtn4.style.display="block";
         } else {
             shapeBtn3.style.border="1px dashed darkgrey";
 
         }
     }
     const addCheck3 = () => {
-        const option4 = document.getElementById("option4").value;
-        const shapeBtn4 = document.getElementById("shapeBtn4");
-        if(option4) {
+        if(option4.value) {
             shapeBtn4.style.border="1px solid darkgrey";
         } else {
             shapeBtn4.style.border="1px dashed darkgrey";
             $('#option4').on('blur', function (){
-                const option4 = document.getElementById("option4").value;
-                if(option4==""){
+                if(option4.value==""){
                     shapeBtn4.removeAttribute('style');
-                    shapeBtn4.innerHTML="";
+                    shapeBtn4.style.display="none";
                     quizGroup.style.height="200px";
                 }
             })
@@ -1773,11 +1803,9 @@ const downSlide = () => {
     }
 
     const delCheck = () => {
-        const option3 = document.getElementById("option3").value;
-        const shapeBtn3 = document.getElementById("shapeBtn3");
-        if(!document.getElementById("option4") && !option3) {
+        if(!option4.value && !option3.value) {
             shapeBtn3.removeAttribute('style');
-            shapeBtn3.innerHTML="";
+            shapeBtn3.style.display="none";
             quizGroup.style.height="150px";
         }
 
@@ -1813,12 +1841,10 @@ const downSlide = () => {
 // 해시태그 기능
     const hashtagFnc = (event) => {
         $('#inputHashTag').attr('readonly', false);
-        quizGroup.style.display="none";
         tagGroup.style.backgroundColor="rgba(100,100,100,0.9)";
         tagGroup.style.display="block";
         tagGroup.style.zIndex="6500";
         mainMenu.style.display="none";
-        surveyGroup.style.display="none";
         questionDiv.style.zIndex="31";
         surveyGroup.style.zIndex="31";
         quizGroup.style.zIndex="31";
@@ -1872,7 +1898,6 @@ const downSlide = () => {
 // 언급태그 기능
     const referenceFnc = () => {
         $('#inputReference').attr('readonly', false);
-        quizGroup.style.display="none";
         tagGroup.style.backgroundColor="rgba(100,100,100,0.9)";
         tagGroup.style.zIndex="6500";
         mainMenu.style.display="none";
@@ -1949,21 +1974,21 @@ const downSlide = () => {
         let header=$("meta[name='_csrf_header']").attr('content');
         let token=$("meta[name='_csrf']").attr('content');
         const searchLocation = document.getElementById("inputLocation").value;
-        $.ajax({
-            type:"get",
-            url:"/storyBoard/findByLocation",
-            data:{"storyLocation": searchLocation},
-            dataType:"json",
-            beforeSend:function (result){
-                result.setRequestHeader(header,token);
-            },
-
-            success: function (locationList){
-                for(let location of locationList) {
-                    document.getElementById("locationList").innerHTML+=locationList[i];
-                }
-            }
-        })
+        // $.ajax({
+        //     type:"get",
+        //     url:"/storyBoard/findByLocation",
+        //     data:{"storyLocation": searchLocation},
+        //     dataType:"json",
+        //     beforeSend:function (result){
+        //         result.setRequestHeader(header,token);
+        //     },
+        //
+        //     success: function (locationList){
+        //         for(let location of locationList) {
+        //             document.getElementById("locationList").innerHTML+=locationList[i];
+        //         }
+        //     }
+        // })
     }
     const endLocation = () => {
         tagGroup.style.zIndex="3000";

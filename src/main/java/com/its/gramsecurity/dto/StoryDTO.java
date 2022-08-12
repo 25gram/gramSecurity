@@ -4,6 +4,7 @@ import com.its.gramsecurity.entity.StoryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -12,10 +13,13 @@ import java.time.LocalDateTime;
 @Data
 public class StoryDTO {
     private Long id;
-    private String memberName;
+    private Long memberId;
+    private String loginId;
     private String storyFileName;
+    private MultipartFile storyFile;
     private LocalDateTime storyCreatedTime;
     private String storyImgTag;
+    private MultipartFile storyImgFile;
     private String storyTextTag;
     private String storyTodayTag;
     private String storyLinkTag;
@@ -43,7 +47,8 @@ public class StoryDTO {
     public static StoryDTO toStoryDTO (StoryEntity storyEntity) {
         StoryDTO storyDTO = new StoryDTO();
         storyDTO.setId(storyEntity.getId());
-        storyDTO.setMemberName(storyEntity.getMemberName());
+        storyDTO.setMemberId(storyEntity.getMemberEntity().getId());
+        storyDTO.setLoginId(storyEntity.getLoginId());
         storyDTO.setStoryFileName(storyEntity.getStoryFileName());
         storyDTO.setStoryCreatedTime(storyEntity.getStoryCreatedTime());
         storyDTO.setStoryImgTag(storyEntity.getStoryImgTag());
