@@ -595,11 +595,11 @@
                 <div id="spinDisplayZone">
                     <ul id="dropUl1" class="drop-item dropdown-menu dropdown-menu-end" style="padding: 0;">
                         <div id="spinDisplay">
-<!--                            <li><a class="drop-item dropdown-item d-item" id="seaRes" href="#">drop1</a></li>-->
-<!--                            <li><a class="drop-item dropdown-item d-item" href="#">drop2</a></li>-->
-<!--                            <li><a class="drop-item dropdown-item d-item">drop3</a></li>-->
-<!--                            <li><a class="drop-item dropdown-item d-item">drop4</a></li>-->
-<!--                            <li><a class="drop-item dropdown-item d-item">drop5</a></li>-->
+                            <!--                            <li><a class="drop-item dropdown-item d-item" id="seaRes" href="#">drop1</a></li>-->
+                            <!--                            <li><a class="drop-item dropdown-item d-item" href="#">drop2</a></li>-->
+                            <!--                            <li><a class="drop-item dropdown-item d-item">drop3</a></li>-->
+                            <!--                            <li><a class="drop-item dropdown-item d-item">drop4</a></li>-->
+                            <!--                            <li><a class="drop-item dropdown-item d-item">drop5</a></li>-->
                         </div>
                     </ul>
                 </div>
@@ -638,7 +638,7 @@
                  style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;margin-top:-14px ;cursor: pointer">
 
             <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
-                <li><a class="dropdown-item dropdown-item1" href="#">My Home</a></li>
+                <li><a class="dropdown-item dropdown-item1" href="/member/mypage">My Home</a></li>
                 <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
                 </li>
@@ -655,45 +655,29 @@
                     const searchInput = document.getElementById("searchInput");
                     const searchInputVal = searchInput.value;
                     console.log(searchInputVal);
-                    searchInput.addEventListener('keyup', () => {
-                        $.ajax({
-                            type: "get",
-                            url: "/board/search",
-                            data: {
-                                "search": searchInputVal
-                            },
-                            dataType: "json",
-                            beforeSend: function (result) {
-                                result.setRequestHeader(header, token);
-                            },
-                            success: function (res) {
-                                console.log(res);
-                                let serRes = res;
-                                let content = "";
-                                for(let i in res) {
-                                    content += '<li><a className="drop-item dropdown-item d-item" href="#">' + res[i].memberName + '</a></li>'
-                                }
-                                document.getElementById("spinDisplay").innerHTML = content;
+                    // searchInput.addEventListener('keyup', () => {
+                    $.ajax({
+                        type: "get",
+                        url: "/board/search",
+                        data: {
+                            "search": searchInputVal
+                        },
+                        dataType: "json",
+                        beforeSend: function (result) {
+                            result.setRequestHeader(header, token);
+                        },
+                        success: function (result) {
 
+                            var content = "";
+                            for (let i in result) {
+                                content += "<li>" + "<a className='drop-item dropdown-item d-item' href='#'>" + "<img src=\"" + '/upload/' + result[i].memberProfileName + "\"> " + result[i].memberName + "</a>" + "</li>";
                             }
-                        })
+                            document.getElementById("spinDisplay").innerHTML = content;
+
+                        }
                     })
+                    // })
                 }
-
-
-                // function getResult(res) {
-                //     const spinDisplay = document.getElementById("spinDisplay");
-                //     let content=res;
-                //     let searchResult =
-                //                 <div id="spinDisplay">
-                //                     for (let j = 0; j < res.length; j++) {
-                //                     let item = ` <a className="drop-item dropdown-item d-item" th:text=${content.memberName}
-                //                     href="#"/>`;
-                //                 }
-                //                 </div>;
-                //     spinDisplay.innerHTML=searchResult;
-                // }
-
 
                 let rollInt = 0;
                 let timer;
