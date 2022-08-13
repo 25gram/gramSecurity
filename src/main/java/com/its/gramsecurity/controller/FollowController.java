@@ -24,11 +24,11 @@ public class FollowController {
 
     //팔로우신청
     @PostMapping("/request")
-    public @ResponseBody List<FollowDTO> request_fw(FollowDTO followDTO,Model model,
-                                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String myId=principalDetails.getMemberDTO().getLoginId();
-       followService.save(followDTO,myId);
-        return null;
+    public @ResponseBody FollowDTO request_fw(@ModelAttribute  FollowDTO followDTO, Model model,
+                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String myId = principalDetails.getMemberDTO().getLoginId();
+        followService.save(followDTO, myId);
+        return followDTO;
     }
 
     //전체 리스트
@@ -56,7 +56,8 @@ public class FollowController {
     }
 
     //언팔로우
-    @DeleteMapping("/")   public ResponseEntity UnFollow(@PathVariable Long id) {
+    @DeleteMapping("/")
+    public ResponseEntity UnFollow(@PathVariable Long id) {
         followService.UnFollow(id);
 //        return new ResponseEntity<>(HttpStatus.OK);
         return null;
