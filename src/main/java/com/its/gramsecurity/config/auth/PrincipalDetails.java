@@ -17,7 +17,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private MemberDTO memberDTO;
 
-    private MemberEntity memberEntity;
 
     public PrincipalDetails(MemberDTO memberDTO){
         this.memberDTO=memberDTO;
