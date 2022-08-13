@@ -18,10 +18,6 @@ public class StoryEntity {
     @Column(name="story_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="member_id")
-    private MemberEntity memberEntity;
-
     @Column
     private String storyFileName;
 
@@ -52,7 +48,7 @@ public class StoryEntity {
     @Column (length = 1000)
     private String storySurveyTag;
 
-    @Column (length = 2000)
+    @Column (length = 3000)
     private String storyQuizTag;
 
     @Column (length = 1000)

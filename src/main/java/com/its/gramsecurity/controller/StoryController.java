@@ -34,7 +34,7 @@ public class StoryController {
         String loginId = principalDetails.getMemberDTO().getLoginId();
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         model.addAttribute("storyList", storyDTOList);
-        return "myStory";
+        return "storyPages/myStory";
     }
     @GetMapping("/save-form")
     public String saveForm() {
@@ -49,7 +49,6 @@ public class StoryController {
 
     @PostMapping("/save")
     public @ResponseBody Long save(@ModelAttribute StoryDTO storyDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
-        System.out.println("storyDTO1 = " + storyDTO);
         String loginId = principalDetails.getUsername();
         Long id = storyService.save(storyDTO,loginId);
 
@@ -58,7 +57,6 @@ public class StoryController {
     }
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
-        System.out.println("storyDTO2 = " + storyDTO);
         storyService.saveFile(storyDTO);
         return "redirect:/main/main";
     }
