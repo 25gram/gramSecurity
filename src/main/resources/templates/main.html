@@ -144,8 +144,6 @@
         }
 
 
-
-
         function dropdown() {
             $("#dropBtn").trigger("click")
         }
@@ -358,9 +356,9 @@
             border-bottom: 1px solid rgb(214,214,214); */
         }
 
-        .dropdown-item2{
-            border-top: 1px solid rgb(214,214,214);
-            border-bottom: 1px solid rgb(214,214,214);
+        .dropdown-item2 {
+            border-top: 1px solid rgb(214, 214, 214);
+            border-bottom: 1px solid rgb(214, 214, 214);
         }
 
         .profile {
@@ -428,19 +426,21 @@
             top: 103px;
             z-index: 5000;
         }
-        #spinMsg{
+
+        #spinMsg {
             z-index: 5000;
-            color:#4E4E4E;
+            color: #4E4E4E;
             position: relative;
             top: 127px;
             left: 100px;
         }
 
-        .searchProfileZone{
+        .searchProfileZone {
             display: flex;
             padding: 0 5px 0 5px;
         }
-        .searchProfile{
+
+        .searchProfile {
             width: 43px;
             height: 43px;
             border-radius: 50%;
@@ -448,14 +448,14 @@
             top: -10px;
             object-fit: cover;
         }
-        .searchName{
+
+        .searchName {
             font-size: 20px;
             margin-left: 14px;
             width: 249px;
             text-align: left;
             overflow: hidden;
         }
-
 
 
     </style>
@@ -498,7 +498,6 @@
                         <div id="spinDisplay">
 
 
-
                             <!-- 검색결과 프로필 구역-->
                             <!-- <li class="dropdown-item" >
                                 <div class=searchProfileZone>
@@ -519,7 +518,7 @@
         </div>
 
         <script>
-            function testImport(){
+            function testImport() {
                 alert("test success")
             }
 
@@ -549,7 +548,9 @@
                  style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;top:40px ;cursor: pointer;position: absolute;">
 
             <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
-                <li><a class="dropdown-item dropdown-item1" th:href="@{|/member/mypage?loginId=${AuthenticationPrincipal.getMemberDTO().getLoginId()}|}">My Home</a></li>
+                <li><a class="dropdown-item dropdown-item1"
+                       th:href="@{|/member/mypage?loginId=${AuthenticationPrincipal.getMemberDTO().getLoginId()}|}">My
+                    Home</a></li>
                 <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
                 </li>
@@ -565,10 +566,10 @@
                     let token = $("meta[name='_csrf']").attr('content');
                     const searchInput = document.getElementById("searchInput");
                     const searchInputVal = searchInput.value;
-                    let content="";
-                    let html= '<p id="spinMsg">검색 결과가 없습니다.</p>';
+                    let content = "";
+                    let html = '<p id="spinMsg">검색 결과가 없습니다.</p>';
                     console.log(html);
-                    console.log("sub() val : "+searchInputVal);
+                    console.log("sub() val : " + searchInputVal);
                     // searchInput.addEventListener('keyup', () => {
                     $.ajax({
                         type: "get",
@@ -581,24 +582,26 @@
                             result.setRequestHeader(header, token);
                         },
                         success: function (result) {
-                            console.log("result length : "+result.length)
-                            console.log("result : "+result)
-                            if(result.length!=0){
+                            console.log("result length : " + result.length)
+                            console.log("result : " + result)
+                            if (result.length != 0) {
 
                                 for (let i in result) {
-                                    content= '<li class="dropdown-item" ><div class=searchProfileZone>' + "<img class='searchProfile' src=\"" + '/upload/' + result[i].memberProfileName + "\"> <p class='searchName'>" + result[i].memberName + "</p></div></li>";
-                                }}
-                            else{
-                                content=html;
+                                    content = "<li class='dropdown-item'>"+"<a href='"+ '/member/mypage?loginId='+ result[i].loginId + "'>" +"<div class='searchProfileZone'>" +
+                                        "<img class='searchProfile' src=\"" + '/upload/' + result[i].memberProfileName + "\">" +
+                                        " <p class='searchName' >" + result[i].memberName + "</p>"+"</div>"+"</a>"+"</li>";
+                                }
+                            } else {
+                                content = html;
                             }
-                            console.log("suc content : "+content),
+                            console.log("suc content : " + content),
                                 document.getElementById("spinDisplay").innerHTML = content;
 
                         },
-                        error:function (e){
+                        error: function (e) {
                             console.log("sub err")
-                            content=html;
-                            console.log("err content : "+content),
+                            content = html;
+                            console.log("err content : " + content),
                                 document.getElementById("spinDisplay").innerHTML = content;
                         },
 
@@ -631,6 +634,7 @@
                             document.getElementById("searchX").className = "fa-regular fa-circle-xmark"
                             rollInt = 0;
                         }
+
                         // sub();
                         timer = setTimeout(rollBack, 300)
                     }
@@ -785,10 +789,12 @@
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
                         <!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
-                        <a th:href="@{|/member/mypage?loginId=${board.loginId}|}"><img class="profile" th:src="@{|/upload/${board.memberProfileName}|}"   alt=""></a>
+                        <a th:href="@{|/member/mypage?loginId=${board.loginId}|}"><img class="profile"
+                                                                                       th:src="@{|/upload/${board.memberProfileName}|}"
+                                                                                       alt=""></a>
                     </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
-                    <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"  ></span></div>
+                    <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
