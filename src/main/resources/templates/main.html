@@ -106,7 +106,7 @@
         function logoutChk() {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
-            alert("logout chk 호출")
+            console.log("logout chk 호출")
             $.ajax({
                 url: "/member/logoutCheck",
                 type: "get",
