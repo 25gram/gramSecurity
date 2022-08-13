@@ -81,20 +81,21 @@ public class MemberController {
 
     //업데이트 비밀번호 체크
     @PostMapping("/passwordCheck")
-    public @ResponseBody String PasswordCheck(MemberDTO memberDTO,@AuthenticationPrincipal PrincipalDetails principalDetails){
-        MemberDTO passwordCheck=memberService.passwordCheck(memberDTO,principalDetails);
-        if(passwordCheck ==null){
+    public @ResponseBody String PasswordCheck(MemberDTO memberDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        MemberDTO passwordCheck = memberService.passwordCheck(memberDTO, principalDetails);
+        if (passwordCheck == null) {
             return "no";
-        }else{
+        } else {
             return "ok";
         }
     }
 
     @GetMapping("/mypage")
-    String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,Model model){
-        String loginId = principalDetails.getMemberDTO().getLoginId();
+    String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                  @RequestParam String loginId, Model model) {
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
         model.addAttribute("memberDTO", memberDTO);
-        return "memberPages/myPage";
+        model.addAttribute("AuthenticationPrincipal", principalDetails);
+        return "memberPages/myPage" ;
     }
 }

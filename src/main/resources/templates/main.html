@@ -143,37 +143,7 @@
             })
         }
 
-        function followBTN() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            const memberName = document.getElementById("memberName").value;
-            const yourId = "memberName";
-            const yourName = "memberName";
-            const yourProfileName = "memberProfileName2";
-            const loginStatus = 0;
 
-            $.ajax({
-                url: "/follow/request",
-                type: "post",
-                dataType: "json",
-                data: {
-                    "myId": memberName,
-                    "yourId": yourId,
-                    "yourName": yourName,
-                    "yourProfileName": yourProfileName,
-                    "loginStatus": loginStatus
-                },
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
-                success: function (result) {
-                    console.log("suc");
-                },
-                error: function (result) {
-                    console.log("err");
-                }
-            })
-        };
 
         function followList() {
             let header = $("meta[name='_csrf_header']").attr('content');
@@ -597,7 +567,7 @@
                  style="border: 1px solid transparent;padding: 1px;width:40px;height:40px;border-radius: 50%;top:40px ;cursor: pointer;position: absolute;">
 
             <ul id="dropUl" class="dropdown-menu dropdown-menu-end" style="padding: 0;">
-                <li><a class="dropdown-item dropdown-item1" href="/member/mypage">My Home</a></li>
+                <li><a class="dropdown-item dropdown-item1" th:href="@{|/member/mypage?loginId=${AuthenticationPrincipal.getMemberDTO().getLoginId()}|}">My Home</a></li>
                 <li><a class="dropdown-item dropdown-item2" href="/member/updateForm">Update</a></li>
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
                 </li>
@@ -833,10 +803,10 @@
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
                         <!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
-                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" alt="">
+                        <a th:href="@{|/member/mypage?loginId=${board.loginId}|}"><img class="profile" th:src="@{|/upload/${board.memberProfileName}|}"   alt=""></a>
                     </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
-                    <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
+                    <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"  ></span></div>
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">

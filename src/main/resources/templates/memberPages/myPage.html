@@ -36,12 +36,11 @@
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
 
 
-
     <style>
-        body{
+        body {
             -ms-overflow-style: none;
             font-family: 'Noto Sans KR', sans-serif;
-            background-color:rgba(242, 243, 245,0.75rem) ;
+            background-color: rgba(242, 243, 245, 0.75rem);
             overflow: hidden;
             -webkit-user-drag: none;
 
@@ -51,16 +50,17 @@
             display: none;
         }
 
-        .mypageBody{
-            width:100%;
+        .mypageBody {
+            width: 100%;
             max-width: 1000px;
-            height:100vh;
+            height: 100vh;
             overflow: scroll;
             margin: auto;
             margin-top: 27px;
 
         }
-        .mypageProfile{
+
+        .mypageProfile {
             /* margin: 1px; */
             width: 160px;
             height: 160px;
@@ -71,20 +71,23 @@
             transition: ease-out 0.5s;
 
         }
-        .mypageProfile:hover{
+
+        .mypageProfile:hover {
             filter: saturate(0.5);
 
         }
-        .mypageProfile:active{
-            transform:scale(0.98);
+
+        .mypageProfile:active {
+            transform: scale(0.98);
             transition: all 0s;
         }
 
 
-        .mypageName{
+        .mypageName {
             font-size: 30px;
         }
-        .mypageUpdateBtn{
+
+        .mypageUpdateBtn {
             /* border: 1px solid gray; */
             border: 1px solid rgb(226, 226, 226);
             border-radius: 5px;
@@ -97,18 +100,20 @@
 
 
         }
-        .mypageUpdateBtn:hover{
+
+        .mypageUpdateBtn:hover {
             /* background-color: rgb(230, 230, 230); */
             border: 1px solid gray;
-            color:gray;
+            color: gray;
             transition: all 0.5s;
         }
-        .mypageUpdateBtn:active{
+
+        .mypageUpdateBtn:active {
             transform: scale(0.95);
             transition: all 0.1s;
         }
 
-        .mypageFollowBtn{
+        .mypageFollowBtn {
             /* border: 1px solid gray; */
             border: 1px solid rgb(226, 226, 226);
             border-radius: 5px;
@@ -121,52 +126,57 @@
 
 
         }
-        .mypageFollowBtn:hover{
+
+        .mypageFollowBtn:hover {
             /* background-color: rgb(230, 230, 230); */
             border: 1px solid gray;
-            color:gray;
+            color: gray;
             transition: all 0.5s;
         }
-        .mypageFollowBtn:active{
+
+        .mypageFollowBtn:active {
             transform: scale(0.95);
             transition: all 0.1s;
 
         }
 
 
-
-
-
-        .mypageProfileZone{
+        .mypageProfileZone {
             position: relative;
             top: 22px;
             left: 68px;
 
         }
-        .mypageNameZone{
+
+        .mypageNameZone {
             position: relative;
             top: -130px;
             left: 294px;
         }
-        .mypageUPdateZone{
+
+        .mypageUPdateZone {
             position: relative;
             top: -185px;
             left: 493px;
         }
-        .mypageFollowZone{
+
+        .mypageFollowZone {
             position: relative;
             top: -185px;
             left: 493px;
         }
-        .countItem{
+
+        .countItem {
             font-size: 16px;
             margin-right: 10px;
         }
-        .countItem1{
+
+        .countItem1 {
             font-size: 17px;
             /* margin-right: 50px; */
         }
-        .mypageCountZone{
+
+        .mypageCountZone {
             position: relative;
             top: -165px;
             left: 295px;
@@ -174,22 +184,22 @@
             -webkit-user-drag: none;
         }
 
-        .aboutMe{
+        .aboutMe {
             position: relative;
             top: -155px;
             left: 293px;
             /* font-family: Arial, Helvetica, 'sans-serif'; */
             font-size: 19px;
             height: 100px;
-            width:340px;
-            resize:none;
+            width: 340px;
+            resize: none;
             border: 0;
             user-select: none;
-            -webkit-user-drag:none;
+            -webkit-user-drag: none;
             pointer-events: none;
         }
 
-        .wrap{
+        .wrap {
             position: relative;
             width: 31%;
             max-width: 307px;
@@ -200,7 +210,7 @@
             /* left: 2%;
             top:-100px; */
             z-index: 5000;
-            transition:ease-out 0.5s;
+            transition: ease-out 0.5s;
 
         }
 
@@ -229,11 +239,12 @@
         }
 
 
-        .wrap:hover .listImg{
+        .wrap:hover .listImg {
             opacity: 0.7;
 
         }
-        .wrap:hover .imgIconGroup{
+
+        .wrap:hover .imgIconGroup {
             opacity: 1;
             transition: all 0.5s;
         }
@@ -243,46 +254,48 @@
             transition: all 0.3s;
 
         }
-        .wrap:hover{
+
+        .wrap:hover {
             transform: scale(1.1);
             transition: all 0.5s;
         }
+
         /* .wrap:active{
             transform: scale(0.95);
             transition: all 0.1s;
         } */
 
 
-
-
-        .listImg{
+        .listImg {
             z-index: -1;
             transition: ease-out 1s;
         }
 
 
-        .likeText2{
+        .likeText2 {
             margin-left: 5px;
             margin-right: 6px;
         }
-        .commentText1{
+
+        .commentText1 {
             margin-left: 6px;
         }
 
-        .commentText2{
+        .commentText2 {
             margin-left: 5px;
         }
 
-        .manyIcon{
+        .manyIcon {
             font-size: 23px;
             /* position: relative;
             top:5px;
             left: 275px;            */
             position: absolute;
-            top:2%;
-            right:2%
+            top: 2%;
+            right: 2%
         }
-        .imgIconGroup{
+
+        .imgIconGroup {
             color: white;
             font-size: 17px;
             /* font-size: 20px; */
@@ -292,28 +305,33 @@
             opacity: 0;
             transition: ease-out 1s;
         }
-        td{
+
+        td {
             border-color: white;
             border-style: solid;
             border-width: 20px;
         }
+
         table {
             caption-side: bottom;
             border-collapse: collapse;
             position: relative;
             top: -89px;
         }
-        .profileHeader{
+
+        .profileHeader {
             position: relative;
             top: -20px;
             -webkit-user-drag: none;
             user-select: none;
         }
-        #dropUl{
+
+        #dropUl {
             position: absolute;
-            top:10px !important;
+            top: 10px !important;
         }
-        .menuZone{
+
+        .menuZone {
             /* background-color: yellow; */
             /* width: 500px;
             height: 70px; */
@@ -325,21 +343,24 @@
             z-index: 9999;
             border-radius: 5px;
         }
-        .menuItemZone{
+
+        .menuItemZone {
             margin-right: 30px;
 
             user-select: none;
             -webkit-user-drag: none;
 
         }
-        .menuItem{
+
+        .menuItem {
             font-size: 20px;
             cursor: pointer;
             transition: ease-out 0.5s;
             color: gray;
 
         }
-        .menuItem:hover{
+
+        .menuItem:hover {
             color: black;
             transform: scale(1.2);
             transition: all 0.5s;
@@ -347,33 +368,26 @@
         }
 
 
-
-
-
-
-
-
     </style>
 
     <script>
-        let showInt=0
-        function showMenu(){
-            if(showInt==0){
+        let showInt = 0
+
+        function showMenu() {
+            if (showInt == 0) {
                 $("#menuZone").css({
-                    "opacity":1,"transition":"opacity 1.5s"
+                    "opacity": 1, "transition": "opacity 1.5s"
                 })
-                showInt=1
-            }
-            else if(showInt==1){
+                showInt = 1
+            } else if (showInt == 1) {
                 $("#menuZone").css({
-                    "opacity":0,"transition":"opacity 1s"
+                    "opacity": 0, "transition": "opacity 1s"
                 })
 
-                showInt=0
+                showInt = 0
             }
         }
     </script>
-
 
 
 </head>
@@ -395,15 +409,17 @@
 
 </div>
 <!-- 팔로워 팔로우 모달 시작-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                ...
+            <div class="modal-body" id="modal-body">
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -412,23 +428,24 @@
         </div>
     </div>
 </div>
-
 <!-- 팔로워 팔로우 모달 끝-->
 
 
 <div id="mypageBody" class="mypageBody">
     <!-- 내 정보 구역 시작-->
     <!-- 프로필 사진 -->
-    <div id="mypageProfileZone" class="mypageProfileZone" >
-        <!-- <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt=""> -->
-        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">
+    <div id="mypageProfileZone" class="mypageProfileZone">
+        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile"
+             th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
+        <!--        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">-->
 
     </div>
     <div class="profileHeader">
         <!-- 프로필 이름 -->
         <div id="mypageNameZone" class="mypageNameZone">
-            <!-- <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p> -->
-            <p id="mypageName" class="mypageName" >havana 1016</p>
+            <p id="myPageLoginId" class="myPageLoginId" th:text="${memberDTO.loginId}" hidden></p>
+            <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
+            <!--            <p id="mypageName" class="mypageName" >havana 1016</p>-->
         </div>
 
         <!-- 프로필 편집 버튼 -->
@@ -437,29 +454,31 @@
             <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
         </div> -->
         <div id="mypageFollowZone" class="mypageFollowZone">
-            <button onclick="" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
+            <button onclick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
         </div>
 
         <!--카운트 구역  -->
 
         <!-- 게시물 카운트 구역 -->
-        <div   class="mypageCountZone input-group">
+        <div class="mypageCountZone input-group">
             <div style="display:flex ; margin-right: 50px;">
                 <p class="countItem">게시물</p>
-                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1" >123</p></b>
+                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1">123</p></b>
             </div>
 
             <!-- 팔로워 카운트 구역 -->
             <div style="margin:0 50px 0 0 ;">
-            <span onclick="followerModal()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <p class="countItem">팔로워</p>
+            <span onclick="followingList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+                <p class="countItem" onclick="followingList()">팔로워</p>
                 <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1">456</p></b>
             </span>
             </div>
 
             <!-- 팔로우 카운트 구역 -->
             <div style="margin:0;">
-            <span onclick="followModal()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <span onclick="followModal()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
                 <p class="countItem">팔로워</p>
                 <b><p id="mypageFollowCount" class="mypageFollowCount countItem1">456</p></b>
             </span>
@@ -471,7 +490,7 @@
         <!-- 자기소개 -->
         <div id="aboutMe" class="">
             <!-- <t th:text="${memberDTO.memberIntro}"></p> -->
-            <textarea class="aboutMe" readonly  name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>
+            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>
             <!-- <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly  name="" id=""></textarea> -->
         </div>
     </div>
@@ -486,14 +505,16 @@
 
                 <td class="wrap">
                     <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg" src="http://www.busan.com/nas/wcms/wcms_data/photos/2020/02/21/2020022110335461558_l.jpg" alt="">
+                        <img class="mypageListItem listImg"
+                             src="http://www.busan.com/nas/wcms/wcms_data/photos/2020/02/21/2020022110335461558_l.jpg"
+                             alt="">
                         <i class="manyIcon fa-regular fa-clone"></i>
 
-                        <div class="imgIconGroup " style="display:flex;text-align:center" >
-                            <div  class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div  class="likeText2">123</div>
-                            <div  class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div  class="commentText2">465</div>
+                        <div class="imgIconGroup " style="display:flex;text-align:center">
+                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
+                            <div class="likeText2">123</div>
+                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
+                            <div class="commentText2">465</div>
                         </div>
                     </div>
                 </td>
@@ -504,14 +525,15 @@
 
                 <td class="wrap">
                     <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg" src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg" alt="">
+                        <img class="mypageListItem listImg"
+                             src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg" alt="">
                         <i class="manyIcon fa-regular fa-clone"></i>
 
-                        <div class="imgIconGroup " style="display:flex;text-align:center" >
-                            <div  class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div  class="likeText2">123</div>
-                            <div  class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div  class="commentText2">465</div>
+                        <div class="imgIconGroup " style="display:flex;text-align:center">
+                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
+                            <div class="likeText2">123</div>
+                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
+                            <div class="commentText2">465</div>
                         </div>
                     </div>
                 </td>
@@ -522,14 +544,15 @@
 
                 <td class="wrap">
                     <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg" src="https://blog.kakaocdn.net/dn/yfUM9/btqKwq8jv7S/ZpQtduErxjpCAEUiQnIM6K/img.png" alt="">
+                        <img class="mypageListItem listImg"
+                             src="https://blog.kakaocdn.net/dn/yfUM9/btqKwq8jv7S/ZpQtduErxjpCAEUiQnIM6K/img.png" alt="">
                         <i class="manyIcon fa-regular fa-clone"></i>
 
-                        <div class="imgIconGroup " style="display:flex;text-align:center;" >
-                            <div  class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div  class="likeText2">123</div>
-                            <div  class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div  class="commentText2">465</div>
+                        <div class="imgIconGroup " style="display:flex;text-align:center;">
+                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
+                            <div class="likeText2">123</div>
+                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
+                            <div class="commentText2">465</div>
                         </div>
                     </div>
                 </td>
@@ -546,27 +569,81 @@
     </div>
 
 
-
-
 </div>
 
 
 <!-- 게시물 리스트 구역 끝-->
 
 
-
-
 <!-- 내 정보 구역 끝-->
-
-
-
 
 
 </div>
 
 
-
 </body>
+<script>
+    function followBTN() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let yourId = document.getElementById("myPageLoginId").innerText;
+        let yourName = document.getElementById("mypageName").innerText;
+        let loginStatus = [[${memberDTO.loginStatus}]]
+
+        $.ajax({
+            url: "/follow/request",
+            type: "post",
+            dataType: "json",
+            data: {
+                "yourId": yourId,
+                "yourName": yourName,
+                "loginStatus": loginStatus
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (result) {
+                console.log("err");
+            }
+        })
+    };
+
+
+    function followingList() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        const loginId = document.getElementById("myPageLoginId").innerText;
+        console.log(loginId);
+
+        $.ajax({
+            type: "post",
+            url: "/follow/myList",
+            data: {
+                "loginId": loginId
+            },
+            dataType:"json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },success:function (result){
+                console.log(result);
+                var content="";
+                for(let i in result){
+                    content +="<a className='following' href='#'>" +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName +"\">"
+                    + result[i].yourName + "</a>" +"<br>";
+                }
+                document.getElementById("modal-body").innerHTML=content;
+            }
+
+        })
+    }
+
+</script>
 <script>
     function logoutChk() {
         let header = $("meta[name='_csrf_header']").attr('content');
@@ -590,7 +667,6 @@
         })
     }
 </script>
-
 
 
 </html>
