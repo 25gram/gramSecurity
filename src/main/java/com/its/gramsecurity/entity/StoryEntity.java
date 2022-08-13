@@ -2,9 +2,7 @@ package com.its.gramsecurity.entity;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.StoryDTO;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.type.PrimitiveCharacterArrayNClobType;
 
@@ -13,12 +11,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-@Table(name="story_entity")
-@NoArgsConstructor
+@Table(name = "story25")
 public class StoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name="story_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,46 +29,48 @@ public class StoryEntity {
     private String loginId;
 
     @Column
+    private String memberName;
+
+    @Column
     private LocalDateTime storyCreatedTime;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyImgTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyTextTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyTodayTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyLinkTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyQuestionTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storySurveyTag;
 
-    @Column (length = 16000)
+    @Column (length = 2000)
     private String storyQuizTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyReferenceTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyHashTag;
 
-    @Column (length = 16000)
+    @Column (length = 1000)
     private String storyLocationTag;
 
     @Column
     private int storyVisitStatus;
 
-    public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, PrincipalDetails principalDetails,MemberEntity memberEntity){
+    public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, MemberEntity memberEntity){
         StoryEntity storyEntity = new StoryEntity();
-        storyEntity.setMemberEntity(memberEntity);
-        storyEntity.setLoginId(principalDetails.getMemberDTO().getLoginId());
-        storyEntity.setStoryFileName(storyDTO.getStoryFileName());
+        storyEntity.setLoginId(memberEntity.getLoginId());
+        storyEntity.setMemberName(memberEntity.getMemberName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
         storyEntity.setStoryTextTag(storyDTO.getStoryTextTag());
         storyEntity.setStoryTodayTag(storyDTO.getStoryTodayTag());

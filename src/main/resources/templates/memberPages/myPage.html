@@ -64,13 +64,12 @@
             width: 160px;
             height: 160px;
             border-radius: 50%;
+            user-select: none;
+            -webkit-user-drag: none;
 
         }
-        .mypageProfile:hover{
-            /* margin: 1px;  */
-            border:1px gray solid;
 
-        }
+
 
         .mypageName{
             font-size: 30px;
@@ -84,6 +83,7 @@
             width: 130px;
             height: 35px;
             user-select: none;
+            transition: ease-out 0.5s;
 
 
         }
@@ -91,16 +91,47 @@
             /* background-color: rgb(230, 230, 230); */
             border: 1px solid gray;
             color:gray;
+            transition: all 0.5s;
         }
         .mypageUpdateBtn:active{
-            transition: 100ms;
-            position: relative;
-            top:2px;
+            transform: scale(0.95);
+            transition: all 0.1s;
         }
+
+        .mypageFollowBtn{
+            /* border: 1px solid gray; */
+            border: 1px solid rgb(226, 226, 226);
+            border-radius: 5px;
+            background-color: transparent;
+            font-size: 15px;
+            width: 130px;
+            height: 35px;
+            user-select: none;
+            transition: ease-out 0.2s;
+
+
+        }
+        .mypageFollowBtn:hover{
+            /* background-color: rgb(230, 230, 230); */
+            border: 1px solid gray;
+            color:gray;
+            transition: all 0.5s;
+        }
+        .mypageFollowBtn:active{
+            transform: scale(0.95);
+            transition: all 0.1s;
+
+        }
+
+
+
+
+
         .mypageProfileZone{
             position: relative;
             top: 22px;
             left: 68px;
+
         }
         .mypageNameZone{
             position: relative;
@@ -108,6 +139,11 @@
             left: 294px;
         }
         .mypageUPdateZone{
+            position: relative;
+            top: -185px;
+            left: 493px;
+        }
+        .mypageFollowZone{
             position: relative;
             top: -185px;
             left: 493px;
@@ -128,13 +164,21 @@
             -webkit-user-drag: none;
         }
 
-        #aboutMe{
+        .aboutMe{
             position: relative;
             top: -155px;
             left: 293px;
             /* font-family: Arial, Helvetica, 'sans-serif'; */
             font-size: 19px;
+            height: 100px;
+            width:340px;
+            resize:none;
+            border: 0;
+            user-select: none;
+            -webkit-user-drag:none;
+            pointer-events: none;
         }
+
         .wrap{
             position: relative;
             width: 31%;
@@ -146,6 +190,7 @@
             /* left: 2%;
             top:-100px; */
             z-index: 5000;
+            transition:ease-out 0.5s;
 
         }
 
@@ -176,23 +221,33 @@
 
         .wrap:hover .listImg{
             opacity: 0.7;
+
         }
         .wrap:hover .imgIconGroup{
             opacity: 1;
+            transition: all 0.5s;
         }
 
         .wrap:active .listImg {
             transform: scale(1.1);
+            transition: all 0.3s;
 
         }
+        .wrap:hover{
+            transform: scale(1.1);
+            transition: all 0.5s;
+        }
+        /* .wrap:active{
+            transform: scale(0.95);
+            transition: all 0.1s;
+        } */
 
 
 
 
         .listImg{
             z-index: -1;
-            transition: all 0.2s linear;
-
+            transition: ease-out 1s;
         }
 
 
@@ -225,6 +280,7 @@
             margin: auto !important;
             margin-top: 45% !important;
             opacity: 0;
+            transition: ease-out 1s;
         }
         td{
             border-color: white;
@@ -237,7 +293,12 @@
             position: relative;
             top: -89px;
         }
-
+        .profileHeader{
+            position: relative;
+            top: -20px;
+            -webkit-user-drag: none;
+            user-select: none;
+        }
 
 
 
@@ -253,36 +314,73 @@
 </head>
 
 <body>
+<!-- 팔로워 팔로우 모달 시작-->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 팔로워 팔로우 모달 끝-->
+
+
 <div id="mypageBody" class="mypageBody">
     <!-- 내 정보 구역 시작-->
 
     <!-- 프로필 사진 -->
     <div id="mypageProfileZone" class="mypageProfileZone" >
-        <img id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
+        <!-- <img id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt=""> -->
+        <img id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">
 
     </div>
-
-    <!-- 프로필 이름 -->
-    <div id="mypageNameZone" class="mypageNameZone">
-        <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
-    </div>
-
-    <!-- 정보수정 버튼 -->
-    <div id="mypageUPdateZone" class="mypageUPdateZone">
-        <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
-    </div>
-
-    <!--카운트 구역  -->
-
-    <!-- 게시물 카운트 구역 -->
-    <div   class="mypageCountZone input-group">
-        <div>
-            <p class="countItem">게시물</p>
-        </div>
-        <div id="mypageBoardCountZone" class="mypageBoardcountZone">
-            <b><p id="mypageBoardCount" class="mypageBoardCount countItem1" >123</p></b>
+    <div class="profileHeader">
+        <!-- 프로필 이름 -->
+        <div id="mypageNameZone" class="mypageNameZone">
+            <!-- <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p> -->
+            <p id="mypageName" class="mypageName" >havana 1016</p>
         </div>
 
+        <!-- 프로필 편집 버튼 -->
+        <!-- <div id="mypageUPdateZone" class="mypageUPdateZone">
+            <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
+        </div> -->
+        <div id="mypageFollowZone" class="mypageFollowZone">
+            <button onclick="" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
+        </div>
+
+        <!--카운트 구역  -->
+
+        <!-- 게시물 카운트 구역 -->
+        <div   class="mypageCountZone input-group">
+            <div>
+                <p class="countItem">게시물</p>
+            </div>
+            <div id="mypageBoardCountZone" class="mypageBoardcountZone">
+                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1" >123</p></b>
+            </div>
+
+            <!-- 팔로워 카운트 구역 -->
+            <div onclick="followerModal()" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+                <p class="countItem">팔로워</p>
+            </div>
+            <div onclick="followerModal()" id="mypageFollowerCountZone" class="mypageFollowerCountZone" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1">456</p></b>
+            </div>
         <!-- 팔로워 카운트 구역 -->
         <div>
             <p class="countItem">팔로워</p>
@@ -291,6 +389,15 @@
             <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1">456</p></b>
         </div>
 
+            <!-- 팔로우 카운트 구역 -->
+            <div onclick="followModal()" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+                <p class="countItem">팔로우</p>
+            </div>
+            <div onclick="followModal()" id="mypageFollowCountZone" class="mypageFollowCountZone" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <b><p id="mypageFollowCount" class="mypageFollowCount countItem1">789</p></b>
+            </div>
+        </div>
+        <!-- 게시물 카운트 구역 끝 -->
         <!-- 팔로잉 카운트 구역 -->
         <div>
             <p class="countItem">팔로우</p>
@@ -301,18 +408,14 @@
     </div>
     <!-- 게시물 카운트 구역 끝 -->
 
-    <!-- 이름 및 자기소개 시작-->
 
-    <!-- 이름 -->
-    <!-- <b><div hidden id="mypageMynameZone" class="mypageMynameZone">
-        hasangsu82
-    </div></b> -->
-
-    <!-- 자기소개 -->
-    <div id="aboutMe" class="aboutMe">
-        <p th:text="${memberDTO.memberIntro}">
+        <!-- 자기소개 -->
+        <div id="aboutMe" class="">
+            <!-- <t th:text="${memberDTO.memberIntro}"></p> -->
+            <textarea class="aboutMe" readonly  name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>
+            <!-- <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly  name="" id=""></textarea> -->
+        </div>
     </div>
-
     <!-- 이름 및 자기소개 끝-->
     <!-- 게시물 리스트 구역 시작-->
 

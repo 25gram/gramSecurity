@@ -2,15 +2,14 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.StoryDTO;
+import com.its.gramsecurity.service.MemberService;
 import com.its.gramsecurity.service.StoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,20 +20,21 @@ import java.util.List;
 public class StoryController {
     private final StoryService storyService;
     String memberName = "admin";
-
+    private final MemberService memberService;
     @GetMapping("/")
     public String index(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long memberId = principalDetails.getMemberDTO().getId();
-        List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+        System.out.println("storyDTOList = " + storyDTOList);
         model.addAttribute("storyList", storyDTOList);
         return "storyIndex";
     }
     @GetMapping("/myStory")
-    public String findByMemberId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long memberId = principalDetails.getMemberDTO().getId();
-        List<StoryDTO> storyDTOList = storyService.findByMemberId(memberId);
+    public String findByLoginId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         model.addAttribute("storyList", storyDTOList);
-        return "storyPages/main";
+        return "myStory";
     }
     @GetMapping("/save-form")
     public String saveForm() {
@@ -48,16 +48,19 @@ public class StoryController {
     }
 
     @PostMapping("/save")
-    public @ResponseBody String save(@ModelAttribute StoryDTO storyDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
+    public @ResponseBody Long save(@ModelAttribute StoryDTO storyDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
         System.out.println("storyDTO1 = " + storyDTO);
+        String loginId = principalDetails.getUsername();
+        Long id = storyService.save(storyDTO,loginId);
 
-        System.out.println("1" + principalDetails);
-        storyService.save(storyDTO,principalDetails);
 
+        return id;
+    }
+    @PostMapping("/saveFile")
+    public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
         System.out.println("storyDTO2 = " + storyDTO);
-        System.out.println(storyDTO.getStoryFile());
-        System.out.println(storyDTO.getStoryImgFile());
-        return "ok";
+        storyService.saveFile(storyDTO);
+        return "redirect:/main/main";
     }
 
 }
