@@ -463,7 +463,7 @@
         <div class="mypageCountZone input-group">
             <div style="display:flex ; margin-right: 50px;">
                 <p class="countItem">게시물</p>
-                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1">123</p></b>
+                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1" ></p></b>
             </div>
 
             <!-- 팔로워 카운트 구역 -->
@@ -471,7 +471,7 @@
             <span onclick="followingList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
                 <p class="countItem" onclick="followingList()">팔로워</p>
-                <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1">456</p></b>
+                <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1" th:text="${count}"></p></b>
             </span>
             </div>
 
@@ -480,7 +480,7 @@
             <span onclick="followList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
                 <p class="countItem">팔로워</p>
-                <b><p id="mypageFollowCount" class="mypageFollowCount countItem1">456</p></b>
+                <b><p id="mypageFollowCount" class="mypageFollowCount countItem1" th:text="${countFw}"></p></b>
             </span>
             </div>
         </div>
@@ -490,8 +490,8 @@
         <!-- 자기소개 -->
         <div id="aboutMe" class="">
             <!-- <t th:text="${memberDTO.memberIntro}"></p> -->
-            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>
-            <!-- <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly  name="" id=""></textarea> -->
+<!--            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>-->
+             <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly  name="" id=""></textarea>
         </div>
     </div>
     <!-- 이름 및 자기소개 끝-->

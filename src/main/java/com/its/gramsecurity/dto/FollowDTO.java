@@ -17,8 +17,8 @@ public class FollowDTO {
     private String yourProfileName;
     private int loginStatus;
 
-
-    public FollowDTO(Long id, String myId, String yourId, String yourName, String yorProfile, String yourProfileName, int loginStatus) {
+    public FollowDTO(Long id, String myId, String yourId, String yourName, String yorProfile,
+                     String yourProfileName, int loginStatus) {
         this.id = id;
         this.myId = myId;
         this.yourId = yourId;
