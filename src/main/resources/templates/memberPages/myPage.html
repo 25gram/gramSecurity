@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="import" href="main.html">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -353,6 +352,8 @@
 
 
 
+
+
     </style>
 
     <script>
@@ -418,6 +419,7 @@
 
 <div id="mypageBody" class="mypageBody">
     <!-- 내 정보 구역 시작-->
+
     <!-- 프로필 사진 -->
     <div id="mypageProfileZone" class="mypageProfileZone" >
         <!-- <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt=""> -->
@@ -466,6 +468,15 @@
             </div>
         </div>
         <!-- 게시물 카운트 구역 끝 -->
+        <!-- 팔로잉 카운트 구역 -->
+        <div>
+            <p class="countItem">팔로우</p>
+        </div>
+        <div id="mypageFollowCountZone" class="mypageFollowCountZone">
+            <b><p id="mypageFollowCount" class="mypageFollowCount countItem1">789</p></b>
+        </div>
+    </div>
+    <!-- 게시물 카운트 구역 끝 -->
 
 
         <!-- 자기소개 -->
@@ -558,7 +569,7 @@
 
 <!-- 내 정보 구역 끝-->
 
-
+<!--깃테스트-->
 
 
 
