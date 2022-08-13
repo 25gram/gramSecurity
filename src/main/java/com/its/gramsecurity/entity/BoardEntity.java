@@ -22,6 +22,9 @@ public class BoardEntity extends BaseEntity{
     @Column(name = "board_id")
     private Long id;
 
+    @Column
+    private String loginId;
+
     @Column(length = 500)
     private String boardWriter;
 
@@ -56,11 +59,9 @@ public class BoardEntity extends BaseEntity{
     private MemberEntity memberEntity;
     public static BoardEntity toSaveEntity(BoardDTO boardDTO, PrincipalDetails principalDetails) {
         BoardEntity board = new BoardEntity();
-
         board.setBoardWriter(principalDetails.getMemberDTO().getMemberName());
+        board.setLoginId(principalDetails.getMemberDTO().getLoginId());
         board.setMemberProfileName(principalDetails.getMemberDTO().getMemberProfileName());
-        System.out.println("BoardEntity.toSaveEntity");
-        System.out.println("profile = " +principalDetails.getMemberDTO().getMemberProfileName());
         board.setBoardContents(boardDTO.getBoardContents());
         board.setBoardLocation(boardDTO.getBoardLocation());
         board.setBoardTag(boardDTO.getBoardTag());

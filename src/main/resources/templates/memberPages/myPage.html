@@ -359,7 +359,8 @@
     <div class="profileHeader">
         <!-- 프로필 이름 -->
         <div id="mypageNameZone" class="mypageNameZone">
-            <!-- <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p> -->
+<!--            <p id="myPageLoginId" class="myPageLoginId" th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}" hidden></p>-->
+<!--             <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>-->
             <p id="mypageName" class="mypageName" >havana 1016</p>
         </div>
 
@@ -368,7 +369,7 @@
             <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
         </div> -->
         <div id="mypageFollowZone" class="mypageFollowZone">
-            <button onclick="" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
+            <button onclick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
         </div>
 
         <!--카운트 구역  -->
@@ -508,4 +509,36 @@
 
 
 </body>
+<script>
+    function followBTN() {
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        const myPageLoginId = document.getElementById("myPageLoginId").value;
+        const yourName = document.getElementById("mypageName");
+        const yourProfileName = document.getElementById("mypageProfile");
+        const loginStatus = [[${memberDTO.loginStatus}]];
+
+        $.ajax({
+            url: "/follow/request",
+            type: "post",
+            dataType: "json",
+            data: {
+                "myId": myPageLoginId,
+                "yourName": yourName,
+                "yourProfileName": yourProfileName,
+                "loginStatus": loginStatus
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success: function (result) {
+                console.log("suc");
+            },
+            error: function (result) {
+                console.log("err");
+            }
+        })
+    };
+
+</script>
 </html>

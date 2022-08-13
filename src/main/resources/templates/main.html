@@ -144,37 +144,7 @@
             })
         }
 
-        function followBTN() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            const memberName = document.getElementById("memberName").value;
-            const yourId = "memberName";
-            const yourName = "memberName";
-            const yourProfileName = "memberProfileName2";
-            const loginStatus = 0;
 
-            $.ajax({
-                url: "/follow/request",
-                type: "post",
-                dataType: "json",
-                data: {
-                    "myId": memberName,
-                    "yourId": yourId,
-                    "yourName": yourName,
-                    "yourProfileName": yourProfileName,
-                    "loginStatus": loginStatus
-                },
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
-                success: function (result) {
-                    console.log("suc");
-                },
-                error: function (result) {
-                    console.log("err");
-                }
-            })
-        };
 
         function followList() {
             let header = $("meta[name='_csrf_header']").attr('content');
@@ -669,12 +639,15 @@
                             result.setRequestHeader(header, token);
                         },
                         success: function (result) {
-
-                            var content = "";
-                            for (let i in result) {
-                                content += "<li>" + "<a className='drop-item dropdown-item d-item' href='#'>" + "<img src=\"" + '/upload/' + result[i].memberProfileName + "\"> " + result[i].memberName + "</a>" + "</li>";
+                            if(result != null) {
+                                var content = "";
+                                for (let i in result) {
+                                    content += "<li>" + "<a className='drop-item dropdown-item d-item' href='#'>" + "<img src=\"" + '/upload/' + result[i].memberProfileName + "\"> " + result[i].memberName + "</a>" + "</li>";
+                                }
+                                document.getElementById("spinDisplay").innerHTML = content;
+                            }else{
+                                document.getElementById("spinDisplay").innerHTML="";
                             }
-                            document.getElementById("spinDisplay").innerHTML = content;
 
                         }
                     })
@@ -857,10 +830,10 @@
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
                         <!--                        <i class="bi bi-person-circle" style="font-size: 37px; margin-left:5px"></i>-->
-                        <img class="profile" th:src="@{|/upload/${board.memberProfileName}|}" alt="">
+                        <a th:href="@{|/member/mypage?loginId=${board.loginId}|}"><img class="profile" th:src="@{|/upload/${board.memberProfileName}|}"   alt=""></a>
                     </div>
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
-                    <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
+                    <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"  ></span></div>
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
