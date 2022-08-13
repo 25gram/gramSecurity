@@ -93,8 +93,6 @@ public class MemberController {
     @GetMapping("/mypage")
     String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,
                   @RequestParam String loginId, Model model) {
-        System.out.println("MemberController.mypage");
-        System.out.println("principalDetails = " + principalDetails + ", loginId = " + loginId + ", model = " + model);
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("AuthenticationPrincipal", principalDetails);

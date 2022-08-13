@@ -420,16 +420,16 @@
     <!-- 내 정보 구역 시작-->
     <!-- 프로필 사진 -->
     <div id="mypageProfileZone" class="mypageProfileZone" >
-        <!-- <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt=""> -->
-        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">
+         <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
+<!--        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">-->
 
     </div>
     <div class="profileHeader">
         <!-- 프로필 이름 -->
         <div id="mypageNameZone" class="mypageNameZone">
-<!--            <p id="myPageLoginId" class="myPageLoginId" th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}" hidden></p>-->
-<!--             <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>-->
-            <p id="mypageName" class="mypageName" >havana 1016</p>
+            <p id="myPageLoginId" class="myPageLoginId" th:text="${memberDTO.loginId}" hidden></p>
+             <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
+<!--            <p id="mypageName" class="mypageName" >havana 1016</p>-->
         </div>
 
         <!-- 프로필 편집 버튼 -->
@@ -570,28 +570,27 @@
 </body>
 <script>
     function followBTN() {
+        console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
-        const myPageLoginId = document.getElementById("myPageLoginId").value;
-        const yourName = document.getElementById("mypageName");
-        const yourProfileName = document.getElementById("mypageProfile");
-        const loginStatus = [[${memberDTO.loginStatus}]];
+        let yourId=document.getElementById("myPageLoginId").innerText;
+        let yourName =document.getElementById("mypageName").innerText;
+        let loginStatus = [[${memberDTO.loginStatus}]]
 
         $.ajax({
             url: "/follow/request",
             type: "post",
             dataType: "json",
             data: {
-                "myId": myPageLoginId,
+                "yourId":yourId,
                 "yourName": yourName,
-                "yourProfileName": yourProfileName,
                 "loginStatus": loginStatus
             },
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
             },
             success: function (result) {
-                console.log("suc");
+                console.log(result);
             },
             error: function (result) {
                 console.log("err");
