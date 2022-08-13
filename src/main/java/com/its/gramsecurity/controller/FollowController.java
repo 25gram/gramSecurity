@@ -24,7 +24,7 @@ public class FollowController {
 
     //팔로우신청
     @PostMapping("/request")
-    public @ResponseBody FollowDTO request_fw(@ModelAttribute  FollowDTO followDTO, Model model,
+    public @ResponseBody FollowDTO request_fw(@ModelAttribute  FollowDTO followDTO,
                                            @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String myId = principalDetails.getMemberDTO().getLoginId();
         followService.save(followDTO, myId);
@@ -44,18 +44,15 @@ public class FollowController {
     public @ResponseBody List<FollowDTO> follow(@RequestParam("loginId") String loginId, Model model) {
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         model.addAttribute("followList", followDTOList);
-        System.out.println("FollowController.following");
-        System.out.println("loginId = " + loginId + ", model = " + model);
         return followDTOList;
     }
 
+
     //팔로잉 리스트
-    @GetMapping("/yourList")
+    @PostMapping("/yourList")
     public @ResponseBody List<FollowDTO> following(@RequestParam("loginId") String loginId, Model model) {
         List<FollowDTO> followDTOList = followService.findAllByYourId(loginId);
         model.addAttribute("followDTOList", followDTOList);
-        System.out.println("FollowController.following");
-        System.out.println("loginId = " + loginId + ", model = " + model);
         return followDTOList;
     }
 

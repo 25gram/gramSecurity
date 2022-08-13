@@ -1,6 +1,8 @@
 package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
+import com.its.gramsecurity.dto.FollowDTO;
+import com.its.gramsecurity.repository.FollowRepository;
 import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
@@ -25,6 +27,9 @@ public class MemberService {
     BoardService boardService;
     @Autowired
     private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    private FollowRepository followRepository;
 
     public MemberEntity save(MemberDTO memberDTO) throws IOException {
         MultipartFile memberProfile = memberDTO.getMemberProfile();

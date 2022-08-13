@@ -1,8 +1,12 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
+import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.entity.FollowEntity;
+import com.its.gramsecurity.repository.FollowRepository;
 import com.its.gramsecurity.service.BoardService;
+import com.its.gramsecurity.service.FollowService;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Member;
+import java.util.List;
 
 
 @Controller
@@ -23,7 +28,7 @@ import java.lang.reflect.Member;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
-    private final BoardService boardService;
+    private final FollowService followService;
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
@@ -91,11 +96,15 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                  @RequestParam String loginId, Model model) {
+    public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                         @RequestParam String loginId, Model model) {
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
+        List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
+        List<FollowDTO> following = followService.findAllByYourId(loginId);
+        model.addAttribute("countFw", following.size());
+        model.addAttribute("count", followDTOList.size());
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("AuthenticationPrincipal", principalDetails);
-        return "memberPages/myPage" ;
+        return "memberPages/myPage";
     }
 }
