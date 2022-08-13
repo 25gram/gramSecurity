@@ -146,24 +146,6 @@
 
 
 
-        function followList() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            const myId = "yourId";
-            $.ajax({
-                url: "/follow/myList",
-                type: "get",
-                data: {
-                    "myId": myId
-                },
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
-                success: function (result) {
-
-                }
-            })
-        };
 
         function dropdown() {
             $("#dropBtn").trigger("click")

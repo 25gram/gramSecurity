@@ -51,11 +51,12 @@ public class FollowController {
 
     //팔로잉 리스트
     @GetMapping("/yourList")
-    public @ResponseBody List<FollowDTO> following(@RequestParam("yourId") String yourId, Model model) {
-        List<FollowDTO> followingDTOList = followService.findAllByYourId(yourId);
-        model.addAttribute("followingList", followingDTOList);
-
-        return followingDTOList;
+    public @ResponseBody List<FollowDTO> following(@RequestParam("loginId") String loginId, Model model) {
+        List<FollowDTO> followDTOList = followService.findAllByYourId(loginId);
+        model.addAttribute("followDTOList", followDTOList);
+        System.out.println("FollowController.following");
+        System.out.println("loginId = " + loginId + ", model = " + model);
+        return followDTOList;
     }
 
     //언팔로우
