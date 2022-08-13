@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="import" href="main.html">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -254,31 +253,9 @@
 </head>
 
 <body>
-<!-- 팔로워 팔로우 모달 시작-->
-
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 팔로워 팔로우 모달 끝-->
 <div id="mypageBody" class="mypageBody">
     <!-- 내 정보 구역 시작-->
+
     <!-- 프로필 사진 -->
     <div id="mypageProfileZone" class="mypageProfileZone" >
         <img id="mypageProfile" class="mypageProfile" th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
@@ -307,18 +284,18 @@
         </div>
 
         <!-- 팔로워 카운트 구역 -->
-        <div onclick="followerModal()" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+        <div>
             <p class="countItem">팔로워</p>
         </div>
-        <div onclick="followerModal()" id="mypageFollowerCountZone" class="mypageFollowerCountZone" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div id="mypageFollowerCountZone" class="mypageFollowerCountZone">
             <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1">456</p></b>
         </div>
 
-        <!-- 팔로우 카운트 구역 -->
-        <div onclick="followModal()" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer;">
+        <!-- 팔로잉 카운트 구역 -->
+        <div>
             <p class="countItem">팔로우</p>
         </div>
-        <div onclick="followModal()" id="mypageFollowCountZone" class="mypageFollowCountZone" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div id="mypageFollowCountZone" class="mypageFollowCountZone">
             <b><p id="mypageFollowCount" class="mypageFollowCount countItem1">789</p></b>
         </div>
     </div>
