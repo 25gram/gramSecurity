@@ -35,6 +35,7 @@ public class MainController {
         List<BoardDTO> boardList = boardService.findAll();
         List<BoardFileDTO> boardFileList = boardService.fileFindAll();
         List<LikesDTO> likesList = boardService.likesFindAll(memberDTO.getMemberName());
+        model.addAttribute("AuthenticationPrincipal",principalDetails);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);

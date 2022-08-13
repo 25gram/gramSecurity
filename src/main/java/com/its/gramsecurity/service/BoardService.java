@@ -30,7 +30,7 @@ public class BoardService {
     private final MemberRepository memberRepository;
     public BoardDTO fileSave(BoardDTO boardDTO, PrincipalDetails principalDetails) {
         Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,principalDetails)).getId();
-        return BoardDTO.toDTO(boardRepository.findById(id).get());
+        return BoardDTO.toDTO(boardRepository.findById(id).get(),principalDetails);
     }
     public BoardFileDTO save(BoardFileDTO fileDTO,String list) throws IOException {
         MultipartFile boardFile = fileDTO.getBoardFile();

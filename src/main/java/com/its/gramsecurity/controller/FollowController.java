@@ -24,11 +24,11 @@ public class FollowController {
 
     //팔로우신청
     @PostMapping("/request")
-    public @ResponseBody List<FollowDTO> request_fw(FollowDTO followDTO,Model model,
-                                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String myId=principalDetails.getMemberDTO().getLoginId();
-       followService.save(followDTO,myId);
-        return null;
+    public @ResponseBody FollowDTO request_fw(@ModelAttribute  FollowDTO followDTO, Model model,
+                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String myId = principalDetails.getMemberDTO().getLoginId();
+        followService.save(followDTO, myId);
+        return followDTO;
     }
 
     //전체 리스트
@@ -40,23 +40,28 @@ public class FollowController {
     }
 
     //팔로우 리스트
-    @GetMapping("/myList")
-    public @ResponseBody String follow(@RequestParam("myId") String myId, Model model) {
-        List<FollowDTO> followDTOList = followService.findAllByMyId(myId);
+    @PostMapping("/myList")
+    public @ResponseBody List<FollowDTO> follow(@RequestParam("loginId") String loginId, Model model) {
+        List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         model.addAttribute("followList", followDTOList);
-        return null;
+        System.out.println("FollowController.following");
+        System.out.println("loginId = " + loginId + ", model = " + model);
+        return followDTOList;
     }
 
     //팔로잉 리스트
     @GetMapping("/yourList")
-    public @ResponseBody String following(@RequestParam("yourId") String yourId, Model model) {
-        List<FollowDTO> followingDTOList = followService.findAllByYourId(yourId);
-        model.addAttribute("followingList", followingDTOList);
-        return null;
+    public @ResponseBody List<FollowDTO> following(@RequestParam("loginId") String loginId, Model model) {
+        List<FollowDTO> followDTOList = followService.findAllByYourId(loginId);
+        model.addAttribute("followDTOList", followDTOList);
+        System.out.println("FollowController.following");
+        System.out.println("loginId = " + loginId + ", model = " + model);
+        return followDTOList;
     }
 
     //언팔로우
-    @DeleteMapping("/")   public ResponseEntity UnFollow(@PathVariable Long id) {
+    @DeleteMapping("/")
+    public ResponseEntity UnFollow(@PathVariable Long id) {
         followService.UnFollow(id);
 //        return new ResponseEntity<>(HttpStatus.OK);
         return null;
