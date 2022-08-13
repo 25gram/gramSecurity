@@ -28,7 +28,6 @@ public class MemberEntity {
     private String memberEmail;
     @Column(length = 500)
     private String memberProfileName;
-
     @Column
     private int loginStatus;
     @Column(length = 500)
