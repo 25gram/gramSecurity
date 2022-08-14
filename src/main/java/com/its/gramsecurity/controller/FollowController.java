@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,11 +58,12 @@ public class FollowController {
     }
 
     //언팔로우
-    @DeleteMapping("/")
-    public ResponseEntity UnFollow(@PathVariable Long id) {
-        followService.UnFollow(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-        return null;
+    @Transactional
+    @DeleteMapping("/delete")
+    public ResponseEntity UnFollow(@RequestParam("yourId") String yourId,
+                                   @RequestParam("myId")String myId ) {
+        followService.UnFollow(yourId, myId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

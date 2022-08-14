@@ -415,7 +415,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal"
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modal-body">
@@ -445,6 +445,7 @@
         <div id="mypageNameZone" class="mypageNameZone">
             <p id="myPageLoginId" class="myPageLoginId" th:text="${memberDTO.loginId}" hidden></p>
             <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
+            <p id="AuthenticationId" class="AuthenticationId" th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}"hidden></p>
             <!--            <p id="mypageName" class="mypageName" >havana 1016</p>-->
         </div>
 
@@ -463,7 +464,7 @@
         <div class="mypageCountZone input-group">
             <div style="display:flex ; margin-right: 50px;">
                 <p class="countItem">게시물</p>
-                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1" ></p></b>
+                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1"></p></b>
             </div>
 
             <!-- 팔로워 카운트 구역 -->
@@ -490,8 +491,8 @@
         <!-- 자기소개 -->
         <div id="aboutMe" class="">
             <!-- <t th:text="${memberDTO.memberIntro}"></p> -->
-<!--            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>-->
-             <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly  name="" id=""></textarea>
+            <!--            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>-->
+            <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly name="" id=""></textarea>
         </div>
     </div>
     <!-- 이름 및 자기소개 끝-->
@@ -584,12 +585,12 @@
 </body>
 <script>
     function followBTN() {
-        console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let yourId = document.getElementById("myPageLoginId").innerText;
         let yourName = document.getElementById("mypageName").innerText;
         let loginStatus = [[${memberDTO.loginStatus}]]
+        var content = "";
 
         $.ajax({
             url: "/follow/request",
@@ -604,15 +605,17 @@
                 result.setRequestHeader(header, token);
             },
             success: function (result) {
-                console.log(result);
+               content=
+                  " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우 취소"+"</button>"
+                document.getElementById("mypageFollowZone").innerHTML=content;
             },
             error: function (result) {
                 console.log("err");
-            }
+            },
         })
     };
 
-    function followList(){
+    function followList() {
         console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -625,23 +628,23 @@
             data: {
                 "loginId": loginId
             },
-            dataType:"json",
+            dataType: "json",
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
-            },success:function (result){
+            }, success: function (result) {
                 console.log(result);
-                var content="";
-                for(let i in result){
-                    content +="<a className='following' href='#'>" +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName +"\">"
-                        + result[i].yourName + "</a>" +"<br>";
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' +
+                        result[i].myId + "'>" +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
                 }
-                document.getElementById("modal-body").innerHTML=content;
+                document.getElementById("modal-body").innerHTML = content;
             }
 
         })
     }
-
 
 
     function followingList() {
@@ -657,20 +660,44 @@
             data: {
                 "loginId": loginId
             },
-            dataType:"json",
+            dataType: "json",
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
-            },success:function (result){
+            }, success: function (result) {
                 console.log(result);
-                var content="";
-                for(let i in result){
-                    content +="<a className='following' href='#'>" +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName +"\">"
-                    + result[i].yourName + "</a>" +"<br>";
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
                 }
-                document.getElementById("modal-body").innerHTML=content;
+                document.getElementById("modal-body").innerHTML = content;
             }
 
+        })
+    }
+
+    function unFollowBTN(){
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let yourId = document.getElementById("myPageLoginId").innerText;
+        let myId=document.getElementById("AuthenticationId").innerText;
+        var content="";
+        $.ajax({
+            url: "/follow/delete",
+            type: "delete",
+            data: {
+                "yourId": yourId,
+                "myId":myId,
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            }, success: function () {
+                content=
+                    " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우"+"</button>"
+                document.getElementById("mypageFollowZone").innerHTML=content;
+            }
         })
     }
 
