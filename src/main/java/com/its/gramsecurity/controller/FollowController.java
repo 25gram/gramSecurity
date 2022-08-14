@@ -2,20 +2,15 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.FollowDTO;
-import com.its.gramsecurity.entity.FollowEntity;
 import com.its.gramsecurity.service.FollowService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/follow")
@@ -60,10 +55,10 @@ public class FollowController {
     //언팔로우
     @Transactional
     @DeleteMapping("/delete")
-    public ResponseEntity UnFollow(@RequestParam("yourId") String yourId,
-                                   @RequestParam("myId")String myId ) {
+    public @ResponseBody String UnFollow(@RequestParam("yourId") String yourId,
+                           @RequestParam("myId")String myId ) {
         followService.UnFollow(yourId, myId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return "redirect:/member/mypage"+yourId;
     }
 
 }
