@@ -392,7 +392,7 @@
 
 </head>
 
-<body>
+<body onload="BTN()">
 <div id="menuZone" class="menuZone" style="">
     <div class="menuItemZone">
         <b><p class="menuItem" onclick='location.href="/main/main"'>Home</p></b>
@@ -471,7 +471,7 @@
             <div style="margin:0 50px 0 0 ;">
             <span onclick="followingList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
-                <p class="countItem" onclick="followingList()">팔로워</p>
+                <p class="countItem" onclick="followingList()">팔로잉</p>
                 <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1" th:text="${count}"></p></b>
             </span>
             </div>
@@ -584,6 +584,11 @@
 
 </body>
 <script>
+    function BTN(){
+
+    }
+
+
     function followBTN() {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -693,11 +698,12 @@
             },
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
-            }, success: function () {
-                content=
-                    " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우"+"</button>"
-                document.getElementById("mypageFollowZone").innerHTML=content;
-            }
+            },
+                // success: function () {
+            //     content=
+            //         " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우"+"</button>"
+            //     document.getElementById("mypageFollowZone").innerHTML=content;
+            // }
         })
     }
 
