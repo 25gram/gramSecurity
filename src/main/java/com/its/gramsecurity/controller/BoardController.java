@@ -92,4 +92,9 @@ public class BoardController {
         System.out.println("memberDTOList = " + result);
         return result;
     }
+    @PostMapping("/detailFind")
+    public @ResponseBody List<BoardFileDTO> detailFind (@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        List<BoardFileDTO> boardFileDTO = boardService.detailFind(principalDetails);
+        return boardFileDTO;
+    }
 }

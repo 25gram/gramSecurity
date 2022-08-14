@@ -18,10 +18,16 @@ public class LikesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
+
     @Column
     private String memberName;
-//    @Column
-//    private Long boardId;
+
+    @Column
+    private Long boardId;
+
+    @Column
+    private Long commentId;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
@@ -39,8 +45,15 @@ public class LikesEntity {
     public static LikesEntity toLikesEntity(LikesDTO likesDTO, MemberEntity memberEntity, BoardEntity boardEntity) {
         LikesEntity likes = new LikesEntity();
         likes.setMemberName(memberEntity.getMemberName());
+        likes.setBoardId(boardEntity.getId());
         likes.setBoardEntity(boardEntity);
-//        likes.setCommentEntity(commentEntity);
+        return likes;
+    }
+    public static LikesEntity toLikesCommentEntity(LikesDTO likesDTO, MemberEntity memberEntity, CommentEntity commentEntity) {
+        LikesEntity likes = new LikesEntity();
+        likes.setMemberName(memberEntity.getMemberName());
+        likes.setCommentEntity(commentEntity);
+        likes.setCommentId(commentEntity.getId());
         return likes;
     }
 

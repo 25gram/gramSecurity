@@ -874,7 +874,7 @@
                                 addImg();
                                 likeList(object.id);
                                 commentList(object.id);
-
+                                commentLikeList(object.id);
                                 function addImg() {
                                     if (data[hssIndex].boardImgName != null) {
                                         m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail contentsItem_img detail' id='contentsItem_detail' alt=''></div>";
@@ -950,8 +950,8 @@
                     </div>
                     <!-- 댓글 저장 버튼 -->
                     <div class="col-2 detail">
-                        <p onclick="" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1()"
-                           onmouseout="black1()">게시</p>
+                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover="gray1(0)"
+                           onmouseout="black1(0)">게시</p>
                     </div>
                 </div>
 
@@ -976,6 +976,7 @@
                     result.setRequestHeader(header, token);
                 },
                 success: function (data) {
+                    console.log(data);
                     let commentIndex = [];
                     const board = [[${boardList}]];
                     let commentNum = board.length;
@@ -1002,10 +1003,18 @@
                         for (let j = 0; j < data.length; j++) {
                             if (data[j].boardId == board[i].id && stop < 2) {
                                 comment.innerHTML += "<span>" + data[j].commentContents + "</span>";
+                                if (data[j].likes == 1) {
+                                    comment.innerHTML += '<i class="bi bi-heart-fill" style="color: red" id="comment_Likes' + (j+1) + '" onclick="commentLikes(' + data[j].id +  ')"></i>';
+                                    comment.innerHTML += '<span id="likeComment_count' + (j+1) + '"></span><br>'
+                                }else {
+                                    comment.innerHTML += '<i class="bi bi-heart" style="color: black" id="comment_Likes' + (j+1) + '" onclick="commentLikes(' + data[j].id +  ')"></i>';
+                                    comment.innerHTML += '<span id="likeComment_count' + (j+1) + '"></span><br>'
+                                }
                                 stop++;
+                                // '<i class="bi bi-heart" style="color: black" id="comment_Likes' + (j+1) + '" onclick="commentLikes(' + data[j].id +  ')"></i>';
                             }
                             if (stop == 2 && commentIndex[i] != 0) {
-                                comment.innerHTML += "<span>" + "댓글 " + (commentIndex[i] - 2) + "개 모두 보기" + "</span>"
+                                comment.innerHTML += "<span id='comment_span" + (board.length-i) + "'>" + "댓글 " + (commentIndex[i] - 2) + "개 모두 보기" + "</span>"
                                 stop++
                             }
                         }
@@ -1013,16 +1022,23 @@
                     }
                     if (id != 0) {
                         commentDetail.innerHTML = "";
-                        for (let i = data.length - 1; i > 0; i--) {
-                            if (id == data[i].boardId && stopDetail < commentIndex[board.length - id]) {
-                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
-                                stopDetail++;
-                                commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1()' onmouseout='black1()'>" + "게시" + "</p>"
+                        for (let i = data.length - 1; i >= 0; i--) {
+                            if (id == data[i].boardId) {
+                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span>";
+                                if (data[i].likes == 1){
+                                    commentDetail.innerHTML += '<i class="bi bi-heart-fill" style="color: red" id="commentLikes_comment' + i + '" onclick="commentLikes(' + id +  ')"></i>';
+                                    commentDetail.innerHTML += '<span id="count_comment_likes' + i +'"></span><br>'
+                                }else {
+                                    commentDetail.innerHTML += '<i class="bi bi-heart" style="color: black" id="commentLikes_comment' + i + '" onclick="commentLikes(' + id +  ')"></i>';
+                                    commentDetail.innerHTML += '<span id="count_comment_likes' + i +'"></span><br>'
+                                }
+                                commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail2' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
                             }
                         }
-                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(0)' onmouseout='black1(0)'>" + "게시" + "</p>"
                         // commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail'" + "게시" + "</p>"
                     }
+
                 }
             });
         }
@@ -1048,6 +1064,7 @@
                     result.setRequestHeader(header, token);
                 },
                 success: function (data) {
+                    console.log(data);
                     // document.querySelector(".emojionearea-editor").innerHTML = "";
                     commentContents.value = "";
                     const commentDetail = document.getElementById("commentList");
@@ -1064,17 +1081,28 @@
                     if (commentIndex[id] - 2 == 0) {
                         commentIndex[id] = 0;
                     }
-                    comment.innerHTML = "";
+                    // comment.innerHTML = "";
                     stop = 0;
+                    let aaa = 1;
+                    const comment_span = document.getElementById("comment_span"+data[data.length-1].boardId);
                     for (let j = 0; j < data.length; j++) {
                         if (data[j].boardId == id && stop < 2) {
-                            comment.innerHTML += "<br><span>" + data[j].commentContents + "</span>";
                             stop++;
                         }
                         if (stop == 2 && commentIndex[id] != 0) {
-                            comment.innerHTML += "<br><span>" + "댓글 " + (commentIndex[id] - 2) + "개 모두 보기" + "</span>"
+                            if (comment_span != null) {
+                                comment_span.innerHTML = '댓글' + (commentIndex[id] - 2) + '개 모두 보기';
+                            }else {
+                                comment.innerHTML += "<span id='comment_span" + (data[data.length-1].boardId) + "'>" + "댓글 " + (commentIndex[id] - 2) + "개 모두 보기" + "</span>"
+                            }
                             stop++
+                            aaa = 0;
                         }
+                    }
+                    if (aaa > 0) {
+                        comment.innerHTML += "<span>" + data[data.length-1].commentContents + "</span>";
+                        comment.innerHTML += '<i class="bi bi-heart" style="color: black" id="comment_Likes' + (data.length-1) + '" onclick="commentLikes(' + (data.length-1) +  ')"></i><br>';
+                        commentDetail.innerHTML = "";
                     }
                     for (let i = data.length - 1; i > 0; i--) {
                         if (id == data[i].boardId && stopDetail < commentIndex[id]) {
@@ -1386,6 +1414,146 @@
                                     like_count.innerHTML = "좋아요" + like[board.length - id] + "개";
                                 }
                             }
+                        }
+                    });
+                }
+            });
+        }
+        $("#like1").onclick=commentLikeList(0);
+        function commentLikeList (id) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            $.ajax({
+                type: "post",
+                url: "/comment/list",
+                data: {},
+                dataType: "json",
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
+                success: function (data) {
+                    $.ajax({
+                        type: "post",
+                        url: "/comment/count",
+                        data: {},
+                        dataType: "json",
+                        beforeSend: function (result) {
+                            result.setRequestHeader(header, token);
+                        },
+                        success: function (like) {
+                            let likeIndex = [];
+                            for (let i = data.length-1; i >= 0; i--) {
+                                likeIndex[i] = 0;
+                                for (let j = 0; j < like.length; j++) {
+                                    if (like[j].commentId == data[i].id) {
+                                        likeIndex[i]++;
+                                    }
+                                }
+                            }
+                            let likeNum2 = 1;
+                            for (let i = 0; i < data.length; i++) {
+                                const likeIndex2 = document.getElementById("likeComment_count"+likeNum2);
+                                for (let j = 0; j < like.length; j++){
+                                    if (like[j].commentId == data[i].id) {
+                                        likeIndex2.innerHTML = "좋아요"+ likeIndex[likeNum2-1] + "개";
+                                    }
+                                }
+                                likeNum2++;
+                            }
+                            if (id != 0) {
+                                for (let i = data.length-1; i >= 0; i--) {
+                                    const likeDetail = document.getElementById("count_comment_likes"+i);
+                                    for (let j = 0; j < like.length; j++) {
+                                        if (like[j].boardId == data[i].boardId) {
+                                            likeDetail.innerHTML = "좋아요"+ likeIndex[i] + "개";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        function commentLikes (id,id2) {
+            let header=$("meta[name='_csrf_header']").attr('content');
+            let token=$("meta[name='_csrf']").attr('content');
+            const loginId = [[${memberDTO.memberName}]];
+
+            $.ajax({
+                type: "post",
+                url: "/comment/likes",
+                data: {"memberName":loginId, "commentId": id},
+                dataType: "text",
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
+                success: function (text) {
+                    $.ajax({
+                        type: "post",
+                        url: "/comment/count",
+                        data: {},
+                        dataType: "json",
+                        beforeSend:function (result){
+                            result.setRequestHeader(header,token);
+                        },
+                        success: function (likes) {
+                            $.ajax({
+                                type: "post",
+                                url: "/comment/list",
+                                data: {},
+                                dataType: "json",
+                                beforeSend:function (result){
+                                    result.setRequestHeader(header,token);
+                                },
+                                success: function (data) {
+                                    let like = [];
+                                    for (let i = 0; i < data.length; i++) {
+                                        like[i]=0;
+                                        for (let j =0; j < likes.length; j++) {
+                                            if (likes[j].commentId == data[i].id){
+                                                like[i]++;
+                                                console.log(like[i])
+                                            }
+                                        }
+                                    }
+                                    const likeDetail = document.getElementById("like_detail2");
+                                    // const like_count = document.getElementById("likeComment_count"+id);
+                                    const likeTest2 = document.getElementById("comment_Likes"+id);
+                                    const likeIndex = document.getElementById("likeComment_count"+id);
+                                    if (text == "ok") {
+                                        likeTest2.className="bi bi-heart-fill";
+                                        likeTest2.style.color ="red";
+                                        for (let i = 0; i < likes.length; i++) {
+                                            if (likes[i].commentId == data[id-1].id) {
+                                                likeIndex.innerHTML = "좋아요"+ like[id-1] + "개";
+                                            }else {
+                                                likeIndex.innerHTML = "";
+                                            }
+                                        }
+                                        if (id2 == 1){
+                                            likeDetail.className = 'bi bi-heart-fill';
+                                            likeDetail.style.color = "red";
+                                            // like_count.innerHTML = "좋아요"+ like[id-1] + "개";
+                                        }
+                                    }else {
+                                        likeTest2.className="bi bi-heart";
+                                        likeTest2.style.color ="black";
+                                        for (let i = 0; i < likes.length; i++) {
+                                            if (likes[i].commentId == data[id-1].id) {
+                                                likeIndex.innerHTML = "좋아요"+ like[id-1] + "개";
+                                            }else {
+                                                likeIndex.innerHTML = "";
+                                            }
+                                        }
+                                        if (id2 == 1){
+                                            likeDetail.className = 'bi bi-heart';
+                                            likeDetail.style.color = "black";
+                                            // like_count.innerHTML = "좋아요"+ like[id-1] + "개";
+                                        }
+                                    }
+                                }
+                            });
                         }
                     });
                 }
@@ -2514,12 +2682,18 @@
 
     <script>
 
-        function black1() {
-            document.getElementById("saveCommentBtn_detail").style.color = "black"
+        function black1(a) {
+            if (a == 1) {
+                document.getElementById("saveCommentBtn_detail2").style.color = "black"
+            }
+
         }
 
-        function gray1() {
-            document.getElementById("saveCommentBtn_detail").style.color = "gray"
+        function gray1(a) {
+            if (a == 1) {
+                document.getElementById("saveCommentBtn_detail2").style.color = "gray"
+            }
+
         }
 
         // function like(i){
