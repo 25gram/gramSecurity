@@ -54,8 +54,7 @@ public class MemberEntity {
     @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = false, fetch = FetchType.LAZY)
     private List<RippleEntity>rippleEntityList=new ArrayList<>();
 
-    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = false, fetch = FetchType.LAZY)
-    private List<MsgEntity>msgEntityList=new ArrayList<>();
+
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setId(memberDTO.getId());
