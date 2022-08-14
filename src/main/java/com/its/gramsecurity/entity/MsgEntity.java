@@ -40,9 +40,7 @@ public class MsgEntity {
     @Column()
     String friendFileName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "loginId")
-    private MemberEntity memberEntity;
+
 
 
 }
