@@ -45,6 +45,7 @@ public class BoardEntity extends BaseEntity{
     private Integer likes;
 
 
+
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL,orphanRemoval = true ,fetch=FetchType.LAZY)
     List<BoardFileEntity> fileEntityList= new ArrayList<>();
 
