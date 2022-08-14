@@ -15,6 +15,8 @@ public class CommentDTO {
     private String commentContents;
     private LocalDateTime commentCreatedTime;
 
+    private Integer likes;
+
 
 
     public CommentDTO(Long boardId, String commentWriter, String commentContents, LocalDateTime commentCreatedTime) {
@@ -30,8 +32,8 @@ public class CommentDTO {
         commentDTO.setCommentWriter(commentEntity.getCommentWriter());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
         commentDTO.setBoardId(commentEntity.getBoardEntity().getId());
+        commentDTO.setLikes(commentEntity.getLikes());
         return commentDTO;
-
     }
 
 }
