@@ -445,6 +445,7 @@
         <div id="mypageNameZone" class="mypageNameZone">
             <p id="myPageLoginId" class="myPageLoginId" th:text="${memberDTO.loginId}" hidden></p>
             <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
+            <p id="AuthenticationId" class="AuthenticationId" th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}"hidden></p>
             <!--            <p id="mypageName" class="mypageName" >havana 1016</p>-->
         </div>
 
@@ -584,12 +585,12 @@
 </body>
 <script>
     function followBTN() {
-        console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let yourId = document.getElementById("myPageLoginId").innerText;
         let yourName = document.getElementById("mypageName").innerText;
         let loginStatus = [[${memberDTO.loginStatus}]]
+        var content = "";
 
         $.ajax({
             url: "/follow/request",
@@ -604,11 +605,13 @@
                 result.setRequestHeader(header, token);
             },
             success: function (result) {
-                console.log(result);
+               content=
+                  " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우 취소"+"</button>"
+                document.getElementById("mypageFollowZone").innerHTML=content;
             },
             error: function (result) {
                 console.log("err");
-            }
+            },
         })
     };
 
@@ -671,6 +674,30 @@
                 document.getElementById("modal-body").innerHTML = content;
             }
 
+        })
+    }
+
+    function unFollowBTN(){
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let yourId = document.getElementById("myPageLoginId").innerText;
+        let myId=document.getElementById("AuthenticationId").innerText;
+        var content="";
+        $.ajax({
+            url: "/follow/delete",
+            type: "delete",
+            data: {
+                "yourId": yourId,
+                "myId":myId,
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            }, success: function () {
+                content=
+                    " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우"+"</button>"
+                document.getElementById("mypageFollowZone").innerHTML=content;
+            }
         })
     }
 
