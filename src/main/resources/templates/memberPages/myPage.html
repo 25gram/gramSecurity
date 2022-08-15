@@ -458,8 +458,8 @@
         <div id="btnZone">
         <div id="mypageFollowZone" class="mypageFollowZone">
 <!--            <button onClick=unFollowBTN() id=mypageFollowBtn class=mypageFollowBtn>팔로우 취소</button>-->
-            <button onclick="unFollowBTN()"  th:if="${(memberDTO.getLoginId() eq AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '찾음'}" id="mypageUnFollowBtn" class="mypageFollowBtn">팔로우취소</button>
-            <button onclick="followBTN()"  th:if="${(memberDTO.getLoginId() eq AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '못찾음'}" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
+            <button onclick="unFollowBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '찾았다'}" id="mypageUnFollowBtn" class="mypageFollowBtn">팔로우취소</button>
+            <button onclick="followBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '못찾았다'}" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
             <button onclick="update()"  th:if="${memberDTO.getLoginId() eq AuthenticationPrincipal.getMemberDTO().getLoginId()}" id="updateBTN" class="mypageFollowBtn">update</button>
         </div>
         </div>
