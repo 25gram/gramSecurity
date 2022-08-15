@@ -51,7 +51,9 @@ public class MsgController {
     @GetMapping("msglist")
     @ResponseBody
     List<MsgDTO> msglist(@RequestParam String loginId){
-        return msgs.msglist(loginId);
+        List<MsgDTO> mlist= msgs.msglist(loginId);
+        System.out.println("aaaaa mlist = " + mlist);
+        return mlist;
     }
 
 }
