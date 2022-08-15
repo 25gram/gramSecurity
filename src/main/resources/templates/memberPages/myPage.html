@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <link rel="import" href="main.html">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
 
@@ -36,951 +36,762 @@
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
 
 
+
     <style>
         body {
             -ms-overflow-style: none;
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: rgba(242, 243, 245, 0.75rem);
+            /*background-color: rgba(242, 243, 245, 0.75rem);*/
             overflow: hidden;
-            -webkit-user-drag: none;
-
         }
 
         ::-webkit-scrollbar {
             display: none;
         }
 
-        .mypageBody {
-            width: 100%;
-            max-width: 1000px;
-            height: 100vh;
-            overflow: scroll;
-            margin: auto;
-            margin-top: 27px;
-
+        .msgbody {
+            max-width: 900px;
         }
 
-        .mypageProfile {
-            /* margin: 1px; */
-            width: 160px;
-            height: 160px;
+        .msgProfile {
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
+            position: relative;
+            top: 12px;
+            left: -3px;
+            /* left: -5px; */
+            -webkit-user-drag: none;
+            transform: scale(0.8);
+
+        }
+
+        .msgName {
+            font-size: 20px;
+            position: absolute;
+            left: 21%;
+            /* left: 24%; */
+            top: 6px;
             user-select: none;
             -webkit-user-drag: none;
-            cursor: pointer;
-            transition: ease-out 0.5s;
-
+            border-bottom: #ebe9e9 1px solid;
         }
 
-        .mypageProfile:hover {
-            filter: saturate(0.5);
-
-        }
-
-        .mypageProfile:active {
-            transform: scale(0.98);
-            transition: all 0s;
-        }
-
-
-        .mypageName {
-            font-size: 30px;
-        }
-
-        .mypageUpdateBtn {
-            /* border: 1px solid gray; */
-            border: 1px solid rgb(226, 226, 226);
-            border-radius: 5px;
-            background-color: transparent;
-            font-size: 15px;
-            width: 130px;
-            height: 35px;
-            user-select: none;
-            transition: ease-out 0.5s;
-
-
-        }
-
-        .mypageUpdateBtn:hover {
-            /* background-color: rgb(230, 230, 230); */
-            border: 1px solid gray;
-            color: gray;
-            transition: all 0.5s;
-        }
-
-        .mypageUpdateBtn:active {
-            transform: scale(0.95);
-            transition: all 0.1s;
-        }
-
-        .mypageFollowBtn {
-            /* border: 1px solid gray; */
-            border: 1px solid rgb(226, 226, 226);
-            border-radius: 5px;
-            background-color: transparent;
-            font-size: 15px;
-            width: 130px;
-            height: 35px;
-            user-select: none;
-            transition: ease-out 0.2s;
-
-
-        }
-
-        .mypageFollowBtn:hover {
-            /* background-color: rgb(230, 230, 230); */
-            border: 1px solid gray;
-            color: gray;
-            transition: all 0.5s;
-        }
-
-        .mypageFollowBtn:active {
-            transform: scale(0.95);
-            transition: all 0.1s;
-
-        }
-
-
-        .mypageProfileZone {
+        .lastMsg {
             position: relative;
-            top: 22px;
-            left: 68px;
-
-        }
-
-        .mypageNameZone {
-            position: relative;
-            top: -130px;
-            left: 294px;
-        }
-
-        .mypageUPdateZone {
-            position: relative;
-            top: -185px;
-            left: 493px;
-        }
-
-        .mypageFollowZone {
-            position: relative;
-            top: -185px;
-            left: 493px;
-        }
-
-        .countItem {
-            font-size: 16px;
-            margin-right: 10px;
-        }
-
-        .countItem1 {
-            font-size: 17px;
-            /* margin-right: 50px; */
-        }
-
-        .mypageCountZone {
-            position: relative;
-            top: -165px;
-            left: 295px;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-
-        .aboutMe {
-            position: relative;
-            top: -155px;
-            left: 293px;
-            /* font-family: Arial, Helvetica, 'sans-serif'; */
-            font-size: 19px;
-            height: 100px;
-            width: 340px;
+            top: 38px;
+            left: 5px;
+            /* top: 40px;
+        left: -98px; */
+            font-size: 13px;
             resize: none;
+            width: 200px;
+            height: 44px;
             border: 0;
             user-select: none;
             -webkit-user-drag: none;
             pointer-events: none;
+            overflow: scroll;
+            color: dimgrey;
         }
 
-        .wrap {
+        .lastTime {
             position: relative;
-            width: 31%;
-            max-width: 307px;
-            min-width: 140px;
-            background-color: black;
-            /* opacity: 0.8; */
-            padding: 1%;
-            /* left: 2%;
-            top:-100px; */
-            z-index: 5000;
-            transition: ease-out 0.5s;
-
+            top: 1px;
+            left: 169px;
+            /* left: -98px; */
+            font-size: 13px;
+            color: gray;
         }
 
-
-        .wrap:before {
-            content: "";
-            display: block;
-            padding-top: 100%; /* 1:1 비율 */
-        }
-
-        .mypageListItem {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            /* background-color:blue; */
+        .msgList {
+            display: flex;
+            height: 88px;
+            width: 348px;
             overflow: hidden;
-            max-width: 100%;
-            min-height: 100%;
-            height: auto;
-            display: block;
-            user-select: none;
+        }
+
+        textarea {
+            background-color: transparent;
+        }
+
+        tr {
+            background-color: white;
             cursor: pointer;
+            transition: ease-out 0.5s;
+            user-select: none;
             -webkit-user-drag: none;
+
+            /* transform: scaleY(0.95); */
+            /* border-bottom: 1px solid rgb(226, 226, 226); */
         }
 
-
-        .wrap:hover .listImg {
-            opacity: 0.7;
-
+        tr:hover {
+            background-color: rgba(228, 228, 228, 0.5);
+            transition: all 0.2s;
         }
 
-        .wrap:hover .imgIconGroup {
-            opacity: 1;
-            transition: all 0.5s;
-        }
-
-        .wrap:active .listImg {
-            transform: scale(1.1);
-            transition: all 0.3s;
-
-        }
-
-        .wrap:hover {
-            transform: scale(1.1);
-            transition: all 0.5s;
-        }
-
-        /* .wrap:active{
-            transform: scale(0.95);
+        tr:active td {
+            transform: scale(0.85);
             transition: all 0.1s;
-        } */
-
-
-        .listImg {
-            z-index: -1;
-            transition: ease-out 1s;
-        }
-
-
-        .likeText2 {
-            margin-left: 5px;
-            margin-right: 6px;
-        }
-
-        .commentText1 {
-            margin-left: 6px;
-        }
-
-        .commentText2 {
-            margin-left: 5px;
-        }
-
-        .manyIcon {
-            font-size: 23px;
-            /* position: relative;
-            top:5px;
-            left: 275px;            */
-            position: absolute;
-            top: 2%;
-            right: 2%
-        }
-
-        .imgIconGroup {
-            color: white;
-            font-size: 17px;
-            /* font-size: 20px; */
-            width: 121px;
-            margin: auto !important;
-            margin-top: 45% !important;
-            opacity: 0;
-            transition: ease-out 1s;
         }
 
         td {
-            border-color: white;
-            border-style: solid;
-            border-width: 20px;
+            transform: scale(0.87);
         }
 
-        table {
-            caption-side: bottom;
-            border-collapse: collapse;
-            position: relative;
-            top: -89px;
-        }
-
-        .profileHeader {
-            position: relative;
-            top: -20px;
-            -webkit-user-drag: none;
-            user-select: none;
-        }
-
-        #dropUl {
-            position: absolute;
-            top: 10px !important;
-        }
-
-        .menuZone {
-            /* background-color: yellow; */
-            /* width: 500px;
-            height: 70px; */
-            position: absolute;
-            top: 221px;
-            left: 80px;
-            display: flex;
-            opacity: 0;
-            z-index: 9999;
-            border-radius: 5px;
-        }
-
-        .menuItemZone {
-            margin-right: 30px;
-
-            user-select: none;
-            -webkit-user-drag: none;
-
-        }
-
-        .menuItem {
+        #msgName {
             font-size: 20px;
-            cursor: pointer;
+            font-weight: bold;
+            position: absolute;
+            top: 34px;
+            left: 132px
+        }
+
+        .friendProfileZone {
+            height: 60px;
+            /* background-color: aquamarine; */
+            display: flex;
+            border-bottom: #ebe9e9 1px solid;
+        }
+
+        .friendProfile {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            transform: scale(0.95);
+        }
+
+        .friendName {
+            font-size: 20px;
+            margin: 10px 0 0 10px;
+        }
+
+        .msgbodyRight{
+            width: 100%;
+            height: auto;
+            opacity: 0;
             transition: ease-out 0.5s;
+        }
+
+        .emojionearea .emojionearea-editor {
+            min-height: 85px;
+            max-height: 85px;
+            width: 547px;
+            white-space: pre-line;
+
+
+        }
+
+
+        .emojionearea {
+            border: 0;
+            border-radius: 0;
+
+        }
+
+        .myMsgZone {
+            background-color: #ebe9e9;
+            height: auto;
+            width: max-content;
+            padding: 10px;
+            padding-bottom: 0px;
+            border-radius: 5px;
+            border: 1px transparent solid;
+            margin-bottom: 40px;
+            /* max-width: 250px; */
+        ;
+
+        }
+
+        .Msg {
+            min-height: 1px;
+            /* max-width: 250px; */
+            white-space: pre-line;
+            word-break: break-all;
+            text-align: left;
+            width: max-content;
+            max-width: 200px;
+            position: relative;
+            top: -5px;
+            font-size: 15px;
+            color: #686868;
+        }
+
+        .msgZone {
+            height: 552px;
+            /* background-color: burlywood; */
+            /* width: 550px; */
+            padding: 25px;
+            overflow: scroll;
+        }
+
+        .yourMsgZone {
+            /* background-color: #ebe9e9; */
+            border: 1px solid #ebe9e9;
+            height: auto;
+            width: max-content;
+            padding: 10px;
+            padding-bottom: 0px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+            /* max-width: 250px; */
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        .msgTime {
+            font-size: 11px;
             color: gray;
-
+            margin: 0 3px 2px 3px;
         }
 
-        .menuItem:hover {
-            color: black;
-            transform: scale(1.2);
-            transition: all 0.5s;
+        #formBtn {
+            position: absolute;
+            top: 686px;
+            left: 868px;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+            transition: ease-out 0.2s;
 
         }
-
+        #formBtn:hover{
+            /* color:#686868; */
+            color: gray;
+            transform: scale(1.05);
+        }
+        #formBtn:active{
+            transform: scale(0.95);
+        }
+        .dmInput:hover{
+            /* transform: scale(1.3); */
+        }
+        #rightX{
+            position: relative;
+            top: 17px;
+            left: -17px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        #rightX:hover{
+            color:gray;
+        }
+        #rightX:active{
+            transform: scale(0.95);
+        }
 
     </style>
-
     <script>
-        let showInt = 0
-
-        function showMenu() {
-            if (showInt == 0) {
-                $("#menuZone").css({
-                    "opacity": 1, "transition": "opacity 1.5s"
+        rightInt=0
+        function showRight(i){
+            if(i==0){
+                $("#msgbodyRight").css({
+                    "opacity":0,
+                    "transition":"all 1s",
+                    "z-index":-1
                 })
-                showInt = 1
-            } else if (showInt == 1) {
-                $("#menuZone").css({
-                    "opacity": 0, "transition": "opacity 1s"
-                })
+                $("#behindPage").css({
+                    "opacity":0,
+                    "transition":"all 0.2s",
+                    "z-index":-1
 
-                showInt = 0
+                })
+                setTimeout(show,500)
+
+                function show(){
+                    $("#msgbodyRight").css({
+                        "opacity":1,
+                        "transition":"all 1s",
+                        "z-index":1
+
+
+                    })
+                    $("#behindPage").css({
+                        "opacity":0,
+                        "transition":"all 0.2s",
+                        "z-index":-1
+
+                    })}
             }
+            else  {
+                $("#msgbodyRight").css({
+                    "opacity":0,
+                    "transition":"all 0.5s",
+                    "z-index":-1
+
+                })
+                $("#behindPage").css({
+                    "opacity":1,
+                    "transition":"all 0.5s",
+                    "z-index":1
+
+                })
+                rightInt=0
+            }
+            console.log("int : "+i)
         }
     </script>
 
-
 </head>
 
-<body onload="BTN()">
-<div id="menuZone" class="menuZone" style="">
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick='location.href="/main/main"'>Home</p></b>
+<body>
+<div class="msgbody" style="border:#ebe9e9 1px solid; width: 900px; height:700px; margin:20px;display: flex; ">
+    <!-- 왼쪽화면 -->
+    <div class="msgbodyLeft" style="width: 350px;height: 100%;border-right: #ebe9e9 1px solid;">
+        <!-- 프로필이름 -->
+        <div class="" style="width:100%; height:60px; border-bottom: #ebe9e9 1px solid;">
+            <p id="msgName">[[${mem.memberName}]]</p>
+            <!-- <p id="msgName">havana_1016</p> -->
+        </div>
+
+        <!-- 메시지 주고받은 내역 구역-->
+        <div class="msgListZone" style="height:638px;width: 100%;overflow: scroll;">
+            <table>
+
+                <!-- 메시지 주고 받은 내역 -->
+                <tr onclick="showRight(0)">
+                    <td>
+                        <div class="msgList">
+                            <!-- 프로필사진 -->
+                            <div class="msgProfileZone">
+                                <img class="msgProfile"
+                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"
+                                     alt="">
+                            </div>
+
+                            <div style="width:0;height:0;margin:0;padding:0">
+                                <!-- 프로필 이름 -->
+                                <div class="msgNameZone">
+                                    <b>
+                                        <p class="msgName">havana_1016</p>
+                                    </b>
+                                </div>
+                                <!-- 마지막 메시지 -->
+                                <div class="lastMsgZone">
+                                        <textarea class="lastMsg" cols="30"
+                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>
+                                </div>
+                            </div>
+
+                            <!-- 마지막 시간 -->
+                            <div class="lastTimeZone">
+                                <p class="lastTime">8월14일 오후 06:03</p>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                <!-- 메시지 주고 받은 내역 끝 -->
+                <!-- 메시지 주고 받은 내역 -->
+                <tr onclick="showRight(0)">
+                    <td>
+                        <div class="msgList">
+                            <!-- 프로필사진 -->
+                            <div class="msgProfileZone">
+                                <img class="msgProfile"
+                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"
+                                     alt="">
+                            </div>
+
+                            <div style="width:0;height:0;margin:0;padding:0">
+                                <!-- 프로필 이름 -->
+                                <div class="msgNameZone">
+                                    <b>
+                                        <p class="msgName">havana_1016</p>
+                                    </b>
+                                </div>
+                                <!-- 마지막 메시지 -->
+                                <div class="lastMsgZone">
+                                        <textarea class="lastMsg" cols="30"
+                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>
+                                </div>
+                            </div>
+
+                            <!-- 마지막 시간 -->
+                            <div class="lastTimeZone">
+                                <p class="lastTime">8월14일 오후 06:03</p>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                <!-- 메시지 주고 받은 내역 끝 -->
+
+
+
+            </table>
+        </div>
+        <!-- 메시지 주고받은 내역 구역 끝-->
+
     </div>
 
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick='location.href="/member/updateForm"'>Update</p></b>
+
+    <!-- 오른쪽 화면 -->
+    <div class="msgbodyRight" id="msgbodyRight" >
+        <!-- 오른쪽 상단 -->
+        <div class="friendProfileZone">
+            <div style="display: flex;margin: auto;">
+                <img id="friendProfile" class="friendProfile"
+                     src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMTFfMjA1%2FMDAxNjM5MjE1NDI0ODM5.HV-MBMKlTQOSB9GEumvHX61ga8pLHi89hq8foyeSiEcg.24Y-pl1S6j5O0n7siDrCcel36jB-pb2ng2K3J0FcRh8g.JPEG.call110926%2FScreenshot_2021-12-11_at_18.35.44.jpg&type=sc960_832"
+                     alt="">
+                <p id="friendName" class="friendName">king-bat-ju</p>
+            </div>
+            <i id="rightX" onclick="showRight(2)" class="fa-solid fa-xmark"></i>
+        </div>
+        <div>
+            <!-- 대화창 -->
+            <div id="msgZone" class="msgZone">
+                <!-- 내가 보낸 메시지일때 -->
+                <div style="text-align: -webkit-right;">
+                    <p class="msgTime">8월14일 오후 06:03</p>
+                    <div class="myMsgZone">
+                        <p class="Msg">klsdfjldkfjklsdj</p>
+                    </div>
+                </div>
+
+                <!-- 내가 받은 메시지일때 -->
+                <div>
+                    <p class="msgTime">2022-08-14 오후05:55</p>
+                    <div class="yourMsgZone">
+                        <p class="Msg">klsdfjldkfjklsdj</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- dm입력창 -->
+            <form class="dmInputZone" method="get" action="/msg/save">
+                <!-- 로그인 아이디 밸류 값 주기 -->
+                <input type="text" name="saveName" hidden value="">
+                <!-- 친두 아이디 값주기 -->
+                <input type="text" name="playName" hidden value="">
+
+                <textarea name="contents" type="text" id="dmInput" class="dmInput"
+                          placeholder="메시지 입력.."></textarea>
+            </form>
+            <div id="formBtn" class="formBtn">보내기</div>
+        </div>
+
     </div>
 
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick="logoutChk()">Log-out</p></b>
-    </div>
+
 
 
 </div>
-<!-- 팔로워 팔로우 모달 시작-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="modal-body">
+<!-- 오른쪽화면 안보일때 -->
+<div id="behindPage" class="behindPage">
+    <i class="behindIcon fa-regular fa-paper-plane"></i>
+    <!-- <i class="  fa-solid fa-paper-plane"></i> -->
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-        </div>
-    </div>
+    <p class="behindTitle">내 메시지</p>
+    <p class="behindMsg">친구에게 메시지를 보내보세요.</p>
+    <button onclick="showSearch(0)" class="behindBtn btn btn-primary">메시지 보내기</button>
 </div>
-<!-- 팔로워 팔로우 모달 끝-->
 
+</div>
 
-<div id="mypageBody" class="mypageBody">
-    <!-- 내 정보 구역 시작-->
-    <!-- 프로필 사진 -->
-    <div id="mypageProfileZone" class="mypageProfileZone">
-        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile"
-             th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
-        <!--        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">-->
-
+<!-- 검색창  -->
+<div class="searchBox" id="searchBox">
+    <!-- 검색리스트 -->
+    <div class="searchInput" id="searchInput">
+        <!-- <input onkeydown="roll(0)" onkeyup="roll(2)" type="text" class="search" id="search" placeholder="   검색.."> -->
+        <input onkeydown="" onkeyup="" type="text" class="search" id="search" placeholder="   검색..">
     </div>
-    <div class="profileHeader">
-        <!-- 프로필 이름 -->
-        <div id="mypageNameZone" class="mypageNameZone">
-            <p id="myPageLoginId" class="myPageLoginId" th:text="${memberDTO.loginId}" hidden></p>
-            <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
-            <p id="AuthenticationId" class="AuthenticationId"
-               th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}" hidden></p>
-            <!--            <p id="mypageName" class="mypageName" >havana 1016</p>-->
+    <div class="searchX">
+        <i onclick="showSearch(1)" class="searchXicon fa-solid fa-xmark"></i>
+    </div>
+    <div class="searchLIstZone" id="searchLIstZone">
+        <!-- <p class="spinMsg">검색 결과가 없습니다.</p> -->
+        <!-- <div class="searchList">
+            <img class="searchProfile" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMTFfMjA1%2FMDAxNjM5MjE1NDI0ODM5.HV-MBMKlTQOSB9GEumvHX61ga8pLHi89hq8foyeSiEcg.24Y-pl1S6j5O0n7siDrCcel36jB-pb2ng2K3J0FcRh8g.JPEG.call110926%2FScreenshot_2021-12-11_at_18.35.44.jpg&type=sc960_832" alt="">
+            <p class="searchName">king-bat-ju</p>
         </div>
-
-        <!-- 프로필 편집 버튼 -->
-
-        <!-- <div id="mypageUPdateZone" class="mypageUPdateZone">
-            <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
+        <div class="searchList">
+            <img class="searchProfile" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMTFfMjA1%2FMDAxNjM5MjE1NDI0ODM5.HV-MBMKlTQOSB9GEumvHX61ga8pLHi89hq8foyeSiEcg.24Y-pl1S6j5O0n7siDrCcel36jB-pb2ng2K3J0FcRh8g.JPEG.call110926%2FScreenshot_2021-12-11_at_18.35.44.jpg&type=sc960_832" alt="">
+            <p class="searchName">king-bat-ju</p>
         </div> -->
-        <div id="mypageFollowZone" class="mypageFollowZone">
-            <button onclick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉</button>
-        </div>
 
-        <!--카운트 구역  -->
-
-        <!-- 게시물 카운트 구역 -->
-        <div class="mypageCountZone input-group">
-            <div style="display:flex ; margin-right: 50px;">
-                <p class="countItem">게시물</p>
-                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1"></p></b>
-            </div>
-
-            <!-- 팔로워 카운트 구역 -->
-            <div style="margin:0 50px 0 0 ;">
-            <span onclick="followingList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop">
-                <p class="countItem" onclick="followingList()">팔로잉</p>
-                <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1" th:text="${count}"></p></b>
-            </span>
-            </div>
-
-            <!-- 팔로우 카운트 구역 -->
-            <div style="margin:0;">
-            <span onclick="followList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop">
-                <p class="countItem">팔로워</p>
-                <b><p id="mypageFollowCount" class="mypageFollowCount countItem1" th:text="${countFw}"></p></b>
-            </span>
-            </div>
-        </div>
-        <!-- 게시물 카운트 구역 끝 -->
-
-
-        <!-- 자기소개 -->
-        <div id="aboutMe" class="">
-            <!-- <t th:text="${memberDTO.memberIntro}"></p> -->
-            <!--            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>-->
-            <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly name="" id=""></textarea>
-        </div>
-    </div>
-    <!-- 이름 및 자기소개 끝-->
-    <!-- 게시물 리스트 구역 시작-->
-
-    <div class="mypageListZone">
-        <!-- table 시작 -->
-        <table style="height: 100%;width:100%">
-            <tr id="detailFile">
-                <!--                 내게시물 시작-->
-
-                <td class="wrap">
-                    <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg"
-                             src=""
-                             alt="" id="aa1">
-                        <video class="mypageListItem listImg"
-                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>
-                        <i class="manyIcon fa-regular fa-clone"></i>
-
-                        <div class="imgIconGroup " style="display:flex;text-align:center">
-                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div id="likeText1" class="likeText2">0</div>
-                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div class="commentText2">465</div>
-                        </div>
-                    </div>
-                </td>
-
-                <!-- 내게시물 끝 -->
-
-                <!-- 내게시물 시작 -->
-
-                <td class="wrap">
-                    <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg"
-                             src="" alt="" id="aa2">
-                        <video class="mypageListItem listImg"
-                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa2"></video>
-                        <i class="manyIcon fa-regular fa-clone"></i>
-
-                        <div class="imgIconGroup " style="display:flex;text-align:center">
-                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div id="likeText2" class="likeText2">0</div>
-                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div class="commentText2">465</div>
-                        </div>
-                    </div>
-                </td>
-
-                <!-- 내게시물 끝 -->
-
-                <!-- 내게시물 시작 -->
-
-                <td class="wrap">
-                    <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg"
-                             src="" alt="" id="aa3">
-                        <video class="mypageListItem listImg"
-                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa3"></video>
-                        <i class="manyIcon fa-regular fa-clone"></i>
-
-                        <div class="imgIconGroup " style="display:flex;text-align:center;">
-                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div id="likeText3" class="likeText2">0</div>
-                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div class="commentText2">465</div>
-                        </div>
-                    </div>
-                </td>
-
-                <!--                <td class="wrap">-->
-                <!--                    <div class="mypageListItem input-group">-->
-                <!--                        <img class="mypageListItem listImg"-->
-                <!--                             src="" alt="" id="aa4">-->
-                <!--                        <video class="mypageListItem listImg"-->
-                <!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa4"></video>-->
-                <!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
-
-                <!--                        <div class="imgIconGroup " style="display:flex;text-align:center;">-->
-                <!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
-                <!--                            <div id="likeText4" class="likeText2">0</div>-->
-                <!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
-                <!--                            <div class="commentText2">465</div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </td>-->
-
-                <!-- 내게시물 끝 -->
-
-
-            </tr>
-
-
-        </table>
-        <!-- table 끝 -->
 
     </div>
-
-
+    <div class="spinZone">
+        <i id="searchSpin" class="spinner-border spin"></i>
+    </div>
 </div>
 
+<button onclick="test()">test</button>
 
-<!-- 게시물 리스트 구역 끝-->
-
-
-<!-- 내 정보 구역 끝-->
-
-
-</div>
 
 
 </body>
-<script>
+<style>
+    .spinZone{
+        height: 246px;
+        background-color: rgba(253, 253, 253, 0.8);
+        position: relative;
+        top: -248px;
+        opacity: 0;
+        z-index: -5;
+    }
+    #searchSpin{
+        font-size: 30px;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top:83px;
+        left:103px;
+        /* opacity: 0;
+        z-index: -5; */
+        background-color: white;
+    }
+    .searchXicon:hover{
+        color:#686868;
+        transform: scale(1.1);
+        transition: scale 0.5s;
 
-    let yourId = document.getElementById("myPageLoginId").innerText;
-    let yourName = document.getElementById("mypageName").innerText;
-    let loginStatus = [[${memberDTO.loginStatus}]]
-    const loginId = document.getElementById("myPageLoginId").innerText;
-    let myId = document.getElementById("AuthenticationId").innerText;
-
-    function BTN() {
-        let header = $("meta[name='_csrf_header']").attr('content');
-        let token = $("meta[name='_csrf']").attr('content');
-        console.log("함수호출");
-        var content = "";
-        if (myId == yourId) {
-            content =
-                " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
-            document.getElementById("mypageFollowZone").innerHTML = content;
-        } else {
-            console.log("else");
-            $.ajax({
-                type: "post",
-                url: "/follow/findByMyIdAndYourId",
-                dataType: "json",
-                data: {
-                    "yourId": yourId,
-                    "myId": myId
-                }, beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
-                success: function (result) {
-                    console.log(result);
-                    if (result != null) {
-                        var content = "";
-                        $.ajax({
-                            url: "/follow/delete",
-                            type: "delete",
-                            data: {
-                                "yourId": yourId,
-                                "myId": myId,
-                            },
-                            beforeSend: function (result) {
-                                result.setRequestHeader(header, token);
-                            },
-                            success: function () {
-                                content =
-                                    " <button onClick="+followBTN()+" id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-                                document.getElementById("mypageFollowZone").innerHTML = content;
-                                //리다이렉트 해봐바
-                            }
-                        });
-                    } else {
-                        content =
-                            " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-                        document.getElementById("mypageFollowZone").innerHTML = content;
-                    }
-                }
-
-            })
-        }
-        //
-        //     $.ajax({
-        //         type: "post",
-        //         url: "/member/mypage",
-        //         data: {
-        //             "yourId": yourId,
-        //             "myId": myId
-        //         },
-        //         beforeSend: function (result) {
-        //             result.setRequestHeader(header, token);
-        //         },
-        //         success: function () {
-        //             if (yourId == myId) {
-        //                 content =
-        //                     " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
-        //                 document.getElementById("mypageFollowZone").innerHTML = content;
-        //             } else {
-        //                 $.ajax({
-        //                     type: "post",
-        //                     url: "/follow/findByMyIdAndYourId",
-        //                     dataType: "json",
-        //                     data: {
-        //                         "yourId": yourId,
-        //                         "myId": myId
-        //                     },
-        //                     success: function (result) {
-        //                         if (result != null) {
-        //                             var content = "";
-        //                             $.ajax({
-        //                                 url: "/follow/delete",
-        //                                 type: "delete",
-        //                                 data: {
-        //                                     "yourId": yourId,
-        //                                     "myId": myId,
-        //                                 },
-        //                                 success: function () {
-        //                                     // content =
-        //                                     //     " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-        //                                     // document.getElementById("mypageFollowZone").innerHTML = content;
-        //                                     // //리다이렉트 해봐바
-        //                                 }
-        //                             });
-        //                         } else {
-        //                             content =
-        //                                 " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-        //                             document.getElementById("mypageFollowZone").innerHTML = content;
-        //                         }
-        //                     }
-        //                 })
-        //             }
-        //         },
-        //
-        //     })
-        // }
-
-
-        function followBTN() {
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            var content = "";
-
-            $.ajax({
-                url: "/follow/request",
-                type: "post",
-                dataType: "json",
-                data: {
-                    "yourId": yourId,
-                    "yourName": yourName,
-                    "loginStatus": loginStatus
-                },
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function (result) {
-                    console.log("err");
-                },
-            })
-        };
-
-        function followList() {
-            console.log("함수호출");
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-
-            console.log(loginId);
-
-            $.ajax({
-                type: "post",
-                url: "/follow/yourList",
-                data: {
-                    "loginId": loginId
-                },
-                dataType: "json",
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                }, success: function (result) {
-                    console.log(result);
-                    var content = "";
-                    for (let i in result) {
-                        content += "<a className='following' href='" + '/member/mypage?loginId=' +
-                            result[i].myId + "'>" +
-                            "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                            + result[i].yourName + "</a>" + "<br>";
-                    }
-                    document.getElementById("modal-body").innerHTML = content;
-                }
-
-            })
-        }
-
-
-        function followingList() {
-            console.log("함수호출");
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            console.log(loginId);
-
-            $.ajax({
-                type: "post",
-                url: "/follow/myList",
-                data: {
-                    "loginId": loginId
-                },
-                dataType: "json",
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                }, success: function (result) {
-                    console.log(result);
-                    var content = "";
-                    for (let i in result) {
-                        content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
-                            "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                            + result[i].yourName + "</a>" + "<br>";
-                    }
-                    document.getElementById("modal-body").innerHTML = content;
-                }
-
-            });
-        }
     }
 
-    // function unFollowBTN() {
-    //     console.log("함수호출");
-    //     let header = $("meta[name='_csrf_header']").attr('content');
-    //     let token = $("meta[name='_csrf']").attr('content');
-    //
-    //     var content = "";
-    //     $.ajax({
-    //         url: "/follow/delete",
-    //         type: "delete",
-    //         data: {
-    //             "yourId": yourId,
-    //             "myId": myId,
-    //         },
-    //         beforeSend: function (result) {
-    //             result.setRequestHeader(header, token);
-    //         },
-    //         success: function () {
-    //             content =
-    //                 " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-    //             document.getElementById("mypageFollowZone").innerHTML = content;
-    //         }
-    //     })
-    // }
+    .searchX{
+        height: 0;
+        position: absolute;
+        top: 0;
+        left: 250px;
 
-</script>
+    }
+    .searchName{
+        margin: 10px;
+    }
+    .searchList{
+        display: flex;
+        border-bottom: #ebe9e9 1px solid;
+        /* background-color: rgba(0,0,0,0.2); */
+        height: 52px;
+    }
+    .searchLIstZone{
+        height: 249px;
+        overflow: scroll;
+
+        /* background-color: rgba(0,0,0,0.2); */
+    }
+    .searchProfile{
+        width: 45px;
+        height:45px;
+        border-radius: 50%;
+        object-fit: fill;
+        margin: 4px;
+    }
+
+    .search{
+        border:0;
+        padding: 10px;
+        /* border-bottom: #ebe9e9 1px solid; */
+        border-bottom: gray 1px solid;
+        background-color:#ebe9e9 ;
+
+    }
+    input{
+        outline:none ;
+    }
+    .searchInput .search{
+        height: 50px;
+        width: 100%;
+        font-size: 14px;
+        padding: 0 10px 0 10px;
+    }
+    .searchBox{
+        width:270px;
+        height:300px ;
+        background-color: white;
+        position: absolute;
+        top:0;
+        left:504px;
+        border: gray 1px solid;
+        /* border: #ebe9e9 1px solid; */
+        border-radius: 3px;
+        transition: ease-out 0.5s;
+        opacity: 0;
+        z-index: -10;
+
+    }
+    .behindPage{
+        width: 550px;
+        height: 700px;
+        /* background-color: rgba(0,0,0,0.2); */
+        position: absolute;
+        top: 20px;
+        left: 370px;
+        opacity: 1;
+        transition: ease-out 0.5s;
+    }
+    .behindIcon{
+        font-size: 50px;
+        color: #686868;
+
+        /* color:rgb(218, 218, 218); */
+        /* border: 3px solid rgb(218, 218, 218) ; */
+        /* color:black; */
+        padding: 20px 20px 20px 20px;
+        /* border: 2px solid black ; */
+        border-radius: 50%;
+        position: absolute;
+        top:238px;
+        left: 232px;
+    }
+    .behindTitle{
+        font-size: 27px;
+        position: absolute;
+        top:328px;
+        left:224px;
+    }
+    .behindMsg{
+        font-size: 15px;
+        position: absolute;
+        top:380px;
+        left: 183px;
+    }
+    .behindBtn{
+        position: absolute;
+        top:430px;
+        left: 217px;
+    }
+    .spinMsg{
+        color: #686868;
+        font-size: 15px;
+        position: absolute;
+        top: 151px;
+        left: 65px;
+    }
+
+</style>
 <script>
-    function logoutChk() {
+    function goMsgPage(){
+        console.log("msg: ")
+    }
+
+    function sub() {
+        console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
-        console.log("logout chk 호출")
+        const searchInput = document.getElementById("search");
+        const searchInputVal = searchInput.value;
+        let content = "";
+        let html = '<p class="spinMsg">검색 결과가 없습니다.</p>';
+
         $.ajax({
-            url: "/member/logoutCheck",
             type: "get",
+            url: "/board/search",
+            data: {
+                "search": searchInputVal
+            },
+            dataType: "json",
+            async:false,
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
             },
-            success: function (e) {
-                console.log("logout chk suc")
-                location.href = "/member/logout"
+            success: function (result) {
+
+
+                if (result.length != 0) {
+                    for (let i in result) {
+                        let loginId=result[i].loginId;
+                        console.log("id: "+loginId)
+                        content='<div class="searchList aaaa" onclick="goMsgPage()"><img class="searchProfile" src=\"/upload'+result[i].memberProfileName+'\">'
+                            +" <p class='searchName' >" + result[i].memberName + "</p>" + "</div>"
+                    }
+                } else {
+                    content = html;
+                }
+                console.log("suc content : " + content),
+                    document.getElementById("searchLIstZone").innerHTML = content;
+
             },
             error: function (e) {
-                console.log("logout chk err")
-
-            }
+                console.log("sub err")
+                content = html;
+                console.log("err content : " + content),
+                    document.getElementById("searchLIstZone").innerHTML = content;
+            },
 
         })
+
     }
-</script>
-<!--<script th:inline="javascript">-->
-<!--    $("#0").onclick=f(0);-->
-<!--    function f () {-->
-<!--        let header = $("meta[name='_csrf_header']").attr('content');-->
-<!--        let token = $("meta[name='_csrf']").attr('content');-->
-<!--        $.ajax({-->
-<!--            type: "post",-->
-<!--            url: "/board/detailFind",-->
-<!--            dataType: "json",-->
-<!--            beforeSend: function (result) {-->
-<!--                result.setRequestHeader(header, token);-->
-<!--            },-->
-<!--            success: function (data) {-->
-<!--                $.ajax({-->
-<!--                    type: "post",-->
-<!--                    url: "/board/count",-->
-<!--                    dataType: "json",-->
-<!--                    beforeSend: function (result) {-->
-<!--                        result.setRequestHeader(header, token);-->
-<!--                    },-->
-<!--                    success: function (like) {-->
-<!--                        const detailFile = document.getElementById("detailFile");-->
-<!--                        let id = 1;-->
-<!--                        let likeIndex = [];-->
-<!--                        let lengthBoard = 1;-->
-<!--                        let aa = 0;-->
-<!--                        for (let i = 0; i < like.length; i++) {-->
-<!--                            likeIndex[i] = 0;-->
-<!--                        }-->
-<!--                        for (let i = data.length-1; i >= 0; i&#45;&#45;) {-->
-<!--                            aa = data[i].boardId;-->
-<!--                            lengthBoard = id;-->
-<!--                            for (let j = 0; j < like.length; j++) {-->
-<!--                                if (like[j].boardId == aa) {-->
-<!--                                    likeIndex[i]++;-->
-<!--                                }-->
-<!--                            }-->
-<!--                            let file = '<td class="wrap">';-->
-<!--                            file += '<div class="mypageListItem input-group">';-->
-<!--                            if (data[i].boardId == aa) {-->
-<!--                                if (data[i].boardImgName == null) {-->
-<!--                                    file += '<video class="mypageListItem listImg" src="/upload/' + data[i].boardVideoName + '" autoplay="autoplay" loop="loop"></video>';-->
-<!--                                }else {-->
-<!--                                    file += '<img class="mypageListItem listImg" src="/upload/' + data[i].boardImgName + '" alt="">';-->
-<!--                                }-->
-<!--                                file += '<i class="manyIcon fa-regular fa-clone"></i>';-->
-<!--                                file += '<div class="imgIconGroup " style="display:flex;text-align:center;">';-->
-<!--                                file += '<div class="likeText1"><i class="fa-solid fa-heart"></i></div>';-->
-<!--                                file += '<div class="likeText2">' + likeIndex[i] + '</div>';-->
-<!--                                file += '<div class="commentText1"><i class="fa-solid fa-comment"></i></div>';-->
-<!--                                file += '<div class="commentText2">465</div>';-->
-<!--                                file += '</div>';-->
-<!--                                file += '</div>';-->
-<!--                                file += '</td>';-->
-<!--                                id++;-->
-<!--                                detailFile.innerHTML += file;-->
-<!--                            }-->
-<!--                        }-->
-<!--                        document.getElementById("mypageBoardCount").innerHTML = lengthBoard;-->
-<!--                    }-->
-<!--                });-->
-<!--            }-->
-<!--        });-->
-<!--    }-->
 
-<!--</script>-->
-<script th:inline="javascript">
-    $("#0").onclick = f(0);
+    let rollInt = 0;
+    let timer;
+    function roll(e) {
+        if (rollInt == 0) {
+            $(".spinZone").css({
+                "opacity":1,
+                "transition":"all 0.2s",
+                "z-index":5
+            })
+            rollInt = 1
+            clearTimeout(timer)
+        } else if (rollInt == 1) {
 
-    function f() {
-        let header = $("meta[name='_csrf_header']").attr('content');
-        let token = $("meta[name='_csrf']").attr('content');
-        $.ajax({
-            type: "post",
-            url: "/board/detailFind",
-            dataType: "json",
-            beforeSend: function (result) {
-                result.setRequestHeader(header, token);
-            },
-            success: function (data) {
-                $.ajax({
-                    type: "post",
-                    url: "/board/count",
-                    dataType: "json",
-                    beforeSend: function (result) {
-                        result.setRequestHeader(header, token);
-                    },
-                    success: function (like) {
-                        console.log(data);
-                        let id = 1;
-                        let likeIndex = [];
-                        let lengthBoard = 1;
-                        let aa = 0;
-                        for (let i = 0; i < like.length; i++) {
-                            likeIndex[i] = 0;
-                        }
-                        for (let i = data.length - 1; i >= 0; i--) {
-                            aa = data[i].boardId;
-                            if (data[i].boardId == aa) {
-                                if (data[i].boardImgName == null) {
-                                    $("#aaa" + id).attr("src", /upload/ + data[i].boardVideoName);
-                                } else {
-                                    $("#aa" + id).attr("src", /upload/ + data[i].boardImgName);
-                                }
-                                lengthBoard = id;
-                                const likes = document.getElementById("likeText" + id);
-                                for (let j = 0; j < like.length; j++) {
-                                    if (like[j].boardId == aa) {
-                                        likeIndex[i]++;
-                                        likes.innerHTML = "";
-                                    }
-                                }
-                                likes.innerHTML = likeIndex[i];
-                                id++;
-                            }
-                        }
-                        document.getElementById("mypageBoardCount").innerHTML = lengthBoard;
-                    }
-                });
+            sub();
+            clearTimeout(timer)
+
+        }
+        if (e == 2) {
+            function rollBack() {
+                console.log("rollback 호출")
+                $(".spinZone").css({
+                    "opacity":0,
+                    "transition":"all 0.2s",
+                    "z-index":-5
+                })
+                rollInt = 0;
             }
-        });
+
+            // sub();
+            timer = setTimeout(rollBack, 300)
+        }
     }
 
+
+    function showSearch(i){
+
+        if(i==0){
+            $("#searchBox").css({
+                "opacity":1,
+                "transition":"all 0.5s",
+                "z-index":10,
+                "top":"208px"
+
+            })
+        }else if(i==1){
+            $("#searchBox").css({
+                "opacity":0,
+                "transition":"all 0.5s",
+                "z-index":-10,
+                "top":"0px"
+
+            })
+        }
+    }
+
+    $(".dmInput").emojioneArea({
+        pickerPosition: "top",
+        searchPosition: "bottom",
+        filtersPosition: "bottom",
+
+
+    });
+    function test() {
+        let html = document.getElementById("dmInput").value;
+
+        // if 작성자가 로그인아이디(나)일때 html
+        let html1 = '<div style="text-align: -webkit-right;">' +
+            '<p class="msgTime">' + '8월14일 오후 06:03' +
+            '</p><div class="myMsgZone"><p class="Msg">' +
+            html + '</p></div></div>'
+
+        document.getElementById("msgZone").innerHTML = html1;
+
+    }
 </script>
 
 </html>
