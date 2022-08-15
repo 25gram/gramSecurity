@@ -30,11 +30,16 @@ public class MsgController {
         model.addAttribute("mem",ms.findByLoginId(loginId));
         return "/msg";
     }
-//    @GetMapping("gomsgpage")
-//    @ResponseBody
-//    List<MsgDTO> gomsg(@ModelAttribute MsgDTO mem){
-//        return msgs.findByFriendId(mem);
-//    }
+    @GetMapping("gomsgpage")
+    @ResponseBody
+    List<MsgDTO> gomsg(@ModelAttribute MsgDTO mem){
+        List<MsgDTO> mlist=msgs.findList(mem.getLoginId(),mem.getFriendId());
+//        List<MsgDTO> mlist=msgs.findByLoginId(mem.getLoginId(),mem.getFriendId());
+        System.out.println("MsgController.gomsg");
+        System.out.println("mem = " + mem);
+        System.out.println("mlist = " + mlist);
+        return mlist;
+    }
 
     @PostMapping("save")
     @ResponseBody
@@ -42,6 +47,11 @@ public class MsgController {
         System.out.println("MsgController.save");
         msgs.save(mem);
         return "ok";
+    }
+    @GetMapping("msglist")
+    @ResponseBody
+    List<MsgDTO> msglist(@RequestParam String loginId){
+        return msgs.msglist(loginId);
     }
 
 }

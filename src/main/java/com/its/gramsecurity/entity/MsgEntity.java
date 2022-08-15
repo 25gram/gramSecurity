@@ -32,6 +32,8 @@ public class MsgEntity extends BaseEntity{
     @Column()
     int seeInt;
 
+    @Column
+    String friendName;
 
     @Column()
     String friendFileName;
@@ -43,6 +45,7 @@ public class MsgEntity extends BaseEntity{
         dto.setText(mem.getText());
         dto.setSeeInt(mem.getSeeInt());
         dto.setFriendFileName(mem.getFriendFileName());
+        dto.setFriendName(mem.getFriendName());
         return dto;
     }
 

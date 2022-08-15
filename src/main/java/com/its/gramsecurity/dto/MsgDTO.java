@@ -27,6 +27,8 @@ public class MsgDTO extends BaseEntity {
 
     String friendFileName;
 
+    String friendName;
+
     public static MsgDTO toDto(MsgEntity mem){
         MsgDTO dto=new MsgDTO();
         dto.setLoginId(mem.getLoginId());
@@ -34,6 +36,18 @@ public class MsgDTO extends BaseEntity {
         dto.setText(mem.getText());
         dto.setSeeInt(mem.getSeeInt());
         dto.setFriendFileName(mem.getFriendFileName());
+        dto.setFriendId(mem.getFriendName());
+        return dto;
+    }
+    public static MsgDTO toSaveDto(MsgEntity mem){
+        MsgDTO dto=new MsgDTO();
+        dto.setLoginId(mem.getLoginId());
+        dto.setFriendId(mem.getFriendId());
+        dto.setText(mem.getText());
+        dto.setSeeInt(mem.getSeeInt());
+        dto.setFriendFileName(mem.getFriendFileName());
+        dto.setMsgId(mem.getMsgId());
+        dto.setFriendId(mem.getFriendName());
         return dto;
     }
 
