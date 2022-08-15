@@ -593,7 +593,7 @@
                             if (result.length != 0) {
 
                                 for (let i in result) {
-                                    content = "<li class='dropdown-item'>" + "<a href='" + '/member/mypage?loginId=' + result[i].loginId + "'>" + "<div class='searchProfileZone'>" +
+                                    content += "<li class='dropdown-item'>" + "<a href='" + '/member/mypage?loginId=' + result[i].loginId + "'>" + "<div class='searchProfileZone'>" +
                                         "<img class='searchProfile' src=\"" + '/upload/' + result[i].memberProfileName + "\">" +
                                         " <p class='searchName' >" + result[i].memberName + "</p>" + "</div>" + "</a>" + "</li>";
                                 }
