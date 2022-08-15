@@ -3,14 +3,12 @@ package com.its.gramsecurity.controller;
 import com.its.gramsecurity.dto.MsgDTO;
 import com.its.gramsecurity.entity.MsgEntity;
 import com.its.gramsecurity.service.MemberService;
+import com.its.gramsecurity.service.MsgService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,8 @@ import java.util.List;
 public class MsgController {
 @Autowired
     MemberService ms;
+@Autowired
+    MsgService msgs;
 
 
     @GetMapping("msgpage")
@@ -27,8 +27,9 @@ public class MsgController {
         model.addAttribute("mem",ms.findByLoginId(loginId));
         return "/msg";
     }
-//    @GetMapping("gomsgpage")
-//    List<MsgDTO> gomsg(@ModelAttribute MsgDTO mem){
-//        return
-//    }
+    @GetMapping("gomsgpage")
+    @ResponseBody
+    List<MsgDTO> gomsg(@ModelAttribute MsgDTO mem){
+        return msgs.findByFriendId(mem);
+    }
 }
