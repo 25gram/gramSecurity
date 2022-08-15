@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <link rel="import" href="main.html">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
 
@@ -40,7 +40,7 @@
         body {
             -ms-overflow-style: none;
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: rgba(242, 243, 245, 0.75rem);
+            /*background-color: rgba(242, 243, 245, 0.75rem);*/
             overflow: hidden;
             -webkit-user-drag: none;
 
@@ -445,8 +445,7 @@
         <div id="mypageNameZone" class="mypageNameZone">
             <p id="myPageLoginId" class="myPageLoginId" th:text="${memberDTO.loginId}" hidden></p>
             <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
-            <p id="AuthenticationId" class="AuthenticationId"
-               th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}" hidden></p>
+            <p id="AuthenticationId" class="AuthenticationId" th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}"hidden></p>
             <!--            <p id="mypageName" class="mypageName" >havana 1016</p>-->
         </div>
 
@@ -503,7 +502,7 @@
         <!-- table 시작 -->
         <table style="height: 100%;width:100%">
             <tr id="detailFile">
-                <!--                 내게시물 시작-->
+<!--                 내게시물 시작-->
 
                 <td class="wrap">
                     <div class="mypageListItem input-group">
@@ -511,7 +510,7 @@
                              src=""
                              alt="" id="aa1">
                         <video class="mypageListItem listImg"
-                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>
+                             src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>
                         <i class="manyIcon fa-regular fa-clone"></i>
 
                         <div class="imgIconGroup " style="display:flex;text-align:center">
@@ -565,22 +564,22 @@
                     </div>
                 </td>
 
-                <!--                <td class="wrap">-->
-                <!--                    <div class="mypageListItem input-group">-->
-                <!--                        <img class="mypageListItem listImg"-->
-                <!--                             src="" alt="" id="aa4">-->
-                <!--                        <video class="mypageListItem listImg"-->
-                <!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa4"></video>-->
-                <!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
+<!--                <td class="wrap">-->
+<!--                    <div class="mypageListItem input-group">-->
+<!--                        <img class="mypageListItem listImg"-->
+<!--                             src="" alt="" id="aa4">-->
+<!--                        <video class="mypageListItem listImg"-->
+<!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa4"></video>-->
+<!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
 
-                <!--                        <div class="imgIconGroup " style="display:flex;text-align:center;">-->
-                <!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
-                <!--                            <div id="likeText4" class="likeText2">0</div>-->
-                <!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
-                <!--                            <div class="commentText2">465</div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </td>-->
+<!--                        <div class="imgIconGroup " style="display:flex;text-align:center;">-->
+<!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
+<!--                            <div id="likeText4" class="likeText2">0</div>-->
+<!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
+<!--                            <div class="commentText2">465</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </td>-->
 
                 <!-- 내게시물 끝 -->
 
@@ -655,8 +654,7 @@
                     }
                 }
 
-            });
-
+            })
         }
         //
         //     $.ajax({
@@ -714,93 +712,97 @@
         // }
 
 
-        const followBTN = () => {
-            console.log("followBTN");
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            var content = "";
+    function followBTN() {
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let yourId = document.getElementById("myPageLoginId").innerText;
+        let yourName = document.getElementById("mypageName").innerText;
+        let loginStatus = [[${memberDTO.loginStatus}]]
+        var content = "";
 
-            $.ajax({
-                url: "/follow/request",
-                type: "post",
-                dataType: "json",
-                data: {
-                    "yourId": yourId,
-                    "yourName": yourName,
-                    "loginStatus": loginStatus
-                },
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                },
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function (result) {
-                    console.log("err");
-                },
-            })
-        };
+        $.ajax({
+            url: "/follow/request",
+            type: "post",
+            dataType: "json",
+            data: {
+                "yourId": yourId,
+                "yourName": yourName,
+                "loginStatus": loginStatus
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success: function (result) {
+               content=
+                  " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우 취소"+"</button>"
+                document.getElementById("mypageFollowZone").innerHTML=content;
+            },
+            error: function (result) {
+                console.log("err");
+            },
+        })
+    };
 
-        function followList() {
-            console.log("함수호출");
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
+    function followList() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        const loginId = document.getElementById("myPageLoginId").innerText;
+        console.log(loginId);
 
-            console.log(loginId);
-
-            $.ajax({
-                type: "post",
-                url: "/follow/yourList",
-                data: {
-                    "loginId": loginId
-                },
-                dataType: "json",
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                }, success: function (result) {
-                    console.log(result);
-                    var content = "";
-                    for (let i in result) {
-                        content += "<a className='following' href='" + '/member/mypage?loginId=' +
-                            result[i].myId + "'>" +
-                            "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                            + result[i].yourName + "</a>" + "<br>";
-                    }
-                    document.getElementById("modal-body").innerHTML = content;
+        $.ajax({
+            type: "post",
+            url: "/follow/yourList",
+            data: {
+                "loginId": loginId
+            },
+            dataType: "json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            }, success: function (result) {
+                console.log(result);
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' +
+                        result[i].myId + "'>" +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
                 }
+                document.getElementById("modal-body").innerHTML = content;
+            }
 
-            })
-        }
+        })
+    }
 
 
-        function followingList() {
-            console.log("함수호출");
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            console.log(loginId);
+    function followingList() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        const loginId = document.getElementById("myPageLoginId").innerText;
+        console.log(loginId);
 
-            $.ajax({
-                type: "post",
-                url: "/follow/myList",
-                data: {
-                    "loginId": loginId
-                },
-                dataType: "json",
-                beforeSend: function (result) {
-                    result.setRequestHeader(header, token);
-                }, success: function (result) {
-                    console.log(result);
-                    var content = "";
-                    for (let i in result) {
-                        content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
-                            "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                            + result[i].yourName + "</a>" + "<br>";
-                    }
-                    document.getElementById("modal-body").innerHTML = content;
+        $.ajax({
+            type: "post",
+            url: "/follow/myList",
+            data: {
+                "loginId": loginId
+            },
+            dataType: "json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            }, success: function (result) {
+                console.log(result);
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
                 }
+                document.getElementById("modal-body").innerHTML = content;
+            }
 
-            });
-        }
+        })
     }
 
     function unFollowBTN() {
@@ -822,6 +824,30 @@
             success: function () {
                 location.href = "/member/mypage?=loginId" + yourId;
             }
+        })
+    }
+    function unFollowBTN(){
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let yourId = document.getElementById("myPageLoginId").innerText;
+        let myId=document.getElementById("AuthenticationId").innerText;
+        var content="";
+        $.ajax({
+            url: "/follow/delete",
+            type: "delete",
+            data: {
+                "yourId": yourId,
+                "myId":myId,
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+                // success: function () {
+            //     content=
+            //         " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우"+"</button>"
+            //     document.getElementById("mypageFollowZone").innerHTML=content;
+            // }
         })
     }
 
@@ -916,9 +942,8 @@
 
 <!--</script>-->
 <script th:inline="javascript">
-    $("#0").onclick = f(0);
-
-    function f() {
+    $("#0").onclick=f(0);
+    function f () {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         $.ajax({
@@ -945,16 +970,16 @@
                         for (let i = 0; i < like.length; i++) {
                             likeIndex[i] = 0;
                         }
-                        for (let i = data.length - 1; i >= 0; i--) {
+                        for (let i = data.length-1; i >= 0; i--) {
                             aa = data[i].boardId;
                             if (data[i].boardId == aa) {
                                 if (data[i].boardImgName == null) {
                                     $("#aaa" + id).attr("src", /upload/ + data[i].boardVideoName);
-                                } else {
+                                }else {
                                     $("#aa" + id).attr("src", /upload/ + data[i].boardImgName);
                                 }
                                 lengthBoard = id;
-                                const likes = document.getElementById("likeText" + id);
+                                const likes = document.getElementById("likeText"+id);
                                 for (let j = 0; j < like.length; j++) {
                                     if (like[j].boardId == aa) {
                                         likeIndex[i]++;
