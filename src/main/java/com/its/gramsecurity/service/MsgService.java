@@ -59,9 +59,11 @@ public class MsgService {
     }
 
     public List<MsgDTO> msglist(String loginId) {
-        List<MsgEntity>elist=msgr.findMsgList(loginId);
+//        List<MsgEntity>elist=msgr.findMsgList(loginId);
+        List<MsgEntity>elist=msgr.findByLoginId(loginId);
         List<MsgDTO>mlist=new ArrayList<>();
         for(int i=0;i<elist.size();i++){
+            if(elist.get(i).getFriendId().equals(mlist.get(i-1).getFriendId()))
             mlist.add(MsgDTO.toDto(elist.get(i)));
         }
         return mlist;
