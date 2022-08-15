@@ -19,11 +19,11 @@ public class FollowService {
     private final MemberRepository memberRepository;
 
     //테스트코드 사용중
-    public void save(FollowDTO followDTO,String myId) {
-        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByLoginId(myId);
-        if(optionalMemberEntity.isPresent()){
-            MemberEntity memberEntity=optionalMemberEntity.get();
-            FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity,myId);
+    public void save(FollowDTO followDTO, String myId) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(myId);
+        if (optionalMemberEntity.isPresent()) {
+            MemberEntity memberEntity = optionalMemberEntity.get();
+            FollowEntity followEntity = FollowEntity.toSaveEntity(followDTO, memberEntity, myId);
             followRepository.save(followEntity);
         }
     }
@@ -48,16 +48,21 @@ public class FollowService {
     }
 
     public List<FollowDTO> findAllByYourId(String yourId) {
-        List<FollowEntity>followingEntityList=followRepository.findAllByYourId(yourId);
-        List<FollowDTO>followingList=new ArrayList<>();
-        for(FollowEntity follow:followingEntityList){
+        List<FollowEntity> followingEntityList = followRepository.findAllByYourId(yourId);
+        List<FollowDTO> followingList = new ArrayList<>();
+        for (FollowEntity follow : followingEntityList) {
             followingList.add(FollowDTO.toDTO(follow));
-        }return followingList;
+        }
+        return followingList;
     }
 
-    public void UnFollow(String yourId,String myId) {
-        followRepository.deleteByYourIdAndMyId(yourId,myId);
+    public void UnFollow(String yourId, String myId) {
+        followRepository.deleteByYourIdAndMyId(yourId, myId);
     }
 
 
+    public FollowDTO findByMyIdAndYourId(String myId, String yourId) {
+        FollowDTO findByMyIdAndYourId = followRepository.findByMyIdAndYourId(myId, yourId);
+        return findByMyIdAndYourId;
+    }
 }
