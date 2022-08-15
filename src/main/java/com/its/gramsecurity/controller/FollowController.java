@@ -20,8 +20,8 @@ public class FollowController {
 
     //팔로우신청
     @PostMapping("/request")
-    public @ResponseBody FollowDTO request_fw(@ModelAttribute  FollowDTO followDTO,
-                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public @ResponseBody FollowDTO request_fw(@ModelAttribute FollowDTO followDTO,
+                                              @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String myId = principalDetails.getMemberDTO().getLoginId();
         followService.save(followDTO, myId);
         return followDTO;
@@ -56,9 +56,21 @@ public class FollowController {
     @Transactional
     @DeleteMapping("/delete")
     public @ResponseBody String UnFollow(@RequestParam("yourId") String yourId,
-                           @RequestParam("myId")String myId ) {
+                                         @RequestParam("myId") String myId) {
         followService.UnFollow(yourId, myId);
-        return "redirect:/member/mypage"+yourId;
+        return "redirect:/member/mypage" + yourId;
+    }
+
+    //
+    @PostMapping("/findByMyIdAndYourId")
+    public @ResponseBody FollowDTO findByMyIdAndYourId(@RequestParam String myId,
+                                                       @RequestParam String yourId) {
+        FollowDTO findByMyIdAndYourId =new FollowDTO();
+        System.out.println("FollowController.findByMyIdAndYourId");
+        System.out.println("myId = " + myId + ", yourId = " + yourId);
+        findByMyIdAndYourId = followService.findByMyIdAndYourId(myId, yourId);
+        System.out.println("findByMyIdAndYourId = " + findByMyIdAndYourId);
+        return findByMyIdAndYourId;
     }
 
 }
