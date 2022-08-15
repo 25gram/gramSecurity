@@ -342,6 +342,7 @@
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
             let html=""
+            let zone=document.getElementById("table")
             $.ajax({
                 url:"/msg/msglist",
                 data:{
@@ -353,14 +354,15 @@
                 },
                 success:function (e){
                     console.log("msglist suc : "+e)
-
-                        html+='<tr onClick = "showRight(0)" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                        for(let i=0;i<e.length;i++){
+                        html+='<tr onClick = "showRight(0),goMsgPage('+e[i].friendId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                         '<img class= "msgProfile" src = "/upload/'+e[i].friendFileName+'alt = "" >< /div>'+
                          '<div style="width:0;height:0;margin:0;padding:0"><div class="msgNameZone"><b>'+
                          '<p class="msgName">'+e[i].friendName+'</p></b></div><div class="lastMsgZone">'+
                          '<textarea class="lastMsg" cols="30" rows="10">'+
                             e[i].text+'</textarea></div></div><div class="lastTimeZone"><p className="lastTime">'+
-                            e[i].createdTime+'</div></div></td></tr>'
+                            e[i].createdTime+'</div></div></td></tr>'}
+                        zone.innerHTML=html;
 
                 },
                 error:function (e){
