@@ -471,8 +471,8 @@
 
                 <textarea name="contents" type="text" id="dmInput" class="dmInput"
                           placeholder="메시지 입력.."></textarea>
-            </form>
             <div id="formBtn" class="formBtn">보내기</div>
+            </form>
         </div>
 
     </div>
@@ -726,7 +726,7 @@
 
                 if (result.length != 0) {
                     for (let i in result) {
-                        content='<div onclick="goMsgPage('+"'"+result[i].loginId+"','"+result[i].memberProfileName+"','"+result[i].memberName+"'"+')" class="searchList"><img class="searchProfile" src=\"/upload/'+result[i].memberProfileName+'\">'
+                        content+='<div onclick="goMsgPage('+"'"+result[i].loginId+"','"+result[i].memberProfileName+"','"+result[i].memberName+"'"+')" class="searchList"><img class="searchProfile" src=\"/upload/'+result[i].memberProfileName+'\">'
                             +" <p class='searchName' >" + result[i].memberName + "</p>" + "</div>"
                     }
                 } else {
@@ -793,6 +793,8 @@
 
             })
         }else if(i==1){
+            document.getElementById("search").value="";
+            document.getElementById("searchLIstZone").innerHTML = "";
             $("#searchBox").css({
                 "opacity":0,
                 "transition":"all 0.5s",
