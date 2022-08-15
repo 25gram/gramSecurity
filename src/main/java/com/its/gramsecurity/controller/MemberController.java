@@ -40,7 +40,7 @@ public class MemberController {
     }
 
     //회원정보수정 폼
-    @GetMapping("updateForm")
+    @GetMapping("/updateForm")
     public String updateForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         String loginId = principalDetails.getUsername();
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
@@ -103,9 +103,6 @@ public class MemberController {
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         List<FollowDTO> following = followService.findAllByYourId(loginId);
         String findByMyIdAndYourId=followService.findByMyIdAndYourId(principalDetails.getMemberDTO().getLoginId(),loginId);
-        System.out.println("MemberController.mypage");
-        System.out.println("principalDetails = " + principalDetails.getMemberDTO().getLoginId() + ", loginId = " + loginId);
-        System.out.println("findByMyIdAndYourId = " + findByMyIdAndYourId);
         model.addAttribute("findByMyIdAndYourId",findByMyIdAndYourId);
         model.addAttribute("countFw", following.size());
         model.addAttribute("count", followDTOList.size());
