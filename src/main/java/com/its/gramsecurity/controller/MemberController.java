@@ -30,6 +30,7 @@ public class MemberController {
     private final MemberService memberService;
     private final FollowService followService;
 
+
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
     public String login(HttpServletRequest request) {
@@ -101,6 +102,11 @@ public class MemberController {
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         List<FollowDTO> following = followService.findAllByYourId(loginId);
+        String findByMyIdAndYourId=followService.findByMyIdAndYourId(principalDetails.getMemberDTO().getLoginId(),loginId);
+        System.out.println("MemberController.mypage");
+        System.out.println("principalDetails = " + principalDetails.getMemberDTO().getLoginId() + ", loginId = " + loginId);
+        System.out.println("findByMyIdAndYourId = " + findByMyIdAndYourId);
+        model.addAttribute("findByMyIdAndYourId",findByMyIdAndYourId);
         model.addAttribute("countFw", following.size());
         model.addAttribute("count", followDTOList.size());
         model.addAttribute("memberDTO", memberDTO);
