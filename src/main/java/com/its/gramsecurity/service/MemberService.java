@@ -2,6 +2,7 @@ package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.FollowDTO;
+import com.its.gramsecurity.dto.MsgDTO;
 import com.its.gramsecurity.repository.FollowRepository;
 import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.dto.MemberDTO;
@@ -171,4 +172,6 @@ public class MemberService {
         }return memberDTOList;
 
     }
+
+
 }
