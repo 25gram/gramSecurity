@@ -25,5 +25,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
     @Query(value = "update BoardEntity b set b.likes=null where b.id=:id")
     void likesDelete(@Param("id") Long id);
 
+
     List<BoardEntity> findByBoardWriter(String loginId);
 }

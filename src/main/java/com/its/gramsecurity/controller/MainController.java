@@ -6,6 +6,7 @@ import com.its.gramsecurity.dto.BoardFileDTO;
 import com.its.gramsecurity.dto.LikesDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.service.BoardService;
+import com.its.gramsecurity.service.CommentService;
 import com.its.gramsecurity.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,6 +26,7 @@ public class MainController {
 
     private final MemberService memberService;
     private final BoardService boardService;
+    private final CommentService commentService;
 
     //메인피드
     @GetMapping("/main")
@@ -34,13 +36,13 @@ public class MainController {
         List<MemberDTO> findAll = memberService.findAll();
         List<BoardDTO> boardList = boardService.findAll();
         List<BoardFileDTO> boardFileList = boardService.fileFindAll();
-        List<LikesDTO> likesList = boardService.likesFindAll(memberDTO.getMemberName());
+        boardService.likesFindAll(memberDTO.getMemberName());
+        commentService.likesFindAll(memberDTO.getMemberName());
         model.addAttribute("AuthenticationPrincipal",principalDetails);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
-        model.addAttribute("likes",likesList);
         return "main";
     }
     @GetMapping("/story")
