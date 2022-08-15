@@ -102,7 +102,7 @@ public class MemberController {
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         List<FollowDTO> following = followService.findAllByYourId(loginId);
-        String findByMyIdAndYourId=followService.findByMyIdAndYourId(loginId,principalDetails.getMemberDTO().getLoginId());
+        String findByMyIdAndYourId=followService.findByMyIdAndYourId(principalDetails.getMemberDTO().getLoginId(),loginId);
         System.out.println("MemberController.mypage");
         System.out.println("principalDetails = " + principalDetails.getMemberDTO().getLoginId() + ", loginId = " + loginId);
         System.out.println("findByMyIdAndYourId = " + findByMyIdAndYourId);
