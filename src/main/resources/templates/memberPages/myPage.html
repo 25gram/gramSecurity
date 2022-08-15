@@ -336,12 +336,14 @@
             /* width: 500px;
             height: 70px; */
             position: absolute;
-            top: 221px;
-            left: 80px;
+            top: 63px;
+            left: 18px;
             display: flex;
             opacity: 0;
             z-index: 9999;
             border-radius: 5px;
+            height: 0;
+            margin: auto;
         }
 
         .menuItemZone {
@@ -393,21 +395,7 @@
 </head>
 
 <body >
-<div id="menuZone" class="menuZone" style="">
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick='location.href="/main/main"'>Home</p></b>
-    </div>
 
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick='location.href="/member/updateForm"'>Update</p></b>
-    </div>
-
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick="logoutChk()">Log-out</p></b>
-    </div>
-
-
-</div>
 <!-- 팔로워 팔로우 모달 시작-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -456,12 +444,12 @@
             <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
         </div> -->
         <div id="btnZone">
-        <div id="mypageFollowZone" class="mypageFollowZone">
-<!--            <button onClick=unFollowBTN() id=mypageFollowBtn class=mypageFollowBtn>팔로우 취소</button>-->
-            <button onclick="unFollowBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '찾았다'}" id="mypageUnFollowBtn" class="mypageFollowBtn">팔로우취소</button>
-            <button onclick="followBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '못찾았다'}" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
-            <button onclick="update()"  th:if="${memberDTO.getLoginId() eq AuthenticationPrincipal.getMemberDTO().getLoginId()}" id="updateBTN" class="mypageFollowBtn">update</button>
-        </div>
+            <div id="mypageFollowZone" class="mypageFollowZone">
+                <!--            <button onClick=unFollowBTN() id=mypageFollowBtn class=mypageFollowBtn>팔로우 취소</button>-->
+                <button onclick="unFollowBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '찾았다'}" id="mypageUnFollowBtn" class="mypageFollowBtn">팔로우취소</button>
+                <button onclick="followBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '못찾았다'}" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
+                <button onclick="update()"  th:if="${memberDTO.getLoginId() eq AuthenticationPrincipal.getMemberDTO().getLoginId()}" id="updateBTN" class="mypageFollowBtn">update</button>
+            </div>
         </div>
 
         <!--카운트 구역  -->
@@ -500,7 +488,23 @@
             <!--            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>-->
             <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly name="" id=""></textarea>
         </div>
+        <div id="menuZone" class="menuZone">
+            <div class="menuItemZone">
+                <b><p class="menuItem" onclick='location.href="/main/main"'>Home</p></b>
+            </div>
+
+            <div class="menuItemZone">
+                <b><p class="menuItem" onclick='location.href="/member/updateForm"'>Update</p></b>
+            </div>
+
+            <div class="menuItemZone">
+                <b><p class="menuItem" onclick="logoutChk()">Log-out</p></b>
+            </div>
+
+
+        </div>
     </div>
+
     <!-- 이름 및 자기소개 끝-->
     <!-- 게시물 리스트 구역 시작-->
 
@@ -508,7 +512,7 @@
         <!-- table 시작 -->
         <table style="height: 100%;width:100%">
             <tr id="detailFile">
-<!--                 내게시물 시작-->
+                <!--                 내게시물 시작-->
 
                 <td class="wrap">
                     <div class="mypageListItem input-group">
@@ -516,7 +520,7 @@
                              src=""
                              alt="" id="aa1">
                         <video class="mypageListItem listImg"
-                             src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>
+                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>
                         <i class="manyIcon fa-regular fa-clone"></i>
 
                         <div class="imgIconGroup " style="display:flex;text-align:center">
@@ -570,22 +574,22 @@
                     </div>
                 </td>
 
-<!--                <td class="wrap">-->
-<!--                    <div class="mypageListItem input-group">-->
-<!--                        <img class="mypageListItem listImg"-->
-<!--                             src="" alt="" id="aa4">-->
-<!--                        <video class="mypageListItem listImg"-->
-<!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa4"></video>-->
-<!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
+                <!--                <td class="wrap">-->
+                <!--                    <div class="mypageListItem input-group">-->
+                <!--                        <img class="mypageListItem listImg"-->
+                <!--                             src="" alt="" id="aa4">-->
+                <!--                        <video class="mypageListItem listImg"-->
+                <!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa4"></video>-->
+                <!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
 
-<!--                        <div class="imgIconGroup " style="display:flex;text-align:center;">-->
-<!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
-<!--                            <div id="likeText4" class="likeText2">0</div>-->
-<!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
-<!--                            <div class="commentText2">465</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
+                <!--                        <div class="imgIconGroup " style="display:flex;text-align:center;">-->
+                <!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
+                <!--                            <div id="likeText4" class="likeText2">0</div>-->
+                <!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
+                <!--                            <div class="commentText2">465</div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </td>-->
 
                 <!-- 내게시물 끝 -->
 
@@ -619,223 +623,223 @@
     let loginStatus = [[${memberDTO.loginStatus}]]
     const loginId = document.getElementById("myPageLoginId").innerText;
     let myId = document.getElementById("AuthenticationId").innerText;
-  // window.onload=  function BTN() {
-  //     let header = $("meta[name='_csrf_header']").attr('content');
-  //     let token = $("meta[name='_csrf']").attr('content');
-  //     console.log("함수호출");
-  //
-  //
-  //         var content;
-  //     if (myId == yourId) {
-  //         content='<div id="mypageUPdateZone" class="mypageUPdateZone"><button onClick="location.href='+"'/member/updateForm'"+'"id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button></div>'
-  //             // " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
-  //         document.getElementById("btnZone").innerHTML = content;
-  //     } else {
-  //         console.log("else");
-  //         $.ajax({
-  //             type: "get",
-  //             url: "/follow/findByMyIdAndYourId",
-  //             data: {
-  //                 "yourId": yourId,
-  //                 "myId": myId
-  //             },
-  //             dataType: "text",
-  //             beforeSend: function (result) {
-  //                 result.setRequestHeader(header, token);
-  //             },
-  //             success: function (result) {
-  //                 console.log(result);
-  //                 if (result == "찾음") {
-  //                     content =" <div id='mypageFollowZone' class='mypageFollowZone'>"+
-  //                         " <button onClick=" + unFollowBTN() + " id='mypageFollowBtn' class='mypageFollowBtn'>" + "팔로우취소" + "</button></div>"
-  //
-  //                         // '<button onClick="unFollowBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉 취소</button></div>'
-  //                     document.getElementById("btnZone").innerHTML = content;
-  //
-  //
-  //                 } else if (result == "못찾음") {
-  //                     console.log("else,else");
-  //
-  //                     content =' <div id="mypageFollowZone" class="mypageFollowZone">'+
-  //                         '<button onClick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉</button></div>'
-  //                     document.getElementById("btnZone").innerHTML = content;
-  //
-  //                     function init() {
-  //                     }
-  //                 }
-  //             }
-  //
-  //         })
-  //     }
-      //
-      //     $.ajax({
-      //         type: "post",
-      //         url: "/member/mypage",
-      //         data: {
-      //             "yourId": yourId,
-      //             "myId": myId
-      //         },
-      //         beforeSend: function (result) {
-      //             result.setRequestHeader(header, token);
-      //         },
-      //         success: function () {
-      //             if (yourId == myId) {
-      //                 content =
-      //                     " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
-      //                 document.getElementById("mypageFollowZone").innerHTML = content;
-      //             } else {
-      //                 $.ajax({
-      //                     type: "post",
-      //                     url: "/follow/findByMyIdAndYourId",
-      //                     dataType: "json",
-      //                     data: {
-      //                         "yourId": yourId,
-      //                         "myId": myId
-      //                     },
-      //                     success: function (result) {
-      //                         if (result != null) {
-      //                             var content = "";
-      //                             $.ajax({
-      //                                 url: "/follow/delete",
-      //                                 type: "delete",
-      //                                 data: {
-      //                                     "yourId": yourId,
-      //                                     "myId": myId,
-      //                                 },
-      //                                 success: function () {
-      //                                     // content =
-      //                                     //     " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-      //                                     // document.getElementById("mypageFollowZone").innerHTML = content;
-      //                                     // //리다이렉트 해봐바
-      //                                 }
-      //                             });
-      //                         } else {
-      //                             content =
-      //                                 " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-      //                             document.getElementById("mypageFollowZone").innerHTML = content;
-      //                         }
-      //                     }
-      //                 })
-      //             }
-      //         },
-      //
-      //     })
-      // }
+    // window.onload=  function BTN() {
+    //     let header = $("meta[name='_csrf_header']").attr('content');
+    //     let token = $("meta[name='_csrf']").attr('content');
+    //     console.log("함수호출");
+    //
+    //
+    //         var content;
+    //     if (myId == yourId) {
+    //         content='<div id="mypageUPdateZone" class="mypageUPdateZone"><button onClick="location.href='+"'/member/updateForm'"+'"id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button></div>'
+    //             // " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
+    //         document.getElementById("btnZone").innerHTML = content;
+    //     } else {
+    //         console.log("else");
+    //         $.ajax({
+    //             type: "get",
+    //             url: "/follow/findByMyIdAndYourId",
+    //             data: {
+    //                 "yourId": yourId,
+    //                 "myId": myId
+    //             },
+    //             dataType: "text",
+    //             beforeSend: function (result) {
+    //                 result.setRequestHeader(header, token);
+    //             },
+    //             success: function (result) {
+    //                 console.log(result);
+    //                 if (result == "찾음") {
+    //                     content =" <div id='mypageFollowZone' class='mypageFollowZone'>"+
+    //                         " <button onClick=" + unFollowBTN() + " id='mypageFollowBtn' class='mypageFollowBtn'>" + "팔로우취소" + "</button></div>"
+    //
+    //                         // '<button onClick="unFollowBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉 취소</button></div>'
+    //                     document.getElementById("btnZone").innerHTML = content;
+    //
+    //
+    //                 } else if (result == "못찾음") {
+    //                     console.log("else,else");
+    //
+    //                     content =' <div id="mypageFollowZone" class="mypageFollowZone">'+
+    //                         '<button onClick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉</button></div>'
+    //                     document.getElementById("btnZone").innerHTML = content;
+    //
+    //                     function init() {
+    //                     }
+    //                 }
+    //             }
+    //
+    //         })
+    //     }
+    //
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/member/mypage",
+    //         data: {
+    //             "yourId": yourId,
+    //             "myId": myId
+    //         },
+    //         beforeSend: function (result) {
+    //             result.setRequestHeader(header, token);
+    //         },
+    //         success: function () {
+    //             if (yourId == myId) {
+    //                 content =
+    //                     " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
+    //                 document.getElementById("mypageFollowZone").innerHTML = content;
+    //             } else {
+    //                 $.ajax({
+    //                     type: "post",
+    //                     url: "/follow/findByMyIdAndYourId",
+    //                     dataType: "json",
+    //                     data: {
+    //                         "yourId": yourId,
+    //                         "myId": myId
+    //                     },
+    //                     success: function (result) {
+    //                         if (result != null) {
+    //                             var content = "";
+    //                             $.ajax({
+    //                                 url: "/follow/delete",
+    //                                 type: "delete",
+    //                                 data: {
+    //                                     "yourId": yourId,
+    //                                     "myId": myId,
+    //                                 },
+    //                                 success: function () {
+    //                                     // content =
+    //                                     //     " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
+    //                                     // document.getElementById("mypageFollowZone").innerHTML = content;
+    //                                     // //리다이렉트 해봐바
+    //                                 }
+    //                             });
+    //                         } else {
+    //                             content =
+    //                                 " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
+    //                             document.getElementById("mypageFollowZone").innerHTML = content;
+    //                         }
+    //                     }
+    //                 })
+    //             }
+    //         },
+    //
+    //     })
+    // }
 
 
-      function followBTN() {
-          let header = $("meta[name='_csrf_header']").attr('content');
-          let token = $("meta[name='_csrf']").attr('content');
-          let yourId = document.getElementById("myPageLoginId").innerText;
-          let yourName = document.getElementById("mypageName").innerText;
-          let loginStatus = [[${memberDTO.loginStatus}]]
-          var content = "";
+    function followBTN() {
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let yourId = document.getElementById("myPageLoginId").innerText;
+        let yourName = document.getElementById("mypageName").innerText;
+        let loginStatus = [[${memberDTO.loginStatus}]]
+        var content = "";
 
-          $.ajax({
-              url: "/follow/request",
-              type: "post",
-              data: {
-                  "yourId": yourId,
-                  "yourName": yourName,
-                  "loginStatus": loginStatus
-              },
-              beforeSend: function (result) {
-                  result.setRequestHeader(header, token);
-              },
-              success: function () {
-                  location.href="/member/mypage?loginId="+yourId;
-                  // content =
-                  //     " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우 취소" + "</button>"
-                  // document.getElementById("mypageFollowZone").innerHTML = content;
-              },
-              error: function (result) {
-                  console.log("err");
-              },
-          })
-      };
+        $.ajax({
+            url: "/follow/request",
+            type: "post",
+            data: {
+                "yourId": yourId,
+                "yourName": yourName,
+                "loginStatus": loginStatus
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success: function () {
+                location.href="/member/mypage?loginId="+yourId;
+                // content =
+                //     " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우 취소" + "</button>"
+                // document.getElementById("mypageFollowZone").innerHTML = content;
+            },
+            error: function (result) {
+                console.log("err");
+            },
+        })
+    };
 
-      function followList() {
-          console.log("함수호출");
-          let header = $("meta[name='_csrf_header']").attr('content');
-          let token = $("meta[name='_csrf']").attr('content');
-          const loginId = document.getElementById("myPageLoginId").innerText;
-          console.log(loginId);
+    function followList() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        const loginId = document.getElementById("myPageLoginId").innerText;
+        console.log(loginId);
 
-          $.ajax({
-              type: "post",
-              url: "/follow/yourList",
-              data: {
-                  "loginId": loginId
-              },
-              dataType: "json",
-              beforeSend: function (result) {
-                  result.setRequestHeader(header, token);
-              }, success: function (result) {
-                  console.log(result);
-                  var content = "";
-                  for (let i in result) {
-                      content += "<a className='following' href='" + '/member/mypage?loginId=' +
-                          result[i].myId + "'>" +
-                          "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                          + result[i].yourName + "</a>" + "<br>";
-                  }
-                  document.getElementById("modal-body").innerHTML = content;
-              }
+        $.ajax({
+            type: "post",
+            url: "/follow/yourList",
+            data: {
+                "loginId": loginId
+            },
+            dataType: "json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            }, success: function (result) {
+                console.log(result);
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' +
+                        result[i].myId + "'>" +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
+                }
+                document.getElementById("modal-body").innerHTML = content;
+            }
 
-          })
-      }
+        })
+    }
 
 
-      function followingList() {
-          console.log("함수호출");
-          let header = $("meta[name='_csrf_header']").attr('content');
-          let token = $("meta[name='_csrf']").attr('content');
-          const loginId = document.getElementById("myPageLoginId").innerText;
-          console.log(loginId);
+    function followingList() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        const loginId = document.getElementById("myPageLoginId").innerText;
+        console.log(loginId);
 
-          $.ajax({
-              type: "post",
-              url: "/follow/myList",
-              data: {
-                  "loginId": loginId
-              },
-              dataType: "json",
-              beforeSend: function (result) {
-                  result.setRequestHeader(header, token);
-              }, success: function (result) {
-                  console.log(result);
-                  var content = "";
-                  for (let i in result) {
-                      content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
-                          "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                          + result[i].yourName + "</a>" + "<br>";
-                  }
-                  document.getElementById("modal-body").innerHTML = content;
-              }
+        $.ajax({
+            type: "post",
+            url: "/follow/myList",
+            data: {
+                "loginId": loginId
+            },
+            dataType: "json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            }, success: function (result) {
+                console.log(result);
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
+                }
+                document.getElementById("modal-body").innerHTML = content;
+            }
 
-          })
-      }
+        })
+    }
 
-      function unFollowBTN() {
-          console.log("함수호출");
-          let header = $("meta[name='_csrf_header']").attr('content');
-          let token = $("meta[name='_csrf']").attr('content');
+    function unFollowBTN() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
 
-          var content ;
-          $.ajax({
-              url: "/follow/delete",
-              type: "delete",
-              data: {
-                  "yourId": yourId,
-                  "myId": myId,
-              },
-              beforeSend: function (result) {
-                  result.setRequestHeader(header, token);
-              },
-              success: function () {
-               location.href="/member/mypage?loginId="+yourId;
-              }
-          })
+        var content ;
+        $.ajax({
+            url: "/follow/delete",
+            type: "delete",
+            data: {
+                "yourId": yourId,
+                "myId": myId,
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success: function () {
+                location.href="/member/mypage?loginId="+yourId;
+            }
+        })
 
   }
   function update(){

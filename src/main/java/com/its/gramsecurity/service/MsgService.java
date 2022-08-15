@@ -18,7 +18,7 @@ public class MsgService {
     public List<MsgDTO> findByFriendId(MsgDTO mem) {
 
 //        return
-                List<MsgEntity> mlist=msgr.findByFriendId(MsgEntity.toEntity(mem));
+                List<MsgEntity> mlist=msgr.findByFriendId(MsgEntity.toEntity(mem).getFriendId());
                 List<MsgDTO> dtoList=null;
                 for(int i = 0; i<mlist.size(); i++){
                 dtoList.add(MsgDTO.toDto(mlist.get(i)));
