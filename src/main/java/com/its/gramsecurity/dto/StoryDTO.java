@@ -15,11 +15,12 @@ public class StoryDTO {
     private Long id;
     private String loginId;
     private String memberName;
-    private String storyFileName;
     private MultipartFile storyFile;
+    private String storyFileName;
     private LocalDateTime storyCreatedTime;
-    private String storyImgTag;
     private MultipartFile storyImgFile;
+    private String storyImgName;
+    private String storyImgTag;
     private String storyTextTag;
     private String storyTodayTag;
     private String storyLinkTag;
@@ -31,18 +32,6 @@ public class StoryDTO {
     private String storyLocationTag;
     private int storyVisitStatus;
 
-    public StoryDTO(String storyImgTag, String storyTextTag, String storyTodayTag, String storyLinkTag, String storyQuestionTag, String storySurveyTag, String storyQuizTag, String storyHashTag, String storyReferenceTag, String storyLocationTag) {
-        this.storyImgTag = storyImgTag;
-        this.storyTextTag = storyTextTag;
-        this.storyTodayTag = storyTodayTag;
-        this.storyLinkTag = storyLinkTag;
-        this.storyQuestionTag = storyQuestionTag;
-        this.storySurveyTag = storySurveyTag;
-        this.storyQuizTag = storyQuizTag;
-        this.storyHashTag = storyHashTag;
-        this.storyReferenceTag = storyReferenceTag;
-        this.storyLocationTag = storyLocationTag;
-    }
 
     public static StoryDTO toStoryDTO (StoryEntity storyEntity) {
         StoryDTO storyDTO = new StoryDTO();
@@ -51,6 +40,7 @@ public class StoryDTO {
         storyDTO.setMemberName(storyEntity.getMemberName());
         storyDTO.setStoryFileName(storyEntity.getStoryFileName());
         storyDTO.setStoryCreatedTime(storyEntity.getStoryCreatedTime());
+        storyDTO.setStoryImgName(storyEntity.getStoryImgName());
         storyDTO.setStoryImgTag(storyEntity.getStoryImgTag());
         storyDTO.setStoryTextTag(storyEntity.getStoryTextTag());
         storyDTO.setStoryTodayTag(storyEntity.getStoryTodayTag());

@@ -30,6 +30,9 @@ public class StoryEntity {
     @Column
     private LocalDateTime storyCreatedTime;
 
+    @Column
+    private String storyImgName;
+
     @Column (length = 1000)
     private String storyImgTag;
 
@@ -45,7 +48,7 @@ public class StoryEntity {
     @Column (length = 1000)
     private String storyQuestionTag;
 
-    @Column (length = 1000)
+    @Column (length = 3000)
     private String storySurveyTag;
 
     @Column (length = 3000)
@@ -68,14 +71,15 @@ public class StoryEntity {
         storyEntity.setLoginId(memberEntity.getLoginId());
         storyEntity.setMemberName(memberEntity.getMemberName());
         storyEntity.setStoryCreatedTime(LocalDateTime.now());
+        storyEntity.setStoryImgTag(storyDTO.getStoryImgTag());
         storyEntity.setStoryTextTag(storyDTO.getStoryTextTag());
         storyEntity.setStoryTodayTag(storyDTO.getStoryTodayTag());
         storyEntity.setStoryLinkTag(storyDTO.getStoryLinkTag());
         storyEntity.setStoryQuestionTag(storyDTO.getStoryQuestionTag());
         storyEntity.setStorySurveyTag(storyDTO.getStorySurveyTag());
         storyEntity.setStoryQuizTag(storyDTO.getStoryQuizTag());
-        storyEntity.setStoryHashTag(storyDTO.getStoryHashTag());
         storyEntity.setStoryReferenceTag(storyDTO.getStoryReferenceTag());
+        storyEntity.setStoryHashTag(storyDTO.getStoryHashTag());
         storyEntity.setStoryLocationTag(storyDTO.getStoryLocationTag());
         return storyEntity;
     }

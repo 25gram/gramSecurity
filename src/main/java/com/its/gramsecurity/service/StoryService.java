@@ -56,19 +56,19 @@ public class StoryService {
             MultipartFile storyFile = storyDTO.getStoryFile();
             MultipartFile storyImgFile = storyDTO.getStoryImgFile();
             String storyFileName = storyFile.getOriginalFilename();
-            String storyImgTag = storyImgFile.getOriginalFilename();
+            String storyImgName = storyImgFile.getOriginalFilename();
             if(!storyFile.isEmpty()){
                 storyFileName = System.currentTimeMillis()+"-"+ storyFileName;
                 String savePath="C:\\springboot_img\\"+storyFileName;
                 storyFile.transferTo(new File(savePath));
             }
             if(!storyImgFile.isEmpty()){
-                storyImgTag = System.currentTimeMillis()+"-"+storyImgTag;
-                String savePath="C:\\springboot_img\\"+storyImgTag;
+                storyImgName = System.currentTimeMillis()+"-"+storyImgName;
+                String savePath="C:\\springboot_img\\"+storyImgName;
                 storyImgFile.transferTo(new File(savePath));
             }
             storyEntity.setStoryFileName(storyFileName);
-            storyEntity.setStoryImgTag(storyImgTag);
+            storyEntity.setStoryImgName(storyImgName);
             storyRepository.save(storyEntity);
         }
 
