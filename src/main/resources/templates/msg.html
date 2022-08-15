@@ -282,6 +282,10 @@
         #rightX:active{
             transform: scale(0.95);
         }
+        a{
+            color:#686868;
+            text-decoration: none;
+        }
 
     </style>
     <script>
@@ -463,16 +467,18 @@
             </div>
 
             <!-- dm입력창 -->
-            <form class="dmInputZone" method="get" action="/msg/save">
+            <form  name="dmInputZone" id="dmInputZone" class="dmInputZone" method="post" action="/msg/save">
+                <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
                 <!-- 로그인 아이디 밸류 값 주기 -->
-                <input type="text" name="saveName" hidden value="">
+                <input type="text" id="loginId" name="loginId" hidden th:value="${mem.loginId}">
                 <!-- 친두 아이디 값주기 -->
-                <input type="text" name="playName" hidden value="">
-
-                <textarea name="contents" type="text" id="dmInput" class="dmInput"
+                <input type="text" name="friendId" id="friendId" hidden >
+                <input type="text" name="friendFileName" id="friendFileName" hidden>
+                <textarea name="text" type="text" id="dmInput" class="dmInput"
                           placeholder="메시지 입력.."></textarea>
-            <div id="formBtn" class="formBtn">보내기</div>
+                <input type="text" id="seeInt" name="seeInt" value="1" hidden>
             </form>
+            <div id="formBtn" class="formBtn">보내기</div>
         </div>
 
     </div>
@@ -568,6 +574,7 @@
         border-bottom: #ebe9e9 1px solid;
         /* background-color: rgba(0,0,0,0.2); */
         height: 52px;
+        cursor: pointer;
     }
     .searchLIstZone{
         height: 249px;
@@ -588,7 +595,8 @@
         padding: 10px;
         /* border-bottom: #ebe9e9 1px solid; */
         border-bottom: gray 1px solid;
-        background-color:#ebe9e9 ;
+        background-color:rgb(224, 224, 224) ;
+        /* background-color:#ebe9e9 ; */
 
     }
     input{
@@ -609,10 +617,11 @@
         left:504px;
         border: gray 1px solid;
         /* border: #ebe9e9 1px solid; */
-        border-radius: 3px;
+        /* border-radius: 5px; */
         transition: ease-out 0.5s;
         opacity: 0;
         z-index: -10;
+        box-shadow: grey 4px 5px 12px -5px;
 
     }
     .behindPage{
@@ -666,6 +675,34 @@
 
 </style>
 <script>
+    $("#formBtn").click(function (){
+        console.log("click호출")
+
+        let loginId='[[${mem.loginId}]]';
+        let friendId=document.getElementById("friendId").value;
+        let text=document.getElementById("dmInput").value;
+        let seeInt=document.getElementById("seeInt").value;
+        let friendFileName=document.getElementById("friendFileName").value;
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        $.ajax({
+            url:"/msg/save",
+            data:{
+                "loginId": loginId,
+                "friendId":friendId,
+                "text":text,
+                "seeInt":seeInt,
+                "friendFileName":friendFileName
+            },
+            type:"post",
+            dataType:"text",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            }
+        })
+        $(".emojionearea-editor").val("")
+    })
+
     function goMsgPage(friendId,ffile,fname){
         showSearch(1)
         document.getElementById("search").value=" "
@@ -674,9 +711,12 @@
         let loginId1='[[${mem.loginId}]]'
         let fpZone=document.getElementById("friendProfile")
         let fnZone=document.getElementById("friendName")
-            console.log("go loginId : "+loginId1)
-            console.log("go friendId : "+friendId)
-            console.log("go fname : "+fname)
+        document.getElementById("friendId").value=friendId;
+        document.getElementById("friendFileName").value=ffile;
+
+        console.log("go loginId : "+loginId1)
+        console.log("go friendId : "+friendId)
+        console.log("go fname : "+fname)
         $.ajax({
             url:"/msg/gomsgpage",
             data:{
@@ -723,11 +763,14 @@
             },
             success: function (result) {
                 let content = "";
-
+                let id='[[${mem.loginId}]]'
+                console.log("sub id: "+id)
                 if (result.length != 0) {
                     for (let i in result) {
-                        content+='<div onclick="goMsgPage('+"'"+result[i].loginId+"','"+result[i].memberProfileName+"','"+result[i].memberName+"'"+')" class="searchList"><img class="searchProfile" src=\"/upload/'+result[i].memberProfileName+'\">'
-                            +" <p class='searchName' >" + result[i].memberName + "</p>" + "</div>"
+                        if(id!=result[i].loginId) {
+                            content += '<div onclick="goMsgPage(' + "'" + result[i].loginId + "','" + result[i].memberProfileName + "','" + result[i].memberName + "'" + ')" class="searchList"><img class="searchProfile" src=\"/upload/' + result[i].memberProfileName + '\">'
+                                + " <p class='searchName' >" + result[i].memberName + "</p>" + "</div>"
+                        }
                     }
                 } else {
                     content = html;
@@ -793,8 +836,6 @@
 
             })
         }else if(i==1){
-            document.getElementById("search").value="";
-            document.getElementById("searchLIstZone").innerHTML = "";
             $("#searchBox").css({
                 "opacity":0,
                 "transition":"all 0.5s",

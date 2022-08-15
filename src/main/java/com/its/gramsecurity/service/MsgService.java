@@ -1,5 +1,6 @@
 package com.its.gramsecurity.service;
 
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.MsgDTO;
 import com.its.gramsecurity.entity.MsgEntity;
 import com.its.gramsecurity.repository.MsgRepository;
@@ -24,5 +25,9 @@ public class MsgService {
                 dtoList.add(MsgDTO.toDto(mlist.get(i)));
                 }
                 return dtoList;
+    }
+
+    public void save(MsgDTO mem) {
+        msgr.save(MsgEntity.toEntity(mem));
     }
 }

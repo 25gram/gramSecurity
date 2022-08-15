@@ -1,5 +1,6 @@
 package com.its.gramsecurity.dto;
 
+import com.its.gramsecurity.entity.BaseEntity;
 import com.its.gramsecurity.entity.MsgEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MsgDTO {
+public class MsgDTO extends BaseEntity {
 
     Long MsgId;
 
@@ -24,21 +25,14 @@ public class MsgDTO {
 
     int seeInt;
 
-    LocalDateTime sendTime;
-
-    LocalDateTime lastTime;
-
     String friendFileName;
 
     public static MsgDTO toDto(MsgEntity mem){
         MsgDTO dto=new MsgDTO();
-        dto.setMsgId(mem.getMsgId());
         dto.setLoginId(mem.getLoginId());
         dto.setFriendId(mem.getFriendId());
         dto.setText(mem.getText());
         dto.setSeeInt(mem.getSeeInt());
-        dto.setSendTime(mem.getSendTime());
-        dto.setLastTime(mem.getLastTime());
         dto.setFriendFileName(mem.getFriendFileName());
         return dto;
     }
