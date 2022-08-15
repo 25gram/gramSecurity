@@ -57,20 +57,22 @@ public class FollowController {
     @DeleteMapping("/delete")
     public @ResponseBody String UnFollow(@RequestParam("yourId") String yourId,
                                          @RequestParam("myId") String myId) {
-        followService.UnFollow(yourId, myId);
-        return "redirect:/member/mypage" + yourId;
+        System.out.println("FollowController.UnFollow");
+        System.out.println("yourId = " + yourId + ", myId = " + myId);
+        String result= followService.UnFollow(yourId, myId);
+        return result;
     }
 
     //
-    @PostMapping("/findByMyIdAndYourId")
-    public @ResponseBody FollowDTO findByMyIdAndYourId(@RequestParam String myId,
-                                                       @RequestParam String yourId) {
-        FollowDTO findByMyIdAndYourId =new FollowDTO();
+    @Transactional
+    @GetMapping("/findByMyIdAndYourId")
+    public @ResponseBody String findByMyIdAndYourId(@RequestParam("myId") String myId,
+                                                       @RequestParam("yourId") String yourId) {
+        String result = followService.findByMyIdAndYourId(myId, yourId);
         System.out.println("FollowController.findByMyIdAndYourId");
         System.out.println("myId = " + myId + ", yourId = " + yourId);
-        findByMyIdAndYourId = followService.findByMyIdAndYourId(myId, yourId);
-        System.out.println("findByMyIdAndYourId = " + findByMyIdAndYourId);
-        return findByMyIdAndYourId;
+        System.out.println("findByMyIdAndYourId = " + result);
+        return result;
     }
 
 }

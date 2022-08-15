@@ -392,7 +392,7 @@
 
 </head>
 
-<body onload="BTN()">
+<body >
 <div id="menuZone" class="menuZone" style="">
     <div class="menuItemZone">
         <b><p class="menuItem" onclick='location.href="/main/main"'>Home</p></b>
@@ -607,129 +607,233 @@
 
 </body>
 <script>
-    function BTN(){
 
-    }
-
-
-    function followBTN() {
-        let header = $("meta[name='_csrf_header']").attr('content');
-        let token = $("meta[name='_csrf']").attr('content');
-        let yourId = document.getElementById("myPageLoginId").innerText;
-        let yourName = document.getElementById("mypageName").innerText;
-        let loginStatus = [[${memberDTO.loginStatus}]]
-        var content = "";
-
-        $.ajax({
-            url: "/follow/request",
-            type: "post",
-            dataType: "json",
-            data: {
-                "yourId": yourId,
-                "yourName": yourName,
-                "loginStatus": loginStatus
-            },
-            beforeSend: function (result) {
-                result.setRequestHeader(header, token);
-            },
-            success: function (result) {
-               content=
-                  " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우 취소"+"</button>"
-                document.getElementById("mypageFollowZone").innerHTML=content;
-            },
-            error: function (result) {
-                console.log("err");
-            },
-        })
-    };
-
-    function followList() {
-        console.log("함수호출");
-        let header = $("meta[name='_csrf_header']").attr('content');
-        let token = $("meta[name='_csrf']").attr('content');
-        const loginId = document.getElementById("myPageLoginId").innerText;
-        console.log(loginId);
-
-        $.ajax({
-            type: "post",
-            url: "/follow/yourList",
-            data: {
-                "loginId": loginId
-            },
-            dataType: "json",
-            beforeSend: function (result) {
-                result.setRequestHeader(header, token);
-            }, success: function (result) {
-                console.log(result);
-                var content = "";
-                for (let i in result) {
-                    content += "<a className='following' href='" + '/member/mypage?loginId=' +
-                        result[i].myId + "'>" +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                        + result[i].yourName + "</a>" + "<br>";
-                }
-                document.getElementById("modal-body").innerHTML = content;
-            }
-
-        })
-    }
+    let yourId = document.getElementById("myPageLoginId").innerText;
+    let yourName = document.getElementById("mypageName").innerText;
+    let loginStatus = [[${memberDTO.loginStatus}]]
+    const loginId = document.getElementById("myPageLoginId").innerText;
+    let myId = document.getElementById("AuthenticationId").innerText;
+  window.onload=  function BTN() {
+      let header = $("meta[name='_csrf_header']").attr('content');
+      let token = $("meta[name='_csrf']").attr('content');
+      console.log("함수호출");
 
 
-    function followingList() {
-        console.log("함수호출");
-        let header = $("meta[name='_csrf_header']").attr('content');
-        let token = $("meta[name='_csrf']").attr('content');
-        const loginId = document.getElementById("myPageLoginId").innerText;
-        console.log(loginId);
+      if (myId == yourId) {
+          var content = "";
+          content +=
 
-        $.ajax({
-            type: "post",
-            url: "/follow/myList",
-            data: {
-                "loginId": loginId
-            },
-            dataType: "json",
-            beforeSend: function (result) {
-                result.setRequestHeader(header, token);
-            }, success: function (result) {
-                console.log(result);
-                var content = "";
-                for (let i in result) {
-                    content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                        + result[i].yourName + "</a>" + "<br>";
-                }
-                document.getElementById("modal-body").innerHTML = content;
-            }
+              " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
+          document.getElementById("mypageFollowZone").innerHTML = content;
+      } else {
+          console.log("else");
+          $.ajax({
+              type: "get",
+              url: "/follow/findByMyIdAndYourId",
+              data: {
+                  "yourId": yourId,
+                  "myId": myId
+              },
+              dataType: "text",
+              beforeSend: function (result) {
+                  result.setRequestHeader(header, token);
+              },
+              success: function (result) {
+                  console.log(result);
+                  if (result == "찾음") {
+                      var content = "";
+                      content +=
+                          " <button onClick=" + unFollowBTN() + " id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우취소" + "</button>"
+                      document.getElementById("mypageFollowZone").innerHTML = content;
 
-        })
-    }
+                      function init() {
+                      }
 
-    function unFollowBTN(){
-        console.log("함수호출");
-        let header = $("meta[name='_csrf_header']").attr('content');
-        let token = $("meta[name='_csrf']").attr('content');
-        let yourId = document.getElementById("myPageLoginId").innerText;
-        let myId=document.getElementById("AuthenticationId").innerText;
-        var content="";
-        $.ajax({
-            url: "/follow/delete",
-            type: "delete",
-            data: {
-                "yourId": yourId,
-                "myId":myId,
-            },
-            beforeSend: function (result) {
-                result.setRequestHeader(header, token);
-            },
-                // success: function () {
-            //     content=
-            //         " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>"+"팔로우"+"</button>"
-            //     document.getElementById("mypageFollowZone").innerHTML=content;
-            // }
-        })
-    }
+                  } else if (result == "못찾음") {
+                      console.log("else,else");
+                      var content = "";
+                      content +=
+                          " <button onClick=" + followBTN() + " id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
+                      document.getElementById("mypageFollowZone").innerHTML = content;
 
+                      function init() {
+                      }
+                  }
+              }
+
+          })
+      }
+      //
+      //     $.ajax({
+      //         type: "post",
+      //         url: "/member/mypage",
+      //         data: {
+      //             "yourId": yourId,
+      //             "myId": myId
+      //         },
+      //         beforeSend: function (result) {
+      //             result.setRequestHeader(header, token);
+      //         },
+      //         success: function () {
+      //             if (yourId == myId) {
+      //                 content =
+      //                     " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
+      //                 document.getElementById("mypageFollowZone").innerHTML = content;
+      //             } else {
+      //                 $.ajax({
+      //                     type: "post",
+      //                     url: "/follow/findByMyIdAndYourId",
+      //                     dataType: "json",
+      //                     data: {
+      //                         "yourId": yourId,
+      //                         "myId": myId
+      //                     },
+      //                     success: function (result) {
+      //                         if (result != null) {
+      //                             var content = "";
+      //                             $.ajax({
+      //                                 url: "/follow/delete",
+      //                                 type: "delete",
+      //                                 data: {
+      //                                     "yourId": yourId,
+      //                                     "myId": myId,
+      //                                 },
+      //                                 success: function () {
+      //                                     // content =
+      //                                     //     " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
+      //                                     // document.getElementById("mypageFollowZone").innerHTML = content;
+      //                                     // //리다이렉트 해봐바
+      //                                 }
+      //                             });
+      //                         } else {
+      //                             content =
+      //                                 " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
+      //                             document.getElementById("mypageFollowZone").innerHTML = content;
+      //                         }
+      //                     }
+      //                 })
+      //             }
+      //         },
+      //
+      //     })
+      // }
+
+
+      function followBTN() {
+          let header = $("meta[name='_csrf_header']").attr('content');
+          let token = $("meta[name='_csrf']").attr('content');
+          let yourId = document.getElementById("myPageLoginId").innerText;
+          let yourName = document.getElementById("mypageName").innerText;
+          let loginStatus = [[${memberDTO.loginStatus}]]
+          var content = "";
+
+          $.ajax({
+              url: "/follow/request",
+              type: "post",
+              dataType: "json",
+              data: {
+                  "yourId": yourId,
+                  "yourName": yourName,
+                  "loginStatus": loginStatus
+              },
+              beforeSend: function (result) {
+                  result.setRequestHeader(header, token);
+              },
+              success: function (result) {
+                  content =
+                      " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우 취소" + "</button>"
+                  document.getElementById("mypageFollowZone").innerHTML = content;
+              },
+              error: function (result) {
+                  console.log("err");
+              },
+          })
+      };
+
+      function followList() {
+          console.log("함수호출");
+          let header = $("meta[name='_csrf_header']").attr('content');
+          let token = $("meta[name='_csrf']").attr('content');
+          const loginId = document.getElementById("myPageLoginId").innerText;
+          console.log(loginId);
+
+          $.ajax({
+              type: "post",
+              url: "/follow/yourList",
+              data: {
+                  "loginId": loginId
+              },
+              dataType: "json",
+              beforeSend: function (result) {
+                  result.setRequestHeader(header, token);
+              }, success: function (result) {
+                  console.log(result);
+                  var content = "";
+                  for (let i in result) {
+                      content += "<a className='following' href='" + '/member/mypage?loginId=' +
+                          result[i].myId + "'>" +
+                          "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                          + result[i].yourName + "</a>" + "<br>";
+                  }
+                  document.getElementById("modal-body").innerHTML = content;
+              }
+
+          })
+      }
+
+
+      function followingList() {
+          console.log("함수호출");
+          let header = $("meta[name='_csrf_header']").attr('content');
+          let token = $("meta[name='_csrf']").attr('content');
+          const loginId = document.getElementById("myPageLoginId").innerText;
+          console.log(loginId);
+
+          $.ajax({
+              type: "post",
+              url: "/follow/myList",
+              data: {
+                  "loginId": loginId
+              },
+              dataType: "json",
+              beforeSend: function (result) {
+                  result.setRequestHeader(header, token);
+              }, success: function (result) {
+                  console.log(result);
+                  var content = "";
+                  for (let i in result) {
+                      content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
+                          "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                          + result[i].yourName + "</a>" + "<br>";
+                  }
+                  document.getElementById("modal-body").innerHTML = content;
+              }
+
+          })
+      }
+
+      function unFollowBTN() {
+          console.log("함수호출");
+          let header = $("meta[name='_csrf_header']").attr('content');
+          let token = $("meta[name='_csrf']").attr('content');
+
+          var content = "";
+          $.ajax({
+              url: "/follow/delete",
+              type: "delete",
+              data: {
+                  "yourId": yourId,
+                  "myId": myId,
+              },
+              beforeSend: function (result) {
+                  result.setRequestHeader(header, token);
+              },
+              success: function () {
+               location.href="/member/mapage?loginId="+yourId;
+              }
+          })
+      }
+  }
 </script>
 <script>
     function logoutChk() {
