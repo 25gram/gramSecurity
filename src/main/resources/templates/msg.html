@@ -41,7 +41,7 @@
         body {
             -ms-overflow-style: none;
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: rgba(242, 243, 245, 0.75rem);
+            /*background-color: rgba(242, 243, 245, 0.75rem);*/
             overflow: hidden;
         }
 
@@ -293,9 +293,9 @@
         function showRight(i){
             if(i==0){
                 $("#msgbodyRight").css({
-                    "opacity":0,
+                    "opacity":1,
                     "transition":"all 1s",
-                    "z-index":-1
+                    "z-index":1
                 })
                 $("#behindPage").css({
                     "opacity":0,
@@ -303,22 +303,23 @@
                     "z-index":-1
 
                 })
-                setTimeout(show,500)
-
-                function show(){
-                    $("#msgbodyRight").css({
-                        "opacity":1,
-                        "transition":"all 1s",
-                        "z-index":1
-
-
-                    })
-                    $("#behindPage").css({
-                        "opacity":0,
-                        "transition":"all 0.2s",
-                        "z-index":-1
-
-                    })}
+                // setTimeout(show,500)
+                //
+                // function show(){
+                //     $("#msgbodyRight").css({
+                //         "opacity":1,
+                //         "transition":"all 1s",
+                //         "z-index":1
+                //
+                //
+                //     })
+                //     $("#behindPage").css({
+                //         "opacity":0,
+                //         "transition":"all 0.2s",
+                //         "z-index":-1
+                //
+                //     })
+                // }
             }
             else  {
                 $("#msgbodyRight").css({
@@ -337,11 +338,41 @@
             }
             console.log("int : "+i)
         }
+        function msgList(){
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            let html=""
+            $.ajax({
+                url:"/msg/msglist",
+                data:{
+                    "loginId":'[[${mem.loginId}]]'
+                },
+                dataType:"json",
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
+                },
+                success:function (e){
+                    console.log("msglist suc : "+e)
+
+                        html+='<tr onClick = "showRight(0)" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                        '<img class= "msgProfile" src = "/upload/'+e[i].friendFileName+'alt = "" >< /div>'+
+                         '<div style="width:0;height:0;margin:0;padding:0"><div class="msgNameZone"><b>'+
+                         '<p class="msgName">'+e[i].friendName+'</p></b></div><div class="lastMsgZone">'+
+                         '<textarea class="lastMsg" cols="30" rows="10">'+
+                            e[i].text+'</textarea></div></div><div class="lastTimeZone"><p className="lastTime">'+
+                            e[i].createdTime+'</div></div></td></tr>'
+
+                },
+                error:function (e){
+                    console.log("msglist err")
+                }
+            })
+        }
     </script>
 
 </head>
 
-<body>
+<body onload="msgList()">
 <div class="msgbody" style="border:#ebe9e9 1px solid; width: 900px; height:700px; margin:20px;display: flex; ">
     <!-- 왼쪽화면 -->
     <div class="msgbodyLeft" style="width: 350px;height: 100%;border-right: #ebe9e9 1px solid;">
@@ -353,7 +384,7 @@
 
         <!-- 메시지 주고받은 내역 구역-->
         <div class="msgListZone" style="height:638px;width: 100%;overflow: scroll;">
-            <table>
+            <table id="table" >
 
                 <!-- 메시지 주고 받은 내역 -->
                 <tr onclick="showRight(0)">
@@ -449,20 +480,20 @@
             <!-- 대화창 -->
             <div id="msgZone" class="msgZone">
                 <!-- 내가 보낸 메시지일때 -->
-                <div style="text-align: -webkit-right;">
-                    <p class="msgTime">8월14일 오후 06:03</p>
-                    <div class="myMsgZone">
-                        <p class="Msg">klsdfjldkfjklsdj</p>
-                    </div>
-                </div>
+<!--                <div style="text-align: -webkit-right;">-->
+<!--                    <p class="msgTime">8월14일 오후 06:03</p>-->
+<!--                    <div class="myMsgZone">-->
+<!--                        <p class="Msg">klsdfjldkfjklsdj</p>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <!-- 내가 받은 메시지일때 -->
-                <div>
-                    <p class="msgTime">2022-08-14 오후05:55</p>
-                    <div class="yourMsgZone">
-                        <p class="Msg">klsdfjldkfjklsdj</p>
-                    </div>
-                </div>
+<!--                &lt;!&ndash; 내가 받은 메시지일때 &ndash;&gt;-->
+<!--                <div>-->
+<!--                    <p class="msgTime">2022-08-14 오후05:55</p>-->
+<!--                    <div class="yourMsgZone">-->
+<!--                        <p class="Msg">klsdfjldkfjklsdj</p>-->
+<!--                    </div>-->
+<!--                </div>-->
 
             </div>
 
@@ -677,12 +708,13 @@
 <script>
     $("#formBtn").click(function (){
         console.log("click호출")
-
+        if(document.getElementById("dmInput").value.length!=0){
         let loginId='[[${mem.loginId}]]';
         let friendId=document.getElementById("friendId").value;
         let text=document.getElementById("dmInput").value;
         let seeInt=document.getElementById("seeInt").value;
         let friendFileName=document.getElementById("friendFileName").value;
+        let friendName=document.getElementById("friendName").innerHTML
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         $.ajax({
@@ -700,23 +732,26 @@
                 result.setRequestHeader(header, token);
             }
         })
-        $(".emojionearea-editor").val("")
+        $(".emojionearea-editor").html("")
+        document.getElementById("dmInput").value=""
+        goMsgPage(friendId,friendFileName,friendName)}
     })
 
     function goMsgPage(friendId,ffile,fname){
         showSearch(1)
-        document.getElementById("search").value=" "
+        // document.getElementById("search").value=" "
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let loginId1='[[${mem.loginId}]]'
         let fpZone=document.getElementById("friendProfile")
         let fnZone=document.getElementById("friendName")
+        let zone=document.getElementById("msgZone")
         document.getElementById("friendId").value=friendId;
         document.getElementById("friendFileName").value=ffile;
 
-        console.log("go loginId : "+loginId1)
-        console.log("go friendId : "+friendId)
-        console.log("go fname : "+fname)
+        let html='';
+
+
         $.ajax({
             url:"/msg/gomsgpage",
             data:{
@@ -730,7 +765,18 @@
             },
             success:function (e){
                 console.log("go suc")
-
+                for(let i=0;i<e.length;i++){
+                    if(e[i].loginId==loginId1){
+                        html+='<div style="text-align: -webkit-right;"><p class="msgTime">'+e[i].createdTime+'</p><div class="myMsgZone">'+
+                            '<p class="Msg">'+e[i].text+'</p></div></div>'
+                    }
+                    else if(e[i].friendId==loginId1){
+                        html+='<div><p class="msgTime">'+e[i].createdTime+'</p><div class="yourMsgZone"><p class="Msg">'
+                        +e[i].text+'</p></div></div>'
+                    }
+                }
+                zone.innerHTML=html;
+                $("#msgZone").scrollTop($("#msgZone")[0].scrollHeight);
             },
             error:function (e){
                 console.log("go err")
@@ -843,6 +889,8 @@
                 "top":"0px"
 
             })
+            document.getElementById("searchLIstZone").innerHTML=""
+            document.getElementById("search").value=""
         }
     }
 
