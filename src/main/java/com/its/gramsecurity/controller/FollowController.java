@@ -63,7 +63,7 @@ public class FollowController {
         return result;
     }
 
-    //
+    //팔로우 상태 찾기
     @Transactional
     @GetMapping("/findByMyIdAndYourId")
     public @ResponseBody String findByMyIdAndYourId(@RequestParam("myId") String myId,
