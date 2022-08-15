@@ -56,13 +56,21 @@ public class FollowService {
         return followingList;
     }
 
-    public void UnFollow(String yourId, String myId) {
+    public String UnFollow(String yourId, String myId) {
+        System.out.println("FollowService.UnFollow");
+        System.out.println("yourId = " + yourId + ", myId = " + myId);
         followRepository.deleteByYourIdAndMyId(yourId, myId);
+        return "confirm";
     }
 
 
-    public FollowDTO findByMyIdAndYourId(String myId, String yourId) {
-        FollowDTO findByMyIdAndYourId = followRepository.findByMyIdAndYourId(myId, yourId);
-        return findByMyIdAndYourId;
+    public String findByMyIdAndYourId(String myId, String yourId) {
+        Optional<FollowEntity> optionalFollowEntity = followRepository.findByMyIdAndYourId(myId, yourId);
+        if (optionalFollowEntity.isPresent()) {
+            return "찾음";
+        } else {
+            return "못찾음";
+        }
+
     }
 }
