@@ -2,19 +2,15 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.FollowDTO;
-import com.its.gramsecurity.entity.FollowEntity;
 import com.its.gramsecurity.service.FollowService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/follow")
@@ -24,8 +20,8 @@ public class FollowController {
 
     //팔로우신청
     @PostMapping("/request")
-    public @ResponseBody FollowDTO request_fw(@ModelAttribute  FollowDTO followDTO, Model model,
-                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public @ResponseBody FollowDTO request_fw(@ModelAttribute FollowDTO followDTO,
+                                              @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String myId = principalDetails.getMemberDTO().getLoginId();
         followService.save(followDTO, myId);
         return followDTO;
@@ -44,27 +40,39 @@ public class FollowController {
     public @ResponseBody List<FollowDTO> follow(@RequestParam("loginId") String loginId, Model model) {
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         model.addAttribute("followList", followDTOList);
-        System.out.println("FollowController.following");
-        System.out.println("loginId = " + loginId + ", model = " + model);
         return followDTOList;
     }
 
+
     //팔로잉 리스트
-    @GetMapping("/yourList")
+    @PostMapping("/yourList")
     public @ResponseBody List<FollowDTO> following(@RequestParam("loginId") String loginId, Model model) {
         List<FollowDTO> followDTOList = followService.findAllByYourId(loginId);
         model.addAttribute("followDTOList", followDTOList);
-        System.out.println("FollowController.following");
-        System.out.println("loginId = " + loginId + ", model = " + model);
         return followDTOList;
     }
 
     //언팔로우
-    @DeleteMapping("/")
-    public ResponseEntity UnFollow(@PathVariable Long id) {
-        followService.UnFollow(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-        return null;
+    @Transactional
+    @DeleteMapping("/delete")
+    public @ResponseBody String UnFollow(@RequestParam("yourId") String yourId,
+                                         @RequestParam("myId") String myId) {
+        System.out.println("FollowController.UnFollow");
+        System.out.println("yourId = " + yourId + ", myId = " + myId);
+        String result= followService.UnFollow(yourId, myId);
+        return result;
+    }
+
+    //팔로우 상태 찾기
+    @Transactional
+    @GetMapping("/findByMyIdAndYourId")
+    public @ResponseBody String findByMyIdAndYourId(@RequestParam("myId") String myId,
+                                                       @RequestParam("yourId") String yourId) {
+        String result = followService.findByMyIdAndYourId(myId, yourId);
+        System.out.println("FollowController.findByMyIdAndYourId");
+        System.out.println("myId = " + myId + ", yourId = " + yourId);
+        System.out.println("findByMyIdAndYourId = " + result);
+        return result;
     }
 
 }

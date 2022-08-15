@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <link rel="import" href="main.html">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
 
@@ -40,7 +40,7 @@
         body {
             -ms-overflow-style: none;
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: rgba(242, 243, 245, 0.75rem);
+            /*background-color: rgba(242, 243, 245, 0.75rem);*/
             overflow: hidden;
             -webkit-user-drag: none;
 
@@ -336,12 +336,14 @@
             /* width: 500px;
             height: 70px; */
             position: absolute;
-            top: 221px;
-            left: 80px;
+            top: 63px;
+            left: 18px;
             display: flex;
             opacity: 0;
             z-index: 9999;
             border-radius: 5px;
+            height: 0;
+            margin: auto;
         }
 
         .menuItemZone {
@@ -392,22 +394,8 @@
 
 </head>
 
-<body>
-<div id="menuZone" class="menuZone" style="">
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick='location.href="/main/main"'>Home</p></b>
-    </div>
+<body >
 
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick='location.href="/member/updateForm"'>Update</p></b>
-    </div>
-
-    <div class="menuItemZone">
-        <b><p class="menuItem" onclick="logoutChk()">Log-out</p></b>
-    </div>
-
-
-</div>
 <!-- 팔로워 팔로우 모달 시작-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -415,7 +403,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal"
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modal-body">
@@ -445,6 +433,8 @@
         <div id="mypageNameZone" class="mypageNameZone">
             <p id="myPageLoginId" class="myPageLoginId" th:text="${memberDTO.loginId}" hidden></p>
             <p id="mypageName" class="mypageName" th:text="${memberDTO.memberName}"></p>
+            <p id="AuthenticationId" class="AuthenticationId"
+               th:text="${AuthenticationPrincipal.getMemberDTO().getLoginId()}" hidden></p>
             <!--            <p id="mypageName" class="mypageName" >havana 1016</p>-->
         </div>
 
@@ -453,8 +443,13 @@
         <!-- <div id="mypageUPdateZone" class="mypageUPdateZone">
             <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
         </div> -->
-        <div id="mypageFollowZone" class="mypageFollowZone">
-            <button onclick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉</button>
+        <div id="btnZone">
+            <div id="mypageFollowZone" class="mypageFollowZone">
+                <!--            <button onClick=unFollowBTN() id=mypageFollowBtn class=mypageFollowBtn>팔로우 취소</button>-->
+                <button onclick="unFollowBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '찾았다'}" id="mypageUnFollowBtn" class="mypageFollowBtn">팔로우취소</button>
+                <button onclick="followBTN()"  th:if="${(memberDTO.getLoginId() ne AuthenticationPrincipal.getMemberDTO().getLoginId()) && findByMyIdAndYourId eq '못찾았다'}" id="mypageFollowBtn" class="mypageFollowBtn">팔로우</button>
+                <button onclick="update()"  th:if="${memberDTO.getLoginId() eq AuthenticationPrincipal.getMemberDTO().getLoginId()}" id="updateBTN" class="mypageFollowBtn">update</button>
+            </div>
         </div>
 
         <!--카운트 구역  -->
@@ -463,15 +458,15 @@
         <div class="mypageCountZone input-group">
             <div style="display:flex ; margin-right: 50px;">
                 <p class="countItem">게시물</p>
-                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1">123</p></b>
+                <b><p id="mypageBoardCount" class="mypageBoardCount countItem1"></p></b>
             </div>
 
             <!-- 팔로워 카운트 구역 -->
             <div style="margin:0 50px 0 0 ;">
             <span onclick="followingList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
-                <p class="countItem" onclick="followingList()">팔로워</p>
-                <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1">456</p></b>
+                <p class="countItem" onclick="followingList()">팔로잉</p>
+                <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1" th:text="${count}"></p></b>
             </span>
             </div>
 
@@ -480,7 +475,7 @@
             <span onclick="followList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
                 <p class="countItem">팔로워</p>
-                <b><p id="mypageFollowCount" class="mypageFollowCount countItem1">456</p></b>
+                <b><p id="mypageFollowCount" class="mypageFollowCount countItem1" th:text="${countFw}"></p></b>
             </span>
             </div>
         </div>
@@ -490,29 +485,47 @@
         <!-- 자기소개 -->
         <div id="aboutMe" class="">
             <!-- <t th:text="${memberDTO.memberIntro}"></p> -->
-            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>
-            <!-- <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly  name="" id=""></textarea> -->
+            <!--            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>-->
+            <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly name="" id=""></textarea>
+        </div>
+        <div id="menuZone" class="menuZone">
+            <div class="menuItemZone">
+                <b><p class="menuItem" onclick='location.href="/main/main"'>Home</p></b>
+            </div>
+
+            <div class="menuItemZone">
+                <b><p class="menuItem" onclick='location.href="/member/updateForm"'>Update</p></b>
+            </div>
+
+            <div class="menuItemZone">
+                <b><p class="menuItem" onclick="logoutChk()">Log-out</p></b>
+            </div>
+
+
         </div>
     </div>
+
     <!-- 이름 및 자기소개 끝-->
     <!-- 게시물 리스트 구역 시작-->
 
     <div class="mypageListZone">
         <!-- table 시작 -->
         <table style="height: 100%;width:100%">
-            <tr>
-                <!-- 내게시물 시작 -->
+            <tr id="detailFile">
+                <!--                 내게시물 시작-->
 
                 <td class="wrap">
                     <div class="mypageListItem input-group">
                         <img class="mypageListItem listImg"
-                             src="http://www.busan.com/nas/wcms/wcms_data/photos/2020/02/21/2020022110335461558_l.jpg"
-                             alt="">
+                             src=""
+                             alt="" id="aa1">
+                        <video class="mypageListItem listImg"
+                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>
                         <i class="manyIcon fa-regular fa-clone"></i>
 
                         <div class="imgIconGroup " style="display:flex;text-align:center">
                             <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div class="likeText2">123</div>
+                            <div id="likeText1" class="likeText2">0</div>
                             <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
                             <div class="commentText2">465</div>
                         </div>
@@ -526,12 +539,14 @@
                 <td class="wrap">
                     <div class="mypageListItem input-group">
                         <img class="mypageListItem listImg"
-                             src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg" alt="">
+                             src="" alt="" id="aa2">
+                        <video class="mypageListItem listImg"
+                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa2"></video>
                         <i class="manyIcon fa-regular fa-clone"></i>
 
                         <div class="imgIconGroup " style="display:flex;text-align:center">
                             <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div class="likeText2">123</div>
+                            <div id="likeText2" class="likeText2">0</div>
                             <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
                             <div class="commentText2">465</div>
                         </div>
@@ -545,17 +560,36 @@
                 <td class="wrap">
                     <div class="mypageListItem input-group">
                         <img class="mypageListItem listImg"
-                             src="https://blog.kakaocdn.net/dn/yfUM9/btqKwq8jv7S/ZpQtduErxjpCAEUiQnIM6K/img.png" alt="">
+                             src="" alt="" id="aa3">
+                        <video class="mypageListItem listImg"
+                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa3"></video>
                         <i class="manyIcon fa-regular fa-clone"></i>
 
                         <div class="imgIconGroup " style="display:flex;text-align:center;">
                             <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div class="likeText2">123</div>
+                            <div id="likeText3" class="likeText2">0</div>
                             <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
                             <div class="commentText2">465</div>
                         </div>
                     </div>
                 </td>
+
+                <!--                <td class="wrap">-->
+                <!--                    <div class="mypageListItem input-group">-->
+                <!--                        <img class="mypageListItem listImg"-->
+                <!--                             src="" alt="" id="aa4">-->
+                <!--                        <video class="mypageListItem listImg"-->
+                <!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa4"></video>-->
+                <!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
+
+                <!--                        <div class="imgIconGroup " style="display:flex;text-align:center;">-->
+                <!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
+                <!--                            <div id="likeText4" class="likeText2">0</div>-->
+                <!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
+                <!--                            <div class="commentText2">465</div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </td>-->
 
                 <!-- 내게시물 끝 -->
 
@@ -583,18 +617,127 @@
 
 </body>
 <script>
+
+    let yourId = document.getElementById("myPageLoginId").innerText;
+    let yourName = document.getElementById("mypageName").innerText;
+    let loginStatus = [[${memberDTO.loginStatus}]]
+    const loginId = document.getElementById("myPageLoginId").innerText;
+    let myId = document.getElementById("AuthenticationId").innerText;
+    // window.onload=  function BTN() {
+    //     let header = $("meta[name='_csrf_header']").attr('content');
+    //     let token = $("meta[name='_csrf']").attr('content');
+    //     console.log("함수호출");
+    //
+    //
+    //         var content;
+    //     if (myId == yourId) {
+    //         content='<div id="mypageUPdateZone" class="mypageUPdateZone"><button onClick="location.href='+"'/member/updateForm'"+'"id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button></div>'
+    //             // " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
+    //         document.getElementById("btnZone").innerHTML = content;
+    //     } else {
+    //         console.log("else");
+    //         $.ajax({
+    //             type: "get",
+    //             url: "/follow/findByMyIdAndYourId",
+    //             data: {
+    //                 "yourId": yourId,
+    //                 "myId": myId
+    //             },
+    //             dataType: "text",
+    //             beforeSend: function (result) {
+    //                 result.setRequestHeader(header, token);
+    //             },
+    //             success: function (result) {
+    //                 console.log(result);
+    //                 if (result == "찾음") {
+    //                     content =" <div id='mypageFollowZone' class='mypageFollowZone'>"+
+    //                         " <button onClick=" + unFollowBTN() + " id='mypageFollowBtn' class='mypageFollowBtn'>" + "팔로우취소" + "</button></div>"
+    //
+    //                         // '<button onClick="unFollowBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉 취소</button></div>'
+    //                     document.getElementById("btnZone").innerHTML = content;
+    //
+    //
+    //                 } else if (result == "못찾음") {
+    //                     console.log("else,else");
+    //
+    //                     content =' <div id="mypageFollowZone" class="mypageFollowZone">'+
+    //                         '<button onClick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉</button></div>'
+    //                     document.getElementById("btnZone").innerHTML = content;
+    //
+    //                     function init() {
+    //                     }
+    //                 }
+    //             }
+    //
+    //         })
+    //     }
+    //
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/member/mypage",
+    //         data: {
+    //             "yourId": yourId,
+    //             "myId": myId
+    //         },
+    //         beforeSend: function (result) {
+    //             result.setRequestHeader(header, token);
+    //         },
+    //         success: function () {
+    //             if (yourId == myId) {
+    //                 content =
+    //                     " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
+    //                 document.getElementById("mypageFollowZone").innerHTML = content;
+    //             } else {
+    //                 $.ajax({
+    //                     type: "post",
+    //                     url: "/follow/findByMyIdAndYourId",
+    //                     dataType: "json",
+    //                     data: {
+    //                         "yourId": yourId,
+    //                         "myId": myId
+    //                     },
+    //                     success: function (result) {
+    //                         if (result != null) {
+    //                             var content = "";
+    //                             $.ajax({
+    //                                 url: "/follow/delete",
+    //                                 type: "delete",
+    //                                 data: {
+    //                                     "yourId": yourId,
+    //                                     "myId": myId,
+    //                                 },
+    //                                 success: function () {
+    //                                     // content =
+    //                                     //     " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
+    //                                     // document.getElementById("mypageFollowZone").innerHTML = content;
+    //                                     // //리다이렉트 해봐바
+    //                                 }
+    //                             });
+    //                         } else {
+    //                             content =
+    //                                 " <button onClick='followBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
+    //                             document.getElementById("mypageFollowZone").innerHTML = content;
+    //                         }
+    //                     }
+    //                 })
+    //             }
+    //         },
+    //
+    //     })
+    // }
+
+
     function followBTN() {
-        console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let yourId = document.getElementById("myPageLoginId").innerText;
         let yourName = document.getElementById("mypageName").innerText;
         let loginStatus = [[${memberDTO.loginStatus}]]
+        var content = "";
 
         $.ajax({
             url: "/follow/request",
             type: "post",
-            dataType: "json",
             data: {
                 "yourId": yourId,
                 "yourName": yourName,
@@ -603,16 +746,19 @@
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
             },
-            success: function (result) {
-                console.log(result);
+            success: function () {
+                location.href="/member/mypage?loginId="+yourId;
+                // content =
+                //     " <button onClick='unFollowBTN()' id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우 취소" + "</button>"
+                // document.getElementById("mypageFollowZone").innerHTML = content;
             },
             error: function (result) {
                 console.log("err");
-            }
+            },
         })
     };
 
-    function followList(){
+    function followList() {
         console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -625,23 +771,23 @@
             data: {
                 "loginId": loginId
             },
-            dataType:"json",
+            dataType: "json",
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
-            },success:function (result){
+            }, success: function (result) {
                 console.log(result);
-                var content="";
-                for(let i in result){
-                    content +="<a className='following' href='#'>" +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName +"\">"
-                        + result[i].yourName + "</a>" +"<br>";
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' +
+                        result[i].myId + "'>" +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
                 }
-                document.getElementById("modal-body").innerHTML=content;
+                document.getElementById("modal-body").innerHTML = content;
             }
 
         })
     }
-
 
 
     function followingList() {
@@ -657,23 +803,48 @@
             data: {
                 "loginId": loginId
             },
-            dataType:"json",
+            dataType: "json",
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
-            },success:function (result){
+            }, success: function (result) {
                 console.log(result);
-                var content="";
-                for(let i in result){
-                    content +="<a className='following' href='#'>" +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName +"\">"
-                    + result[i].yourName + "</a>" +"<br>";
+                var content = "";
+                for (let i in result) {
+                    content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
+                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                        + result[i].yourName + "</a>" + "<br>";
                 }
-                document.getElementById("modal-body").innerHTML=content;
+                document.getElementById("modal-body").innerHTML = content;
             }
 
         })
     }
 
+    function unFollowBTN() {
+        console.log("함수호출");
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+
+        var content ;
+        $.ajax({
+            url: "/follow/delete",
+            type: "delete",
+            data: {
+                "yourId": yourId,
+                "myId": myId,
+            },
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success: function () {
+                location.href="/member/mypage?loginId="+yourId;
+            }
+        })
+
+  }
+  function update(){
+          location.href="/member/updateForm";
+  }
 </script>
 <script>
     function logoutChk() {
@@ -698,6 +869,128 @@
         })
     }
 </script>
+<!--<script th:inline="javascript">-->
+<!--    $("#0").onclick=f(0);-->
+<!--    function f () {-->
+<!--        let header = $("meta[name='_csrf_header']").attr('content');-->
+<!--        let token = $("meta[name='_csrf']").attr('content');-->
+<!--        $.ajax({-->
+<!--            type: "post",-->
+<!--            url: "/board/detailFind",-->
+<!--            dataType: "json",-->
+<!--            beforeSend: function (result) {-->
+<!--                result.setRequestHeader(header, token);-->
+<!--            },-->
+<!--            success: function (data) {-->
+<!--                $.ajax({-->
+<!--                    type: "post",-->
+<!--                    url: "/board/count",-->
+<!--                    dataType: "json",-->
+<!--                    beforeSend: function (result) {-->
+<!--                        result.setRequestHeader(header, token);-->
+<!--                    },-->
+<!--                    success: function (like) {-->
+<!--                        const detailFile = document.getElementById("detailFile");-->
+<!--                        let id = 1;-->
+<!--                        let likeIndex = [];-->
+<!--                        let lengthBoard = 1;-->
+<!--                        let aa = 0;-->
+<!--                        for (let i = 0; i < like.length; i++) {-->
+<!--                            likeIndex[i] = 0;-->
+<!--                        }-->
+<!--                        for (let i = data.length-1; i >= 0; i&#45;&#45;) {-->
+<!--                            aa = data[i].boardId;-->
+<!--                            lengthBoard = id;-->
+<!--                            for (let j = 0; j < like.length; j++) {-->
+<!--                                if (like[j].boardId == aa) {-->
+<!--                                    likeIndex[i]++;-->
+<!--                                }-->
+<!--                            }-->
+<!--                            let file = '<td class="wrap">';-->
+<!--                            file += '<div class="mypageListItem input-group">';-->
+<!--                            if (data[i].boardId == aa) {-->
+<!--                                if (data[i].boardImgName == null) {-->
+<!--                                    file += '<video class="mypageListItem listImg" src="/upload/' + data[i].boardVideoName + '" autoplay="autoplay" loop="loop"></video>';-->
+<!--                                }else {-->
+<!--                                    file += '<img class="mypageListItem listImg" src="/upload/' + data[i].boardImgName + '" alt="">';-->
+<!--                                }-->
+<!--                                file += '<i class="manyIcon fa-regular fa-clone"></i>';-->
+<!--                                file += '<div class="imgIconGroup " style="display:flex;text-align:center;">';-->
+<!--                                file += '<div class="likeText1"><i class="fa-solid fa-heart"></i></div>';-->
+<!--                                file += '<div class="likeText2">' + likeIndex[i] + '</div>';-->
+<!--                                file += '<div class="commentText1"><i class="fa-solid fa-comment"></i></div>';-->
+<!--                                file += '<div class="commentText2">465</div>';-->
+<!--                                file += '</div>';-->
+<!--                                file += '</div>';-->
+<!--                                file += '</td>';-->
+<!--                                id++;-->
+<!--                                detailFile.innerHTML += file;-->
+<!--                            }-->
+<!--                        }-->
+<!--                        document.getElementById("mypageBoardCount").innerHTML = lengthBoard;-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
 
+<!--</script>-->
+<script th:inline="javascript">
+    $("#0").onclick=f(0);
+    function f () {
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        $.ajax({
+            type: "post",
+            url: "/board/detailFind",
+            dataType: "json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success: function (data) {
+                $.ajax({
+                    type: "post",
+                    url: "/board/count",
+                    dataType: "json",
+                    beforeSend: function (result) {
+                        result.setRequestHeader(header, token);
+                    },
+                    success: function (like) {
+                        console.log(data);
+                        let id = 1;
+                        let likeIndex = [];
+                        let lengthBoard = 1;
+                        let aa = 0;
+                        for (let i = 0; i < like.length; i++) {
+                            likeIndex[i] = 0;
+                        }
+                        for (let i = data.length-1; i >= 0; i--) {
+                            aa = data[i].boardId;
+                            if (data[i].boardId == aa) {
+                                if (data[i].boardImgName == null) {
+                                    $("#aaa" + id).attr("src", /upload/ + data[i].boardVideoName);
+                                }else {
+                                    $("#aa" + id).attr("src", /upload/ + data[i].boardImgName);
+                                }
+                                lengthBoard = id;
+                                const likes = document.getElementById("likeText"+id);
+                                for (let j = 0; j < like.length; j++) {
+                                    if (like[j].boardId == aa) {
+                                        likeIndex[i]++;
+                                        likes.innerHTML = "";
+                                    }
+                                }
+                                likes.innerHTML = likeIndex[i];
+                                id++;
+                            }
+                        }
+                        document.getElementById("mypageBoardCount").innerHTML = lengthBoard;
+                    }
+                });
+            }
+        });
+    }
+
+</script>
 
 </html>

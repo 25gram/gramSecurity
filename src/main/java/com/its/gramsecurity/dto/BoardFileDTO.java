@@ -35,4 +35,5 @@ public class BoardFileDTO {
         fileDTO.setBoardFilter(file.getBoardFilter());
         return fileDTO;
     }
+
 }

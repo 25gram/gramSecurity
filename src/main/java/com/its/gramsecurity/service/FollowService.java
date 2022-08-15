@@ -19,11 +19,11 @@ public class FollowService {
     private final MemberRepository memberRepository;
 
     //테스트코드 사용중
-    public void save(FollowDTO followDTO,String myId) {
-        Optional<MemberEntity>optionalMemberEntity=memberRepository.findByLoginId(myId);
-        if(optionalMemberEntity.isPresent()){
-            MemberEntity memberEntity=optionalMemberEntity.get();
-            FollowEntity followEntity=FollowEntity.toSaveEntity(followDTO,memberEntity,myId);
+    public void save(FollowDTO followDTO, String myId) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(myId);
+        if (optionalMemberEntity.isPresent()) {
+            MemberEntity memberEntity = optionalMemberEntity.get();
+            FollowEntity followEntity = FollowEntity.toSaveEntity(followDTO, memberEntity, myId);
             followRepository.save(followEntity);
         }
     }
@@ -48,16 +48,32 @@ public class FollowService {
     }
 
     public List<FollowDTO> findAllByYourId(String yourId) {
-        List<FollowEntity>followingEntityList=followRepository.findAllByYourId(yourId);
-        List<FollowDTO>followingList=new ArrayList<>();
-        for(FollowEntity follow:followingEntityList){
+        List<FollowEntity> followingEntityList = followRepository.findAllByYourId(yourId);
+        List<FollowDTO> followingList = new ArrayList<>();
+        for (FollowEntity follow : followingEntityList) {
             followingList.add(FollowDTO.toDTO(follow));
-        }return followingList;
+        }
+        return followingList;
     }
 
-    public void UnFollow(Long id) {
-        followRepository.deleteById(id);
+    public String UnFollow(String yourId, String myId) {
+        System.out.println("FollowService.UnFollow");
+        System.out.println("yourId = " + yourId + ", myId = " + myId);
+        followRepository.deleteByYourIdAndMyId(yourId, myId);
+        return "confirm";
     }
 
 
+    public String findByMyIdAndYourId(String myId, String yourId) {
+        Optional<FollowEntity> optionalFollowEntity = followRepository.findByMyIdAndYourId(myId,yourId);
+        System.out.println("FollowService.findByMyIdAndYourId");
+        System.out.println("myId = " + myId + ", yourId = " + yourId);
+        System.out.println("optionalFollowEntity = " + optionalFollowEntity);
+        if (optionalFollowEntity.isPresent()) {
+            return "찾았다";
+        } else {
+            return "못찾았다";
+        }
+
+    }
 }

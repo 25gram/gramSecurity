@@ -78,35 +78,27 @@ public class BoardService {
         }
         return board;
     }
-    public List<LikesDTO> likesFindAll(String loginId) {
-        List<LikesEntity> likesEntity = likesRepository.findAll();
-        List<LikesDTO> list = new ArrayList<>();
-        List<LikesEntity> a = likesRepository.findByMemberName(loginId);
+    public void likesFindAll(String loginId) {
         List<BoardEntity> boardEntity = boardRepository.findAll();
+        List<LikesEntity> likesEntityList = likesRepository.findByMemberName(loginId);
         for (BoardEntity boardList : boardEntity) {
             boardRepository.likesDelete(boardList.getId());
         }
-        for (LikesEntity b : a) {
-            for (BoardEntity boardList : boardEntity) {
-                if (boardList.getId() == b.getBoardEntity().getId()) {
-                    boardRepository.likes(boardList.getId());
+        for (int i = 0; i < likesEntityList.size(); i++) {
+            for (BoardEntity board : boardEntity) {
+                if (board.getId() == likesEntityList.get(i).getBoardId()) {
+                    boardRepository.likes(likesEntityList.get(i).getBoardId());
                 }
             }
         }
-        for (LikesEntity likes : likesEntity) {
-            list.add(LikesDTO.toLikeList(likes));
-        }
-        return list;
     }
     public String likes(LikesDTO likesDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String loginId = principalDetails.getMemberDTO().getLoginId();
         Optional<MemberEntity> memberEntity = memberRepository.findByLoginId(loginId);
         Optional<BoardEntity> boardEntity = boardRepository.findById(likesDTO.getBoardId());
-//        Optional<CommentEntity> commentEntity = commentRepository.findById(likesDTO.getCommentId());
         if (boardEntity.isPresent()  && memberEntity.isPresent()){
             MemberEntity member = memberEntity.get();
             BoardEntity board = boardEntity.get();
-//            CommentEntity comment = commentEntity.get();
             if (board.getLikes() == null) {
                 LikesEntity likesEntity2 = likesRepository.save(LikesEntity.toLikesEntity(likesDTO, member, board));
                 LikesDTO.toLikeSave(likesEntity2);
@@ -162,6 +154,20 @@ public class BoardService {
         }
         return board;
     }
-
+    public List<BoardFileDTO> detailFind(PrincipalDetails principalDetails) {
+        List<BoardEntity> boardEntity = boardRepository.findAll();
+        List<BoardFileEntity> boardFileEntity = boardFileRepository.findAll();
+        List<BoardFileDTO> boardFileEntityList = new ArrayList<>();
+        for (int i = 0; i < boardEntity.size(); i++) {
+            if (boardEntity.get(i).getBoardWriter().equals(principalDetails.getMemberDTO().getMemberName())) {
+                for (int j = 0; j < boardFileEntity.size(); j++) {
+                    if (boardEntity.get(i).getId() == boardFileEntity.get(j).getBoardId()){
+                        boardFileEntityList.add(BoardFileDTO.toListDTO(boardFileEntity.get(j)));
+                    }
+                }
+            }
+        }
+        return boardFileEntityList;
+    }
 
 }

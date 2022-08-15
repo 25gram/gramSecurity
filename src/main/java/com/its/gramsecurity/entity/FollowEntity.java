@@ -3,6 +3,7 @@ package com.its.gramsecurity.entity;
 import com.its.gramsecurity.dto.FollowDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.security.Principal;
@@ -32,6 +33,9 @@ public class FollowEntity {
 
     @Column
     private int loginStatus;
+
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

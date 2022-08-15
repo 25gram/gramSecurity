@@ -2,7 +2,10 @@ package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.CommentDTO;
+import com.its.gramsecurity.dto.LikesDTO;
+import com.its.gramsecurity.dto.RippleDTO;
 import com.its.gramsecurity.service.CommentService;
+import com.its.gramsecurity.service.RippleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -37,4 +40,15 @@ public class CommentController {
         model.addAttribute("commentDTOList",commentDTOList);
         return commentDTOList;
     }
+    @PostMapping("/likes")
+    public @ResponseBody String likes(@ModelAttribute LikesDTO likesDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String likes = commentService.likes(likesDTO,principalDetails);
+        return likes;
+    }
+    @PostMapping("/count")
+    public @ResponseBody List<LikesDTO> count() {
+        List<LikesDTO> list = commentService.count();
+        return list;
+    }
+
 }

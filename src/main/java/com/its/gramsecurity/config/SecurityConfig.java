@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**","/img/**","/static/**");
     }
 
 
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/board/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/comment/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/follow/**").access("hasRole('ROLE_USER')")
-//                .antMatchers("/main/").permitAll()
+                .antMatchers("/msg/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/home/**").permitAll()
                 .and()
                 .formLogin()

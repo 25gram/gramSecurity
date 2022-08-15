@@ -35,10 +35,7 @@ public class TestClass {
     private FollowRepository followRepository;
 
 
-    public FollowDTO newFollow(int i) {
-        FollowDTO followDTO = new FollowDTO(1L+i,"follow" + i, "follow" + i, "follow" + i,"follow"+i, "follow" + i, 1 + i);
-        return followDTO;
-    }
+
     public MemberDTO newMember(int i) {
         MemberDTO memberDTO = new MemberDTO("member"+i, "member" + i, "member" + i, 1 + i);
         return memberDTO;
