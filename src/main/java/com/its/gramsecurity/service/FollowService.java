@@ -65,7 +65,10 @@ public class FollowService {
 
 
     public String findByMyIdAndYourId(String myId, String yourId) {
-        Optional<FollowEntity> optionalFollowEntity = followRepository.findByMyIdAndYourId(myId, yourId);
+        Optional<FollowEntity>optionalFollowEntity = followRepository.findByMyIdAndYourId(myId, yourId);
+        System.out.println("FollowService.findByMyIdAndYourId");
+        System.out.println("myId = " + myId + ", yourId = " + yourId);
+        System.out.println("optionalFollowEntity = " + optionalFollowEntity);
         if (optionalFollowEntity.isPresent()) {
             return "찾음";
         } else {
