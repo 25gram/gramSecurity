@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table
-public class MsgEntity {
+public class MsgEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -32,24 +32,16 @@ public class MsgEntity {
     @Column()
     int seeInt;
 
-    @Column()
-    LocalDateTime sendTime;
-
-    @Column()
-    LocalDateTime lastTime;
 
     @Column()
     String friendFileName;
 
      public static MsgEntity toEntity(MsgDTO mem){
         MsgEntity dto=new MsgEntity();
-        dto.setMsgId(mem.getMsgId());
         dto.setLoginId(mem.getLoginId());
         dto.setFriendId(mem.getFriendId());
         dto.setText(mem.getText());
         dto.setSeeInt(mem.getSeeInt());
-        dto.setSendTime(mem.getSendTime());
-        dto.setLastTime(mem.getLastTime());
         dto.setFriendFileName(mem.getFriendFileName());
         return dto;
     }
