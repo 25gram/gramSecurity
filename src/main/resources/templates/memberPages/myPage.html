@@ -454,8 +454,10 @@
         <!-- <div id="mypageUPdateZone" class="mypageUPdateZone">
             <button onclick="location.href='/member/updateForm'" id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button>
         </div> -->
+        <div id="btnZone">
         <div id="mypageFollowZone" class="mypageFollowZone">
             <button onclick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉</button>
+        </div>
         </div>
 
         <!--카운트 구역  -->
@@ -619,12 +621,11 @@
       console.log("함수호출");
 
 
+          var content;
       if (myId == yourId) {
-          var content = "";
-          content +=
-
-              " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
-          document.getElementById("mypageFollowZone").innerHTML = content;
+          content='<div id="mypageUPdateZone" class="mypageUPdateZone"><button onClick="location.href='+"'/member/updateForm'"+'"id="mypageUpdateBtn" class="mypageUpdateBtn">프로필 편집</button></div>'
+              // " <button onclick='location.href='/member/updateForm'' id='mypageFollowBtn' className='mypageFollowBtn'>" + "업데이트" + "</button>"
+          document.getElementById("btnZone").innerHTML = content;
       } else {
           console.log("else");
           $.ajax({
@@ -641,20 +642,20 @@
               success: function (result) {
                   console.log(result);
                   if (result == "찾음") {
-                      var content = "";
-                      content +=
-                          " <button onClick=" + unFollowBTN() + " id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우취소" + "</button>"
-                      document.getElementById("mypageFollowZone").innerHTML = content;
+                      content =' <div id="mypageFollowZone" class="mypageFollowZone">'+
+                          '<button onClick="unFollowBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉 취소</button></div>'
+                          // " <button onClick=" + unFollowBTN() + " id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우취소" + "</button>"
+                      document.getElementById("btnZone").innerHTML = content;
 
                       function init() {
                       }
 
                   } else if (result == "못찾음") {
                       console.log("else,else");
-                      var content = "";
-                      content +=
-                          " <button onClick=" + followBTN() + " id='mypageFollowBtn' className='mypageFollowBtn'>" + "팔로우" + "</button>"
-                      document.getElementById("mypageFollowZone").innerHTML = content;
+
+                      content =' <div id="mypageFollowZone" class="mypageFollowZone">'+
+                          '<button onClick="followBTN()" id="mypageFollowBtn" class="mypageFollowBtn">팔로잉</button></div>'
+                      document.getElementById("btnZone").innerHTML = content;
 
                       function init() {
                       }
