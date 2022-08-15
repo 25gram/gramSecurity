@@ -514,7 +514,7 @@
                     </ul>
                 </div>
                 <div hidden id="searchZone" class="searchZone drop-item ">
-                    <i id="searchX" onclick="popoverCss('b')" class="drop-item fa-regular fa-circle-xmark"
+                    <i id="searchX" onclick="popoverCss('c')" class="drop-item fa-regular fa-circle-xmark"
                        role="status"></i>
                 </div>
 
@@ -665,10 +665,16 @@
 
 
                         }
-                    } else {
+                    } else if(e=="b") {
                         popInt = 0;
                         console.log("클릭이벤트 실행2")
                         $("#searchDrop").trigger("click")
+                    }
+                    else {
+                        popInt = 0;
+                        console.log("클릭이벤트 실행2")
+                        $("#searchDrop").trigger("click")
+                        document.getElementById("searchInput").value=""
                     }
 
                 }

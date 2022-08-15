@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MsgRepository extends JpaRepository<MsgEntity,Long> {
-    List<MsgEntity> findByFriendId(MsgEntity mem);
+    List<MsgEntity> findByFriendId(String friendId);
 }

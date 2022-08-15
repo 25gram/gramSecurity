@@ -666,14 +666,22 @@
 
 </style>
 <script>
-    function goMsgPage(friendId){
+    function goMsgPage(friendId,ffile,fname){
+        showSearch(1)
+        document.getElementById("search").value=" "
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
+        let loginId1='[[${mem.loginId}]]'
+        let fpZone=document.getElementById("friendProfile")
+        let fnZone=document.getElementById("friendName")
+            console.log("go loginId : "+loginId1)
+            console.log("go friendId : "+friendId)
+            console.log("go fname : "+fname)
         $.ajax({
             url:"/msg/gomsgpage",
             data:{
                 "friendId":friendId,
-                "loginId":[[${mem.loginId}]]
+                "loginId":loginId1
             },
             type: "get",
             dataType: "json",
@@ -682,11 +690,15 @@
             },
             success:function (e){
                 console.log("go suc")
+
             },
             error:function (e){
                 console.log("go err")
+
             }
         })
+        fpZone.setAttribute("src",'/upload/'+ffile);
+        fnZone.innerHTML=fname
         showRight(0);
 
     }
@@ -696,7 +708,6 @@
         let token = $("meta[name='_csrf']").attr('content');
         const searchInput = document.getElementById("search");
         const searchInputVal = searchInput.value;
-        let content = "";
         let html = '<p class="spinMsg">검색 결과가 없습니다.</p>';
 
         $.ajax({
@@ -711,10 +722,11 @@
                 result.setRequestHeader(header, token);
             },
             success: function (result) {
+                let content = "";
 
                 if (result.length != 0) {
                     for (let i in result) {
-                        content='<div onclick="goMsgPage('+"'"+result[i].loginId+"'"+')" class="searchList"><img class="searchProfile" src=\"/upload/'+result[i].memberProfileName+'\">'
+                        content='<div onclick="goMsgPage('+"'"+result[i].loginId+"','"+result[i].memberProfileName+"','"+result[i].memberName+"'"+')" class="searchList"><img class="searchProfile" src=\"/upload/'+result[i].memberProfileName+'\">'
                             +" <p class='searchName' >" + result[i].memberName + "</p>" + "</div>"
                     }
                 } else {
@@ -725,6 +737,7 @@
 
             },
             error: function (e) {
+                let content = "";
                 console.log("sub err")
                 content = html;
                 console.log("err content : " + content),
