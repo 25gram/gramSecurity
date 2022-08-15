@@ -41,7 +41,7 @@
         body {
             -ms-overflow-style: none;
             font-family: 'Noto Sans KR', sans-serif;
-            /*background-color: rgba(242, 243, 245, 0.75rem);*/
+            background-color: rgba(242, 243, 245, 0.75rem);
             overflow: hidden;
         }
 
@@ -497,6 +497,7 @@
 <div class="searchBox" id="searchBox">
     <!-- 검색리스트 -->
     <div class="searchInput" id="searchInput">
+        <!-- <input onkeydown="roll(0)" onkeyup="roll(2)" type="text" class="search" id="search" placeholder="   검색.."> -->
         <input onkeydown="roll(0)" onkeyup="roll(2)" type="text" class="search" id="search" placeholder="   검색..">
     </div>
     <div class="searchX">
@@ -665,6 +666,30 @@
 
 </style>
 <script>
+    function goMsgPage(friendId){
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        $.ajax({
+            url:"/msg/gomsgpage",
+            data:{
+                "friendId":friendId,
+                "loginId":[[${mem.loginId}]]
+            },
+            type: "get",
+            dataType: "json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success:function (e){
+                console.log("go suc")
+            },
+            error:function (e){
+                console.log("go err")
+            }
+        })
+        showRight(0);
+
+    }
     function sub() {
         console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
@@ -681,21 +706,16 @@
                 "search": searchInputVal
             },
             dataType: "json",
+            async:false,
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
             },
             success: function (result) {
 
-
                 if (result.length != 0) {
-
                     for (let i in result) {
-                        content='<div class="searchList"><img class="searchProfile" src=\"/upload'+result[i].memberProfileName+'\">'
+                        content='<div onclick="goMsgPage('+"'"+result[i].loginId+"'"+')" class="searchList"><img class="searchProfile" src=\"/upload/'+result[i].memberProfileName+'\">'
                             +" <p class='searchName' >" + result[i].memberName + "</p>" + "</div>"
-
-                        // content = "<li class='dropdown-item'>" + "<a href='" + '/member/mypage?loginId=' + result[i].loginId + "'>" + "<div class='searchProfileZone'>" +
-                        //     "<img class='searchProfile' src=\"" + '/upload/' + result[i].memberProfileName + "\">" +
-                        //     " <p class='searchName' >" + result[i].memberName + "</p>" + "</div>" + "</a>" + "</li>";
                     }
                 } else {
                     content = html;
