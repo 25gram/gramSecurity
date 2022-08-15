@@ -353,7 +353,7 @@
                     result.setRequestHeader(header, token);
                 },
                 success:function (e){
-                    console.log("msglist suc : "+e)
+                    console.log("msglist suc : "+e.friendId)
                         for(let i=0;i<e.length;i++){
                         html+='<tr onClick = "showRight(0),goMsgPage('+e[i].friendId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                         '<img class= "msgProfile" src = "/upload/'+e[i].friendFileName+'alt = "" >< /div>'+
