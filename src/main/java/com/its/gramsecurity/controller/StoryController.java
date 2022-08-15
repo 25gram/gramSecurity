@@ -1,6 +1,7 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.StoryDTO;
 import com.its.gramsecurity.service.MemberService;
 import com.its.gramsecurity.service.StoryService;
@@ -37,7 +38,9 @@ public class StoryController {
         return "storyPages/myStory";
     }
     @GetMapping("/save-form")
-    public String saveForm() {
+    public String saveForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        MemberDTO memberDTO = principalDetails.getMemberDTO();
+        model.addAttribute("memberDTO", memberDTO);
         return "storyPages/save";
     }
 
@@ -58,7 +61,7 @@ public class StoryController {
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
         storyService.saveFile(storyDTO);
-        return "redirect:/main/main";
+        return "redirect:/storyBoard/myStory";
     }
 
 }

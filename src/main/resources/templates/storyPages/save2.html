@@ -44,7 +44,8 @@
             background-color: whitesmoke;
             border: 1px solid rgb(214, 214, 214);
             overflow: hidden;
-            position: relative;
+            position: fixed;
+            left: 580px;
         }
         .mainMenu {
             width: 100%;
@@ -62,9 +63,9 @@
 
         }
         .fontMenu {
-            width: 100%;
-            height: 100%;
-            position: absolute;
+            width: 500px;
+            height: 780px;
+            position: fixed;
             z-index: 21;
             overflow: hidden;
             display: none;
@@ -77,13 +78,13 @@
             left: 95%;
         }
         .filePreview {
-            width: 100%;
-            height: 100%;
+            width: 498px;
+            height: 778px;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             overflow: hidden;
-            position: absolute;
+            position: fixed;
             z-index: 11;
         }
         .inputFileBtn {
@@ -123,8 +124,9 @@
             height: 75px;
             display: none;
             position: absolute;
+            left: 775px;
+            top: 440px;
             z-index: 6500;
-            top: 50%;
         }
         .rangBar {
             width: 30px;
@@ -222,15 +224,17 @@
             background: rgba(0,0,0,0.8);
             padding: 2rem 4rem 4rem 4rem;
             display: none;
-            width: 100%;
-            height: 100%;
-            position: absolute;
+            width: 498px;
+            height: 620px;
+            position: fixed;
+            top: 220px;
         }
         #reverse {
-            margin-top: 31%;
             padding-bottom: 0;
-            height: 624px;
-            position: relative;
+            height: 620px;
+            width: 500px;
+            position: fixed;
+            top: 220px;
             z-index: 21;
         }
         .slideUp
@@ -337,8 +341,8 @@
             border: 0;
             padding: 0;
             position: absolute;
-            top: 50%;
-            left: 37%;
+            top: 440px;
+            left: 775px;
             z-index: 31;
             overflow: hidden;
             display: none;
@@ -384,8 +388,8 @@
             width: 213px;
             height: 108px;
             position: absolute;
-            top: 40%;
-            left: 0;
+            top: 440px;
+            left: 775px;
             z-index: 20;
             display: none;
 
@@ -463,8 +467,8 @@
             width: 193px;
             height: 143px;
             position: absolute;
-            top: 30%;
-            left: 15%;
+            top: 440px;
+            left: 775px;
             z-index: 31;
             display: none;
         }
@@ -491,11 +495,11 @@
             border-radius: 10px;
         }
         .quizGroup {
-            width: 187.59px;
-            height: 149.75px;
+            width: 188px;
+            height: 150px;
             position: absolute;
-            top: 30%;
-            left: 29%;
+            top: 440px;
+            left: 775px;
             background-color: white;
             border: 0;
             border-radius: 10px;
@@ -578,8 +582,8 @@
             margin-right: auto;
             margin-left: auto;
             position: absolute;
-            top: 50%;
-            left: 37%;
+            top: 440px;
+            left: 775px;
             z-index: 31;
             display: none;
         }
@@ -629,8 +633,8 @@
             margin-right: auto;
             margin-left: auto;
             position: absolute;
-            top: 50%;
-            left: 34%;
+            top: 440px;
+            left: 775px;
             display: none;
         }
         .inputReference {
@@ -731,8 +735,8 @@
             text-align: center;
             line-height: 30px;
             position: absolute;
-            top: 50%;
-            left: 37%;
+            top: 440px;
+            left: 775px;
             z-index: 31;
             display: none;
         }
@@ -1486,32 +1490,38 @@ const downSlide = () => {
         location.href=siteLink;
     });
 // 링크태그 드래그 기능
+    let linkActive = false;
     inputLinkDiv.onmousedown = function(event) {
             inputLinkDiv.style.zIndex="9000";
-        let shiftX = event.clientX - inputLinkDiv.getBoundingClientRect().left;
-        let shiftY = event.clientY - inputLinkDiv.getBoundingClientRect().top;
+            let shiftX = event.clientX - inputLinkDiv.getBoundingClientRect().left;
+            let shiftY = event.clientY - inputLinkDiv.getBoundingClientRect().top;
+            document.body.append(inputLinkDiv);
 
-        document.body.append(inputLinkDiv);
-        moveAt(event.pageX, event.pageY);
+            moveAT(event.clientX, event.clientY);
+            function moveAT(pageX, pageY){
+                inputLinkDiv.style.left = pageX - shiftX + "px";
+                inputLinkDiv.style.top = pageY - shiftY + "px";
+            }
 
-        function moveAt(pageX, pageY) {
-            inputLinkDiv.style.left = pageX - shiftX + 'px';
-            inputLinkDiv.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mousemove', onMouseMove);
+            linkActive = true;
 
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        inputLinkDiv.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            inputLinkDiv.onmouseup = null;
-            inputLinkDiv.style.zIndex="6500";
+            function onMouseMove(event) {
+                if(linkActive){
+                    moveAT(event.clientX, event.clientY);
+                };
+            };
+            inputLinkDiv.onmouseup = function() {
+                document.removeEventListener('mousemove', onMouseMove);
+                inputLinkDiv.onmouseup = null;
+                linkActive = false;
+                console.log("=======================================================================");
+                inputLinkDiv.style.zIndex="6500";
+            };
         };
-    };
-    inputLinkDiv.ondragstart = function() {
-        return false;
-    };
+        inputLinkDiv.ondragstart = function() {
+            return false;
+        };
 // 날짜태그 기능
 
     $('#today').on('click', function (){
@@ -1535,14 +1545,17 @@ const downSlide = () => {
             dragToday.style.top = pageY - shiftY + 'px';
         }
             document.addEventListener('mousemove', onMouseMove);
-
+        linkActive = true;
         function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
+            if(linkActive){
+                moveAt(event.pageX, event.pageY);
+            }
         }
         dragToday.onmouseup = function() {
             document.removeEventListener('mousemove', onMouseMove);
             dragToday.onmouseup = null;
             dragToday.style.zIndex="6500";
+            linkActive = false;
         };
     };
     dragToday.ondragstart = function() {
