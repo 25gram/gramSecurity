@@ -1,5 +1,6 @@
 package com.its.gramsecurity.repository;
 
+import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.entity.FollowEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,6 @@ public interface FollowRepository extends JpaRepository<FollowEntity,Long> {
 
     List<FollowEntity> findAllByYourId(String yourId);
     void deleteByYourIdAndMyId(String yourId, String myId);
+
+    FollowDTO findByMyIdAndYourId(String myId, String yourId);
 }
