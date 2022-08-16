@@ -43,11 +43,13 @@ public class MainController {
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
         model.addAttribute("storyList", storyDTOList);
+        System.out.println("MainController.main");
+        System.out.println("storyDTOList = " + storyDTOList );
         return "main";
     }
     @GetMapping("/story")
-    String story(){
-        return "/storyPages/save";
+    public String story(){
+        return "storyPages/save";
     }
 
 

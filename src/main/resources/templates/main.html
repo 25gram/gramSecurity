@@ -147,9 +147,10 @@
         function dropdown() {
             $("#dropBtn").trigger("click")
         }
-        function goMsg(){
-            let loginId='[[${memberDTO.loginId}]]';
-            location.href="/msg/msgpage?loginId="+loginId;
+
+        function goMsg() {
+            let loginId = '[[${memberDTO.loginId}]]';
+            location.href = "/msg/msgpage?loginId=" + loginId;
             // location.th:href="@{|/member/mypage?loginId=${AuthenticationPrincipal.getMemberDTO().getLoginId()}|}"
         }
 
@@ -461,15 +462,24 @@
             text-align: left;
             overflow: hidden;
         }
-        a{
+
+        a {
             color: #686868;
             text-decoration: none;
 
         }
-        a:hover{
+
+        a:hover {
             color: black;
         }
 
+        .storyProfile {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-top: 12px;
+            margin-left: 24px;
+        }
 
     </style>
 
@@ -546,7 +556,7 @@
                data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
             <i id="headerItem3" class="fi fa-regular fa-paper-plane" style="font-size: 28px;"
                onclick="iconEffect(7),goMsg()"></i>
-<!--            th:onclick=' location.href="@{|/msg/msgpage?loginId=${AuthenticationPrincipal.getMemberDTO().getLoginId()}|}"'></i>-->
+            <!--            th:onclick=' location.href="@{|/msg/msgpage?loginId=${AuthenticationPrincipal.getMemberDTO().getLoginId()}|}"'></i>-->
 
 
             <i id="footerItem1" class="fi fa-solid fa-house"
@@ -673,16 +683,15 @@
 
 
                         }
-                    } else if(e=="b") {
+                    } else if (e == "b") {
                         popInt = 0;
                         console.log("클릭이벤트 실행2")
                         $("#searchDrop").trigger("click")
-                    }
-                    else {
+                    } else {
                         popInt = 0;
                         console.log("클릭이벤트 실행2")
                         $("#searchDrop").trigger("click")
-                        document.getElementById("searchInput").value=""
+                        document.getElementById("searchInput").value = ""
                     }
 
                 }
@@ -794,13 +803,13 @@
     <!-- 스토리 구역 -->
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone">
-            <h5>스토리 구역입니다.</h5>
 
-            <!--            <input type="text" th:value="${memberDTO.memberName}" id="id">-->
-            <!--            <button th:onclick="followList()">followList</button>-->
+            <tr th:each="story :${storyList}">
+               <a th:href="@{|/storyBoard/stories?loginId=${story.getLoginId()}|}"> <img class="storyProfile"
+                     th:src="@{|/upload/${story.getMemberProfileName()}|}"
+                        alt=""></a>
+            </tr>
         </div>
-
-
         <!-- 메인피드 구역 -->
         <div class="" id="feedZone">
 
@@ -894,6 +903,7 @@
                                 addImg();
                                 likeList(object.id);
                                 commentList(object.id);
+
                                 function addImg() {
                                     if (data[hssIndex].boardImgName != null) {
                                         m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail contentsItem_img detail' id='contentsItem_detail' alt=''></div>";
@@ -969,7 +979,8 @@
                     </div>
                     <!-- 댓글 저장 버튼 -->
                     <div class="col-2 detail">
-                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed" class="saveCommentBtn btn detail" onmouseover='gray1(0)' onmouseout='black1(0)'>게시</p>
+                        <p th:onclick="commentSave([[${board.id}]])" id="saveCommentBtn_feed"
+                           class="saveCommentBtn btn detail" onmouseover='gray1(0)' onmouseout='black1(0)'>게시</p>
                     </div>
                 </div>
 
@@ -980,18 +991,19 @@
 
     </div>
     <script th:inline="javascript">
-        $("#feedCommentZone1").onclick=commentList(0);
-        function commentList(id){
+        $("#feedCommentZone1").onclick = commentList(0);
+
+        function commentList(id) {
             console.log(id)
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             $.ajax({
                 type: "post",
                 url: "/comment/list",
                 data: {},
                 dataType: "json",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (data) {
                     let member = [[${findAll}]];
@@ -1003,23 +1015,23 @@
                     const commentDetail = document.getElementById("commentList");
                     const commentDetailBtn = document.getElementById("detailCommentBtn");
                     for (let i = 0; i < board.length; i++) {
-                        commentIndex[i]=0;
+                        commentIndex[i] = 0;
                         for (let j = 0; j < data.length; j++) {
-                            if (board[i].id == data[j].boardId){
+                            if (board[i].id == data[j].boardId) {
                                 commentIndex[i]++;
                             }
                         }
-                        if (commentIndex[i]-2 == 0) {
+                        if (commentIndex[i] - 2 == 0) {
                             commentIndex[i] = 0;
                         }
                     }
                     for (let i = 0; i < board.length; i++) {
                         stop = 0;
                         commentLength = 0;
-                        const comment = document.getElementById("feedCommentZone"+commentNum);
+                        const comment = document.getElementById("feedCommentZone" + commentNum);
                         comment.innerHTML = "";
                         for (let j = 0; j < data.length; j++) {
-                            if (data[j].boardId == board[i].id && stop < 2){
+                            if (data[j].boardId == board[i].id && stop < 2) {
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[j].commentWriter == member[o].memberName) {
                                         comment.innerHTML += '<span>' + member[o].memberName + '</span>';
@@ -1028,7 +1040,7 @@
                                 comment.innerHTML += "  <span>" + data[j].commentContents + "</span><br>";
                                 stop++;
                             }
-                            if (stop == 2 && commentIndex[i] != 0){
+                            if (stop == 2 && commentIndex[i] != 0) {
                                 comment.innerHTML += "<br><span>" + "댓글 " + commentIndex[i] + "개 모두 보기" + "</span>"
                                 stop++
                             }
@@ -1038,7 +1050,7 @@
                     let ripple = "";
                     if (id != 0) {
                         commentDetail.innerHTML = "";
-                        for (let i = data.length-1; i >= 0; i--) {
+                        for (let i = data.length - 1; i >= 0; i--) {
                             if (id == data[i].boardId) {
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[i].commentWriter == member[o].memberName) {
@@ -1047,34 +1059,34 @@
                                         ripple = member[o].memberName;
                                     }
                                 }
-                                commentDetail.innerHTML +=  "<span>" + data[i].commentContents + "</span><br>";
-                                commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"><span id="rippleList' + data[i].id + '" onclick="rippleSave('+ data[i].id +')">' + '답글달기' + '</span></div>';
+                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                             }
                         }
-                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
                     }
                 }
             });
         }
-        function commentSave(id,id2){
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
-            const  commentContents = document.getElementById("text1_feed"+id);
-            const  contentsDetail = document.getElementById("text1_detail");
+
+        function commentSave(id, id2) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            const commentContents = document.getElementById("text1_feed" + id);
+            const contentsDetail = document.getElementById("text1_detail");
             let contents;
             console.log(commentContents)
-            if (id2 == 1){
+            if (id2 == 1) {
                 contents = contentsDetail.value;
-            }else {
+            } else {
                 contents = commentContents.value;
             }
             $.ajax({
                 type: "post",
                 url: "/comment/commentSave",
-                data: {"commentContents" : contents, "boardId" : id},
+                data: {"commentContents": contents, "boardId": id},
                 dataType: "json",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (data) {
                     // document.querySelector(".emojionearea-editor").innerHTML = "";
@@ -1083,20 +1095,20 @@
                     const commentDetail = document.getElementById("commentList");
                     let commentIndex = [];
                     let stop;
-                    const comment = document.getElementById("feedCommentZone"+id);
-                    commentIndex[id]=0;
+                    const comment = document.getElementById("feedCommentZone" + id);
+                    commentIndex[id] = 0;
                     for (let j = 0; j < data.length; j++) {
-                        if (id == data[j].boardId){
+                        if (id == data[j].boardId) {
                             commentIndex[id]++;
                         }
                     }
-                    if (commentIndex[id]-2 == 0) {
+                    if (commentIndex[id] - 2 == 0) {
                         commentIndex[id] = 0;
                     }
                     comment.innerHTML = "";
                     stop = 0;
                     for (let j = 0; j < data.length; j++) {
-                        if (data[j].boardId == id && stop < 2){
+                        if (data[j].boardId == id && stop < 2) {
                             for (let o = 0; o < member.length; o++) {
                                 if (data[j].commentWriter == member[o].memberName) {
                                     comment.innerHTML += '<span>' + member[o].memberName + '</span>';
@@ -1105,20 +1117,20 @@
                             comment.innerHTML += "  <span>" + data[j].commentContents + "</span><br>";
                             stop++;
                         }
-                        if (stop == 2 && commentIndex[id] != 0){
+                        if (stop == 2 && commentIndex[id] != 0) {
                             comment.innerHTML += "<br><span>" + "댓글 " + commentIndex[id] + "개 모두 보기" + "</span>"
                             stop++
                         }
                     }
                     commentDetail.innerHTML = "";
-                    for (let i = data.length-1; i >= 0; i--) {
+                    for (let i = data.length - 1; i >= 0; i--) {
                         if (id == data[i].boardId) {
-                        for (let o = 0; o < member.length; o++) {
-                            if (data[i].commentWriter == member[o].memberName) {
-                                commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                commentDetail.innerHTML += '    <span>' + member[o].memberName + '</span>';
+                            for (let o = 0; o < member.length; o++) {
+                                if (data[i].commentWriter == member[o].memberName) {
+                                    commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
+                                    commentDetail.innerHTML += '    <span>' + member[o].memberName + '</span>';
+                                }
                             }
-                        }
                             commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                         }
                     }
@@ -1126,27 +1138,28 @@
                 }
             });
         }
-        function rippleSave (id) {
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
+
+        function rippleSave(id) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             // const  contentsDetail = document.getElementById("text1_detail");
-            const rippleWriter = document.getElementById('ripple'+id).innerHTML;
-            const  contentsDetail = document.getElementById("text1_detail");
+            const rippleWriter = document.getElementById('ripple' + id).innerHTML;
+            const contentsDetail = document.getElementById("text1_detail");
             console.log(id);
             // console.log(commentWriter);
             console.log(contentsDetail.value)
             $.ajax({
                 type: "post",
                 url: "/ripple/save",
-                data: {"rippleContents" : 1, "commentId" : id, "rippleWriter" : rippleWriter},
+                data: {"rippleContents": 1, "commentId": id, "rippleWriter": rippleWriter},
                 dataType: "json",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (data) {
                     const commentDetail = document.getElementById("rippleList" + id);
                     commentDetail.innerHTML += '<br><span>---</span>';
-                    for (let i = 0; i <  data.length - 1; i++) {
+                    for (let i = 0; i < data.length - 1; i++) {
                         if (data.length - 1 == i) {
                             commentDetail.innerHTML += '---'
                         }
@@ -2579,6 +2592,15 @@
             top: -100px;
             left: 363px;
         }
+
+        .profile[class*="detail"] {
+            margin: 0px 0 0 20px;
+            border-radius: 50%;
+            /* border: 2px solid rgb(218, 218, 218) ; */
+            width: 50px;
+            height: 50px;
+
+        }
     </style>
 
     <script>
@@ -2586,7 +2608,7 @@
         function black1(a) {
             if (a == 1) {
                 document.getElementById("saveCommentBtn_detail").style.color = "black"
-            }else {
+            } else {
                 document.getElementById("saveCommentBtn_feed").style.color = "black"
             }
 
@@ -2595,7 +2617,7 @@
         function gray1(a) {
             if (a == 1) {
                 document.getElementById("saveCommentBtn_detail").style.color = "gray"
-            }else {
+            } else {
                 document.getElementById("saveCommentBtn_feed").style.color = "gray"
             }
 
