@@ -474,16 +474,11 @@
         }
 
         .storyProfile {
-            /* margin: 1px; */
-            width: 85px;
-            height: 85px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            user-select: none;
-            -webkit-user-drag: none;
-            cursor: pointer;
-            transition: ease-out 0.5s;
-            margin-top: 5px;
-            margin-left: 10px;
+            margin-top: 12px;
+            margin-left: 15px;
         }
 
     </style>
@@ -808,12 +803,11 @@
     <!-- 스토리 구역 -->
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone">
-            <tr>
-                <div th:each="story :${storyList}">
-                    <td><img class="storyProfile"
-                             th:src="@{|/upload/${story.getMemberProfileName()}|}"
-                             alt=""></td>
-                </div>
+
+            <tr th:each="story :${storyList}">
+                <img class="storyProfile"
+                     th:src="@{|/upload/${story.getMemberProfileName()}|}"
+                     alt="">
             </tr>
         </div>
         <!-- 메인피드 구역 -->
@@ -1065,7 +1059,7 @@
                                         ripple = member[o].memberName;
                                     }
                                 }
-                                commentDetail.innerHTML +=  "<span>" + data[i].commentContents + "</span><br>";
+                                commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                             }
                         }
                         commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
@@ -1144,27 +1138,28 @@
                 }
             });
         }
-        function rippleSave (id) {
-            let header=$("meta[name='_csrf_header']").attr('content');
-            let token=$("meta[name='_csrf']").attr('content');
+
+        function rippleSave(id) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
             // const  contentsDetail = document.getElementById("text1_detail");
-            const rippleWriter = document.getElementById('ripple'+id).innerHTML;
-            const  contentsDetail = document.getElementById("text1_detail");
+            const rippleWriter = document.getElementById('ripple' + id).innerHTML;
+            const contentsDetail = document.getElementById("text1_detail");
             console.log(id);
             // console.log(commentWriter);
             console.log(contentsDetail.value)
             $.ajax({
                 type: "post",
                 url: "/ripple/save",
-                data: {"rippleContents" : 1, "commentId" : id, "rippleWriter" : rippleWriter},
+                data: {"rippleContents": 1, "commentId": id, "rippleWriter": rippleWriter},
                 dataType: "json",
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
                 },
                 success: function (data) {
                     const commentDetail = document.getElementById("rippleList" + id);
                     commentDetail.innerHTML += '<br><span>---</span>';
-                    for (let i = 0; i <  data.length - 1; i++) {
+                    for (let i = 0; i < data.length - 1; i++) {
                         if (data.length - 1 == i) {
                             commentDetail.innerHTML += '---'
                         }
