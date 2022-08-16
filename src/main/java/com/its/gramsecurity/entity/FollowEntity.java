@@ -23,6 +23,9 @@ public class FollowEntity {
     private String myId;
 
     @Column
+    private String myName;
+
+    @Column
     private String yourId;
 
     @Column(length = 100)
@@ -30,6 +33,9 @@ public class FollowEntity {
 
     @Column(length = 100)
     private String yourProfileName;
+
+    @Column
+    private String myProfileName;
 
     @Column
     private int loginStatus;
@@ -44,9 +50,11 @@ public class FollowEntity {
     public static FollowEntity toSaveEntity(FollowDTO followDTO, MemberEntity memberEntity,String myId) {
         FollowEntity followEntity=new FollowEntity();
         followEntity.setMyId(myId);
+        followEntity.setMyName(followDTO.getMyName());
         followEntity.setYourId(followDTO.getYourId());
         followEntity.setYourName(followDTO.getYourName());
-        followEntity.setYourProfileName(memberEntity.getMemberProfileName());
+        followEntity.setYourProfileName(followDTO.getYourProfileName());
+        followEntity.setMyProfileName(followDTO.getMyProfileName());
         followEntity.setLoginStatus(memberEntity.getLoginStatus());
         followEntity.setMemberEntity(memberEntity);
         return followEntity;

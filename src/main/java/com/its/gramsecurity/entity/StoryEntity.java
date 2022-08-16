@@ -66,6 +66,9 @@ public class StoryEntity {
     @Column
     private int storyVisitStatus;
 
+    @Column
+    private String memberProfileName;
+
     public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, MemberEntity memberEntity){
         StoryEntity storyEntity = new StoryEntity();
         storyEntity.setLoginId(memberEntity.getLoginId());
@@ -81,6 +84,7 @@ public class StoryEntity {
         storyEntity.setStoryReferenceTag(storyDTO.getStoryReferenceTag());
         storyEntity.setStoryHashTag(storyDTO.getStoryHashTag());
         storyEntity.setStoryLocationTag(storyDTO.getStoryLocationTag());
+        storyEntity.setMemberProfileName(storyDTO.getMemberProfileName());
         return storyEntity;
     }
 }

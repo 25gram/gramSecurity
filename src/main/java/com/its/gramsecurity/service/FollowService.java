@@ -47,8 +47,8 @@ public class FollowService {
         return followList;
     }
 
-    public List<FollowDTO> findAllByYourId(String yourId) {
-        List<FollowEntity> followingEntityList = followRepository.findAllByYourId(yourId);
+    public List<FollowDTO> findAllByYourId(String myId) {
+        List<FollowEntity> followingEntityList = followRepository.findAllByYourId(myId);
         List<FollowDTO> followingList = new ArrayList<>();
         for (FollowEntity follow : followingEntityList) {
             followingList.add(FollowDTO.toDTO(follow));

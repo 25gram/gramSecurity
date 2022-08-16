@@ -43,12 +43,12 @@ public class BoardController {
         List<String> list = Arrays.asList(boardFilter.split(","));
         String[] list2 = list.toArray(new String[list.size()]);
         System.out.println(list2[a]);
-        for (MultipartFile m: multipartFileList) {
+        for (MultipartFile m : multipartFileList) {
             BoardFileDTO fileDTO = new BoardFileDTO();
             fileDTO.setId(saveDTO.getId());
             fileDTO.setBoardId(saveDTO.getId());
             fileDTO.setBoardFile(m);
-            fileDTOList.add(boardService.save(fileDTO,list2[a]));
+            fileDTOList.add(boardService.save(fileDTO, list2[a]));
             a++;
         }
         saveDTO.setBoardFileList(fileDTOList);
@@ -56,21 +56,25 @@ public class BoardController {
         model.addAttribute("fileDTOList", fileDTOList);
         return "redirect:/main/main";
     }
+
     @PostMapping("/likes")
-    public @ResponseBody String likes(@ModelAttribute LikesDTO likesDTO,@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String likes = boardService.likes(likesDTO,principalDetails);
+    public @ResponseBody String likes(@ModelAttribute LikesDTO likesDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String likes = boardService.likes(likesDTO, principalDetails);
         return likes;
     }
+
     @PostMapping("/detail")
     public @ResponseBody List<BoardFileDTO> detail(@RequestParam("boardId") Long id) {
         List<BoardFileDTO> boardFile = boardService.detail(id);
         return boardFile;
     }
+
     @PostMapping("/find")
     public @ResponseBody List<BoardDTO> board2() {
         List<BoardDTO> boardFile = boardService.boardFind();
         return boardFile;
     }
+
     @PostMapping("/count")
     public @ResponseBody List<LikesDTO> count() {
         List<LikesDTO> list = boardService.count();
@@ -78,20 +82,21 @@ public class BoardController {
     }
 
     @GetMapping("/search")
-    public @ResponseBody List<MemberDTO> search(@RequestParam String search, Model model){
+    public @ResponseBody List<MemberDTO> search(@RequestParam String search, Model model) {
         System.out.println("BoardController.search");
-        System.out.println("search = '" + search+"'");
-        List<MemberDTO> result=null ;
-        if(search.equals(" ") || search.equals("")){
+        System.out.println("search = '" + search + "'");
+        List<MemberDTO> result = null;
+        if (search.equals(" ") || search.equals("")) {
             System.out.println("공백");
-        }else{
-            result=memberService.search(search);
-            model.addAttribute("searchList",result);
+        } else {
+            result = memberService.search(search);
+            model.addAttribute("searchList", result);
         }
 
         System.out.println("memberDTOList = " + result);
         return result;
     }
+
     @PostMapping("/detailFind")
     public @ResponseBody List<BoardFileDTO> detailFind (@RequestParam("memberName") String memberName) {
         List<BoardFileDTO> boardFileDTO = boardService.detailFind(memberName);

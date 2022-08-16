@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface StoryRepository extends JpaRepository<StoryEntity, Long> {
-    List<StoryEntity> findByLoginId(String loginId);
+    StoryEntity findByLoginId(String loginId);
 
     List<StoryEntity> findByStoryLocationTag(String storyLocationTag);
+
 }
 
