@@ -23,24 +23,29 @@ import java.util.Optional;
 public class StoryService {
     private final StoryRepository storyRepository;
     private final MemberRepository memberRepository;
+
     public StoryDTO findByLoginId(String loginId) {
-        StoryEntity storyEntity = storyRepository.findByLoginId(loginId);
-        StoryDTO storyDTO = StoryDTO.toStoryDTO(storyEntity);
+        Optional<StoryEntity> byLoginId = storyRepository.findByLoginId(loginId);
+        StoryDTO storyDTO = new StoryDTO();
+        if (byLoginId.isPresent()) {
+            storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
+        }
         return storyDTO;
     }
 
     public List<StoryDTO> findByStoryLocationTag(String storyLocationTag) {
         List<StoryEntity> storyEntityList = storyRepository.findByStoryLocationTag(storyLocationTag);
         List<StoryDTO> storyDTOList = new ArrayList<>();
-        for(StoryEntity story: storyEntityList){
+        for (StoryEntity story : storyEntityList) {
             storyDTOList.add(StoryDTO.toStoryDTO(story));
-        } return storyDTOList;
+        }
+        return storyDTOList;
     }
 
-    public Long save(StoryDTO storyDTO, String loginId){
+    public Long save(StoryDTO storyDTO, String loginId) {
         MemberEntity memberEntity = new MemberEntity();
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(loginId);
-        if(optionalMemberEntity.isPresent()){
+        if (optionalMemberEntity.isPresent()) {
             memberEntity = optionalMemberEntity.get();
         }
         return storyRepository.save(StoryEntity.toSaveStoryEntity(storyDTO, memberEntity)).getId();
@@ -48,38 +53,41 @@ public class StoryService {
 
     public void saveFile(StoryDTO storyDTO) throws IOException {
         Optional<StoryEntity> storyEntityOptional = storyRepository.findById(storyDTO.getId());
-        if(storyEntityOptional.isPresent()){
+        if (storyEntityOptional.isPresent()) {
             StoryEntity storyEntity = storyEntityOptional.get();
 
             MultipartFile storyFile = storyDTO.getStoryFile();
             MultipartFile storyImgFile = storyDTO.getStoryImgFile();
             String storyFileName = storyFile.getOriginalFilename();
             String storyImgName = storyImgFile.getOriginalFilename();
-            if(!storyFile.isEmpty()){
-                storyFileName = System.currentTimeMillis()+"-"+ storyFileName;
-                String savePath="C:\\springboot_img\\"+storyFileName;
+            if (!storyFile.isEmpty()) {
+                storyFileName = System.currentTimeMillis() + "-" + storyFileName;
+                String savePath = "C:\\springboot_img\\" + storyFileName;
                 storyFile.transferTo(new File(savePath));
             }
-            if(!storyImgFile.isEmpty()){
-                storyImgName = System.currentTimeMillis()+"-"+storyImgName;
-                String savePath="C:\\springboot_img\\"+storyImgName;
+            if (!storyImgFile.isEmpty()) {
+                storyImgName = System.currentTimeMillis() + "-" + storyImgName;
+                String savePath = "C:\\springboot_img\\" + storyImgName;
                 storyImgFile.transferTo(new File(savePath));
             }
             storyEntity.setStoryFileName(storyFileName);
             storyEntity.setStoryImgName(storyImgName);
+            storyEntity.setMemberProfileName(storyDTO.getMemberProfileName());
             storyRepository.save(storyEntity);
         }
 
     }
 
     public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
-            List<StoryDTO> storyDTOList = new ArrayList<>();
-        for(int i=0; i<storyDTOList.size(); i++){
+        List<StoryDTO> storyDTOList = new ArrayList<>();
+        for (int i = 0; i < followDTOList.size(); i++) {
 
             String storyFollowingId = followDTOList.get(i).getMyId();
-            StoryEntity storyEntity = storyRepository.findByLoginId(storyFollowingId);
-            if(storyEntity!=null){
-                StoryDTO storyDTO = StoryDTO.toStoryDTO(storyEntity);
+            Optional<StoryEntity> byLoginId = storyRepository.findByLoginId(storyFollowingId);
+            System.out.println("StoryService.storyView");
+            System.out.println("storyFollowingId = " + storyFollowingId);
+            if (byLoginId.isPresent()) {
+                StoryDTO storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
                 storyDTOList.add(storyDTO);
             }
         }

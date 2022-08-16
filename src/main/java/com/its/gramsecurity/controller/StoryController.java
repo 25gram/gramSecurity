@@ -36,6 +36,9 @@ public class StoryController {
     public List<StoryDTO> storyView(String id) {
         List<FollowDTO> followDTOList = storyIdList(id);
         List<StoryDTO> storyDTOList = storyService.storyView(followDTOList);
+        System.out.println("StoryController.storyView");
+        System.out.println("id = " + id);
+        System.out.println("storyDTOList = " + storyDTOList);
         return storyDTOList;
     }
     @GetMapping("/findByLoginId")
@@ -68,8 +71,6 @@ public class StoryController {
     public @ResponseBody Long save(@ModelAttribute StoryDTO storyDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
         String loginId = principalDetails.getUsername();
         Long id = storyService.save(storyDTO,loginId);
-
-
         return id;
     }
     @PostMapping("/saveFile")
@@ -77,10 +78,12 @@ public class StoryController {
         storyService.saveFile(storyDTO);
         return "redirect:/storyBoard/myStory";
     }
-    @GetMapping("/storyIdList")
+//    @GetMapping("/storyIdList")
     public List<FollowDTO> storyIdList(String id){
         List<FollowDTO> myList = followService.findAllByMyId(id);
         List<FollowDTO> yourlist=followService.findAllByYourId(id);
+        System.out.println("StoryController.storyIdList");
+        System.out.println("myList = " + myList);
         return myList;
     }
 }
