@@ -51,6 +51,7 @@
 
         .msgbody {
             max-width: 900px;
+
         }
 
         .msgProfile {
@@ -141,11 +142,11 @@
         }
 
         #msgName {
+            text-align: center;
             font-size: 20px;
             font-weight: bold;
-            position: absolute;
-            top: 34px;
-            left: 132px
+            transition: ease-out 1s;
+            opacity: 1;
         }
 
         .friendProfileZone {
@@ -249,9 +250,9 @@
         }
 
         #formBtn {
-            position: absolute;
-            top: 686px;
-            left: 868px;
+            position: relative;
+            top: -33px;
+            left: 495px;
             cursor: pointer;
             user-select: none;
             font-weight: bold;
@@ -285,6 +286,49 @@
         a{
             color:#686868;
             text-decoration: none;
+        }
+        .nameZone{
+            width: 350px;
+            height: 81px;
+            border-bottom: #ebe9e9 1px solid;
+            cursor: pointer;
+            padding-top: 24px;
+            transition: ease-out 1s;
+            user-select: none;
+            -webkit-user-drag: none;
+            z-index: -55;
+
+        }
+        .nameZone:hover #msgName{
+            transform:scale(0.3);
+            opacity: 0;
+            transition:all 1s;
+        }
+
+        .nameZone:hover #msgHome{
+            opacity: 1;
+            transform: scale(3);
+            color:black;
+            transition: ease-out 0.5s;
+            z-index: 5555;
+        }
+        .nameZone:active #msgHome{
+            color: #686868;
+            scale: 0.95;
+            transition: all 0.2s;
+        }
+        #msgHome{
+            opacity: 0;
+            transition: ease-out 1s;
+            position: absolute;
+            top: 84px;
+            left: 50%;
+            margin-left: -281px;
+            z-index: -5;
+            /* cursor: text; */
+        }
+        #msgHome:active{
+            color:gray;
         }
 
     </style>
@@ -355,25 +399,25 @@
                 },
                 success:function (e){
                     console.log("msglist suc : "+e)
-                        for(let i=0;i<e.length;i++){
-                            let loginId2=e[i].loginId
-                            let loginFileName2=e[i].loginFileName
-                            let loginName2=e[i].loginName
-                            let friendId2=e[i].friendId
-                            let friendFileName2=e[i].friendFileName
-                            let friendName2=e[i].friendName
+                    for(let i=0;i<e.length;i++){
+                        let loginId2=e[i].loginId
+                        let loginFileName2=e[i].loginFileName
+                        let loginName2=e[i].loginName
+                        let friendId2=e[i].friendId
+                        let friendFileName2=e[i].friendFileName
+                        let friendName2=e[i].friendName
 
-                            console.log(loginId2)
+                        console.log(loginId2)
                         if(e[i].loginId=='[[${mem.loginId}]]'){
-                        // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].loginId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
-                        html+='<tr onClick = "goMsgPage('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')+msgCount('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
-                        '<img class= "msgProfile" src = "/upload/'+e[i].friendFileName+'"alt = "" >'+
-                         '</div><div style="width:0;height:0;margin:0;padding:0"><div class="msgNameZone"><b>'+
-                         '<p class="msgName">'+e[i].friendName+'</p></b></div><div class="lastMsgZone">'+
-                         '<textarea class="lastMsg" cols="30" rows="10">'+
-                            e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
-                            "999년65월54일"+'</div></div></td></tr>'}
-                         else{
+                            // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].loginId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                            html+='<tr onClick = "goMsgPage('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')+msgCount('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                                '<img class= "msgProfile" src = "/upload/'+e[i].friendFileName+'"alt = "" >'+
+                                '</div><div style="width:0;height:0;margin:0;padding:0"><div class="msgNameZone"><b>'+
+                                '<p class="msgName">'+e[i].friendName+'</p></b></div><div class="lastMsgZone">'+
+                                '<textarea class="lastMsg" cols="30" rows="10">'+
+                                e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
+                                "999년65월54일"+'</div></div></td></tr>'}
+                        else{
                             // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].friendId+','+e[i].loginFileName+','+e[i].loginName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                             html+='<tr onClick = "goMsgPage('+"'"+loginId2+"','"+loginFileName2+"','"+loginName2+"'"+')+msgCount('+"'"+loginId2+"','"+loginFileName2+"','"+loginName2+"'"+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                                 '<img class= "msgProfile" src = "/upload/'+e[i].loginFileName+'"alt = "" >'+
@@ -384,10 +428,10 @@
                                 "999년65월54일"+'</div></div></td></tr>'
                         }
 
-                        }
+                    }
 
 
-                        zone.innerHTML=html;
+                    zone.innerHTML=html;
 
                 },
                 error:function (e){
@@ -400,88 +444,88 @@
 
 </head>
 
-<body onload="msgList()">
-<div class="msgbody" style="border:#ebe9e9 1px solid; width: 900px; height:700px; margin:20px;display: flex; ">
+<body onload="msgList(),totalCount()">
+<div class="msgbody" style="margin:auto;margin-top: 50px; border:#ebe9e9 1px solid; width: 900px; height:700px;display: flex; ">
     <!-- 왼쪽화면 -->
     <div class="msgbodyLeft" style="width: 350px;height: 100%;border-right: #ebe9e9 1px solid;">
         <!-- 프로필이름 -->
-        <div class="" style="width:350px; height:60px; border-bottom: #ebe9e9 1px solid;">
+        <div class="nameZone" onclick="location.href='/main/main'">
             <p id="msgName">[[${mem.memberName}]]</p>
-            <!-- <p id="msgName">havana_1016</p> -->
+            <i id="msgHome" class="fa-solid fa-house"></i>
         </div>
 
         <!-- 메시지 주고받은 내역 구역-->
         <div class="msgListZone" style="height:638px;width: 100%;overflow: scroll;">
             <table id="table" >
 
-<!--                &lt;!&ndash; 메시지 주고 받은 내역 &ndash;&gt;-->
-<!--                <tr onclick="showRight(0)">-->
-<!--                    <td>-->
-<!--                        <div class="msgList">-->
-<!--                            &lt;!&ndash; 프로필사진 &ndash;&gt;-->
-<!--                            <div class="msgProfileZone">-->
-<!--                                <img class="msgProfile"-->
-<!--                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"-->
-<!--                                     alt="">-->
-<!--                            </div>-->
+                <!--                &lt;!&ndash; 메시지 주고 받은 내역 &ndash;&gt;-->
+                <!--                <tr onclick="showRight(0)">-->
+                <!--                    <td>-->
+                <!--                        <div class="msgList">-->
+                <!--                            &lt;!&ndash; 프로필사진 &ndash;&gt;-->
+                <!--                            <div class="msgProfileZone">-->
+                <!--                                <img class="msgProfile"-->
+                <!--                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"-->
+                <!--                                     alt="">-->
+                <!--                            </div>-->
 
-<!--                            <div style="width:0;height:0;margin:0;padding:0">-->
-<!--                                &lt;!&ndash; 프로필 이름 &ndash;&gt;-->
-<!--                                <div class="msgNameZone">-->
-<!--                                    <b>-->
-<!--                                        <p class="msgName">havana_1016</p>-->
-<!--                                    </b>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; 마지막 메시지 &ndash;&gt;-->
-<!--                                <div class="lastMsgZone">-->
-<!--                                        <textarea class="lastMsg" cols="30"-->
-<!--                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                <!--                            <div style="width:0;height:0;margin:0;padding:0">-->
+                <!--                                &lt;!&ndash; 프로필 이름 &ndash;&gt;-->
+                <!--                                <div class="msgNameZone">-->
+                <!--                                    <b>-->
+                <!--                                        <p class="msgName">havana_1016</p>-->
+                <!--                                    </b>-->
+                <!--                                </div>-->
+                <!--                                &lt;!&ndash; 마지막 메시지 &ndash;&gt;-->
+                <!--                                <div class="lastMsgZone">-->
+                <!--                                        <textarea class="lastMsg" cols="30"-->
+                <!--                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
 
-<!--                            &lt;!&ndash; 마지막 시간 &ndash;&gt;-->
-<!--                            <div class="lastTimeZone">-->
-<!--                                <p class="lastTime">8월14일 오후 06:03</p>-->
-<!--                            </div>-->
+                <!--                            &lt;!&ndash; 마지막 시간 &ndash;&gt;-->
+                <!--                            <div class="lastTimeZone">-->
+                <!--                                <p class="lastTime">8월14일 오후 06:03</p>-->
+                <!--                            </div>-->
 
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                &lt;!&ndash; 메시지 주고 받은 내역 끝 &ndash;&gt;-->
-<!--                &lt;!&ndash; 메시지 주고 받은 내역 &ndash;&gt;-->
-<!--                <tr onclick="showRight(0)">-->
-<!--                    <td>-->
-<!--                        <div class="msgList">-->
-<!--                            &lt;!&ndash; 프로필사진 &ndash;&gt;-->
-<!--                            <div class="msgProfileZone">-->
-<!--                                <img class="msgProfile"-->
-<!--                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"-->
-<!--                                     alt="">-->
-<!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
+                <!--                &lt;!&ndash; 메시지 주고 받은 내역 끝 &ndash;&gt;-->
+                <!--                &lt;!&ndash; 메시지 주고 받은 내역 &ndash;&gt;-->
+                <!--                <tr onclick="showRight(0)">-->
+                <!--                    <td>-->
+                <!--                        <div class="msgList">-->
+                <!--                            &lt;!&ndash; 프로필사진 &ndash;&gt;-->
+                <!--                            <div class="msgProfileZone">-->
+                <!--                                <img class="msgProfile"-->
+                <!--                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"-->
+                <!--                                     alt="">-->
+                <!--                            </div>-->
 
-<!--                            <div style="width:0;height:0;margin:0;padding:0">-->
-<!--                                &lt;!&ndash; 프로필 이름 &ndash;&gt;-->
-<!--                                <div class="msgNameZone">-->
-<!--                                    <b>-->
-<!--                                        <p class="msgName">havana_1016</p>-->
-<!--                                    </b>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; 마지막 메시지 &ndash;&gt;-->
-<!--                                <div class="lastMsgZone">-->
-<!--                                        <textarea class="lastMsg" cols="30"-->
-<!--                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                <!--                            <div style="width:0;height:0;margin:0;padding:0">-->
+                <!--                                &lt;!&ndash; 프로필 이름 &ndash;&gt;-->
+                <!--                                <div class="msgNameZone">-->
+                <!--                                    <b>-->
+                <!--                                        <p class="msgName">havana_1016</p>-->
+                <!--                                    </b>-->
+                <!--                                </div>-->
+                <!--                                &lt;!&ndash; 마지막 메시지 &ndash;&gt;-->
+                <!--                                <div class="lastMsgZone">-->
+                <!--                                        <textarea class="lastMsg" cols="30"-->
+                <!--                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
 
-<!--                            &lt;!&ndash; 마지막 시간 &ndash;&gt;-->
-<!--                            <div class="lastTimeZone">-->
-<!--                                <p class="lastTime">8월14일 오후 06:03</p>-->
-<!--                            </div>-->
+                <!--                            &lt;!&ndash; 마지막 시간 &ndash;&gt;-->
+                <!--                            <div class="lastTimeZone">-->
+                <!--                                <p class="lastTime">8월14일 오후 06:03</p>-->
+                <!--                            </div>-->
 
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                &lt;!&ndash; 메시지 주고 받은 내역 끝 &ndash;&gt;-->
+                <!--                        </div>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
+                <!--                &lt;!&ndash; 메시지 주고 받은 내역 끝 &ndash;&gt;-->
 
 
 
@@ -508,20 +552,20 @@
             <!-- 대화창 -->
             <div id="msgZone" class="msgZone">
                 <!-- 내가 보낸 메시지일때 -->
-<!--                <div style="text-align: -webkit-right;">-->
-<!--                    <p class="msgTime">8월14일 오후 06:03</p>-->
-<!--                    <div class="myMsgZone">-->
-<!--                        <p class="Msg">klsdfjldkfjklsdj</p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div style="text-align: -webkit-right;">-->
+                <!--                    <p class="msgTime">8월14일 오후 06:03</p>-->
+                <!--                    <div class="myMsgZone">-->
+                <!--                        <p class="Msg">klsdfjldkfjklsdj</p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-<!--                &lt;!&ndash; 내가 받은 메시지일때 &ndash;&gt;-->
-<!--                <div>-->
-<!--                    <p class="msgTime">2022-08-14 오후05:55</p>-->
-<!--                    <div class="yourMsgZone">-->
-<!--                        <p class="Msg">klsdfjldkfjklsdj</p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                &lt;!&ndash; 내가 받은 메시지일때 &ndash;&gt;-->
+                <!--                <div>-->
+                <!--                    <p class="msgTime">2022-08-14 오후05:55</p>-->
+                <!--                    <div class="yourMsgZone">-->
+                <!--                        <p class="Msg">klsdfjldkfjklsdj</p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
             </div>
 
@@ -585,9 +629,6 @@
         <i id="searchSpin" class="spinner-border spin"></i>
     </div>
 </div>
-
-<button onclick="test()">test</button>
-
 
 
 </body>
@@ -673,11 +714,12 @@
         background-color: white;
         position: absolute;
         top:0;
-        left:504px;
+        left:50%;
+        margin-left: 42px;
         border: gray 1px solid;
         /* border: #ebe9e9 1px solid; */
         /* border-radius: 5px; */
-        transition: ease-out 0.5s;
+        transition: ease-out 1s;
         opacity: 0;
         z-index: -10;
         box-shadow: grey 4px 5px 12px -5px;
@@ -688,8 +730,9 @@
         height: 700px;
         /* background-color: rgba(0,0,0,0.2); */
         position: absolute;
-        top: 20px;
-        left: 370px;
+        top: 0px;
+        left: 51%;
+        margin-left: -103px;
         opacity: 1;
         transition: ease-out 0.5s;
     }
@@ -739,42 +782,42 @@
     $("#formBtn").click(function (){
         console.log("click호출")
         if(document.getElementById("dmInput").value.length!=0){
-        let loginId='[[${mem.loginId}]]';
-        let friendId=document.getElementById("friendId").value;
-        let text=document.getElementById("dmInput").value;
-        let seeInt=document.getElementById("seeInt").value;
-        let friendFileName=document.getElementById("friendFileName").value;
-        let friendName=document.getElementById("friendName").innerHTML
-        let loginName='[[${mem.memberName}]]';
-        let loginFileName='[[${mem.memberProfileName}]]'
-        let header = $("meta[name='_csrf_header']").attr('content');
-        let token = $("meta[name='_csrf']").attr('content');
-        $.ajax({
-            url:"/msg/save",
-            data:{
-                "loginId": loginId,
-                "friendId":friendId,
-                "text":text,
-                "seeInt":seeInt,
-                "friendFileName":friendFileName,
-                "friendName":friendName,
-                "loginName":loginName,
-                "loginFileName":loginFileName
-            },
-            type:"post",
-            dataType:"text",
-            beforeSend: function (result) {
-                result.setRequestHeader(header, token);
-            }
-        })
-        $(".emojionearea-editor").html("")
-        document.getElementById("dmInput").value=""
-        setTimeout(msgList,250)
-        clearTimeout(var1)
+            let loginId='[[${mem.loginId}]]';
+            let friendId=document.getElementById("friendId").value;
+            let text=document.getElementById("dmInput").value;
+            let seeInt=document.getElementById("seeInt").value;
+            let friendFileName=document.getElementById("friendFileName").value;
+            let friendName=document.getElementById("friendName").innerHTML
+            let loginName='[[${mem.memberName}]]';
+            let loginFileName='[[${mem.memberProfileName}]]'
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            $.ajax({
+                url:"/msg/save",
+                data:{
+                    "loginId": loginId,
+                    "friendId":friendId,
+                    "text":text,
+                    "seeInt":seeInt,
+                    "friendFileName":friendFileName,
+                    "friendName":friendName,
+                    "loginName":loginName,
+                    "loginFileName":loginFileName
+                },
+                type:"post",
+                dataType:"text",
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
+                }
+            })
+            $(".emojionearea-editor").html("")
+            document.getElementById("dmInput").value=""
+            setTimeout(msgList,250)
+            clearTimeout(var1)
             // setTimeout(var1)
             msgCount(friendId,friendFileName,friendName)
-        // setTimeout(goMsgPage,250,friendId,friendFileName,friendName)
-    }})
+            // setTimeout(goMsgPage,250,friendId,friendFileName,friendName)
+        }})
 
 
     let fi;
@@ -820,7 +863,7 @@
                     }
                     else if(e[i].friendId==loginId1){
                         html+='<div><p class="msgTime">'+e[i].createdTime+'</p><div class="yourMsgZone"><p class="Msg">'
-                        +e[i].text+'</p></div></div>'
+                            +e[i].text+'</p></div></div>'
                     }
                 }
                 zone.innerHTML=html;
@@ -840,7 +883,7 @@
 
 
     let var1;
-        let mcount=0;
+    let mcount=0;
     function msgCount(friendId,ffile,fname){
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -881,6 +924,7 @@
 
     }
     let var2=""
+    let totalint=0
     function totalCount(){
         console.log("total 호출")
         let header = $("meta[name='_csrf_header']").attr('content');
@@ -896,7 +940,12 @@
                 result.setRequestHeader(header, token);
             },
             success:function (e){
-                console.log("total suc")
+                console.log("total suc len: "+e.length)
+                console.log("total suc int: "+totalint)
+                if(totalint!=e.length){
+                    totalint=e.length
+                    msgList()
+                }
             },
             error:function (e){
                 console.log("total err")
@@ -999,7 +1048,7 @@
         if(i==0){
             $("#searchBox").css({
                 "opacity":1,
-                "transition":"all 0.5s",
+                "transition":"all 1s",
                 "z-index":10,
                 "top":"208px"
 
@@ -1007,9 +1056,9 @@
         }else if(i==1){
             $("#searchBox").css({
                 "opacity":0,
-                "transition":"all 0.5s",
+                "transition":"all 1s",
                 "z-index":-10,
-                "top":"0px"
+                "top":"-379px"
 
             })
             document.getElementById("searchLIstZone").innerHTML=""
@@ -1024,18 +1073,7 @@
 
 
     });
-    function test() {
-        let html = document.getElementById("dmInput").value;
 
-        // if 작성자가 로그인아이디(나)일때 html
-        let html1 = '<div style="text-align: -webkit-right;">' +
-            '<p class="msgTime">' + '8월14일 오후 06:03' +
-            '</p><div class="myMsgZone"><p class="Msg">' +
-            html + '</p></div></div>'
-
-        document.getElementById("msgZone").innerHTML = html1;
-
-    }
 </script>
 
 </html>
