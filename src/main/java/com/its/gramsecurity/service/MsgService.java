@@ -67,6 +67,7 @@ public class MsgService {
 
         }
         System.out.println("serv mlist : "+mlist);
+        System.out.println("serv mlist size: "+mlist.size());
         return mlist;
     }
 
