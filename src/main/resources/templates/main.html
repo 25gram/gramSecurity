@@ -1035,6 +1035,7 @@
                         }
                         commentNum--;
                     }
+                    let ripple = "";
                     if (id != 0) {
                         commentDetail.innerHTML = "";
                         for (let i = data.length-1; i >= 0; i--) {
@@ -1042,10 +1043,12 @@
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[i].commentWriter == member[o].memberName) {
                                         commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                        commentDetail.innerHTML += '    <span>' + member[o].memberName + '</span>';
+                                        commentDetail.innerHTML += '     <span id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                        ripple = member[o].memberName;
                                     }
                                 }
                                 commentDetail.innerHTML +=  "<span>" + data[i].commentContents + "</span><br>";
+                                commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"><span id="rippleList' + data[i].id + '" onclick="rippleSave('+ data[i].id +')">' + '답글달기' + '</span></div>';
                             }
                         }
                         commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id +"," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
@@ -1065,7 +1068,6 @@
             }else {
                 contents = commentContents.value;
             }
-            console.log(contents)
             $.ajax({
                 type: "post",
                 url: "/comment/commentSave",
@@ -1124,7 +1126,36 @@
                 }
             });
         }
+        function rippleSave (id) {
+            let header=$("meta[name='_csrf_header']").attr('content');
+            let token=$("meta[name='_csrf']").attr('content');
+            // const  contentsDetail = document.getElementById("text1_detail");
+            const rippleWriter = document.getElementById('ripple'+id).innerHTML;
+            const  contentsDetail = document.getElementById("text1_detail");
+            console.log(id);
+            // console.log(commentWriter);
+            console.log(contentsDetail.value)
+            $.ajax({
+                type: "post",
+                url: "/ripple/save",
+                data: {"rippleContents" : 1, "commentId" : id, "rippleWriter" : rippleWriter},
+                dataType: "json",
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
+                success: function (data) {
+                    const commentDetail = document.getElementById("rippleList" + id);
+                    commentDetail.innerHTML += '<br><span>---</span>';
+                    for (let i = 0; i <  data.length - 1; i++) {
+                        if (data.length - 1 == i) {
+                            commentDetail.innerHTML += '---'
+                        }
+                        commentDetail.innerHTML += data[i].rippleContents;
+                    }
 
+                }
+            });
+        }
 
     </script>
     <script>
@@ -1504,7 +1535,7 @@
 
         function submitBtn() {
             // $('#submitBtn').trigger("click")
-
+            document.getElementById("boardContents").value = document.getElementById("text1").value;
             document.getElementById("saveForm").submit();
             // location.href='/main/main'
         }
@@ -1591,7 +1622,6 @@
                 let boardFilter8 = document.getElementById("boardFilter8");
                 let boardFilter9 = document.getElementById("boardFilter9");
                 let boardFilter10 = document.getElementById("boardFilter10");
-                console.log(boardFilter);
                 let a;
                 for (let i = 1; i <= classNum; i++) {
                     a = boardFilter;
@@ -1734,6 +1764,7 @@
                             <input type="hidden" value="''," id="boardFilter8">
                             <input type="hidden" value="''," id="boardFilter9">
                             <input type="hidden" value="''," id="boardFilter10">
+                            <input type="text" id="boardContents" name="boardContents" hidden>
                         </div>
                     </form>
 
