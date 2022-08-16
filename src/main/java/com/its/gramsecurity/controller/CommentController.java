@@ -50,5 +50,4 @@ public class CommentController {
         List<LikesDTO> list = commentService.count();
         return list;
     }
-
 }

@@ -875,9 +875,11 @@
     function memberDetailFile () {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
+        let memberName = [[${memberDTO.memberName}]];
         $.ajax({
             type: "post",
             url: "/board/detailFind",
+            data: {"memberName" : memberName},
             dataType: "json",
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);

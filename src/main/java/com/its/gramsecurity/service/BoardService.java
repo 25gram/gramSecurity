@@ -154,12 +154,13 @@ public class BoardService {
         }
         return board;
     }
-    public List<BoardFileDTO> detailFind(PrincipalDetails principalDetails) {
+
+    public List<BoardFileDTO> detailFind(String loginId) {
         List<BoardEntity> boardEntity = boardRepository.findAll();
         List<BoardFileEntity> boardFileEntity = boardFileRepository.findAll();
         List<BoardFileDTO> boardFileEntityList = new ArrayList<>();
         for (int i = 0; i < boardEntity.size(); i++) {
-            if (boardEntity.get(i).getBoardWriter().equals(principalDetails.getMemberDTO().getMemberName())) {
+            if (boardEntity.get(i).getBoardWriter().equals(loginId)) {
                 for (int j = 0; j < boardFileEntity.size(); j++) {
                     if (boardEntity.get(i).getId() == boardFileEntity.get(j).getBoardId()){
                         boardFileEntityList.add(BoardFileDTO.toListDTO(boardFileEntity.get(j)));
@@ -169,5 +170,4 @@ public class BoardService {
         }
         return boardFileEntityList;
     }
-
 }

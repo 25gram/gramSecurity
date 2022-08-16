@@ -93,8 +93,8 @@ public class BoardController {
         return result;
     }
     @PostMapping("/detailFind")
-    public @ResponseBody List<BoardFileDTO> detailFind (@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        List<BoardFileDTO> boardFileDTO = boardService.detailFind(principalDetails);
+    public @ResponseBody List<BoardFileDTO> detailFind (@RequestParam("memberName") String memberName) {
+        List<BoardFileDTO> boardFileDTO = boardService.detailFind(memberName);
         return boardFileDTO;
     }
 }
