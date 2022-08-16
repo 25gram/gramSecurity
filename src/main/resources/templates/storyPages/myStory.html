@@ -5,6 +5,13 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Hi+Melody&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&family=Noto+Serif+KR:wght@200&family=Single+Day&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <style>
         body{
             background-color: rgb(242, 243, 245) !important;
@@ -22,7 +29,7 @@
             border: 1px solid rgb(214, 214, 214);
             overflow: hidden;
             position: fixed;
-            left: 790px;
+            left: 708px;
         }
         .btn-primary {
             background-color:rgba(71,66,69,0.4) !important;
@@ -750,13 +757,7 @@
             position: absolute;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Hi+Melody&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100&family=Noto+Serif+KR:wght@200&family=Single+Day&display=swap" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
 </head>
 <body>
 <div class="container">
@@ -766,7 +767,12 @@
     <div class="storyBox">
         <div class="filePreview" id="filePreview"></div>
         <div class="addImgDiv" id="addImgDiv"></div>
+        <div id="video-controls">
 
+
+
+
+        </div>
     </div>
 </div>
 </body>
@@ -808,7 +814,7 @@
                       storyImgName,
                       storyImgTag) {
             if(storyReferenceTag){
-                document.body.innerHTML+="@"+storyReferenceTag;
+                document.body.innerHTML+=storyReferenceTag;
             }
             document.body.innerHTML+=storyHashTag;
             if(storyQuizTag){
@@ -834,22 +840,22 @@
 
                 document.getElementById("filePreview").appendChild(video);
 
-                // let obj = document.getElementById("aaa");
-                // $(document).ready(function (){
-                //     setTimeout(function (){
-                //         let time = obj.duration;
-                //         setTimeout(function (){
-                //             location.href = "http://localhost:8080/main/main";
-                //         }, (time+0.5)*1000);
-                //     }, 500);
-                // });
+                let obj = document.getElementById("aaa");
+                $(document).ready(function (){
+                    setTimeout(function (){
+                        let time = obj.duration;
+                        setTimeout(function (){
+                            location.href = "http://localhost:8080/main/main";
+                        }, (time+0.5)*1000);
+                    }, 500);
+                });
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
-                // $(document).ready(function (){
-                //         setTimeout(function (){
-                //             location.href = "http://localhost:8080/main/main";
-                //         }, (15)*1000);
-                // });
+                $(document).ready(function (){
+                        setTimeout(function (){
+                            location.href = "http://localhost:8080/main/main";
+                        }, (15)*1000);
+                });
             }
             if (storyImgName){
             document.getElementById("addImg").src = "/upload/"+storyImgName;
