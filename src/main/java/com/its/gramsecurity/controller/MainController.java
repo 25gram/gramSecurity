@@ -46,8 +46,8 @@ public class MainController {
         return "main";
     }
     @GetMapping("/story")
-    String story(){
-        return "/storyPages/save";
+    public String story(){
+        return "storyPages/save";
     }
 
 
