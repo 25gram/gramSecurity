@@ -811,7 +811,7 @@
             <tr>
                 <div th:each="story :${storyList}">
                     <td><img class="storyProfile"
-                             th:src="@{|/upload/${AuthenticationPrincipal.getMemberDTO().getMemberProfileName()}|}"
+                             th:src="@{|/upload/${story.getMemberProfileName()}|}"
                              alt=""></td>
                 </div>
             </tr>
