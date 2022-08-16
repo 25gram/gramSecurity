@@ -16,16 +16,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/ripple")
 public class RippleController {
-    private RippleService rippleService;
+    private final RippleService rippleService;
 
     @PostMapping("/save")
     public @ResponseBody List<RippleDTO> save(@ModelAttribute RippleDTO rippleDTO,
                                               @AuthenticationPrincipal PrincipalDetails principalDetails){
         System.out.println(rippleDTO);
         String loginId = principalDetails.getMemberDTO().getLoginId();
-        rippleService.save(rippleDTO,loginId);
+        rippleService.save(rippleDTO);
         List<RippleDTO> rippleList = rippleService.findAll();
-        System.out.println("rippleList.save");
         System.out.println("rippleList" + rippleList);
         return rippleList;
     }

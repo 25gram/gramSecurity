@@ -15,28 +15,34 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class MsgDTO extends BaseEntity {
 
-    Long MsgId;
+    public Long MsgId;
 
-    String loginId;
+    public String loginId;
 
-    String friendId;
+    public String friendId;
 
-    String text;
+    public String text;
 
-    int seeInt;
+    public int seeInt;
 
-    String friendFileName;
+    public String friendFileName;
+    public String loginFileName;
 
-    String friendName;
+    public String friendName;
+    public String loginName;
+
 
     public static MsgDTO toDto(MsgEntity mem){
         MsgDTO dto=new MsgDTO();
+        dto.setMsgId(mem.getMsgId());
         dto.setLoginId(mem.getLoginId());
         dto.setFriendId(mem.getFriendId());
         dto.setText(mem.getText());
         dto.setSeeInt(mem.getSeeInt());
         dto.setFriendFileName(mem.getFriendFileName());
-        dto.setFriendId(mem.getFriendName());
+        dto.setFriendName(mem.getFriendName());
+        dto.setLoginName(mem.getLoginName());
+        dto.setLoginFileName(mem.getLoginFileName());
         return dto;
     }
     public static MsgDTO toSaveDto(MsgEntity mem){
@@ -47,7 +53,9 @@ public class MsgDTO extends BaseEntity {
         dto.setSeeInt(mem.getSeeInt());
         dto.setFriendFileName(mem.getFriendFileName());
         dto.setMsgId(mem.getMsgId());
-        dto.setFriendId(mem.getFriendName());
+        dto.setFriendName(mem.getFriendName());
+        dto.setLoginName(mem.getLoginName());
+        dto.setLoginFileName(mem.getLoginFileName());
         return dto;
     }
 

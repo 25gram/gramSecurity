@@ -1,10 +1,7 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
-import com.its.gramsecurity.dto.BoardDTO;
-import com.its.gramsecurity.dto.BoardFileDTO;
-import com.its.gramsecurity.dto.LikesDTO;
-import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.dto.*;
 import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.CommentService;
 import com.its.gramsecurity.service.MemberService;
@@ -27,6 +24,7 @@ public class MainController {
     private final MemberService memberService;
     private final BoardService boardService;
     private final CommentService commentService;
+    private final StoryController storyController;
 
     //메인피드
     @GetMapping("/main")
@@ -38,11 +36,13 @@ public class MainController {
         List<BoardFileDTO> boardFileList = boardService.fileFindAll();
         boardService.likesFindAll(memberDTO.getMemberName());
         commentService.likesFindAll(memberDTO.getMemberName());
+        List<StoryDTO> storyDTOList = storyController.storyView(loginId);
         model.addAttribute("AuthenticationPrincipal",principalDetails);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
+        model.addAttribute("storyList", storyDTOList);
         return "main";
     }
     @GetMapping("/story")
