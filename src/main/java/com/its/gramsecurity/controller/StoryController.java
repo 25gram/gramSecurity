@@ -32,12 +32,11 @@ public class StoryController {
         model.addAttribute("storyDTO", storyDTO);
         return "storyIndex";
     }
-    @GetMapping("/storyView/{id}")
-    public String storyView(Model model, @PathVariable("id") String id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        List<FollowDTO> followDTOList = storyIdList(principalDetails);
+    @GetMapping("/storyView")
+    public List<StoryDTO> storyView(String id) {
+        List<FollowDTO> followDTOList = storyIdList(id);
         List<StoryDTO> storyDTOList = storyService.storyView(followDTOList);
-        model.addAttribute("storyList", storyDTOList);
-        return "storyPages/myStory";
+        return storyDTOList;
     }
     @GetMapping("/findByLoginId")
     public String findByLoginId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -79,8 +78,7 @@ public class StoryController {
         return "redirect:/storyBoard/myStory";
     }
     @GetMapping("/storyIdList")
-    public List<FollowDTO> storyIdList(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        String id = principalDetails.getMemberDTO().getLoginId();
+    public List<FollowDTO> storyIdList(String id){
         List<FollowDTO> myList = followService.findAllByMyId(id);
         List<FollowDTO> yourlist=followService.findAllByYourId(id);
         return myList;
