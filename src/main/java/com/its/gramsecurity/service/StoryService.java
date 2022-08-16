@@ -74,11 +74,14 @@ public class StoryService {
 
     public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
             List<StoryDTO> storyDTOList = new ArrayList<>();
-        for(int i=0; i<5 ; i++){
+        for(int i=0; i<storyDTOList.size(); i++){
+
             String storyFollowingId = followDTOList.get(i).getMyId();
             StoryEntity storyEntity = storyRepository.findByLoginId(storyFollowingId);
-            StoryDTO storyDTO = StoryDTO.toStoryDTO(storyEntity);
-            storyDTOList.add(storyDTO);
+            if(storyEntity!=null){
+                StoryDTO storyDTO = StoryDTO.toStoryDTO(storyEntity);
+                storyDTOList.add(storyDTO);
+            }
         }
         return storyDTOList;
     }

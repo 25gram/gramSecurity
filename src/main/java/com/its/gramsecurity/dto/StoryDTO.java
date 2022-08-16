@@ -31,6 +31,7 @@ public class StoryDTO {
     private String storyReferenceTag;
     private String storyLocationTag;
     private int storyVisitStatus;
+    private String memberProfileName;
 
 
     public static StoryDTO toStoryDTO (StoryEntity storyEntity) {
@@ -52,6 +53,7 @@ public class StoryDTO {
         storyDTO.setStoryReferenceTag(storyEntity.getStoryReferenceTag());
         storyDTO.setStoryLocationTag(storyEntity.getStoryLocationTag());
         storyDTO.setStoryVisitStatus(storyEntity.getStoryVisitStatus());
+        storyDTO.setMemberProfileName(storyEntity.getMemberProfileName());
         return storyDTO;
     }
 }
