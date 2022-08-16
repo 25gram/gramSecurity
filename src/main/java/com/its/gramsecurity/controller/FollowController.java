@@ -24,6 +24,8 @@ public class FollowController {
                                               @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String myId = principalDetails.getMemberDTO().getLoginId();
         followService.save(followDTO, myId);
+        System.out.println("FollowController.request_fw");
+        System.out.println("followDTO = " + followDTO + ", principalDetails = " + principalDetails);
         return followDTO;
     }
 
@@ -57,8 +59,6 @@ public class FollowController {
     @DeleteMapping("/delete")
     public @ResponseBody String UnFollow(@RequestParam("yourId") String yourId,
                                          @RequestParam("myId") String myId) {
-        System.out.println("FollowController.UnFollow");
-        System.out.println("yourId = " + yourId + ", myId = " + myId);
         String result= followService.UnFollow(yourId, myId);
         return result;
     }
@@ -69,9 +69,6 @@ public class FollowController {
     public @ResponseBody String findByMyIdAndYourId(@RequestParam("myId") String myId,
                                                        @RequestParam("yourId") String yourId) {
         String result = followService.findByMyIdAndYourId(myId, yourId);
-        System.out.println("FollowController.findByMyIdAndYourId");
-        System.out.println("myId = " + myId + ", yourId = " + yourId);
-        System.out.println("findByMyIdAndYourId = " + result);
         return result;
     }
 

@@ -33,7 +33,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
 
     Optional<MemberEntity> findByMemberName(String memberName);
 
-    List<MemberEntity> findByMemberNameContaining(MemberDTO memberDTO);
 
     @Transactional
     @Modifying
