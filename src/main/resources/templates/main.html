@@ -478,7 +478,7 @@
             height: 70px;
             border-radius: 50%;
             margin-top: 12px;
-            margin-left: 15px;
+            margin-left: 24px;
         }
 
     </style>
@@ -805,9 +805,9 @@
         <div class="storyZone">
 
             <tr th:each="story :${storyList}">
-                <img class="storyProfile"
+               <a th:href="@{|/storyBoard/stories?loginId=${story.getLoginId()}|}"> <img class="storyProfile"
                      th:src="@{|/upload/${story.getMemberProfileName()}|}"
-                     alt="">
+                        alt=""></a>
             </tr>
         </div>
         <!-- 메인피드 구역 -->
