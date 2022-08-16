@@ -1,6 +1,7 @@
 package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
+import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.StoryDTO;
 import com.its.gramsecurity.entity.MemberEntity;
@@ -22,13 +23,10 @@ import java.util.Optional;
 public class StoryService {
     private final StoryRepository storyRepository;
     private final MemberRepository memberRepository;
-    public List<StoryDTO> findByLoginId(String loginId) {
-        List<StoryDTO> storyDTOList = new ArrayList<>();
-        List<StoryEntity> storyEntityList = storyRepository.findByLoginId(loginId);
-        for(StoryEntity story: storyEntityList) {
-            storyDTOList.add(StoryDTO.toStoryDTO(story));
-        }
-        return storyDTOList;
+    public StoryDTO findByLoginId(String loginId) {
+        StoryEntity storyEntity = storyRepository.findByLoginId(loginId);
+        StoryDTO storyDTO = StoryDTO.toStoryDTO(storyEntity);
+        return storyDTO;
     }
 
     public List<StoryDTO> findByStoryLocationTag(String storyLocationTag) {
@@ -72,5 +70,16 @@ public class StoryService {
             storyRepository.save(storyEntity);
         }
 
+    }
+
+    public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
+            List<StoryDTO> storyDTOList = new ArrayList<>();
+        for(int i=0; i<5 ; i++){
+            String storyFollowingId = followDTOList.get(i).getMyId();
+            StoryEntity storyEntity = storyRepository.findByLoginId(storyFollowingId);
+            StoryDTO storyDTO = StoryDTO.toStoryDTO(storyEntity);
+            storyDTOList.add(storyDTO);
+        }
+        return storyDTOList;
     }
 }

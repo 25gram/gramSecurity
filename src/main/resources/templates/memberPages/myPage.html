@@ -400,20 +400,35 @@
         let showInt = 0
 
         function showMenu() {
-            // location.href="/storyBoard/myStory";
+            $.ajax({
+                type: "get",
+                url: "/storyBoard/findByLoginId",
+                dataType: String,
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
+                success: function (result) {
+                    if(result=="ok"){
+                        location.href="/storyBoard/myStory";
+                    } else if(result=="no"){
 
-            if (showInt == 0) {
-                $("#menuZone").css({
-                    "opacity": 1, "transition": "opacity 1.5s"
-                })
-                showInt = 1
-            } else if (showInt == 1) {
-                $("#menuZone").css({
-                    "opacity": 0, "transition": "opacity 1s"
-                })
-
-                showInt = 0
+                    }
             }
+
+            })
+
+            // if (showInt == 0) {
+            //     $("#menuZone").css({
+            //         "opacity": 1, "transition": "opacity 1.5s"
+            //     })
+            //     showInt = 1
+            // } else if (showInt == 1) {
+            //     $("#menuZone").css({
+            //         "opacity": 0, "transition": "opacity 1s"
+            //     })
+            //
+            //     showInt = 0
+            // }
         }
     </script>
 
