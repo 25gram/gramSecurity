@@ -25,13 +25,13 @@ public class StoryController {
     String memberName = "admin";
     private final MemberService memberService;
     private final FollowService followService;
-    @GetMapping("/")
-    public String index(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        String loginId = principalDetails.getMemberDTO().getLoginId();
-        StoryDTO storyDTO = storyService.findByLoginId(loginId);
-        model.addAttribute("storyDTO", storyDTO);
-        return "storyIndex";
-    }
+//    @GetMapping("/")
+//    public String index(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        String loginId = principalDetails.getMemberDTO().getLoginId();
+//        StoryDTO storyDTO = storyService.findByLoginId(loginId);
+//        model.addAttribute("storyDTO", storyDTO);
+//        return "storyIndex";
+//    }
     @GetMapping("/storyView")
     public List<StoryDTO> storyView(String id) {
         List<FollowDTO> followDTOList = storyIdList(id);
@@ -41,18 +41,25 @@ public class StoryController {
         System.out.println("storyDTOList = " + storyDTOList);
         return storyDTOList;
     }
+    @GetMapping("/")
+    public String storyIndex(){
+        Long id = 1L;
+        return "redirect:/storyBoard/stories/"+id;
+    }
+    @GetMapping("/stories/{id}")
+    public String stories(@PathVariable("id") Long id, Model model){
+        StoryDTO storyDTO = storyService.findById(id);
+        System.out.println("stories---------------------------------------");
+        System.out.println("id" + id);
+        System.out.println("storyDTO = " + storyDTO);
+        model.addAttribute("storyDTO", storyDTO);
+        return "storyPages/stories";
+    }
     @GetMapping("/findByLoginId")
-    public String findByLoginId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public StoryDTO findByLoginId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String loginId = principalDetails.getMemberDTO().getLoginId();
         StoryDTO storyDTO = storyService.findByLoginId(loginId);
-        if(storyDTO==null){
-            String result = "no";
-            return result;
-        } else {
-            model.addAttribute("storyDTO", storyDTO);
-            String result = "ok";
-            return result;
-        }
+        return storyDTO;
     }
     @GetMapping("/save-form")
     public String saveForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
@@ -75,8 +82,8 @@ public class StoryController {
     }
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
-        storyService.saveFile(storyDTO);
-        return "redirect:/storyBoard/myStory";
+        Long id = storyService.saveFile(storyDTO);
+        return "redirect:/storyBoard/stories/"+id;
     }
 //    @GetMapping("/storyIdList")
     public List<FollowDTO> storyIdList(String id){
