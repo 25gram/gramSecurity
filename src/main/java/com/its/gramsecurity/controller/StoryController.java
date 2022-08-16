@@ -1,8 +1,10 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
+import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.StoryDTO;
+import com.its.gramsecurity.service.FollowService;
 import com.its.gramsecurity.service.MemberService;
 import com.its.gramsecurity.service.StoryService;
 import lombok.RequiredArgsConstructor;
@@ -22,20 +24,32 @@ public class StoryController {
     private final StoryService storyService;
     String memberName = "admin";
     private final MemberService memberService;
+    private final FollowService followService;
     @GetMapping("/")
     public String index(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String loginId = principalDetails.getMemberDTO().getLoginId();
-        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
-        System.out.println("storyDTOList = " + storyDTOList);
-        model.addAttribute("storyList", storyDTOList);
+        StoryDTO storyDTO = storyService.findByLoginId(loginId);
+        model.addAttribute("storyDTO", storyDTO);
         return "storyIndex";
     }
-    @GetMapping("/myStory")
+    @GetMapping("/storyView")
+    public List<StoryDTO> storyView(String id) {
+        List<FollowDTO> followDTOList = storyIdList(id);
+        List<StoryDTO> storyDTOList = storyService.storyView(followDTOList);
+        return storyDTOList;
+    }
+    @GetMapping("/findByLoginId")
     public String findByLoginId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String loginId = principalDetails.getMemberDTO().getLoginId();
-        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
-        model.addAttribute("storyList", storyDTOList);
-        return "storyPages/myStory";
+        StoryDTO storyDTO = storyService.findByLoginId(loginId);
+        if(storyDTO==null){
+            String result = "no";
+            return result;
+        } else {
+            model.addAttribute("storyDTO", storyDTO);
+            String result = "ok";
+            return result;
+        }
     }
     @GetMapping("/save-form")
     public String saveForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
@@ -63,5 +77,10 @@ public class StoryController {
         storyService.saveFile(storyDTO);
         return "redirect:/storyBoard/myStory";
     }
-
+    @GetMapping("/storyIdList")
+    public List<FollowDTO> storyIdList(String id){
+        List<FollowDTO> myList = followService.findAllByMyId(id);
+        List<FollowDTO> yourlist=followService.findAllByYourId(id);
+        return myList;
+    }
 }

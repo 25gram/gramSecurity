@@ -368,6 +368,30 @@
             transition: all 0.5s;
 
         }
+        .following {
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            position: relative;
+            top: -10px;
+            object-fit: cover;
+        }
+        .followingName {
+            font-size: 20px;
+            margin-left: 14px;
+            margin-right: 20px;
+            width: 52px;
+            height: 52px;
+            text-align: left;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 1px gray solid;
+            margin-bottom: 5px;
+        }
+        .modal-header{
+            text-align: center;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
 
 
     </style>
@@ -376,18 +400,35 @@
         let showInt = 0
 
         function showMenu() {
-            if (showInt == 0) {
-                $("#menuZone").css({
-                    "opacity": 1, "transition": "opacity 1.5s"
-                })
-                showInt = 1
-            } else if (showInt == 1) {
-                $("#menuZone").css({
-                    "opacity": 0, "transition": "opacity 1s"
-                })
+            $.ajax({
+                type: "get",
+                url: "/storyBoard/findByLoginId",
+                dataType: String,
+                beforeSend:function (result){
+                    result.setRequestHeader(header,token);
+                },
+                success: function (result) {
+                    if(result=="ok"){
+                        location.href="/storyBoard/myStory";
+                    } else if(result=="no"){
 
-                showInt = 0
+                    }
             }
+
+            })
+
+            // if (showInt == 0) {
+            //     $("#menuZone").css({
+            //         "opacity": 1, "transition": "opacity 1.5s"
+            //     })
+            //     showInt = 1
+            // } else if (showInt == 1) {
+            //     $("#menuZone").css({
+            //         "opacity": 0, "transition": "opacity 1s"
+            //     })
+            //
+            //     showInt = 0
+            // }
         }
     </script>
 
@@ -402,17 +443,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel" >팔로잉</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                <button type="button" class="btn btn-primary">Understood</button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
@@ -510,69 +551,69 @@
 
     <div class="mypageListZone">
         <!-- table 시작 -->
-        <table style="height: 100%;width:100%">
-            <tr id="detailFile">
+        <table style="height: 100%;width:100%" id="detailFile">
+<!--            <tr>-->
                 <!--                 내게시물 시작-->
 
-                <td class="wrap">
-                    <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg"
-                             src=""
-                             alt="" id="aa1">
-                        <video class="mypageListItem listImg"
-                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>
-                        <i class="manyIcon fa-regular fa-clone"></i>
+<!--                <td class="wrap">-->
+<!--                    <div class="mypageListItem input-group">-->
+<!--                        <img class="mypageListItem listImg"-->
+<!--                             src=""-->
+<!--                             alt="" id="aa1">-->
+<!--                        <video class="mypageListItem listImg"-->
+<!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa1"></video>-->
+<!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
 
-                        <div class="imgIconGroup " style="display:flex;text-align:center">
-                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div id="likeText1" class="likeText2">0</div>
-                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div class="commentText2">465</div>
-                        </div>
-                    </div>
-                </td>
+<!--                        <div class="imgIconGroup " style="display:flex;text-align:center">-->
+<!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
+<!--                            <div id="likeText1" class="likeText2">0</div>-->
+<!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
+<!--                            <div class="commentText2">465</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </td>-->
 
-                <!-- 내게시물 끝 -->
+<!--                &lt;!&ndash; 내게시물 끝 &ndash;&gt;-->
 
-                <!-- 내게시물 시작 -->
+<!--                &lt;!&ndash; 내게시물 시작 &ndash;&gt;-->
 
-                <td class="wrap">
-                    <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg"
-                             src="" alt="" id="aa2">
-                        <video class="mypageListItem listImg"
-                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa2"></video>
-                        <i class="manyIcon fa-regular fa-clone"></i>
+<!--                <td class="wrap">-->
+<!--                    <div class="mypageListItem input-group">-->
+<!--                        <img class="mypageListItem listImg"-->
+<!--                             src="" alt="" id="aa2">-->
+<!--                        <video class="mypageListItem listImg"-->
+<!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa2"></video>-->
+<!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
 
-                        <div class="imgIconGroup " style="display:flex;text-align:center">
-                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div id="likeText2" class="likeText2">0</div>
-                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div class="commentText2">465</div>
-                        </div>
-                    </div>
-                </td>
+<!--                        <div class="imgIconGroup " style="display:flex;text-align:center">-->
+<!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
+<!--                            <div id="likeText2" class="likeText2">0</div>-->
+<!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
+<!--                            <div class="commentText2">465</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </td>-->
 
-                <!-- 내게시물 끝 -->
+<!--                &lt;!&ndash; 내게시물 끝 &ndash;&gt;-->
 
-                <!-- 내게시물 시작 -->
+<!--                &lt;!&ndash; 내게시물 시작 &ndash;&gt;-->
 
-                <td class="wrap">
-                    <div class="mypageListItem input-group">
-                        <img class="mypageListItem listImg"
-                             src="" alt="" id="aa3">
-                        <video class="mypageListItem listImg"
-                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa3"></video>
-                        <i class="manyIcon fa-regular fa-clone"></i>
+<!--                <td class="wrap">-->
+<!--                    <div class="mypageListItem input-group">-->
+<!--                        <img class="mypageListItem listImg"-->
+<!--                             src="" alt="" id="aa3">-->
+<!--                        <video class="mypageListItem listImg"-->
+<!--                               src="" autoplay="autoplay" loop="loop" alt="" id="aaa3"></video>-->
+<!--                        <i class="manyIcon fa-regular fa-clone"></i>-->
 
-                        <div class="imgIconGroup " style="display:flex;text-align:center;">
-                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>
-                            <div id="likeText3" class="likeText2">0</div>
-                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>
-                            <div class="commentText2">465</div>
-                        </div>
-                    </div>
-                </td>
+<!--                        <div class="imgIconGroup " style="display:flex;text-align:center;">-->
+<!--                            <div class="likeText1"><i class="fa-solid fa-heart"></i></div>-->
+<!--                            <div id="likeText3" class="likeText2">0</div>-->
+<!--                            <div class="commentText1"><i class="fa-solid fa-comment"></i></div>-->
+<!--                            <div class="commentText2">465</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </td>-->
 
                 <!--                <td class="wrap">-->
                 <!--                    <div class="mypageListItem input-group">-->
@@ -594,7 +635,7 @@
                 <!-- 내게시물 끝 -->
 
 
-            </tr>
+<!--            </tr>-->
 
 
         </table>
@@ -732,7 +773,10 @@
         let token = $("meta[name='_csrf']").attr('content');
         let yourId = document.getElementById("myPageLoginId").innerText;
         let yourName = document.getElementById("mypageName").innerText;
+        let yourProfileName='[[${memberDTO.memberProfileName}]]';
         let loginStatus = [[${memberDTO.loginStatus}]]
+        let myName='[[${AuthenticationPrincipal.getMemberDTO().getMemberName()}]]';
+        let myProfileName='[[${AuthenticationPrincipal.getMemberDTO().getMemberProfileName}]]';
         var content = "";
 
         $.ajax({
@@ -741,7 +785,10 @@
             data: {
                 "yourId": yourId,
                 "yourName": yourName,
-                "loginStatus": loginStatus
+                "loginStatus": loginStatus,
+                "yourProfileName":yourProfileName,
+                "myName":myName,
+                "myProfileName":myProfileName
             },
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
@@ -778,10 +825,10 @@
                 console.log(result);
                 var content = "";
                 for (let i in result) {
-                    content += "<a className='following' href='" + '/member/mypage?loginId=' +
+                    content += "<a class='following' href='" + '/member/mypage?loginId=' +
                         result[i].myId + "'>" +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                        + result[i].yourName + "</a>" + "<br>";
+                        "<img class='followingName' src=\"" + '/upload/' + result[i].myProfileName + "\">"
+                        + result[i].myName + "</a>" + "<br>";
                 }
                 document.getElementById("modal-body").innerHTML = content;
             }
@@ -810,8 +857,8 @@
                 console.log(result);
                 var content = "";
                 for (let i in result) {
-                    content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                    content += "<a class='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
+                        "<img class='followingName' src=\"" + '/upload/' + result[i].yourProfileName + "\">"
                         + result[i].yourName + "</a>" + "<br>";
                 }
                 document.getElementById("modal-body").innerHTML = content;
@@ -869,80 +916,17 @@
         })
     }
 </script>
-<!--<script th:inline="javascript">-->
-<!--    $("#0").onclick=f(0);-->
-<!--    function f () {-->
-<!--        let header = $("meta[name='_csrf_header']").attr('content');-->
-<!--        let token = $("meta[name='_csrf']").attr('content');-->
-<!--        $.ajax({-->
-<!--            type: "post",-->
-<!--            url: "/board/detailFind",-->
-<!--            dataType: "json",-->
-<!--            beforeSend: function (result) {-->
-<!--                result.setRequestHeader(header, token);-->
-<!--            },-->
-<!--            success: function (data) {-->
-<!--                $.ajax({-->
-<!--                    type: "post",-->
-<!--                    url: "/board/count",-->
-<!--                    dataType: "json",-->
-<!--                    beforeSend: function (result) {-->
-<!--                        result.setRequestHeader(header, token);-->
-<!--                    },-->
-<!--                    success: function (like) {-->
-<!--                        const detailFile = document.getElementById("detailFile");-->
-<!--                        let id = 1;-->
-<!--                        let likeIndex = [];-->
-<!--                        let lengthBoard = 1;-->
-<!--                        let aa = 0;-->
-<!--                        for (let i = 0; i < like.length; i++) {-->
-<!--                            likeIndex[i] = 0;-->
-<!--                        }-->
-<!--                        for (let i = data.length-1; i >= 0; i&#45;&#45;) {-->
-<!--                            aa = data[i].boardId;-->
-<!--                            lengthBoard = id;-->
-<!--                            for (let j = 0; j < like.length; j++) {-->
-<!--                                if (like[j].boardId == aa) {-->
-<!--                                    likeIndex[i]++;-->
-<!--                                }-->
-<!--                            }-->
-<!--                            let file = '<td class="wrap">';-->
-<!--                            file += '<div class="mypageListItem input-group">';-->
-<!--                            if (data[i].boardId == aa) {-->
-<!--                                if (data[i].boardImgName == null) {-->
-<!--                                    file += '<video class="mypageListItem listImg" src="/upload/' + data[i].boardVideoName + '" autoplay="autoplay" loop="loop"></video>';-->
-<!--                                }else {-->
-<!--                                    file += '<img class="mypageListItem listImg" src="/upload/' + data[i].boardImgName + '" alt="">';-->
-<!--                                }-->
-<!--                                file += '<i class="manyIcon fa-regular fa-clone"></i>';-->
-<!--                                file += '<div class="imgIconGroup " style="display:flex;text-align:center;">';-->
-<!--                                file += '<div class="likeText1"><i class="fa-solid fa-heart"></i></div>';-->
-<!--                                file += '<div class="likeText2">' + likeIndex[i] + '</div>';-->
-<!--                                file += '<div class="commentText1"><i class="fa-solid fa-comment"></i></div>';-->
-<!--                                file += '<div class="commentText2">465</div>';-->
-<!--                                file += '</div>';-->
-<!--                                file += '</div>';-->
-<!--                                file += '</td>';-->
-<!--                                id++;-->
-<!--                                detailFile.innerHTML += file;-->
-<!--                            }-->
-<!--                        }-->
-<!--                        document.getElementById("mypageBoardCount").innerHTML = lengthBoard;-->
-<!--                    }-->
-<!--                });-->
-<!--            }-->
-<!--        });-->
-<!--    }-->
-
-<!--</script>-->
 <script th:inline="javascript">
-    $("#0").onclick=f(0);
-    function f () {
+
+    $("#0").onclick=memberDetailFile();
+    function memberDetailFile () {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
+        let memberName = [[${memberDTO.memberName}]];
         $.ajax({
             type: "post",
             url: "/board/detailFind",
+            data: {"memberName" : memberName},
             dataType: "json",
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
@@ -956,41 +940,105 @@
                         result.setRequestHeader(header, token);
                     },
                     success: function (like) {
-                        console.log(data);
-                        let id = 1;
-                        let likeIndex = [];
-                        let lengthBoard = 1;
-                        let aa = 0;
-                        for (let i = 0; i < like.length; i++) {
-                            likeIndex[i] = 0;
-                        }
-                        for (let i = data.length-1; i >= 0; i--) {
-                            aa = data[i].boardId;
-                            if (data[i].boardId == aa) {
-                                if (data[i].boardImgName == null) {
-                                    $("#aaa" + id).attr("src", /upload/ + data[i].boardVideoName);
-                                }else {
-                                    $("#aa" + id).attr("src", /upload/ + data[i].boardImgName);
-                                }
-                                lengthBoard = id;
-                                const likes = document.getElementById("likeText"+id);
-                                for (let j = 0; j < like.length; j++) {
-                                    if (like[j].boardId == aa) {
-                                        likeIndex[i]++;
-                                        likes.innerHTML = "";
+                        $.ajax({
+                            type: "post",
+                            url: "/comment/list",
+                            data: {},
+                            dataType: "json",
+                            beforeSend: function (result) {
+                                result.setRequestHeader(header, token);
+                            },
+                            success: function (comment) {
+                                const detailFile = document.getElementById("detailFile");
+                                let id = 1;
+                                let likeIndex = [];
+                                let commentIndex = [];
+                                let lengthBoard = 1;
+                                let idFind = 0;
+                                let trDoor = 1;
+                                let file = "";
+                                let boardId = data.length;
+                                for (let i = data.length - 1; i >= 0; i--) {
+                                    let fileNum = 0;
+                                    let boardCount = 0;
+                                    if (data[i].boardId == data[boardId-1].boardId) {
+                                        if (trDoor == 1) {
+                                            file += '<tr>';
+                                        }else if (trDoor == 3){
+                                            trDoor = 0;
+                                        }
+                                        trDoor++;
+                                        for (let j = 0; j < data.length; j++) {
+                                            if (data[j].boardId == data[boardId-1].boardId) {
+                                                boardCount++;
+                                            }
+                                        }
+                                        if (boardId != 0){
+                                            boardId = (boardId - boardCount);
+                                        }
+                                        likeIndex[boardId] = 0;
+                                        commentIndex[boardId] = 0;
+                                        idFind = data[boardId].boardId;
+                                        lengthBoard = id;
+                                        file += '<td class="wrap">'
+                                        for (let j = 0; j < like.length; j++) {
+                                            if (like[j].boardId == idFind) {
+                                                likeIndex[boardId]++;
+                                            }
+                                        }
+                                        for (let j = 0; j < comment.length; j++) {
+                                            if (comment[j].boardId == idFind) {
+                                                commentIndex[boardId]++;
+                                            }
+                                        }
+                                        file += '<div class="mypageListItem input-group">';
+                                        if (data[boardId].boardId == idFind) {
+                                            if (data[boardId].boardImgName == null) {
+                                                file += '<video class="mypageListItem listImg" src="/upload/' + data[boardId].boardVideoName + '" style="filter: ' +  data[boardId].boardFilter + '" autoplay="autoplay" loop="loop"></video>';
+                                            } else {
+                                                file += '<img class="mypageListItem listImg" src="/upload/' + data[boardId].boardImgName + '" alt="" style="filter: ' + data[boardId].boardFilter + '">';
+                                            }
+                                            for (let j = 0; j < data.length; j++) {
+                                                if (data[j].boardId == data[boardId].boardId) {
+                                                    fileNum++;
+                                                }
+                                            }
+                                            if (fileNum > 1) {
+                                                file += '<i class="manyIcon fa-regular fa-clone"></i>';
+                                            }
+                                            file += '<div class="imgIconGroup " style="display:flex;text-align:center;">';
+                                            file += '<div class="likeText1"><i class="fa-solid fa-heart"></i></div>';
+                                            file += '<div class="likeText2">' + likeIndex[boardId] + '</div>';
+                                            file += '<div class="commentText1"><i class="fa-solid fa-comment"></i></div>';
+                                            file += '<div class="commentText2">' + commentIndex[boardId] + '</div>';
+                                            file += '</div>';
+                                            file += '</div>';
+                                            file += '</td>';
+                                            id++;
+                                            if (data.length - 1 == 1 && id == 3) {
+                                                file += '<td style="width: 31%"></td>';
+                                            } else if (data.length - 1 == 0) {
+                                                file += '<td style="width: 31%"></td>';
+                                                file += '<td style="width: 31%"></td>';
+                                            }
+                                            if (trDoor == 1) {
+                                                file += '</tr>';
+                                            }
+                                        }
                                     }
                                 }
-                                likes.innerHTML = likeIndex[i];
-                                id++;
+                                detailFile.innerHTML += file;
+                                document.getElementById("mypageBoardCount").innerHTML = lengthBoard;
                             }
-                        }
-                        document.getElementById("mypageBoardCount").innerHTML = lengthBoard;
+                        });
                     }
                 });
             }
         });
     }
 
+
 </script>
+
 
 </html>

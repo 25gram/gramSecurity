@@ -21,20 +21,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RippleService {
     private final CommentRepository commentRepository;
-    private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
     private final RippleRepository rippleRepository;
 
-    public void save(RippleDTO rippleDTO, String loginId) {
-        Optional<MemberEntity> optionalmemberEntity = memberRepository.findByLoginId(loginId);
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(rippleDTO.getBoardId());
+    public void save(RippleDTO rippleDTO) {
+//        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(loginId);
         Optional<CommentEntity> optionalCommentEntity = commentRepository.findById(rippleDTO.getCommentId());
-        if(optionalmemberEntity.isPresent() && optionalBoardEntity.isPresent() && optionalCommentEntity.isPresent()){
-            MemberEntity memberEntity = optionalmemberEntity.get();
-            BoardEntity boardEntity = optionalBoardEntity.get();
+        if(optionalCommentEntity.isPresent()){
+//            MemberEntity memberEntity = optionalMemberEntity.get();
             CommentEntity commentEntity = optionalCommentEntity.get();
-            RippleEntity rippleEntity = RippleEntity.toSaveEntity(rippleDTO,memberEntity,boardEntity,commentEntity);
+            RippleEntity rippleEntity = RippleEntity.toSaveEntity(rippleDTO);
             rippleRepository.save(rippleEntity);
         }
 

@@ -33,7 +33,6 @@ public class CommentService {
             CommentEntity commentEntity=CommentEntity.toSaveEntity(commentDTO,memberEntity,boardEntity);
             commentRepository.save(commentEntity);
         }
-
     }
 
     public List<CommentDTO> findAll() {
