@@ -37,7 +37,7 @@ public class FollowController {
         return null;
     }
 
-    //팔로우 리스트
+    //내가 팔로우 한 사람 (팔로잉) 리스트
     @PostMapping("/myList")
     public @ResponseBody List<FollowDTO> follow(@RequestParam("loginId") String loginId, Model model) {
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
@@ -46,7 +46,7 @@ public class FollowController {
     }
 
 
-    //팔로잉 리스트
+    //나를 팔로우 한 사람 (팔로우) 리스트
     @PostMapping("/yourList")
     public @ResponseBody List<FollowDTO> following(@RequestParam("loginId") String loginId, Model model) {
         List<FollowDTO> followDTOList = followService.findAllByYourId(loginId);
