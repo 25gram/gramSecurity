@@ -41,31 +41,44 @@ public class MsgService {
         List<MsgEntity> mlist=msgr.findList(loginId,friendId);
         List<MsgDTO> dtoList=new ArrayList<>();
         for(int i = 0; i<mlist.size(); i++){
-//            if(mlist.get(i).getFriendId().equals(friendId) && mlist.get(i).getLoginId().equals(loginId)){
                 dtoList.add(MsgDTO.toSaveDto(mlist.get(i)));
-//            }
         }
-        System.out.println("MsgService.findByLoginId");
-        System.out.println("dtoList = " + dtoList);
-//        System.out.println("loginId = " + loginId + ", friendId = " + friendId);
-        System.out.println("mlist: "+mlist);
         return dtoList;
     }
 
 
     public void save(MsgDTO mem) {
-        System.out.println("MsgService.save mem : "+mem);
         msgr.save(MsgEntity.toEntity(mem));
     }
 
     public List<MsgDTO> msglist(String loginId) {
+//        List<MsgEntity>elist=msgr.findByLoginId(loginId);
 //        List<MsgEntity>elist=msgr.findMsgList(loginId);
-        List<MsgEntity>elist=msgr.findByLoginId(loginId);
+        List<MsgEntity>elist=msgr.findMsgList(loginId);
         List<MsgDTO>mlist=new ArrayList<>();
-        for(int i=0;i<elist.size();i++){
-            if(elist.get(i).getFriendId().equals(mlist.get(i-1).getFriendId()))
+        System.out.println("MsgService.msglist");
+        System.out.println("elist = " + elist);
+        if(elist.isEmpty()){
+            mlist=null;
+        }else{
+        for(int i=0;i<elist.size();i++) {
             mlist.add(MsgDTO.toDto(elist.get(i)));
+            }
+
         }
+        System.out.println("serv mlist : "+mlist);
         return mlist;
+    }
+
+    public List<MsgEntity> count(MsgDTO mem) {
+        System.out.println("*******************");
+        System.out.println("mem.getLoginId() = " + mem.getLoginId());
+        System.out.println("mem.getFriendId() = " + mem.getFriendId());
+        return msgr.count(mem.getLoginId(),mem.getFriendId());
+
+    }
+
+    public List<MsgEntity> total(String loginId) {
+        return msgr.total(loginId);
     }
 }

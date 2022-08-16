@@ -347,26 +347,52 @@
                 url:"/msg/msglist",
                 data:{
                     "loginId":'[[${mem.loginId}]]'
+
                 },
                 dataType:"json",
                 beforeSend: function (result) {
                     result.setRequestHeader(header, token);
                 },
                 success:function (e){
-                    console.log("msglist suc : "+e.friendId)
+                    console.log("msglist suc : "+e)
                         for(let i=0;i<e.length;i++){
-                        html+='<tr onClick = "showRight(0),goMsgPage('+e[i].friendId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
-                        '<img class= "msgProfile" src = "/upload/'+e[i].friendFileName+'alt = "" >< /div>'+
-                         '<div style="width:0;height:0;margin:0;padding:0"><div class="msgNameZone"><b>'+
+                            let loginId2=e[i].loginId
+                            let loginFileName2=e[i].loginFileName
+                            let loginName2=e[i].loginName
+                            let friendId2=e[i].friendId
+                            let friendFileName2=e[i].friendFileName
+                            let friendName2=e[i].friendName
+
+                            console.log(loginId2)
+                        if(e[i].loginId=='[[${mem.loginId}]]'){
+                        // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].loginId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                        html+='<tr onClick = "goMsgPage('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')+msgCount('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                        '<img class= "msgProfile" src = "/upload/'+e[i].friendFileName+'"alt = "" >'+
+                         '</div><div style="width:0;height:0;margin:0;padding:0"><div class="msgNameZone"><b>'+
                          '<p class="msgName">'+e[i].friendName+'</p></b></div><div class="lastMsgZone">'+
                          '<textarea class="lastMsg" cols="30" rows="10">'+
-                            e[i].text+'</textarea></div></div><div class="lastTimeZone"><p className="lastTime">'+
-                            e[i].createdTime+'</div></div></td></tr>'}
+                            e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
+                            "999년65월54일"+'</div></div></td></tr>'}
+                         else{
+                            // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].friendId+','+e[i].loginFileName+','+e[i].loginName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                            html+='<tr onClick = "goMsgPage('+"'"+loginId2+"','"+loginFileName2+"','"+loginName2+"'"+')+msgCount('+"'"+loginId2+"','"+loginFileName2+"','"+loginName2+"'"+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
+                                '<img class= "msgProfile" src = "/upload/'+e[i].loginFileName+'"alt = "" >'+
+                                '</div><div style="width:0;height:0;margin:0;padding:0"><div class="msgNameZone"><b>'+
+                                '<p class="msgName">'+e[i].loginName+'</p></b></div><div class="lastMsgZone">'+
+                                '<textarea class="lastMsg" cols="30" rows="10">'+
+                                e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
+                                "999년65월54일"+'</div></div></td></tr>'
+                        }
+
+                        }
+
+
                         zone.innerHTML=html;
 
                 },
                 error:function (e){
                     console.log("msglist err")
+                    zone.innerHTML=""
                 }
             })
         }
@@ -379,7 +405,7 @@
     <!-- 왼쪽화면 -->
     <div class="msgbodyLeft" style="width: 350px;height: 100%;border-right: #ebe9e9 1px solid;">
         <!-- 프로필이름 -->
-        <div class="" style="width:100%; height:60px; border-bottom: #ebe9e9 1px solid;">
+        <div class="" style="width:350px; height:60px; border-bottom: #ebe9e9 1px solid;">
             <p id="msgName">[[${mem.memberName}]]</p>
             <!-- <p id="msgName">havana_1016</p> -->
         </div>
@@ -388,74 +414,74 @@
         <div class="msgListZone" style="height:638px;width: 100%;overflow: scroll;">
             <table id="table" >
 
-                <!-- 메시지 주고 받은 내역 -->
-                <tr onclick="showRight(0)">
-                    <td>
-                        <div class="msgList">
-                            <!-- 프로필사진 -->
-                            <div class="msgProfileZone">
-                                <img class="msgProfile"
-                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"
-                                     alt="">
-                            </div>
+<!--                &lt;!&ndash; 메시지 주고 받은 내역 &ndash;&gt;-->
+<!--                <tr onclick="showRight(0)">-->
+<!--                    <td>-->
+<!--                        <div class="msgList">-->
+<!--                            &lt;!&ndash; 프로필사진 &ndash;&gt;-->
+<!--                            <div class="msgProfileZone">-->
+<!--                                <img class="msgProfile"-->
+<!--                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"-->
+<!--                                     alt="">-->
+<!--                            </div>-->
 
-                            <div style="width:0;height:0;margin:0;padding:0">
-                                <!-- 프로필 이름 -->
-                                <div class="msgNameZone">
-                                    <b>
-                                        <p class="msgName">havana_1016</p>
-                                    </b>
-                                </div>
-                                <!-- 마지막 메시지 -->
-                                <div class="lastMsgZone">
-                                        <textarea class="lastMsg" cols="30"
-                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>
-                                </div>
-                            </div>
+<!--                            <div style="width:0;height:0;margin:0;padding:0">-->
+<!--                                &lt;!&ndash; 프로필 이름 &ndash;&gt;-->
+<!--                                <div class="msgNameZone">-->
+<!--                                    <b>-->
+<!--                                        <p class="msgName">havana_1016</p>-->
+<!--                                    </b>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash; 마지막 메시지 &ndash;&gt;-->
+<!--                                <div class="lastMsgZone">-->
+<!--                                        <textarea class="lastMsg" cols="30"-->
+<!--                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <!-- 마지막 시간 -->
-                            <div class="lastTimeZone">
-                                <p class="lastTime">8월14일 오후 06:03</p>
-                            </div>
+<!--                            &lt;!&ndash; 마지막 시간 &ndash;&gt;-->
+<!--                            <div class="lastTimeZone">-->
+<!--                                <p class="lastTime">8월14일 오후 06:03</p>-->
+<!--                            </div>-->
 
-                        </div>
-                    </td>
-                </tr>
-                <!-- 메시지 주고 받은 내역 끝 -->
-                <!-- 메시지 주고 받은 내역 -->
-                <tr onclick="showRight(0)">
-                    <td>
-                        <div class="msgList">
-                            <!-- 프로필사진 -->
-                            <div class="msgProfileZone">
-                                <img class="msgProfile"
-                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"
-                                     alt="">
-                            </div>
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                &lt;!&ndash; 메시지 주고 받은 내역 끝 &ndash;&gt;-->
+<!--                &lt;!&ndash; 메시지 주고 받은 내역 &ndash;&gt;-->
+<!--                <tr onclick="showRight(0)">-->
+<!--                    <td>-->
+<!--                        <div class="msgList">-->
+<!--                            &lt;!&ndash; 프로필사진 &ndash;&gt;-->
+<!--                            <div class="msgProfileZone">-->
+<!--                                <img class="msgProfile"-->
+<!--                                     src="http://image.sportsseoul.com/2019/10/02/news/2019100201000183100008971.jpg"-->
+<!--                                     alt="">-->
+<!--                            </div>-->
 
-                            <div style="width:0;height:0;margin:0;padding:0">
-                                <!-- 프로필 이름 -->
-                                <div class="msgNameZone">
-                                    <b>
-                                        <p class="msgName">havana_1016</p>
-                                    </b>
-                                </div>
-                                <!-- 마지막 메시지 -->
-                                <div class="lastMsgZone">
-                                        <textarea class="lastMsg" cols="30"
-                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>
-                                </div>
-                            </div>
+<!--                            <div style="width:0;height:0;margin:0;padding:0">-->
+<!--                                &lt;!&ndash; 프로필 이름 &ndash;&gt;-->
+<!--                                <div class="msgNameZone">-->
+<!--                                    <b>-->
+<!--                                        <p class="msgName">havana_1016</p>-->
+<!--                                    </b>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash; 마지막 메시지 &ndash;&gt;-->
+<!--                                <div class="lastMsgZone">-->
+<!--                                        <textarea class="lastMsg" cols="30"-->
+<!--                                                  rows="10">안녕하세요~ 반갑습니다.아아gggggggggggggggggggggg라라라라라라라</textarea>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <!-- 마지막 시간 -->
-                            <div class="lastTimeZone">
-                                <p class="lastTime">8월14일 오후 06:03</p>
-                            </div>
+<!--                            &lt;!&ndash; 마지막 시간 &ndash;&gt;-->
+<!--                            <div class="lastTimeZone">-->
+<!--                                <p class="lastTime">8월14일 오후 06:03</p>-->
+<!--                            </div>-->
 
-                        </div>
-                    </td>
-                </tr>
-                <!-- 메시지 주고 받은 내역 끝 -->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                &lt;!&ndash; 메시지 주고 받은 내역 끝 &ndash;&gt;-->
 
 
 
@@ -500,7 +526,7 @@
             </div>
 
             <!-- dm입력창 -->
-            <form  name="dmInputZone" id="dmInputZone" class="dmInputZone" method="post" action="/msg/save">
+            <div  name="dmInputZone" id="dmInputZone" class="dmInputZone" method="post" action="/msg/save">
                 <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
                 <!-- 로그인 아이디 밸류 값 주기 -->
                 <input type="text" id="loginId" name="loginId" hidden th:value="${mem.loginId}">
@@ -510,7 +536,7 @@
                 <textarea name="text" type="text" id="dmInput" class="dmInput"
                           placeholder="메시지 입력.."></textarea>
                 <input type="text" id="seeInt" name="seeInt" value="1" hidden>
-            </form>
+            </div>
             <div id="formBtn" class="formBtn">보내기</div>
         </div>
 
@@ -708,6 +734,8 @@
 
 </style>
 <script>
+
+
     $("#formBtn").click(function (){
         console.log("click호출")
         if(document.getElementById("dmInput").value.length!=0){
@@ -717,6 +745,8 @@
         let seeInt=document.getElementById("seeInt").value;
         let friendFileName=document.getElementById("friendFileName").value;
         let friendName=document.getElementById("friendName").innerHTML
+        let loginName='[[${mem.memberName}]]';
+        let loginFileName='[[${mem.memberProfileName}]]'
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         $.ajax({
@@ -726,7 +756,10 @@
                 "friendId":friendId,
                 "text":text,
                 "seeInt":seeInt,
-                "friendFileName":friendFileName
+                "friendFileName":friendFileName,
+                "friendName":friendName,
+                "loginName":loginName,
+                "loginFileName":loginFileName
             },
             type:"post",
             dataType:"text",
@@ -736,11 +769,23 @@
         })
         $(".emojionearea-editor").html("")
         document.getElementById("dmInput").value=""
-        goMsgPage(friendId,friendFileName,friendName)}
-    })
+        setTimeout(msgList,250)
+        clearTimeout(var1)
+            // setTimeout(var1)
+            msgCount(friendId,friendFileName,friendName)
+        // setTimeout(goMsgPage,250,friendId,friendFileName,friendName)
+    }})
 
+
+    let fi;
+    let ff;
+    let fn;
     function goMsgPage(friendId,ffile,fname){
+        console.log("1111111111111111111111111111111111111111111111")
         showSearch(1)
+        fi=friendId
+        ff=ffile
+        fn=fname
         // document.getElementById("search").value=" "
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -750,6 +795,7 @@
         let zone=document.getElementById("msgZone")
         document.getElementById("friendId").value=friendId;
         document.getElementById("friendFileName").value=ffile;
+        // msgCount(loginId1,friendId,ffile,fname)
 
         let html='';
 
@@ -789,7 +835,82 @@
         fnZone.innerHTML=fname
         showRight(0);
 
+
     }
+
+
+    let var1;
+        let mcount=0;
+    function msgCount(friendId,ffile,fname){
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let logid='[[${mem.loginId}]]'
+        console.log("count 호출")
+        $.ajax({
+            url:"/msg/count",
+            data:{
+                "loginId":logid,
+                "friendId":friendId
+            },
+            dataType:"json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success:function (e){
+                console.log("count suc : "+e)
+                console.log("length : "+e.length)
+                console.log("**************************************************")
+                console.log(friendId)
+                console.log("**************************************************")
+
+                if(mcount!=e.length){
+                    mcount=e.length
+                    goMsgPage(fi,ff,fn)
+                    msgList()
+
+                }
+            },
+            error:function (e){
+                console.log("count err : ")
+            }
+        })
+        var1=setTimeout(timer,1000)
+        function timer(){
+            msgCount(fi,ff,fn)
+        }
+
+    }
+    let var2=""
+    function totalCount(){
+        console.log("total 호출")
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        let logId='[[${mem.loginId}]]'
+        $.ajax({
+            url:"/msg/total",
+            data:{
+                "loginId":logId
+            },
+            dataType:"json",
+            beforeSend: function (result) {
+                result.setRequestHeader(header, token);
+            },
+            success:function (e){
+                console.log("total suc")
+            },
+            error:function (e){
+                console.log("total err")
+            }
+        })
+        function timer1(){
+            totalCount()
+        }
+        var2=setTimeout(timer1,2000)
+    }
+
+    $("#rightX").click(function (){
+        clearTimeout(var1)
+    })
     function sub() {
         console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
@@ -816,7 +937,7 @@
                 if (result.length != 0) {
                     for (let i in result) {
                         if(id!=result[i].loginId) {
-                            content += '<div onclick="goMsgPage(' + "'" + result[i].loginId + "','" + result[i].memberProfileName + "','" + result[i].memberName + "'" + ')" class="searchList"><img class="searchProfile" src=\"/upload/' + result[i].memberProfileName + '\">'
+                            content += '<div onclick="goMsgPage(' + "'" + result[i].loginId + "','" + result[i].memberProfileName + "','" + result[i].memberName + "'" + '),msgCount(' + "'" + result[i].loginId + "','" + result[i].memberProfileName + "','" + result[i].memberName + "'" + ')" class="searchList"><img class="searchProfile" src=\"/upload/' + result[i].memberProfileName + '\">'
                                 + " <p class='searchName' >" + result[i].memberName + "</p>" + "</div>"
                         }
                     }

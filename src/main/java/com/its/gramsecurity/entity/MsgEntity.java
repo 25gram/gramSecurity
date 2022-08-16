@@ -37,6 +37,11 @@ public class MsgEntity extends BaseEntity{
 
     @Column()
     String friendFileName;
+    @Column
+    String loginName;
+
+    @Column()
+    String loginFileName;
 
      public static MsgEntity toEntity(MsgDTO mem){
         MsgEntity dto=new MsgEntity();
@@ -46,6 +51,8 @@ public class MsgEntity extends BaseEntity{
         dto.setSeeInt(mem.getSeeInt());
         dto.setFriendFileName(mem.getFriendFileName());
         dto.setFriendName(mem.getFriendName());
+        dto.setLoginName(mem.getLoginName());
+        dto.setLoginFileName(mem.getLoginFileName());
         return dto;
     }
 
