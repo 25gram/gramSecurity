@@ -368,6 +368,30 @@
             transition: all 0.5s;
 
         }
+        .following {
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            position: relative;
+            top: -10px;
+            object-fit: cover;
+        }
+        .followingName {
+            font-size: 20px;
+            margin-left: 14px;
+            margin-right: 20px;
+            width: 52px;
+            height: 52px;
+            text-align: left;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 1px gray solid;
+            margin-bottom: 5px;
+        }
+        .modal-header{
+            text-align: center;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
 
 
     </style>
@@ -404,17 +428,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel" >팔로잉</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                <button type="button" class="btn btn-primary">Understood</button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
@@ -734,7 +758,10 @@
         let token = $("meta[name='_csrf']").attr('content');
         let yourId = document.getElementById("myPageLoginId").innerText;
         let yourName = document.getElementById("mypageName").innerText;
+        let yourProfileName='[[${memberDTO.memberProfileName}]]';
         let loginStatus = [[${memberDTO.loginStatus}]]
+        let myName='[[${AuthenticationPrincipal.getMemberDTO().getMemberName()}]]';
+        let myProfileName='[[${AuthenticationPrincipal.getMemberDTO().getMemberProfileName}]]';
         var content = "";
 
         $.ajax({
@@ -743,7 +770,10 @@
             data: {
                 "yourId": yourId,
                 "yourName": yourName,
-                "loginStatus": loginStatus
+                "loginStatus": loginStatus,
+                "yourProfileName":yourProfileName,
+                "myName":myName,
+                "myProfileName":myProfileName
             },
             beforeSend: function (result) {
                 result.setRequestHeader(header, token);
@@ -780,10 +810,10 @@
                 console.log(result);
                 var content = "";
                 for (let i in result) {
-                    content += "<a className='following' href='" + '/member/mypage?loginId=' +
+                    content += "<a class='following' href='" + '/member/mypage?loginId=' +
                         result[i].myId + "'>" +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
-                        + result[i].yourName + "</a>" + "<br>";
+                        "<img class='followingName' src=\"" + '/upload/' + result[i].myProfileName + "\">"
+                        + result[i].myName + "</a>" + "<br>";
                 }
                 document.getElementById("modal-body").innerHTML = content;
             }
@@ -812,8 +842,8 @@
                 console.log(result);
                 var content = "";
                 for (let i in result) {
-                    content += "<a className='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
-                        "<img src=\"" + '/upload/' + result[i].yourProfileName + "\">"
+                    content += "<a class='following' href='" + '/member/mypage?loginId=' + result[i].yourId + "' > " +
+                        "<img class='followingName' src=\"" + '/upload/' + result[i].yourProfileName + "\">"
                         + result[i].yourName + "</a>" + "<br>";
                 }
                 document.getElementById("modal-body").innerHTML = content;
