@@ -51,7 +51,8 @@ public class StoryService {
         return storyRepository.save(StoryEntity.toSaveStoryEntity(storyDTO, memberEntity)).getId();
     }
 
-    public void saveFile(StoryDTO storyDTO) throws IOException {
+    public Long saveFile(StoryDTO storyDTO) throws IOException {
+        Long id=null;
         Optional<StoryEntity> storyEntityOptional = storyRepository.findById(storyDTO.getId());
         if (storyEntityOptional.isPresent()) {
             StoryEntity storyEntity = storyEntityOptional.get();
@@ -73,9 +74,9 @@ public class StoryService {
             storyEntity.setStoryFileName(storyFileName);
             storyEntity.setStoryImgName(storyImgName);
             storyEntity.setMemberProfileName(storyDTO.getMemberProfileName());
-            storyRepository.save(storyEntity);
+            id = storyRepository.save(storyEntity).getId();
         }
-
+            return id;
     }
 
     public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
@@ -92,5 +93,14 @@ public class StoryService {
             }
         }
         return storyDTOList;
+    }
+
+    public StoryDTO findById(Long id) {
+        Optional<StoryEntity> byLoginId = storyRepository.findById(id);
+        StoryDTO storyDTO = new StoryDTO();
+        if (byLoginId.isPresent()) {
+            storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
+        }
+        return storyDTO;
     }
 }
