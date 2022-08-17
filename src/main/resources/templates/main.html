@@ -271,7 +271,7 @@
         }
 
         .feedCommentZone {
-            background-color: rgba(128, 128, 128, 0.3);
+            /*background-color: rgba(128, 128, 128, 0.3);*/
             height: 130px;
         }
 
@@ -420,7 +420,7 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
     </style>
@@ -752,10 +752,10 @@
         <div class="storyZone">
 
             <tr th:each="story :${storyList}">
-                <div style="float: left; width: 20%; text-align: center; font-size: 14px; color: #4E4E4E" >
-                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}"> <img class="storyProfile"
-                                                                                      th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
-                    </a>
+                <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E" >
+                   <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}"> <img class="storyProfile"
+                         th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
+                   </a>
                     <p style="text-align: center" th:text="${story.getMemberName()}"></p>
                 </div>
             </tr>
@@ -853,7 +853,7 @@
                                 addImg();
                                 likeList(object.id);
                                 commentList(object.id);
-
+                                rippleList(object.id);
                                 function addImg() {
                                     if (data[hssIndex].boardImgName != null) {
                                         m = "<div><img src='" + '/upload/' + data[hssIndex].boardImgName + '' + "'" + " class='contentsItem_detail contentsItem_img detail' id='contentsItem_detail' alt=''></div>";
@@ -984,14 +984,14 @@
                             if (data[j].boardId == board[i].id && stop < 2) {
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[j].commentWriter == member[o].memberName) {
-                                        comment.innerHTML += '<span>' + member[o].memberName + '</span>';
+                                        comment.innerHTML += '<span class="commentWriter">' + member[o].memberName + '</span>';
                                     }
                                 }
-                                comment.innerHTML += "  <span>" + data[j].commentContents + "</span><br>";
+                                comment.innerHTML += "  <span class='commentContent'>" + data[j].commentContents + "</span><br>";
                                 stop++;
                             }
                             if (stop == 2 && commentIndex[i] != 0) {
-                                comment.innerHTML += "<br><span>" + "댓글 " + commentIndex[i] + "개 모두 보기" + "</span>"
+                                comment.innerHTML += "<br><span class='commentWriter'>" + "댓글 " + commentIndex[i] + "개 모두 보기" + "</span>"
                                 stop++
                             }
                         }
@@ -1004,15 +1004,20 @@
                             if (id == data[i].boardId) {
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[i].commentWriter == member[o].memberName) {
-                                        commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                        commentDetail.innerHTML += '     <span id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                        commentDetail.innerHTML += '<img class=\'commentListImg\' src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
+                                        commentDetail.innerHTML += '     <span class="commentListWriter" id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
                                         ripple = member[o].memberName;
                                     }
                                 }
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
+                                // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
+                                commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">'+'</div>';
+                                commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
                         commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        rippleList(id);
                     }
                 }
             });
@@ -1039,86 +1044,118 @@
                     result.setRequestHeader(header, token);
                 },
                 success: function (data) {
-                    // document.querySelector(".emojionearea-editor").innerHTML = "";
-                    commentContents.value = "";
-                    let member = [[${findAll}]];
-                    const commentDetail = document.getElementById("commentList");
-                    let commentIndex = [];
-                    let stop;
-                    const comment = document.getElementById("feedCommentZone" + id);
-                    commentIndex[id] = 0;
-                    for (let j = 0; j < data.length; j++) {
-                        if (id == data[j].boardId) {
-                            commentIndex[id]++;
-                        }
-                    }
-                    if (commentIndex[id] - 2 == 0) {
-                        commentIndex[id] = 0;
-                    }
-                    comment.innerHTML = "";
-                    stop = 0;
-                    for (let j = 0; j < data.length; j++) {
-                        if (data[j].boardId == id && stop < 2) {
-                            for (let o = 0; o < member.length; o++) {
-                                if (data[j].commentWriter == member[o].memberName) {
-                                    comment.innerHTML += '<span>' + member[o].memberName + '</span>';
-                                }
-                            }
-                            comment.innerHTML += "  <span>" + data[j].commentContents + "</span><br>";
-                            stop++;
-                        }
-                        if (stop == 2 && commentIndex[id] != 0) {
-                            comment.innerHTML += "<br><span>" + "댓글 " + commentIndex[id] + "개 모두 보기" + "</span>"
-                            stop++
-                        }
-                    }
-                    commentDetail.innerHTML = "";
-                    for (let i = data.length - 1; i >= 0; i--) {
-                        if (id == data[i].boardId) {
-                            for (let o = 0; o < member.length; o++) {
-                                if (data[i].commentWriter == member[o].memberName) {
-                                    commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                    commentDetail.innerHTML += '    <span>' + member[o].memberName + '</span>';
-                                }
-                            }
-                            commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
-                        }
-                    }
-
+                    commentList(id);
                 }
             });
         }
 
-        function rippleSave(id) {
+        function rippleSave(id,boardId,rippleNum,rippleNum2) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
-            // const  contentsDetail = document.getElementById("text1_detail");
-            const rippleWriter = document.getElementById('ripple' + id).innerHTML;
             const contentsDetail = document.getElementById("text1_detail");
-            console.log(id);
-            // console.log(commentWriter);
-            console.log(contentsDetail.value)
+            let rippleName = '';
+            if (rippleNum2 == 1) {
+                rippleName = document.getElementById('ripplePlus' + rippleNum).innerHTML;
+            }else {
+                rippleName = document.getElementById('ripple' + id).innerHTML;
+            }
+            console.log(rippleName)
+            const memberName = [[${memberDTO.loginId}]]
             $.ajax({
                 type: "post",
                 url: "/ripple/save",
-                data: {"rippleContents" : contentsDetail, "commentId" : id, "rippleWriter" : rippleWriter},
+                data: {"rippleContents" : contentsDetail.value, "commentId" : id, "rippleWriter" : memberName,"tagName" : rippleName},
                 dataType: "json",
                 beforeSend: function (result) {
                     result.setRequestHeader(header, token);
                 },
                 success: function (data) {
-                    const commentDetail = document.getElementById("rippleList" + id);
-                    commentDetail.innerHTML += '<br><span>---</span>';
-                    for (let i = 0; i < data.length - 1; i++) {
-                        if (data.length - 1 == i) {
-                            commentDetail.innerHTML += '---'
+                    $.ajax({
+                        type: "post",
+                        url: "/comment/list",
+                        data: {},
+                        dataType: "json",
+                        beforeSend: function (result) {
+                            result.setRequestHeader(header, token);
+                        },
+                        success: function (comment) {
+                            rippleList(boardId,id);
                         }
-                        commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
-                    }
-
+                    });
                 }
             });
         }
+
+        function rippleOpen(id,boardId) {
+            rippleList(boardId,id);
+        }
+        function rippleClose(id, boardId) {
+            const commentDetail = document.getElementById("rippleList"+id);
+            commentDetail.innerHTML = '';
+            rippleList(boardId);
+        }
+        function rippleList (id,commentId) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            $.ajax({
+                type: "post",
+                url: "/ripple/list",
+                data: {},
+                dataType: "json",
+                beforeSend: function (result) {
+                    result.setRequestHeader(header, token);
+                },
+                success: function (data) {
+                    $.ajax({
+                        type: "post",
+                        url: "/comment/list",
+                        data: {},
+                        dataType: "json",
+                        beforeSend: function (result) {
+                            result.setRequestHeader(header, token);
+                        },
+                        success: function (comment) {
+                            let member = [[${findAll}]];
+                            for (let i = 0; i < comment.length; i++) {
+                                const commentDetail = document.getElementById("listRipple" + (i+1));
+                                for (let j = 0; j < data.length; j++) {
+                                    if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
+                                        commentDetail.innerHTML = "";
+                                        commentDetail.innerHTML += '<span onclick="rippleOpen(' + (i+1) + "," + id + ')">' + '---' + '</span>';
+                                    }else if (comment[i].id == commentId && id == comment[i].boardId && comment[i].id == data[j].commentId){
+                                        commentDetail.innerHTML = '<span onclick="rippleClose(' + commentId + "," + id + ')">' + '---' + '</span>';
+                                    }
+                                }
+                            }
+                            if (commentId != 0) {
+                                const commentDetail = document.getElementById("rippleList" + commentId);
+                                for (let i = 0; i < data.length; i++) {
+                                    if (commentId == data[i].commentId) {
+                                        commentDetail.innerHTML = "";
+                                    }
+                                }
+                                let ripple = "";
+                                for (let i = 0; i < data.length; i++) {
+                                    for (let o = 0; o < member.length; o++) {
+                                        if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
+                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">';
+                                            commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + member[o].loginId + '">'+'<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
+                                            ripple = member[o].memberName;
+                                        }
+                                    }
+                                    if (commentId == data[i].commentId) {
+                                        commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
+                                        commentDetail.innerHTML += '<span onclick="rippleSave(' + commentId + ',' + id + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
 
     </script>
     <script>
@@ -1279,7 +1316,7 @@
                                     icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
-                                        detailIcon += "<i class='fa-solid fa-heart commentListItem detail' style='color: red' id='like_detail' onclick='likes(" + data[i].id + ',' + 1 + ")'></i>"
+                                        detailIcon += "<i class='fa-solid fa-heart commentListItem detail' style='color: red' id='like_detail' onclick='likes(" + id + ")'></i>"
                                         detailIcon += "<span id='like_count'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                         likeDetail.innerHTML = detailIcon;
                                     }
@@ -1289,7 +1326,7 @@
                                     icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
-                                        detailIcon += "<i class='fa-regular fa-heart commentListItem detail' style='color: black' id='like_detail' onclick='likes(" + data[i].id + ',' + 1 + ")'></i>"
+                                        detailIcon += "<i class='fa-regular fa-heart commentListItem detail' style='color: black' id='like_detail' onclick='likes(" + id + ")'></i>"
                                         detailIcon += "<span id='like_count'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                         likeDetail.innerHTML = detailIcon;
                                     }
@@ -1362,11 +1399,9 @@
             }
         }
 
-        function likes(id, id2) {
-            console.log(id2);
+        function likes(id) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
-            console.log(id)
             const loginId = [[${memberDTO.memberName}]];
             $.ajax({
                 type: "post",
@@ -1377,50 +1412,7 @@
                     result.setRequestHeader(header, token);
                 },
                 success: function (data) {
-                    $.ajax({
-                        type: "post",
-                        url: "/board/count",
-                        dataType: "json",
-                        beforeSend: function (result) {
-                            result.setRequestHeader(header, token);
-                        },
-                        success: function (likes) {
-                            let like = [];
-                            const board = [[${boardList}]];
-                            for (let i = 0; i < board.length; i++) {
-                                like[i] = 0;
-                                for (let j = 0; j < likes.length; j++) {
-                                    if (likes[j].boardId == board[i].id) {
-                                        like[i]++;
-                                        console.log(like[i])
-                                    }
-                                }
-                            }
-                            const likeDetail = document.getElementById("like_detail");
-                            const like_count = document.getElementById("like_count");
-                            const likeTest2 = document.getElementById("i" + id);
-                            const likeIndex = document.getElementById("k" + id);
-                            if (data == "ok") {
-                                likeTest2.className = "fa-solid fa-heart feedBtn";
-                                likeTest2.style.color = "red";
-                                likeIndex.innerHTML = "좋아요" + like[board.length - id] + "개";
-                                if (id2 == 1) {
-                                    likeDetail.className = 'fa-solid fa-heart commentListItem detail';
-                                    likeDetail.style.color = "red";
-                                    like_count.innerHTML = "좋아요" + like[board.length - id] + "개";
-                                }
-                            } else {
-                                likeTest2.className = "fa-regular fa-heart feedBtn";
-                                likeTest2.style.color = "black";
-                                likeIndex.innerHTML = "좋아요" + like[board.length - id] + "개";
-                                if (id2 == 1) {
-                                    likeDetail.className = 'fa-regular fa-heart commentListItem detail';
-                                    likeDetail.style.color = "black";
-                                    like_count.innerHTML = "좋아요" + like[board.length - id] + "개";
-                                }
-                            }
-                        }
-                    });
+                    likeList(id);
                 }
             });
         }
@@ -2430,6 +2422,21 @@
             width: 400px;
             /* border: 1px solid; */
         }
+        .commentListImg{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            /*border: 1px gray solid;*/
+            margin-bottom: 10px;
+            margin-left: 15px;
+        }
+        .commentListWriter{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 17px;
+            font-weight: bold;
+            margin-right: 20px;
+            margin-left: 15px;
+        }
 
         .detail > .emojionearea {
             min-height: 60px;
@@ -2500,8 +2507,22 @@
         .commentList[class*="detail"] {
             /* background-color: yellow; */
             height: 509px;
-            border-bottom: rgb(214, 214, 214) 1px solid
+            border-bottom: rgb(214, 214, 214) 1px solid;
+            /*font-family: 'Noto Sans KR', sans-serif;*/
+            /*font-size: 25px;*/
         }
+        .commentWriter{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 17px;
+            font-weight: bold;
+            margin-right: 20px;
+            margin-left: 15px;
+        }
+        .commentContent{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 15px;
+        }
+
 
         .commentListItem[class*="detail"] {
             font-size: 25px;
@@ -2771,7 +2792,5 @@
     </div>
 </div>
 <!--off canvas end-->
-
-
 </body>
 </html>

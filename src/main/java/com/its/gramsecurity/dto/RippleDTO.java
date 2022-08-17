@@ -16,6 +16,7 @@ public class RippleDTO {
     private Long commentId;
     private String rippleWriter;
     private String rippleContents;
+    private String tagName;
     private LocalDateTime rippleCreatedTime;
 
 
@@ -25,6 +26,7 @@ public class RippleDTO {
         rippleDTO.setCommentId(rippleEntity.getCommentId());
         rippleDTO.setRippleWriter(rippleEntity.getRippleWriter());
         rippleDTO.setRippleContents(rippleEntity.getRippleContents());
+        rippleDTO.setTagName(rippleEntity.getTagName());
         return rippleDTO;
     }
 }

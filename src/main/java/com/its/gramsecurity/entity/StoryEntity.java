@@ -8,6 +8,8 @@ import org.hibernate.type.PrimitiveCharacterArrayNClobType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -69,6 +71,11 @@ public class StoryEntity {
     @Column
     private String memberProfileName;
 
+    @OneToMany(mappedBy = "storyEntity",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<StoryViewEntity> storyEntityList=new ArrayList<>();
     public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, MemberEntity memberEntity){
         StoryEntity storyEntity = new StoryEntity();
         storyEntity.setLoginId(memberEntity.getLoginId());
