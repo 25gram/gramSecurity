@@ -47,7 +47,7 @@ public class MainController {
         for(int i=0; i<storyDTOList.size(); i++) {
             Long id = storyDTOList.get(i).getId();
             StoryDTO storyDTO = storyDTOList.get(i);
-           boolean result = storyController.findByStoryIdANDLoginId(id, loginId);
+           boolean result = storyController.findByStoryIdAndLoginId(id, loginId);
            if(!result){
                storyList.add(storyDTO);
            }
