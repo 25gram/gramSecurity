@@ -80,7 +80,7 @@ public class StoryService {
             return loginId;
     }
 
-    public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
+    public List<StoryDTO> findStoryList(List<FollowDTO> followDTOList) {
         List<StoryDTO> storyDTOList = new ArrayList<>();
         for (int i = 0; i < followDTOList.size(); i++) {
 
@@ -107,7 +107,9 @@ public class StoryService {
         List<StoryEntity>storyEntityList=storyRepository.findByLoginId(memberDTO.getLoginId());
         for (int i = 0; i < storyEntityList.size(); i++) {
             storyEntityList.get(i).setMemberProfileName(memberProfileName);
+            storyEntityList.get(i).setMemberName(memberDTO.getMemberName());
             storyRepository.save(storyEntityList.get(i));
+
         }
     }
 }
