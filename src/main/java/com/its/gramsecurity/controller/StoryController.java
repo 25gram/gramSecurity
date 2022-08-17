@@ -39,7 +39,7 @@ public class StoryController {
         if(storyDTOList.isEmpty()){
             return "redirect:/storyBoard/save-form";
         } else {
-            return "redirect:/storyBoard/stories?loginId="+loginId;
+            return "redirect:/storyBoard/stories/"+loginId;
         }
     }
 
