@@ -18,13 +18,16 @@ public class StoryViewEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "login_id")
+    private MemberEntity memberEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "story_id")
     private StoryEntity storyEntity;
 
-    public static StoryViewEntity toStoryViewEntity(StoryViewDTO storyViewDTO, StoryEntity storyEntity) {
+    public static StoryViewEntity toStoryViewEntity(StoryEntity storyEntity, MemberEntity memberEntity) {
         StoryViewEntity storyView = new StoryViewEntity();
         storyView.setStoryEntity(storyEntity);
-        storyView.setStoryEntity(storyEntity);
+        storyView.setMemberEntity(memberEntity);
         return storyView;
     }
 }

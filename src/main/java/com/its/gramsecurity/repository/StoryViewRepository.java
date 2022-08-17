@@ -13,7 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface StoryViewRepository extends JpaRepository<StoryViewEntity,Long> {
-
-    boolean findByStoryIdANDLoginId(Long id, String loginId);
+    @Transactional
+    @Query(value = "select s from StoryViewEntity s where s.storyEntity.id=:id and s.memberEntity.loginId=:loginId")
+    Optional<StoryViewEntity> findByStoryIdAndLoginId(Long id, String loginId);
 
 }
