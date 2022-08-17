@@ -44,6 +44,7 @@ public class RippleEntity extends BaseEntity{
         RippleEntity rippleEntity = new RippleEntity();
         rippleEntity.setId(rippleDTO.getId());
         rippleEntity.setRippleContents(rippleDTO.getRippleContents());
+        rippleEntity.setCommentId(rippleDTO.getCommentId());
         rippleEntity.setRippleWriter(rippleDTO.getRippleWriter());
         rippleEntity.setMemberEntity(memberEntity);
         rippleEntity.setCommentEntity(commentEntity);

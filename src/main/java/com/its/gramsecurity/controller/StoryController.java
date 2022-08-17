@@ -1,12 +1,11 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
-import com.its.gramsecurity.dto.FollowDTO;
-import com.its.gramsecurity.dto.MemberDTO;
-import com.its.gramsecurity.dto.StoryDTO;
+import com.its.gramsecurity.dto.*;
 import com.its.gramsecurity.service.FollowService;
 import com.its.gramsecurity.service.MemberService;
 import com.its.gramsecurity.service.StoryService;
+import com.its.gramsecurity.service.StoryViewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -25,11 +24,11 @@ public class StoryController {
     String memberName = "admin";
     private final MemberService memberService;
     private final FollowService followService;
-
-    @GetMapping("/storyView")
-    public List<StoryDTO> storyView(String id) {
+    private final StoryViewService storyViewService;
+    @GetMapping("/findStoryList")
+    public List<StoryDTO> findStoryList(String id) {
         List<FollowDTO> followDTOList = storyIdList(id);
-        List<StoryDTO> storyDTOList = storyService.storyView(followDTOList);
+        List<StoryDTO> storyDTOList = storyService.findStoryList(followDTOList);
 
         return storyDTOList;
     }
@@ -48,7 +47,7 @@ public class StoryController {
     public String stories(@PathVariable("id") String loginId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         String myId = principalDetails.getMemberDTO().getLoginId();
-
+        storyViewService.storyViewSave(loginId);
         model.addAttribute("storyList", storyDTOList);
         model.addAttribute("myId", myId);
         return "storyPages/stories";
@@ -90,5 +89,10 @@ public class StoryController {
         List<FollowDTO> yourList=followService.findAllByYourId(id);
 
         return yourList;
+    }
+    @GetMapping("/storyViewCheck")
+    public boolean findByStoryIdANDLoginId(Long id, String loginId){
+        boolean result = storyViewService.findByStoryIdAndLoginId(id, loginId);
+        return result;
     }
 }
