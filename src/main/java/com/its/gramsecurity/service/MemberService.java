@@ -31,6 +31,8 @@ public class MemberService {
 
     @Autowired
     private FollowService followService;
+    @Autowired
+    private StoryService storyService;
 
     public MemberEntity save(MemberDTO memberDTO) throws IOException {
         MultipartFile memberProfile = memberDTO.getMemberProfile();
@@ -103,6 +105,8 @@ public class MemberService {
         boardService.updateProfile(memberDTO, memberProfileName);
         msgService.updateProfile(memberDTO, memberProfileName);
         followService.updateProfile(memberDTO,memberProfileName);
+        storyService.updateProfile(memberDTO,memberProfileName);
+
     }
 
     public MemberDTO passwordCheck(MemberDTO memberDTO, PrincipalDetails principalDetails) {
