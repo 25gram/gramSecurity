@@ -80,7 +80,7 @@ public class StoryService {
             return loginId;
     }
 
-    public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
+    public List<StoryDTO> findStoryList(List<FollowDTO> followDTOList) {
         List<StoryDTO> storyDTOList = new ArrayList<>();
         for (int i = 0; i < followDTOList.size(); i++) {
 

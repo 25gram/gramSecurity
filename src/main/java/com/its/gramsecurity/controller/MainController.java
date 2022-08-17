@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,15 +37,22 @@ public class MainController {
         List<BoardFileDTO> boardFileList = boardService.fileFindAll();
         boardService.likesFindAll(memberDTO.getMemberName());
         commentService.likesFindAll(memberDTO.getMemberName());
-        List<StoryDTO> storyDTOList = storyController.storyView(loginId);
         model.addAttribute("AuthenticationPrincipal",principalDetails);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
-        model.addAttribute("storyList", storyDTOList);
-        System.out.println("MainController.main");
-        System.out.println("storyDTOList = " + storyDTOList );
+        List<StoryDTO> storyDTOList = storyController.findStoryList(loginId);
+        List<StoryDTO> storyList = new ArrayList<>();
+        for(int i=0; i<storyDTOList.size(); i++) {
+            Long id = storyDTOList.get(i).getId();
+            StoryDTO storyDTO = storyDTOList.get(i);
+           boolean result = storyController.findByStoryIdANDLoginId(id, loginId);
+           if(!result){
+               storyList.add(storyDTO);
+           }
+        }
+        model.addAttribute("storyList", storyList);
         return "main";
     }
     @GetMapping("/story")
