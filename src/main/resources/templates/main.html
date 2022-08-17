@@ -486,7 +486,7 @@
 
 </head>
 <body onload="loginChk()" style="background-color:#F2F3F5 ;overflow: hidden;">
-<button onclick="location.href='/main/story'">story test</button>
+<button onclick="location.href='/storyBoard/'">story test</button>
 <div class="mainBody">
 
     <!-- 헤더구역 -->
@@ -805,7 +805,7 @@
         <div class="storyZone">
 
             <tr th:each="story :${storyList}">
-               <a th:href="@{|/storyBoard/stories?loginId=${story.getLoginId()}|}"> <img class="storyProfile"
+               <a th:href="@{|/storyBoard/stories?id=${story.getId()}|}"> <img class="storyProfile"
                      th:src="@{|/upload/${story.getMemberProfileName()}|}"
                         alt=""></a>
             </tr>

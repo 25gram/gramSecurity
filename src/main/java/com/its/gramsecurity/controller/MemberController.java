@@ -3,11 +3,13 @@ package com.its.gramsecurity.controller;
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.dto.StoryDTO;
 import com.its.gramsecurity.entity.FollowEntity;
 import com.its.gramsecurity.repository.FollowRepository;
 import com.its.gramsecurity.service.BoardService;
 import com.its.gramsecurity.service.FollowService;
 import com.its.gramsecurity.service.MemberService;
+import com.its.gramsecurity.service.StoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +31,7 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     private final FollowService followService;
-
+    private final StoryService storyService;
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
@@ -100,6 +102,7 @@ public class MemberController {
     public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,
                          @RequestParam String loginId, Model model) {
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         List<FollowDTO> following = followService.findAllByYourId(loginId);
         String findByMyIdAndYourId=followService.findByMyIdAndYourId(principalDetails.getMemberDTO().getLoginId(),loginId);
@@ -108,6 +111,7 @@ public class MemberController {
         model.addAttribute("count", followDTOList.size());
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("AuthenticationPrincipal", principalDetails);
+        model.addAttribute("storyList", storyDTOList);
         return "memberPages/myPage";
     }
 }
