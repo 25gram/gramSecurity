@@ -107,7 +107,9 @@ public class StoryService {
         List<StoryEntity>storyEntityList=storyRepository.findByLoginId(memberDTO.getLoginId());
         for (int i = 0; i < storyEntityList.size(); i++) {
             storyEntityList.get(i).setMemberProfileName(memberProfileName);
+            storyEntityList.get(i).setMemberName(memberDTO.getMemberName());
             storyRepository.save(storyEntityList.get(i));
+
         }
     }
 }
