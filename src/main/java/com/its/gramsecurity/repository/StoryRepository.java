@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StoryRepository extends JpaRepository<StoryEntity, Long> {
-    Optional<StoryEntity> findByLoginId(String loginId);
+    List<StoryEntity> findByLoginId(String loginId);
 
     List<StoryEntity> findByStoryLocationTag(String storyLocationTag);
 
+    List<StoryEntity> findByMemberName(String memberName);
 }
 

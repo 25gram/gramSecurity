@@ -477,8 +477,7 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            margin-top: 12px;
-            margin-left: 24px;
+            margin-top: 8px;
         }
 
     </style>
@@ -486,7 +485,7 @@
 
 </head>
 <body onload="loginChk()" style="background-color:#F2F3F5 ;overflow: hidden;">
-<button onclick="location.href='/main/story'">story test</button>
+<button onclick="location.href='/storyBoard/'">story test</button>
 <div class="mainBody">
 
     <!-- 헤더구역 -->
@@ -805,9 +804,12 @@
         <div class="storyZone">
 
             <tr th:each="story :${storyList}">
-               <a th:href="@{|/storyBoard/stories?loginId=${story.getLoginId()}|}"> <img class="storyProfile"
-                     th:src="@{|/upload/${story.getMemberProfileName()}|}"
-                        alt=""></a>
+                <div style="float: left; width: 20%; text-align: center; font-size: 14px; color: #4E4E4E" >
+                   <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}"> <img class="storyProfile"
+                         th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
+                   </a>
+                    <p style="text-align: center" th:text="${story.getMemberName()}"></p>
+                </div>
             </tr>
         </div>
         <!-- 메인피드 구역 -->
@@ -1151,7 +1153,7 @@
             $.ajax({
                 type: "post",
                 url: "/ripple/save",
-                data: {"rippleContents": 1, "commentId": id, "rippleWriter": rippleWriter},
+                data: {"rippleContents" : contentsDetail, "commentId" : id, "rippleWriter" : rippleWriter},
                 dataType: "json",
                 beforeSend: function (result) {
                     result.setRequestHeader(header, token);
@@ -1163,7 +1165,7 @@
                         if (data.length - 1 == i) {
                             commentDetail.innerHTML += '---'
                         }
-                        commentDetail.innerHTML += data[i].rippleContents;
+                        commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
                     }
 
                 }

@@ -44,10 +44,5 @@ List<MsgEntity> findMsgList(@Param("loginId") String loginId,@Param("friendId") 
     @Modifying
     @Query(value = "select * from msgEntity where loginId=:loginId or friendId=:loginId",nativeQuery = true)
     List<MsgEntity> total(@Param("loginId") String loginId);
-
-    @Transactional
-    @Modifying
-    @Query(value = "select * from msgEntity where loginId=:loginId group by friendId ",nativeQuery = true)
-    List<MsgEntity> findLeft(String loginId);
 }
 //select * from msgentity where createdTime in (SELECT max(createdTime) FROM msgentity where loginId='hasangsu82' or friendId='hasangsu82' group by friendId);

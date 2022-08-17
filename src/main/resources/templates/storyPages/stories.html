@@ -768,18 +768,6 @@
         <div class="filePreview" id="filePreview"></div>
         <div class="addImgDiv" id="addImgDiv"></div>
         <div id="video-controls">
-        ${storyDTO.storyTextTag}
-        ${storyDTO.storyTodayTag}
-        ${storyDTO.storyLinkTag}
-        ${storyDTO.storyQuestionTag}
-        ${storyDTO.storySurveyTag}
-        ${storyDTO.storyQuizTag}
-        ${storyDTO.storyHashTag}
-        ${storyDTO.storyReferenceTag}
-        ${storyDTO.storyLocationTag}
-        ${storyDTO.storyFileName}
-        ${storyDTO.storyImgName}
-        ${storyDTO.storyImgTag}
 
         </div>
     </div>
@@ -791,87 +779,89 @@
         filePreview.innerHTML="";
         filePreview.style.backgroundImage="";
         const storyContents = document.getElementById("storyContents");
-        // /*<![CDATA[*/
-        //
-        // /*[# th:each="storyList: ${storyList}"]*/
-        // insertData(/*[[${storyList.storyTextTag}]]*/,
-        //     /*[[${storyList.storyTodayTag}]]*/,
-        //     /*[[${storyList.storyLinkTag}]]*/,
-        //     /*[[${storyList.storyQuestionTag}]]*/,
-        //     /*[[${storyList.storySurveyTag}]]*/,
-        //     /*[[${storyList.storyQuizTag}]]*/,
-        //     /*[[${storyList.storyHashTag}]]*/,
-        //     /*[[${storyList.storyReferenceTag}]]*/,
-        //     /*[[${storyList.storyLocationTag}]]*/,
-        //     /*[[${storyList.storyFileName}]]*/,
-        //     /*[[${storyList.storyImgName}]]*/,
-        //     /*[[${storyList.storyImgTag}]]*/)
-        // /*[/]*/
-        //
-        // /*]]>*/
-        //
-        // function insertData(storyTextTag,
-        //               storyTodayTag,
-        //               storyLinkTag,
-        //               storyQuestionTag,
-        //               storySurveyTag,
-        //               storyQuizTag,
-        //               storyHashTag,
-        //               storyReferenceTag,
-        //               storyLocationTag,
-        //               storyFileName,
-        //               storyImgName,
-        //               storyImgTag) {
-        //     if(storyReferenceTag){
-        //         document.body.innerHTML+=${storyDTO.};
-        //     }
-        //     document.body.innerHTML+=storyHashTag;
-        //     if(storyQuizTag){
-        //         document.body.innerHTML+=storyQuizTag;
-        //     }
-        //     document.body.innerHTML+=storySurveyTag;
-        //     document.body.innerHTML+=storyQuestionTag;
-        //     if(storyLinkTag){
-        //         document.body.innerHTML+=storyLinkTag;
-        //     }
-        //     document.body.innerHTML+=storyTextTag;
-        //     document.body.innerHTML+=storyTodayTag;
-        //     document.body.innerHTML+=storyLocationTag;
-        //     document.getElementById("addImgDiv").innerHTML=storyImgTag;
-    //     const storyDTO = ${storyDTO};
-    //         if(storyDTO.story.endsWith(".mp4")){
-    //             let video = document.createElement("video");
-    //             video.setAttribute("src", "/upload/"+storyFileName);
-    //             video.setAttribute("width", "100%");
-    //             video.setAttribute("autoplay", "autoplay");
-    //             video.setAttribute("id", "aaa");
-    //             video.setAttribute("loop", "loop");
-    //             video.setAttribute("class", "aaa");
-    //
-    //             document.getElementById("filePreview").appendChild(video);
-    //
-    //             let obj = document.getElementById("aaa");
-    //             $(document).ready(function (){
-    //                 setTimeout(function (){
-    //                     let time = obj.duration;
-    //                     setTimeout(function (){
-    //                         location.href = "http://localhost:8080/main/main";
-    //                     }, (time+0.5)*1000);
-    //                 }, 500);
-    //             });
-    //         } else {
-    //             document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
-    //             $(document).ready(function (){
-    //                     setTimeout(function (){
-    //                         location.href = "http://localhost:8080/main/main";
-    //                     }, (15)*1000);
-    //             });
-    //         }
-    //         if (storyImgName){
-    //         document.getElementById("addImg").src = "/upload/"+storyImgName;
-    //         }
-    //
-    //     }
-    // }
+        /*<![CDATA[*/
+
+        /*[# th:each="storyList: ${storyList}"]*/
+        insertData(/*[[${storyList.storyTextTag}]]*/,
+            /*[[${storyList.storyTodayTag}]]*/,
+            /*[[${storyList.storyLinkTag}]]*/,
+            /*[[${storyList.storyQuestionTag}]]*/,
+            /*[[${storyList.storySurveyTag}]]*/,
+            /*[[${storyList.storyQuizTag}]]*/,
+            /*[[${storyList.storyHashTag}]]*/,
+            /*[[${storyList.storyReferenceTag}]]*/,
+            /*[[${storyList.storyLocationTag}]]*/,
+            /*[[${storyList.storyFileName}]]*/,
+            /*[[${storyList.storyImgName}]]*/,
+            /*[[${storyList.storyImgTag}]]*/,
+            /*[[${storyList.loginId}]]*/)
+        /*[/]*/
+
+        /*]]>*/
+
+        function insertData(storyTextTag,
+                      storyTodayTag,
+                      storyLinkTag,
+                      storyQuestionTag,
+                      storySurveyTag,
+                      storyQuizTag,
+                      storyHashTag,
+                      storyReferenceTag,
+                      storyLocationTag,
+                      storyFileName,
+                      storyImgName,
+                      storyImgTag,
+                      loginId) {
+            if(storyReferenceTag){
+                document.body.innerHTML+=storyReferenceTag;
+            }
+            document.body.innerHTML+=storyHashTag;
+            if(storyQuizTag){
+                document.body.innerHTML+=storyQuizTag;
+            }
+            document.body.innerHTML+=storySurveyTag;
+            document.body.innerHTML+=storyQuestionTag;
+            if(storyLinkTag){
+                document.body.innerHTML+=storyLinkTag;
+            }
+            document.body.innerHTML+=storyTextTag;
+            document.body.innerHTML+=storyTodayTag;
+            document.body.innerHTML+=storyLocationTag;
+            document.getElementById("addImgDiv").innerHTML=storyImgTag;
+
+            if(storyFileName.endsWith(".mp4")){
+                let video = document.createElement("video");
+                video.setAttribute("src", "/upload/"+storyFileName);
+                video.setAttribute("width", "100%");
+                video.setAttribute("autoplay", "autoplay");
+                video.setAttribute("id", "aaa");
+                video.setAttribute("loop", "loop");
+                video.setAttribute("class", "aaa");
+
+                document.getElementById("filePreview").appendChild(video);
+
+                let obj = document.getElementById("aaa");
+                $(document).ready(function (){
+                    setTimeout(function (){
+                        let time = obj.duration;
+                        setTimeout(function (){
+                            location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
+                        }, (time+0.5)*1000);
+                    }, 500);
+                });
+            } else {
+                document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
+                $(document).ready(function (){
+                        setTimeout(function (){
+                            location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
+                        }, (15)*1000);
+                });
+            }
+            if (storyImgName){
+            document.getElementById("addImg").src = "/upload/"+storyImgName;
+            }
+
+        }
+    }
 </script>
 </html>
