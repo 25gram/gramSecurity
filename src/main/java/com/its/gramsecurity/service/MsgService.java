@@ -53,24 +53,26 @@ public class MsgService {
     }
 
     public List<MsgDTO> msglist(String loginId) {
-//        List<MsgEntity>elist=msgr.findByLoginId(loginId);
-//        List<MsgEntity>elist=msgr.findMsgList(loginId);
-        List<MsgEntity>elist=msgr.findMsgList(loginId);
+//
+        List<MsgEntity>elist=msgr.findLeft(loginId);
         List<MsgDTO>mlist=new ArrayList<>();
-        System.out.println("MsgService.msglist");
-        System.out.println("elist = " + elist);
-        if(elist.isEmpty()){
-            mlist=null;
-        }else{
-        for(int i=0;i<elist.size();i++) {
-            mlist.add(MsgDTO.toDto(elist.get(i)));
-            }
+        String friendId="";
+        for(int i=0;i<elist.size();i++){
+            if(elist.isEmpty()){
+                mlist=null;
+            }else {
+                friendId=elist.get(i).getFriendId();
+                List<MsgEntity>flist=msgr.findMsgList(loginId,friendId);
+                mlist.add(MsgDTO.toDto(flist.get(0)));
 
-        }
-        System.out.println("serv mlist : "+mlist);
-        System.out.println("serv mlist size: "+mlist.size());
+                   }
+            }
         return mlist;
-    }
+        }
+
+
+
+
 
 
     public List<MsgEntity> count(MsgDTO mem) {
