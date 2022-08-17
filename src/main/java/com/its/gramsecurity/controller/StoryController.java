@@ -91,7 +91,7 @@ public class StoryController {
         return yourList;
     }
     @GetMapping("/storyViewCheck")
-    public boolean findByStoryIdANDLoginId(Long id, String loginId){
+    public boolean findByStoryIdAndLoginId(Long id, String loginId){
         boolean result = storyViewService.findByStoryIdAndLoginId(id, loginId);
         return result;
     }
