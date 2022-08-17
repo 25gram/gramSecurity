@@ -42,24 +42,31 @@ public class StoryController {
         return storyDTOList;
     }
     @GetMapping("/")
-    public String storyIndex(){
-        Long id = 1L;
-        return "redirect:/storyBoard/stories/"+id;
+    public String myStory(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        String loginId = principalDetails.getMemberDTO().getLoginId();
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+        if(storyDTOList.isEmpty()){
+            return "redirect:/storyBoard/save-form";
+        } else {
+            return "redirect:/storyBoard/stories?loginId="+loginId;
+        }
     }
-    @GetMapping("/stories/{id}")
-    public String stories(@PathVariable("id") Long id, Model model){
-        StoryDTO storyDTO = storyService.findById(id);
+
+    @GetMapping("/stories")
+    public String stories(@RequestParam String loginId, Model model){
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         System.out.println("stories---------------------------------------");
-        System.out.println("id" + id);
-        System.out.println("storyDTO = " + storyDTO);
-        model.addAttribute("storyDTO", storyDTO);
+        System.out.println("id" + loginId);
+        System.out.println("storyDTO = " + storyDTOList);
+        model.addAttribute("storyList", storyDTOList);
         return "storyPages/stories";
     }
+
     @GetMapping("/findByLoginId")
-    public StoryDTO findByLoginId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public List<StoryDTO> findByLoginId(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String loginId = principalDetails.getMemberDTO().getLoginId();
-        StoryDTO storyDTO = storyService.findByLoginId(loginId);
-        return storyDTO;
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+        return storyDTOList;
     }
     @GetMapping("/save-form")
     public String saveForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
@@ -83,14 +90,14 @@ public class StoryController {
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
         Long id = storyService.saveFile(storyDTO);
-        return "redirect:/storyBoard/stories/"+id;
+        return "redirect:/storyBoard/";
     }
-//    @GetMapping("/storyIdList")
+
     public List<FollowDTO> storyIdList(String id){
         List<FollowDTO> myList = followService.findAllByMyId(id);
-        List<FollowDTO> yourlist=followService.findAllByYourId(id);
+        List<FollowDTO> yourList=followService.findAllByYourId(id);
         System.out.println("StoryController.storyIdList");
-        System.out.println("myList = " + myList);
-        return yourlist;
+        System.out.println("yourList = " + yourList);
+        return yourList;
     }
 }
