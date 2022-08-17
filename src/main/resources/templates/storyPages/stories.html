@@ -793,7 +793,8 @@
             /*[[${storyList.storyLocationTag}]]*/,
             /*[[${storyList.storyFileName}]]*/,
             /*[[${storyList.storyImgName}]]*/,
-            /*[[${storyList.storyImgTag}]]*/)
+            /*[[${storyList.storyImgTag}]]*/,
+            /*[[${storyList.loginId}]]*/)
         /*[/]*/
 
         /*]]>*/
@@ -809,7 +810,8 @@
                       storyLocationTag,
                       storyFileName,
                       storyImgName,
-                      storyImgTag) {
+                      storyImgTag,
+                      loginId) {
             if(storyReferenceTag){
                 document.body.innerHTML+=storyReferenceTag;
             }
@@ -838,22 +840,22 @@
 
                 document.getElementById("filePreview").appendChild(video);
 
-                // let obj = document.getElementById("aaa");
-                // $(document).ready(function (){
-                //     setTimeout(function (){
-                //         let time = obj.duration;
-                //         setTimeout(function (){
-                //             location.href = "http://localhost:8080/main/main";
-                //         }, (time+0.5)*1000);
-                //     }, 500);
-                // });
+                let obj = document.getElementById("aaa");
+                $(document).ready(function (){
+                    setTimeout(function (){
+                        let time = obj.duration;
+                        setTimeout(function (){
+                            location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
+                        }, (time+0.5)*1000);
+                    }, 500);
+                });
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
-                // $(document).ready(function (){
-                //         setTimeout(function (){
-                //             location.href = "http://localhost:8080/main/main";
-                //         }, (15)*1000);
-                // });
+                $(document).ready(function (){
+                        setTimeout(function (){
+                            location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
+                        }, (15)*1000);
+                });
             }
             if (storyImgName){
             document.getElementById("addImg").src = "/upload/"+storyImgName;

@@ -51,8 +51,8 @@ public class StoryService {
         return storyRepository.save(StoryEntity.toSaveStoryEntity(storyDTO, memberEntity)).getId();
     }
 
-    public Long saveFile(StoryDTO storyDTO) throws IOException {
-        Long id=null;
+    public String saveFile(StoryDTO storyDTO) throws IOException {
+        String loginId="";
         Optional<StoryEntity> storyEntityOptional = storyRepository.findById(storyDTO.getId());
         if (storyEntityOptional.isPresent()) {
             StoryEntity storyEntity = storyEntityOptional.get();
@@ -74,9 +74,9 @@ public class StoryService {
             storyEntity.setStoryFileName(storyFileName);
             storyEntity.setStoryImgName(storyImgName);
             storyEntity.setMemberProfileName(storyDTO.getMemberProfileName());
-            id = storyRepository.save(storyEntity).getId();
+            loginId = storyRepository.save(storyEntity).getLoginId();
         }
-            return id;
+            return loginId;
     }
 
     public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
