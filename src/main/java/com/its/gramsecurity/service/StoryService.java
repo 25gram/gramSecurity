@@ -24,13 +24,13 @@ public class StoryService {
     private final StoryRepository storyRepository;
     private final MemberRepository memberRepository;
 
-    public StoryDTO findByLoginId(String loginId) {
-        Optional<StoryEntity> byLoginId = storyRepository.findByLoginId(loginId);
-        StoryDTO storyDTO = new StoryDTO();
-        if (byLoginId.isPresent()) {
-            storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
+    public List<StoryDTO> findByLoginId(String loginId) {
+        List<StoryDTO> storyDTOList = new ArrayList<>();
+        List<StoryEntity> storyEntityList = storyRepository.findByLoginId(loginId);
+        for(StoryEntity story: storyEntityList) {
+            storyDTOList.add(StoryDTO.toStoryDTO(story));
         }
-        return storyDTO;
+        return storyDTOList;
     }
 
     public List<StoryDTO> findByStoryLocationTag(String storyLocationTag) {
@@ -84,12 +84,10 @@ public class StoryService {
         for (int i = 0; i < followDTOList.size(); i++) {
 
             String storyFollowingId = followDTOList.get(i).getMyId();
-            Optional<StoryEntity> byLoginId = storyRepository.findByLoginId(storyFollowingId);
-            System.out.println("StoryService.storyView");
-            System.out.println("storyFollowingId = " + storyFollowingId);
-            if (byLoginId.isPresent()) {
-                StoryDTO storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
-                storyDTOList.add(storyDTO);
+            List<StoryEntity> storyEntityList = storyRepository.findByLoginId(storyFollowingId);
+
+            for (StoryEntity story : storyEntityList) {
+                storyDTOList.add(StoryDTO.toStoryDTO(story));
             }
         }
         return storyDTOList;
