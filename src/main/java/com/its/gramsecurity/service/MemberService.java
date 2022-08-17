@@ -1,9 +1,6 @@
 package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
-import com.its.gramsecurity.dto.FollowDTO;
-import com.its.gramsecurity.dto.MsgDTO;
-import com.its.gramsecurity.repository.FollowRepository;
 import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
@@ -32,6 +29,9 @@ public class MemberService {
     @Autowired
     private MsgService msgService;
 
+    @Autowired
+    private FollowService followService;
+
     public MemberEntity save(MemberDTO memberDTO) throws IOException {
         MultipartFile memberProfile = memberDTO.getMemberProfile();
         String memberProfileName = memberProfile.getOriginalFilename();
@@ -40,7 +40,7 @@ public class MemberService {
             memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
             memberProfile.transferTo(new File(savePath));
             memberDTO.setMemberProfileName(memberProfileName);
-        } else{
+        } else {
             memberDTO.setMemberProfileName("noProfile.png");
         }
         return memberRepository.save(MemberEntity.toSaveEntity(memberDTO));
@@ -101,8 +101,8 @@ public class MemberService {
             }
         }
         boardService.updateProfile(memberDTO, memberProfileName);
-        msgService.updateProfile(memberDTO,memberProfileName);
-
+        msgService.updateProfile(memberDTO, memberProfileName);
+        followService.updateProfile(memberDTO,memberProfileName);
     }
 
     public MemberDTO passwordCheck(MemberDTO memberDTO, PrincipalDetails principalDetails) {
@@ -166,11 +166,12 @@ public class MemberService {
     }
 
     public List<MemberDTO> search(String search) {
-        List<MemberEntity>memberEntityList=memberRepository.searchResult(search);
-        List<MemberDTO>memberDTOList=new ArrayList<>();
-        for(MemberEntity memberEntity:memberEntityList){
+        List<MemberEntity> memberEntityList = memberRepository.searchResult(search);
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (MemberEntity memberEntity : memberEntityList) {
             memberDTOList.add(MemberDTO.toDTO(memberEntity));
-        }return memberDTOList;
+        }
+        return memberDTOList;
 
     }
 
