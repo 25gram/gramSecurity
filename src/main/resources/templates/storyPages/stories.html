@@ -756,15 +756,47 @@
         .ui-wrapper {
             position: absolute;
         }
+        .bar{
+            /* width: 458px; */
+            width: 1px;
+            height: 4px;
+            background-color: rgba(0,0,0,0.3);
+            position: relative;
+            top: 24px;
+            left: 20px;
+        }
+        .underBar{
+            width: 458px;
+            height: 4px;
+            background-color: rgba(0,0,0,0.1);
+            position: relative;
+            top: 20px;
+            left: 20px;
+        }
     </style>
-
+    <script>
+        function bar(){
+            $(".bar").css({
+                width:"458px",
+                transition:"all 15s"
+            })
+        }
+    </script>
 </head>
-<body>
+<body onload="bar()">
 <div class="container">
     <div class="closeDiv">
         <button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
     </div>
     <div class="storyBox">
+        <div style="width:0 ;height:0">
+            <div class="bar">
+
+            </div>
+            <div class="underBar">
+
+            </div>
+        </div>
         <div class="filePreview" id="filePreview"></div>
         <div class="addImgDiv" id="addImgDiv"></div>
         <div id="video-controls">
@@ -800,18 +832,18 @@
         /*]]>*/
 
         function insertData(storyTextTag,
-                      storyTodayTag,
-                      storyLinkTag,
-                      storyQuestionTag,
-                      storySurveyTag,
-                      storyQuizTag,
-                      storyHashTag,
-                      storyReferenceTag,
-                      storyLocationTag,
-                      storyFileName,
-                      storyImgName,
-                      storyImgTag,
-                      loginId) {
+                            storyTodayTag,
+                            storyLinkTag,
+                            storyQuestionTag,
+                            storySurveyTag,
+                            storyQuizTag,
+                            storyHashTag,
+                            storyReferenceTag,
+                            storyLocationTag,
+                            storyFileName,
+                            storyImgName,
+                            storyImgTag,
+                            loginId) {
             if(storyReferenceTag){
                 document.body.innerHTML+=storyReferenceTag;
             }
@@ -852,13 +884,13 @@
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
                 $(document).ready(function (){
-                        setTimeout(function (){
-                            location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
-                        }, (15)*1000);
+                    setTimeout(function (){
+                        location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
+                    }, (15)*1000);
                 });
             }
             if (storyImgName){
-            document.getElementById("addImg").src = "/upload/"+storyImgName;
+                document.getElementById("addImg").src = "/upload/"+storyImgName;
             }
         }
     }
