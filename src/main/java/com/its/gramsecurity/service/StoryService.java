@@ -4,6 +4,7 @@ import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.StoryDTO;
+import com.its.gramsecurity.entity.FollowEntity;
 import com.its.gramsecurity.entity.MemberEntity;
 import com.its.gramsecurity.entity.StoryEntity;
 import com.its.gramsecurity.repository.MemberRepository;
@@ -100,5 +101,13 @@ public class StoryService {
             storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
         }
         return storyDTO;
+    }
+
+    public void updateProfile(MemberDTO memberDTO, String memberProfileName) {
+        List<StoryEntity>storyEntityList=storyRepository.findByMemberName(memberDTO.getMemberName());
+        for (int i = 0; i < storyEntityList.size(); i++) {
+            storyEntityList.get(i).setMemberProfileName(memberProfileName);
+            storyRepository.save(storyEntityList.get(i));
+        }
     }
 }

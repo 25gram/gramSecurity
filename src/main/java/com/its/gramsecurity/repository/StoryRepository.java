@@ -11,5 +11,6 @@ public interface StoryRepository extends JpaRepository<StoryEntity, Long> {
 
     List<StoryEntity> findByStoryLocationTag(String storyLocationTag);
 
+    List<StoryEntity> findByMemberName(String memberName);
 }
 
