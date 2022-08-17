@@ -44,6 +44,11 @@ public class BoardEntity extends BaseEntity{
     @Column
     private Integer likes;
 
+    @Column
+    private Integer likesNo;
+
+    @Column
+    private Integer commentNo;
 
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL,orphanRemoval = true ,fetch=FetchType.LAZY)
@@ -66,6 +71,8 @@ public class BoardEntity extends BaseEntity{
         board.setBoardContents(boardDTO.getBoardContents());
         board.setBoardLocation(boardDTO.getBoardLocation());
         board.setBoardTag(boardDTO.getBoardTag());
+        board.setLikesNo(boardDTO.getLikesNo());
+        board.setCommentNo(boardDTO.getCommentNo());
         return board;
     }
 

@@ -42,66 +42,9 @@
     <script>
 
 
-        function iconEffect(i) {
-
-            if (i == 1) {
-                document.getElementById("footerItem1").style.fontSize = '21px'
-                document.getElementById("footerItem1").style.marginRight = '11px'
-                document.getElementById("footerItem1").style.marginLeft = '22px'
-                setTimeout(iconReset, 150, 1);
-                location.href = '/main/main'
-            } else if (i == 2) {
-                document.getElementById("footerItem2").style.marginLeft = '22px'
-                document.getElementById("footerItem2").style.fontSize = '21px'
-                document.getElementById("footerItem2").style.marginRight = '11px'
-                setTimeout(iconReset, 150, 2);
-            } else if (i == 3) {
-                document.getElementById("footerItem3").style.fontSize = '21px'
-                document.getElementById("footerItem3").style.marginLeft = '22px'
-                document.getElementById("footerItem3").style.marginRight = '11px'
-                setTimeout(iconReset, 150, 3);
-            } else if (i == 4) {
-                document.getElementById("footerItem4").className = "fi fa-solid fa-door-open"
-                setTimeout(iconReset, 150, 4);
-            } else if (i == 5) {
-                document.getElementById("headerItem1").className = "fi fa-solid fa-square-plus"
-                setTimeout(iconReset, 150, 5);
-            } else if (i == 6) {
-
-                document.getElementById("headerItem2").className = "fi fa-solid fa-heart"
-                setTimeout(iconReset, 150, 6);
-            } else if (i == 7) {
-
-                document.getElementById("headerItem3").className = "fi fa-solid fa-paper-plane"
-                setTimeout(iconReset, 150, 7);
-            }
 
 
-            function iconReset(i) {
-                if (i == 1) {
-                    document.getElementById("footerItem1").style.marginLeft = '20px'
-                    document.getElementById("footerItem1").style.fontSize = "25px"
-                    document.getElementById("footerItem1").style.marginRight = '9px'
-                } else if (i == 2) {
-                    document.getElementById("footerItem2").style.marginLeft = '20px'
-                    document.getElementById("footerItem2").style.fontSize = "25px"
-                    document.getElementById("footerItem2").style.marginRight = '9px'
-                } else if (i == 3) {
-                    document.getElementById("footerItem3").style.marginLeft = '20px'
-                    document.getElementById("footerItem3").style.fontSize = "25px"
-                    document.getElementById("footerItem3").style.marginRight = '9px'
-                } else if (i == 4) {
 
-                    document.getElementById("footerItem4").className = "fi fa-solid fa-door-closed"
-                } else if (i == 5) {
-                    document.getElementById("headerItem1").className = "fi fa-regular fa-square-plus"
-                } else if (i == 6) {
-                    document.getElementById("headerItem2").className = "fi fa-regular fa-heart"
-                } else if (i == 7) {
-                    document.getElementById("headerItem3").className = "fi fa-regular fa-paper-plane"
-                }
-            }
-        }
 
         function logoutChk() {
             let header = $("meta[name='_csrf_header']").attr('content');
@@ -1068,7 +1011,7 @@
                                 }
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
-                                commentDetail.innerHTML += '<span onClick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
                                 commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
@@ -1106,18 +1049,22 @@
             });
         }
 
-        function rippleSave(id,boardId) {
+        function rippleSave(id,boardId,rippleNum,rippleNum2) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
-            const rippleWriter = document.getElementById('ripple' + id).innerHTML;
             const contentsDetail = document.getElementById("text1_detail");
-            console.log(id);
-            console.log(contentsDetail.value)
+            let rippleName = '';
+            if (rippleNum2 == 1) {
+                rippleName = document.getElementById('ripplePlus' + rippleNum).innerHTML;
+            }else {
+                rippleName = document.getElementById('ripple' + id).innerHTML;
+            }
+            console.log(rippleName)
             const memberName = [[${memberDTO.loginId}]]
             $.ajax({
                 type: "post",
                 url: "/ripple/save",
-                data: {"rippleContents" : contentsDetail.value, "commentId" : id, "rippleWriter" : memberName},
+                data: {"rippleContents" : contentsDetail.value, "commentId" : id, "rippleWriter" : memberName,"tagName" : rippleName},
                 dataType: "json",
                 beforeSend: function (result) {
                     result.setRequestHeader(header, token);
@@ -1169,9 +1116,9 @@
                         },
                         success: function (comment) {
                             let member = [[${findAll}]];
-                            for (let i = comment.length-1; i >= 0; i--) {
+                            for (let i = 0; i < comment.length; i++) {
                                 const commentDetail = document.getElementById("listRipple" + (i+1));
-                                for (let j = data.length - 1; j >= 0; j--) {
+                                for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
                                         commentDetail.innerHTML += '<span onclick="rippleOpen(' + (i+1) + "," + id + ')">' + '---' + '</span>';
@@ -1182,23 +1129,24 @@
                             }
                             if (commentId != 0) {
                                 const commentDetail = document.getElementById("rippleList" + commentId);
-                                for (let i = data.length -1; i >= 0; i--) {
+                                for (let i = 0; i < data.length; i++) {
                                     if (commentId == data[i].commentId) {
                                         commentDetail.innerHTML = "";
                                     }
                                 }
                                 let ripple = "";
-                                for (let i = data.length-1; i >= 0; i--) {
+                                for (let i = 0; i < data.length; i++) {
                                     for (let o = 0; o < member.length; o++) {
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
-                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                            commentDetail.innerHTML += '     <span id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">';
+                                            commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + member[o].loginId + '">'+'<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                             ripple = member[o].memberName;
                                         }
                                     }
                                     if (commentId == data[i].commentId) {
-                                        commentDetail.innerHTML += '';
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
+                                        commentDetail.innerHTML += '<span onclick="rippleSave(' + commentId + ',' + id + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                     }
                                 }
                             }
@@ -1271,6 +1219,7 @@
             width: 100px;
             margin: 5px 0 0 30px;
             border-radius: 4px;
+            cursor: pointer;
         }
 
         .contentsItem:not(.detail) {
@@ -1477,16 +1426,13 @@
 
                 // document.getElementById("modalSize").className = "modal-dialog modal-lg"
                 zone.style.width = '800px'
+                zone.style.transition="all 0.4s"
             } else {
                 console.log("test : 1")
 
-                function sizeS() {
-                    // document.getElementById("modalSize").className = "modal-dialog"
-                    zone.style.width = '500px'
-                    document.getElementById("nextBtn").setAttribute("data-bs-toggle", "collapse")
-                }
 
-                setTimeout(sizeS, 180)
+                zone.style.width = '500px'
+                zone.style.transition="all 0.4s"
                 count = 0
             }
         }
@@ -1509,11 +1455,11 @@
         }
 
         function nextBtn2() {
-            $('#nextBtn2').trigger("click")
+            $('#nextBTN2').trigger("click")
         }
 
         function nextBtn() {
-            $('#nextBtn').trigger("click")
+            $('#nextBTN').trigger("click")
         }
 
         let page = 0
@@ -1524,14 +1470,18 @@
             if (page == 0) {
                 document.getElementById("beforeBtn").removeAttribute("hidden")
                 page = 1
+                nextBtn()
             } else if (page == 1) {
+                nextBtn()
+                setTimeout(nextBtn2,250)
                 document.getElementById("beforeBtn").removeAttribute("hidden")
                 document.getElementById("nextBtn").innerHTML = '<b>Save<b>'
                 // document.getElementById("nextBtn").removeAttribute("onclick")
                 document.getElementById("nextBtn").setAttribute("onclick", "submitBtn()")
-                setTimeout(nextBtn2, 200)
+                // nextBtn()
+                // setTimeout(nextBtn2, 200)
                 page = 2
-                document.getElementById("nextBtn").removeAttribute("data-bs-toggle")
+                // document.getElementById("nextBtn").removeAttribute("data-bs-toggle")
                 // document.getElementById("nextBtn2").removeAttribute("data-bs-toggle")
             } else if (page == 2) {
                 alert("save 만들기")
@@ -1551,7 +1501,9 @@
 
         function beforeBtnEffect() {
             if (page == 2) {
+                // nextBtn()
                 nextBtn2();
+                setTimeout(nextBtn,250)
                 document.getElementById("nextBtn").innerHTML = '<b>Next<b>'
                 document.getElementById("nextBtn").removeAttribute("onclick")
                 document.getElementById("nextBtn").setAttribute("onclick", "nextBtnEffect()")
@@ -1560,6 +1512,7 @@
                 page = 1
                 // setTimeout(nextBtn,200)
             } else if (page == 1) {
+                nextBtn()
                 sizeTest(1)
                 document.getElementById("beforeBtn").setAttribute("hidden", "hidden")
 
@@ -1726,15 +1679,14 @@
                         <div class="col" style="height: 50px;">
                             <i id="beforeBtn" hidden="hidden" onclick="beforeBtnEffect()"
                                class="fa-solid fa-arrow-left modal1"
-                               data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="true"
-                               aria-controls="collapseWidthExample" style="font-size:35px ; margin: 25px 0 0 20px;"></i>
+                               style="font-size:35px ; margin: 25px 0 0 20px;"></i>
                         </div>
-
+                        <div id="nextBTN" data-bs-toggle="collapse"
+                             data-bs-target="#collapseWidthExample" aria-expanded="true"
+                             aria-controls="collapseWidthExample" hidden></div>
                         <div class="col" style="text-align: right;height: 50px">
                             <p onclick="nextBtnEffect()" id="nextBtn" class="nextBtn btn modal1"
-                               data-bs-toggle="collapse"
-                               data-bs-target="#collapseWidthExample" aria-expanded="true"
-                               aria-controls="collapseWidthExample" style="padding-right:0 ;" hidden="hidden">
+                               style="padding-right:0 ;" hidden="hidden">
                                 <b>Next</b>
                             </p>
                         </div>
@@ -1745,10 +1697,10 @@
 
                 </div>
                 <div class="modal-body modal1">
-
-                    <div id="nextBtn2" name="nextBtn2" class=" modal1" data-bs-toggle="collapse"
+                    <div hidden id="nextBTN2" data-bs-toggle="collapse"
                          data-bs-target="#collapseWidthExample2" aria-expanded="true"
-                         aria-controls="collapseWidthExample"
+                         aria-controls="collapseWidthExample"></div>
+                    <div id="nextBtn2" name="nextBtn2" class=" modal1"
                          style="padding-right:0 ;" hidden><b>Next</b></div>
                     <!-- 여기서 테스트 하세요 -->
 
