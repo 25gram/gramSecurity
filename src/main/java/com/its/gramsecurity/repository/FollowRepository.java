@@ -29,4 +29,6 @@ public interface FollowRepository extends JpaRepository<FollowEntity, Long> {
     Optional<FollowEntity> findByMyIdAndYourId(String myId, String yourId);
 
     List<FollowEntity> findByYourName(String memberName);
+
+    List<FollowEntity> findByMyName(String memberName);
 }

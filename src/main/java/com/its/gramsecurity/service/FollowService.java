@@ -65,7 +65,7 @@ public class FollowService {
 
 
     public String findByMyIdAndYourId(String myId, String yourId) {
-        Optional<FollowEntity> optionalFollowEntity = followRepository.findByMyIdAndYourId(myId,yourId);
+        Optional<FollowEntity> optionalFollowEntity = followRepository.findByMyIdAndYourId(myId, yourId);
         if (optionalFollowEntity.isPresent()) {
             return "찾았다";
         } else {
@@ -75,10 +75,16 @@ public class FollowService {
     }
 
     public void updateProfile(MemberDTO memberDTO, String memberProfileName) {
-        List<FollowEntity> followEntityList=followRepository.findByYourName(memberDTO.getMemberName());
-        for (int i =0;i< followEntityList.size();i++){
-            followEntityList.get(i).setYourProfileName(memberProfileName);
-            followRepository.save(followEntityList.get(i));
+        List<FollowEntity> yourList = followRepository.findByYourName(memberDTO.getMemberName());
+        for (int i = 0; i < yourList.size(); i++) {
+            yourList.get(i).setYourProfileName(memberProfileName);
+            followRepository.save(yourList.get(i));
+        }
+
+        List<FollowEntity> myList = followRepository.findByMyName(memberDTO.getMemberName());
+        for (int i = 0; i < myList.size(); i++) {
+            myList.get(i).setMyProfileName(memberProfileName);
+            followRepository.save(myList.get(i));
         }
     }
 }
