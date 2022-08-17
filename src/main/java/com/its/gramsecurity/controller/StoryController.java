@@ -25,20 +25,12 @@ public class StoryController {
     String memberName = "admin";
     private final MemberService memberService;
     private final FollowService followService;
-//    @GetMapping("/")
-//    public String index(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-//        String loginId = principalDetails.getMemberDTO().getLoginId();
-//        StoryDTO storyDTO = storyService.findByLoginId(loginId);
-//        model.addAttribute("storyDTO", storyDTO);
-//        return "storyIndex";
-//    }
+
     @GetMapping("/storyView")
     public List<StoryDTO> storyView(String id) {
         List<FollowDTO> followDTOList = storyIdList(id);
         List<StoryDTO> storyDTOList = storyService.storyView(followDTOList);
-        System.out.println("StoryController.storyView");
-        System.out.println("id = " + id);
-        System.out.println("storyDTOList = " + storyDTOList);
+
         return storyDTOList;
     }
     @GetMapping("/")
@@ -52,13 +44,13 @@ public class StoryController {
         }
     }
 
-    @GetMapping("/stories")
-    public String stories(@RequestParam String loginId, Model model){
+    @GetMapping("/stories/{id}")
+    public String stories(@PathVariable("id") String loginId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
-        System.out.println("stories---------------------------------------");
-        System.out.println("id" + loginId);
-        System.out.println("storyDTO = " + storyDTOList);
+        String myId = principalDetails.getMemberDTO().getLoginId();
+
         model.addAttribute("storyList", storyDTOList);
+        model.addAttribute("myId", myId);
         return "storyPages/stories";
     }
 
@@ -89,15 +81,14 @@ public class StoryController {
     }
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
-        Long id = storyService.saveFile(storyDTO);
-        return "redirect:/storyBoard/";
+        String loginid = storyService.saveFile(storyDTO);
+        return "redirect:/storyBoard/stories/"+loginid;
     }
 
     public List<FollowDTO> storyIdList(String id){
         List<FollowDTO> myList = followService.findAllByMyId(id);
         List<FollowDTO> yourList=followService.findAllByYourId(id);
-        System.out.println("StoryController.storyIdList");
-        System.out.println("yourList = " + yourList);
+
         return yourList;
     }
 }
