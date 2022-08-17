@@ -1138,7 +1138,7 @@
             $.ajax({
                 type: "post",
                 url: "/ripple/save",
-                data: {"rippleContents" : 1, "commentId" : id, "rippleWriter" : rippleWriter},
+                data: {"rippleContents" : contentsDetail.value, "commentId" : id, "rippleWriter" : rippleWriter},
                 dataType: "json",
                 beforeSend:function (result){
                     result.setRequestHeader(header,token);
@@ -1150,7 +1150,7 @@
                         if (data.length - 1 == i) {
                             commentDetail.innerHTML += '---'
                         }
-                        commentDetail.innerHTML += data[i].rippleContents;
+                        commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
                     }
 
                 }

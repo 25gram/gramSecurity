@@ -1,5 +1,6 @@
 package com.its.gramsecurity.entity;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.CommentDTO;
 import com.its.gramsecurity.dto.RippleDTO;
 import lombok.Getter;
@@ -39,13 +40,13 @@ public class RippleEntity extends BaseEntity{
     @OneToMany(mappedBy = "rippleEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     List<LikesEntity> likesEntityList = new ArrayList<>();
 
-    public static RippleEntity toSaveEntity(RippleDTO rippleDTO){
+    public static RippleEntity toSaveEntity(RippleDTO rippleDTO,CommentEntity commentEntity,MemberEntity memberEntity ){
         RippleEntity rippleEntity = new RippleEntity();
         rippleEntity.setId(rippleDTO.getId());
         rippleEntity.setRippleContents(rippleDTO.getRippleContents());
-        rippleEntity.setRippleWriter(rippleEntity.getRippleWriter());
-//        rippleEntity.setMemberEntity(memberEntity);
-//        rippleEntity.setCommentEntity(commentEntity);
+        rippleEntity.setRippleWriter(rippleDTO.getRippleWriter());
+        rippleEntity.setMemberEntity(memberEntity);
+        rippleEntity.setCommentEntity(commentEntity);
         return rippleEntity;
     }
 }
