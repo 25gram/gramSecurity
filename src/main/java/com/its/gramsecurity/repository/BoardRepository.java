@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
-//    Optional<BoardEntity> findById(Long id);
     @Transactional
     @Modifying
     @Query(value = "update BoardEntity b set b.likes=1 where b.id=:id")
@@ -26,5 +25,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
     void likesDelete(@Param("id") Long id);
 
 
-    List<BoardEntity> findByBoardWriter(String loginId);
+    List<BoardEntity> findByLoginId(String loginId);
+
 }

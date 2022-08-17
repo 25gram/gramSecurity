@@ -1,5 +1,6 @@
 package com.its.gramsecurity.service;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.BoardEntity;
@@ -75,13 +76,13 @@ public class FollowService {
     }
 
     public void updateProfile(MemberDTO memberDTO, String memberProfileName) {
-        List<FollowEntity> yourList = followRepository.findByYourName(memberDTO.getMemberName());
+        List<FollowEntity> yourList = followRepository.findByYourId(memberDTO.getLoginId());
         for (int i = 0; i < yourList.size(); i++) {
             yourList.get(i).setYourProfileName(memberProfileName);
             followRepository.save(yourList.get(i));
         }
 
-        List<FollowEntity> myList = followRepository.findByMyName(memberDTO.getMemberName());
+        List<FollowEntity> myList = followRepository.findByMyId(memberDTO.getLoginId());
         for (int i = 0; i < myList.size(); i++) {
             myList.get(i).setMyProfileName(memberProfileName);
             followRepository.save(myList.get(i));

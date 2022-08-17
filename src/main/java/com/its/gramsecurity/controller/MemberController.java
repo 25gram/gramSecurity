@@ -52,7 +52,8 @@ public class MemberController {
 
     //일반회원 정보 수정
     @PostMapping("/update")
-    public String update(@ModelAttribute MemberDTO memberDTO) throws IOException {
+    public String update(@ModelAttribute MemberDTO memberDTO,@AuthenticationPrincipal PrincipalDetails
+                         principalDetails) throws IOException {
         memberService.update(memberDTO);
         return "redirect:/main/main";
     }
