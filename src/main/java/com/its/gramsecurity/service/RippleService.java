@@ -1,5 +1,6 @@
 package com.its.gramsecurity.service;
 
+import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.CommentDTO;
 import com.its.gramsecurity.dto.RippleDTO;
 import com.its.gramsecurity.entity.BoardEntity;
@@ -12,6 +13,7 @@ import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.repository.RippleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +27,14 @@ public class RippleService {
 
     private final RippleRepository rippleRepository;
 
-    public void save(RippleDTO rippleDTO) {
-//        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(loginId);
+
+    public void save(RippleDTO rippleDTO, PrincipalDetails principalDetails) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(principalDetails.getMemberDTO().getLoginId());
         Optional<CommentEntity> optionalCommentEntity = commentRepository.findById(rippleDTO.getCommentId());
-        if(optionalCommentEntity.isPresent()){
-//            MemberEntity memberEntity = optionalMemberEntity.get();
+        if(optionalCommentEntity.isPresent() && optionalMemberEntity.isPresent()){
+            MemberEntity memberEntity = optionalMemberEntity.get();
             CommentEntity commentEntity = optionalCommentEntity.get();
-            RippleEntity rippleEntity = RippleEntity.toSaveEntity(rippleDTO);
+            RippleEntity rippleEntity = RippleEntity.toSaveEntity(rippleDTO,commentEntity,memberEntity);
             rippleRepository.save(rippleEntity);
         }
 

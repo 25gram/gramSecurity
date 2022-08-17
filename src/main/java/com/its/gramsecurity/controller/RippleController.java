@@ -22,8 +22,7 @@ public class RippleController {
     public @ResponseBody List<RippleDTO> save(@ModelAttribute RippleDTO rippleDTO,
                                               @AuthenticationPrincipal PrincipalDetails principalDetails){
         System.out.println(rippleDTO);
-        String loginId = principalDetails.getMemberDTO().getLoginId();
-        rippleService.save(rippleDTO);
+        rippleService.save(rippleDTO,principalDetails);
         List<RippleDTO> rippleList = rippleService.findAll();
         System.out.println("rippleList" + rippleList);
         return rippleList;

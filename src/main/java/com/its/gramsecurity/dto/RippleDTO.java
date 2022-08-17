@@ -23,7 +23,7 @@ public class RippleDTO {
         RippleDTO rippleDTO = new RippleDTO();
         rippleDTO.setId(rippleEntity.getId());
         rippleDTO.setCommentId(rippleEntity.getCommentId());
-//        rippleDTO.setRippleWriter(rippleEntity.getMemberEntity().getMemberName());
+        rippleDTO.setRippleWriter(rippleEntity.getRippleWriter());
         rippleDTO.setRippleContents(rippleEntity.getRippleContents());
         return rippleDTO;
     }
