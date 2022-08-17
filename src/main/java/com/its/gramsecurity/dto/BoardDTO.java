@@ -23,6 +23,8 @@ public class BoardDTO {
     private List<BoardFileDTO> boardFileList;
     private String memberProfileName;
     private Integer likes;
+    private Integer likesNo;
+    private Integer commentNo;
 
     public static BoardDTO toDTO(BoardEntity boardFile, PrincipalDetails principalDetails) {
         BoardDTO boardFileDTO = new BoardDTO();
@@ -32,6 +34,8 @@ public class BoardDTO {
         boardFileDTO.setBoardContents(boardFile.getBoardContents());
         boardFileDTO.setBoardLocation(boardFile.getBoardLocation());
         boardFileDTO.setBoardTag(boardFile.getBoardTag());
+        boardFileDTO.setLikesNo(boardFileDTO.getLikesNo());
+        boardFileDTO.setCommentNo(boardFile.getCommentNo());
         return boardFileDTO;
     }
     public static BoardDTO toBoardDTO(BoardEntity boardEntity){
