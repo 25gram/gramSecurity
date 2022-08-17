@@ -105,7 +105,7 @@ public class MemberService {
             }
         }
         boardService.updateProfile(memberDTO, memberProfileName);
-        msgService.updateProfile(memberDTO, memberProfileName);
+//        msgService.updateProfile(memberDTO, memberProfileName);
         followService.updateProfile(memberDTO,memberProfileName);
         storyService.updateProfile(memberDTO,memberProfileName);
 
