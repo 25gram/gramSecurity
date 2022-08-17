@@ -26,7 +26,6 @@ public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final BoardRepository boardRepository;
     private final LikesRepository likesRepository;
-    private final CommentRepository commentRepository;
     private final MemberRepository memberRepository;
     public BoardDTO fileSave(BoardDTO boardDTO, PrincipalDetails principalDetails) {
         Long id = boardRepository.save(BoardEntity.toSaveEntity(boardDTO,principalDetails)).getId();
@@ -129,9 +128,9 @@ public class BoardService {
     }
 
      void updateProfile(MemberDTO memberDTO,String fileName){
-        List<BoardEntity> blist=boardRepository.findByBoardWriter(memberDTO.getMemberName());
-         System.out.println("BoardService.updateProfile");
-         System.out.println("memberDTO = " + memberDTO + ", fileName = " + fileName);
+        List<BoardEntity> blist=boardRepository.findByLoginId(memberDTO.getLoginId());
+            System.out.println("BoardService.updateProfile");
+            System.out.println("memberDTO = " + memberDTO + ", fileName = " + fileName);
         for (int i =0;i< blist.size();i++){
             blist.get(i).setMemberProfileName(fileName);
             boardRepository.save(blist.get(i));

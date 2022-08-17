@@ -11,41 +11,39 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface MsgRepository extends JpaRepository<MsgEntity,Long> {
+public interface MsgRepository extends JpaRepository<MsgEntity, Long> {
     List<MsgEntity> findByLoginId(String loginId);
 
     @Transactional
     @Modifying
-    @Query(value = "select * from msgEntity where loginId=:loginId and friendId=:friendId or loginId=:friendId and friendId=:loginId",nativeQuery = true)
-    List<MsgEntity> findList(@Param("loginId") String loginId,@Param("friendId")String friendId);
+    @Query(value = "select * from msgEntity where loginId=:loginId and friendId=:friendId or loginId=:friendId and friendId=:loginId", nativeQuery = true)
+    List<MsgEntity> findList(@Param("loginId") String loginId, @Param("friendId") String friendId);
 
-//    @Transactional
+    //    @Transactional
 //    @Modifying
 //    @Query(value = "select * from msgEntity where loginId=:loginId or friendId=:loginId",nativeQuery = true)
 //    List<MsgEntity> findMsgList(@Param("loginId") String loginId);
 //}
-@Transactional
-@Modifying
+    @Transactional
+    @Modifying
 //@Query(value = "select * from msgEntity where loginId=:loginId or friendId=:loginId",nativeQuery = true)
-@Query(value = "select * from msgEntity where createdTime in (SELECT max(createdTime) FROM msgentity where loginId=:loginId or friendId=:loginId group by friendId) order by createdTime desc",nativeQuery = true)
-List<MsgEntity> findMsgList(@Param("loginId") String loginId);
+    @Query(value = "select * from msgEntity where createdTime in (SELECT max(createdTime) FROM msgentity where loginId=:loginId or friendId=:loginId group by friendId) order by createdTime desc", nativeQuery = true)
+    List<MsgEntity> findMsgList(@Param("loginId") String loginId);
 
-//@Transactional
+    //@Transactional
 //@Modifying
 //@Query(value = "select count(text) from msgEntity where loginId=:loginId and friendId=:friendId or loginId=:friendId and friendId=:loginId",nativeQuery = true)
 //Long count(@Param("loginId") String loginId,@Param("friendId") String friendId);
 //}
     @Transactional
     @Modifying
-    @Query(value = "select * from msgEntity where loginId=:loginId and friendId=:friendId or loginId=:friendId and friendId=:loginId",nativeQuery = true)
-    List<MsgEntity> count(@Param("loginId") String loginId,@Param("friendId") String friendId);
+    @Query(value = "select * from msgEntity where loginId=:loginId and friendId=:friendId or loginId=:friendId and friendId=:loginId", nativeQuery = true)
+    List<MsgEntity> count(@Param("loginId") String loginId, @Param("friendId") String friendId);
 
     @Transactional
     @Modifying
-    @Query(value = "select * from msgEntity where loginId=:loginId and friendId=:loginId",nativeQuery = true)
+    @Query(value = "select * from msgEntity where loginId=:loginId and friendId=:loginId", nativeQuery = true)
     List<MsgEntity> total(@Param("loginId") String loginId);
 
-
-    List<MsgEntity> friendName(String memberName);
 }
 //select * from msgentity where createdTime in (SELECT max(createdTime) FROM msgentity where loginId='hasangsu82' or friendId='hasangsu82' group by friendId);
