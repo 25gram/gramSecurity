@@ -5,6 +5,7 @@ import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;

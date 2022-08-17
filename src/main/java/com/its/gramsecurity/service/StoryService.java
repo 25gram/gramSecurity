@@ -104,7 +104,7 @@ public class StoryService {
     }
 
     public void updateProfile(MemberDTO memberDTO, String memberProfileName) {
-        List<StoryEntity>storyEntityList=storyRepository.findByMemberName(memberDTO.getMemberName());
+        List<StoryEntity>storyEntityList=storyRepository.findByLoginId(memberDTO.getLoginId());
         for (int i = 0; i < storyEntityList.size(); i++) {
             storyEntityList.get(i).setMemberProfileName(memberProfileName);
             storyRepository.save(storyEntityList.get(i));
