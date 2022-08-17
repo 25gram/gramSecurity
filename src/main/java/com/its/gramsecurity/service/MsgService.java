@@ -1,6 +1,5 @@
 package com.its.gramsecurity.service;
 
-import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.MsgDTO;
 import com.its.gramsecurity.entity.BoardEntity;
@@ -88,13 +87,13 @@ public class MsgService {
         return msgr.total(loginId);
     }
 
-    void updateProfile(MemberDTO memberDTO, String fileName){
-        List<MsgEntity>msgEntityList=msgr.findByLoginId(memberDTO.getLoginId());
-
-        for (int i =0;i< msgEntityList.size();i++){
-            msgEntityList.get(i).setLoginFileName(fileName);
-            msgr.save(msgEntityList.get(i));
-        }
-
-    }
+//    void updateProfile(MemberDTO memberDTO,String fileName){
+//        List<MsgEntity>msgEntityList=msgr.friendName(memberDTO.getMemberName());
+//
+//        for (int i =0;i< msgEntityList.size();i++){
+//            msgEntityList.get(i).setLoginFileName(fileName);
+//            msgr.save(msgEntityList.get(i));
+//        }
+//
+//    }
 }
