@@ -3,6 +3,7 @@ package com.its.gramsecurity.service;
 import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.CommentDTO;
 import com.its.gramsecurity.dto.LikesDTO;
+import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.RippleDTO;
 import com.its.gramsecurity.entity.*;
 import com.its.gramsecurity.repository.*;

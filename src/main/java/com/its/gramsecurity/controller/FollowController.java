@@ -24,8 +24,6 @@ public class FollowController {
                                               @AuthenticationPrincipal PrincipalDetails principalDetails) {
         String myId = principalDetails.getMemberDTO().getLoginId();
         followService.save(followDTO, myId);
-        System.out.println("FollowController.request_fw");
-        System.out.println("followDTO = " + followDTO + ", principalDetails = " + principalDetails);
         return followDTO;
     }
 
