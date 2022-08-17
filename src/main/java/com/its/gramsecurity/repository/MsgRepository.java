@@ -1,6 +1,7 @@
 package com.its.gramsecurity.repository;
 
 import com.its.gramsecurity.dto.MsgDTO;
+import com.its.gramsecurity.entity.BoardEntity;
 import com.its.gramsecurity.entity.MsgEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -43,5 +44,8 @@ List<MsgEntity> findMsgList(@Param("loginId") String loginId);
     @Modifying
     @Query(value = "select * from msgEntity where loginId=:loginId and friendId=:loginId",nativeQuery = true)
     List<MsgEntity> total(@Param("loginId") String loginId);
+
+
+    List<MsgEntity> friendName(String memberName);
 }
 //select * from msgentity where createdTime in (SELECT max(createdTime) FROM msgentity where loginId='hasangsu82' or friendId='hasangsu82' group by friendId);
