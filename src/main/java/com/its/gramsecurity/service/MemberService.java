@@ -1,13 +1,11 @@
 package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
-import com.its.gramsecurity.dto.FollowDTO;
-import com.its.gramsecurity.dto.MsgDTO;
-import com.its.gramsecurity.repository.FollowRepository;
 import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
@@ -30,7 +29,12 @@ public class MemberService {
     private BCryptPasswordEncoder encoder;
 
     @Autowired
-    private FollowRepository followRepository;
+    private MsgService msgService;
+
+    @Autowired
+    private FollowService followService;
+    @Autowired
+    private StoryService storyService;
 
     public MemberEntity save(MemberDTO memberDTO) throws IOException {
         MultipartFile memberProfile = memberDTO.getMemberProfile();
@@ -40,7 +44,7 @@ public class MemberService {
             memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
             memberProfile.transferTo(new File(savePath));
             memberDTO.setMemberProfileName(memberProfileName);
-        } else{
+        } else {
             memberDTO.setMemberProfileName("noProfile.png");
         }
         return memberRepository.save(MemberEntity.toSaveEntity(memberDTO));
@@ -101,6 +105,9 @@ public class MemberService {
             }
         }
         boardService.updateProfile(memberDTO, memberProfileName);
+//        msgService.updateProfile(memberDTO, memberProfileName);
+        followService.updateProfile(memberDTO,memberProfileName);
+        storyService.updateProfile(memberDTO,memberProfileName);
 
     }
 
@@ -165,11 +172,12 @@ public class MemberService {
     }
 
     public List<MemberDTO> search(String search) {
-        List<MemberEntity>memberEntityList=memberRepository.searchResult(search);
-        List<MemberDTO>memberDTOList=new ArrayList<>();
-        for(MemberEntity memberEntity:memberEntityList){
+        List<MemberEntity> memberEntityList = memberRepository.searchResult(search);
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (MemberEntity memberEntity : memberEntityList) {
             memberDTOList.add(MemberDTO.toDTO(memberEntity));
-        }return memberDTOList;
+        }
+        return memberDTOList;
 
     }
 

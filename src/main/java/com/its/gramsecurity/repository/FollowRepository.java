@@ -24,10 +24,12 @@ public interface FollowRepository extends JpaRepository<FollowEntity, Long> {
 
     void deleteByYourIdAndMyId(String yourId, String myId);
 
-
-
     @Transactional
-    @Query(value = "SELECT * FROM follow_entity where myId=:myId and yourId=:yourId",nativeQuery = true)
+    @Query(value = "SELECT * FROM follow_entity where myId=:myId and yourId=:yourId", nativeQuery = true)
     Optional<FollowEntity> findByMyIdAndYourId(String myId, String yourId);
 
+
+    List<FollowEntity> findByYourId(String loginId);
+
+    List<FollowEntity> findByMyId(String loginId);
 }

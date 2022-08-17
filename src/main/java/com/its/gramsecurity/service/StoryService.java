@@ -4,6 +4,7 @@ import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.dto.FollowDTO;
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.StoryDTO;
+import com.its.gramsecurity.entity.FollowEntity;
 import com.its.gramsecurity.entity.MemberEntity;
 import com.its.gramsecurity.entity.StoryEntity;
 import com.its.gramsecurity.repository.MemberRepository;
@@ -24,13 +25,13 @@ public class StoryService {
     private final StoryRepository storyRepository;
     private final MemberRepository memberRepository;
 
-    public StoryDTO findByLoginId(String loginId) {
-        Optional<StoryEntity> byLoginId = storyRepository.findByLoginId(loginId);
-        StoryDTO storyDTO = new StoryDTO();
-        if (byLoginId.isPresent()) {
-            storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
+    public List<StoryDTO> findByLoginId(String loginId) {
+        List<StoryDTO> storyDTOList = new ArrayList<>();
+        List<StoryEntity> storyEntityList = storyRepository.findByLoginId(loginId);
+        for(StoryEntity story: storyEntityList) {
+            storyDTOList.add(StoryDTO.toStoryDTO(story));
         }
-        return storyDTO;
+        return storyDTOList;
     }
 
     public List<StoryDTO> findByStoryLocationTag(String storyLocationTag) {
@@ -51,8 +52,8 @@ public class StoryService {
         return storyRepository.save(StoryEntity.toSaveStoryEntity(storyDTO, memberEntity)).getId();
     }
 
-    public Long saveFile(StoryDTO storyDTO) throws IOException {
-        Long id=null;
+    public String saveFile(StoryDTO storyDTO) throws IOException {
+        String loginId="";
         Optional<StoryEntity> storyEntityOptional = storyRepository.findById(storyDTO.getId());
         if (storyEntityOptional.isPresent()) {
             StoryEntity storyEntity = storyEntityOptional.get();
@@ -74,9 +75,9 @@ public class StoryService {
             storyEntity.setStoryFileName(storyFileName);
             storyEntity.setStoryImgName(storyImgName);
             storyEntity.setMemberProfileName(storyDTO.getMemberProfileName());
-            id = storyRepository.save(storyEntity).getId();
+            loginId = storyRepository.save(storyEntity).getLoginId();
         }
-            return id;
+            return loginId;
     }
 
     public List<StoryDTO> storyView(List<FollowDTO> followDTOList) {
@@ -84,12 +85,10 @@ public class StoryService {
         for (int i = 0; i < followDTOList.size(); i++) {
 
             String storyFollowingId = followDTOList.get(i).getMyId();
-            Optional<StoryEntity> byLoginId = storyRepository.findByLoginId(storyFollowingId);
-            System.out.println("StoryService.storyView");
-            System.out.println("storyFollowingId = " + storyFollowingId);
-            if (byLoginId.isPresent()) {
-                StoryDTO storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
-                storyDTOList.add(storyDTO);
+            List<StoryEntity> storyEntityList = storyRepository.findByLoginId(storyFollowingId);
+
+            for (StoryEntity story : storyEntityList) {
+                storyDTOList.add(StoryDTO.toStoryDTO(story));
             }
         }
         return storyDTOList;
@@ -102,5 +101,13 @@ public class StoryService {
             storyDTO = StoryDTO.toStoryDTO(byLoginId.get());
         }
         return storyDTO;
+    }
+
+    public void updateProfile(MemberDTO memberDTO, String memberProfileName) {
+        List<StoryEntity>storyEntityList=storyRepository.findByLoginId(memberDTO.getLoginId());
+        for (int i = 0; i < storyEntityList.size(); i++) {
+            storyEntityList.get(i).setMemberProfileName(memberProfileName);
+            storyRepository.save(storyEntityList.get(i));
+        }
     }
 }
