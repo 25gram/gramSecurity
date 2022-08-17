@@ -91,6 +91,6 @@ public class StoryController {
         List<FollowDTO> yourlist=followService.findAllByYourId(id);
         System.out.println("StoryController.storyIdList");
         System.out.println("myList = " + myList);
-        return myList;
+        return yourlist;
     }
 }

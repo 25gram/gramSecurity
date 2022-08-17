@@ -2,6 +2,7 @@ package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.dto.MemberDTO;
 import com.its.gramsecurity.dto.MsgDTO;
+import com.its.gramsecurity.entity.BoardEntity;
 import com.its.gramsecurity.entity.MsgEntity;
 import com.its.gramsecurity.repository.MsgRepository;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,7 @@ public class MsgService {
         return mlist;
     }
 
+
     public List<MsgEntity> count(MsgDTO mem) {
         System.out.println("*******************");
         System.out.println("mem.getLoginId() = " + mem.getLoginId());
@@ -81,5 +83,15 @@ public class MsgService {
 
     public List<MsgEntity> total(String loginId) {
         return msgr.total(loginId);
+    }
+
+    void updateProfile(MemberDTO memberDTO,String fileName){
+        List<MsgEntity>msgEntityList=msgr.friendName(memberDTO.getMemberName());
+
+        for (int i =0;i< msgEntityList.size();i++){
+            msgEntityList.get(i).setLoginFileName(fileName);
+            msgr.save(msgEntityList.get(i));
+        }
+
     }
 }

@@ -30,7 +30,7 @@ public class MemberService {
     private BCryptPasswordEncoder encoder;
 
     @Autowired
-    private FollowRepository followRepository;
+    private MsgService msgService;
 
     public MemberEntity save(MemberDTO memberDTO) throws IOException {
         MultipartFile memberProfile = memberDTO.getMemberProfile();
@@ -101,6 +101,7 @@ public class MemberService {
             }
         }
         boardService.updateProfile(memberDTO, memberProfileName);
+        msgService.updateProfile(memberDTO,memberProfileName);
 
     }
 
