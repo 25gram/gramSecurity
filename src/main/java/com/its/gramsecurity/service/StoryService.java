@@ -1,11 +1,14 @@
 package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
-import com.its.gramsecurity.dto.*;
-import com.its.gramsecurity.entity.*;
+import com.its.gramsecurity.dto.FollowDTO;
+import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.dto.StoryDTO;
+import com.its.gramsecurity.entity.FollowEntity;
+import com.its.gramsecurity.entity.MemberEntity;
+import com.its.gramsecurity.entity.StoryEntity;
 import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.repository.StoryRepository;
-import com.its.gramsecurity.repository.StoryViewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -101,13 +104,9 @@ public class StoryService {
     }
 
     public void updateProfile(MemberDTO memberDTO, String memberProfileName) {
-        List<StoryEntity>storyEntityList=storyRepository.findByMemberName(memberDTO.getMemberName());
-        System.out.println("------------------------------------MemberProfileName = " + memberProfileName);
+        List<StoryEntity>storyEntityList=storyRepository.findByLoginId(memberDTO.getLoginId());
         for (int i = 0; i < storyEntityList.size(); i++) {
-            System.out.println(storyEntityList.get(i).getMemberProfileName());
-            System.out.println(storyEntityList.get(i).getMemberName());
             storyEntityList.get(i).setMemberProfileName(memberProfileName);
-            storyEntityList.get(i).setMemberName(memberDTO.getMemberName());
             storyRepository.save(storyEntityList.get(i));
         }
     }

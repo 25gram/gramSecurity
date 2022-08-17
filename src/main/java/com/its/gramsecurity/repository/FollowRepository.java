@@ -28,7 +28,8 @@ public interface FollowRepository extends JpaRepository<FollowEntity, Long> {
     @Query(value = "SELECT * FROM follow_entity where myId=:myId and yourId=:yourId", nativeQuery = true)
     Optional<FollowEntity> findByMyIdAndYourId(String myId, String yourId);
 
-    List<FollowEntity> findByYourName(String memberName);
 
-    List<FollowEntity> findByMyName(String memberName);
+    List<FollowEntity> findByYourId(String loginId);
+
+    List<FollowEntity> findByMyId(String loginId);
 }
