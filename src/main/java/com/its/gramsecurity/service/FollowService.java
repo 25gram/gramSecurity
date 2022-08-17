@@ -1,6 +1,8 @@
 package com.its.gramsecurity.service;
 
 import com.its.gramsecurity.dto.FollowDTO;
+import com.its.gramsecurity.dto.MemberDTO;
+import com.its.gramsecurity.entity.BoardEntity;
 import com.its.gramsecurity.entity.FollowEntity;
 import com.its.gramsecurity.entity.MemberEntity;
 import com.its.gramsecurity.repository.FollowRepository;
@@ -57,8 +59,6 @@ public class FollowService {
     }
 
     public String UnFollow(String yourId, String myId) {
-        System.out.println("FollowService.UnFollow");
-        System.out.println("yourId = " + yourId + ", myId = " + myId);
         followRepository.deleteByYourIdAndMyId(yourId, myId);
         return "confirm";
     }
@@ -66,14 +66,19 @@ public class FollowService {
 
     public String findByMyIdAndYourId(String myId, String yourId) {
         Optional<FollowEntity> optionalFollowEntity = followRepository.findByMyIdAndYourId(myId,yourId);
-        System.out.println("FollowService.findByMyIdAndYourId");
-        System.out.println("myId = " + myId + ", yourId = " + yourId);
-        System.out.println("optionalFollowEntity = " + optionalFollowEntity);
         if (optionalFollowEntity.isPresent()) {
             return "찾았다";
         } else {
             return "못찾았다";
         }
 
+    }
+
+    public void updateProfile(MemberDTO memberDTO, String memberProfileName) {
+        List<FollowEntity> followEntityList=followRepository.findByYourName(memberDTO.getMemberName());
+        for (int i =0;i< followEntityList.size();i++){
+            followEntityList.get(i).setYourProfileName(memberProfileName);
+            followRepository.save(followEntityList.get(i));
+        }
     }
 }
