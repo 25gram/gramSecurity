@@ -107,6 +107,7 @@ public class MemberService {
         followService.updateProfile(memberDTO,memberProfileName);
         storyService.updateProfile(memberDTO,memberProfileName);
 
+
     }
 
     public MemberDTO passwordCheck(MemberDTO memberDTO, PrincipalDetails principalDetails) {

@@ -30,7 +30,7 @@ public class StoryDTO {
     private String storyHashTag;
     private String storyReferenceTag;
     private String storyLocationTag;
-    private int storyVisitStatus;
+    private int storyVisitStatus=0;
     private String memberProfileName;
 
 
