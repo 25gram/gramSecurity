@@ -1061,8 +1061,8 @@
                             if (id == data[i].boardId) {
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[i].commentWriter == member[o].memberName) {
-                                        commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                        commentDetail.innerHTML += '     <span id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                        commentDetail.innerHTML += '<img class=\'commentListImg\' src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
+                                        commentDetail.innerHTML += '     <span class="commentListWriter" id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
                                         ripple = member[o].memberName;
                                     }
                                 }
@@ -2483,6 +2483,21 @@
             width: 400px;
             /* border: 1px solid; */
         }
+        .commentListImg{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            /*border: 1px gray solid;*/
+            margin-bottom: 10px;
+            margin-left: 15px;
+        }
+        .commentListWriter{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 17px;
+            font-weight: bold;
+            margin-right: 20px;
+            margin-left: 15px;
+        }
 
         .detail > .emojionearea {
             min-height: 60px;
@@ -2562,12 +2577,13 @@
             font-size: 17px;
             font-weight: bold;
             margin-right: 20px;
-            margin-left: 5px;
+            margin-left: 15px;
         }
         .commentContent{
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 15px;
         }
+
 
         .commentListItem[class*="detail"] {
             font-size: 25px;
