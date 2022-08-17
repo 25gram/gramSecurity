@@ -1068,7 +1068,7 @@
                                 }
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
-                                commentDetail.innerHTML += '<span onClick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
                                 commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
@@ -1106,18 +1106,22 @@
             });
         }
 
-        function rippleSave(id,boardId) {
+        function rippleSave(id,boardId,rippleNum,rippleNum2) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
-            const rippleWriter = document.getElementById('ripple' + id).innerHTML;
             const contentsDetail = document.getElementById("text1_detail");
-            console.log(id);
-            console.log(contentsDetail.value)
+            let rippleName = '';
+            if (rippleNum2 == 1) {
+                rippleName = document.getElementById('ripplePlus' + rippleNum).innerHTML;
+            }else {
+                rippleName = document.getElementById('ripple' + id).innerHTML;
+            }
+            console.log(rippleName)
             const memberName = [[${memberDTO.loginId}]]
             $.ajax({
                 type: "post",
                 url: "/ripple/save",
-                data: {"rippleContents" : contentsDetail.value, "commentId" : id, "rippleWriter" : memberName},
+                data: {"rippleContents" : contentsDetail.value, "commentId" : id, "rippleWriter" : memberName,"tagName" : rippleName},
                 dataType: "json",
                 beforeSend: function (result) {
                     result.setRequestHeader(header, token);
@@ -1169,9 +1173,9 @@
                         },
                         success: function (comment) {
                             let member = [[${findAll}]];
-                            for (let i = comment.length-1; i >= 0; i--) {
+                            for (let i = 0; i < comment.length; i++) {
                                 const commentDetail = document.getElementById("listRipple" + (i+1));
-                                for (let j = data.length - 1; j >= 0; j--) {
+                                for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
                                         commentDetail.innerHTML += '<span onclick="rippleOpen(' + (i+1) + "," + id + ')">' + '---' + '</span>';
@@ -1182,23 +1186,24 @@
                             }
                             if (commentId != 0) {
                                 const commentDetail = document.getElementById("rippleList" + commentId);
-                                for (let i = data.length -1; i >= 0; i--) {
+                                for (let i = 0; i < data.length; i++) {
                                     if (commentId == data[i].commentId) {
                                         commentDetail.innerHTML = "";
                                     }
                                 }
                                 let ripple = "";
-                                for (let i = data.length-1; i >= 0; i--) {
+                                for (let i = 0; i < data.length; i++) {
                                     for (let o = 0; o < member.length; o++) {
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
-                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                            commentDetail.innerHTML += '     <span id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">';
+                                            commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + member[o].loginId + '">'+'<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                             ripple = member[o].memberName;
                                         }
                                     }
                                     if (commentId == data[i].commentId) {
-                                        commentDetail.innerHTML += '';
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
+                                        commentDetail.innerHTML += '<span onclick="rippleSave(' + commentId + ',' + id + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                     }
                                 }
                             }
