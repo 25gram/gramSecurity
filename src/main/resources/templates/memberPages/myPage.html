@@ -400,22 +400,7 @@
         let showInt = 0
 
         function showMenu() {
-            $.ajax({
-                type: "get",
-                url: "/storyBoard/findByLoginId",
-                dataType: String,
-                beforeSend:function (result){
-                    result.setRequestHeader(header,token);
-                },
-                success: function (result) {
-                    if(result=="ok"){
-                        location.href="/storyBoard/myStory";
-                    } else if(result=="no"){
-
-                    }
-            }
-
-            })
+            location.href="/storyBoard/stories/"+ ${memberDTO.loginId};
 
             // if (showInt == 0) {
             //     $("#menuZone").css({

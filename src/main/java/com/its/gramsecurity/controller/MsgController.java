@@ -34,26 +34,35 @@ public class MsgController {
     @ResponseBody
     List<MsgDTO> gomsg(@ModelAttribute MsgDTO mem){
         List<MsgDTO> mlist=msgs.findList(mem.getLoginId(),mem.getFriendId());
-//        List<MsgDTO> mlist=msgs.findByLoginId(mem.getLoginId(),mem.getFriendId());
-        System.out.println("MsgController.gomsg");
-        System.out.println("mem = " + mem);
-        System.out.println("mlist = " + mlist);
+
         return mlist;
     }
 
     @PostMapping("save")
     @ResponseBody
     String save(@ModelAttribute MsgDTO mem){
-        System.out.println("MsgController.save");
         msgs.save(mem);
         return "ok";
     }
     @GetMapping("msglist")
     @ResponseBody
-    List<MsgDTO> msglist(@RequestParam String loginId){
+//    List<MsgDTO> msglist(@RequestParam("loginId") String loginId){
+    List<MsgDTO> msglist(@RequestParam("loginId") String loginId){
+        System.out.println("MsgController.msglist");
+        System.out.println("loginId = " + loginId);
         List<MsgDTO> mlist= msgs.msglist(loginId);
-        System.out.println("aaaaa mlist = " + mlist);
+        System.out.println("mlist: "+mlist);
         return mlist;
+    }
+    @GetMapping("count")
+    @ResponseBody
+    List<MsgEntity> count(@ModelAttribute MsgDTO mem){
+        return msgs.count(mem);
+    }
+    @GetMapping("total")
+    @ResponseBody
+    List<MsgEntity>total(@RequestParam("loginId") String loginId){
+        return msgs.total(loginId);
     }
 
 }
