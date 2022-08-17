@@ -23,7 +23,7 @@ public class StoryEntity {
     @Column
     private String storyFileName;
 
-    @Column
+    @Column (unique = true)
     private String loginId;
 
     @Column

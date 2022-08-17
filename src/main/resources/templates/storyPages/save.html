@@ -870,7 +870,22 @@
                         <input type="hidden" name="memberProfileName" th:value="${memberDTO.memberProfileName}">
                         <input type="file" id="hiddenFile" name="storyImgFile"onsubmit="return false;"  hidden>
                         <input type="file" id="upImgFiles" name="storyFile" onsubmit="return false;" onchange="uploadImgPreview(this);">
+                        <input type="file" name="filePlus" id="filePlus" onsubmit="return false;" onchange="plus(this)"
+                               multiple hidden>
                     </form>
+                    <div id="imgBtnZone" style="padding: 0;margin: 0;height: 0;">
+                        <label for="filePlus" class="btnPointer modal1">
+<!--                            <i id="imgBtn" onclick="imgBtnEffect()" name="imgBtn" class=" modal1 fa-regular fa-file-image"-->
+<!--                               style="color:#0d6efd;font-size: 70px;position:absolute ;top:40%;left:40%">-->
+<!--                            </i>-->
+                            <i class="bi bi-file-earmark-image" id="uploadBtn" onclick="imgBtnEffect()"
+                               style="color:#0d6efd;font-size: 70px;position:absolute ;top:40%;left:40%">
+                            </i>
+                            </label>
+                        <p style="color: #024ab6;font-size:20px ;position:absolute ;top:55%;left:26%">
+                            사진을
+                            선택해주세요.</p>
+                    </div>
                 </div>
                 <div class="editMenu" id="editMenu">
                     <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>

@@ -52,7 +52,7 @@ public class MainController {
                storyList.add(storyDTO);
            }
         }
-        model.addAttribute("storyList", storyList);
+        model.addAttribute("storyList", storyDTOList);
         return "main";
     }
     @GetMapping("/story")
