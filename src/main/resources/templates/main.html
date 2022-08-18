@@ -1206,10 +1206,11 @@
                         }
                         if (rippleBtn == 1) {
                             commentDetailBtn.innerHTML = "<p onclick='rippleSave(" + commentId + "," + id + "," + rippleId + "," + rippleNum + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
-                        }else {
+                        }
+                        if (rippleBtn == 0){
                             commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
                         }
-                        rippleList(id);
+                        rippleList(id,commentId);
                     }
                 }
             });
@@ -1243,6 +1244,8 @@
         }
         function rippleZone(id,commentId,rippleId,rippleNum) {
             rippleBtn = 1;
+            console.log("commentId" + commentId);
+            console.log("commentId" + rippleId);
             let ripple="";
             if (rippleNum == 1) {
                 ripple = document.getElementById('ripplePlus' + rippleId).innerHTML;
@@ -1264,7 +1267,6 @@
             } else {
                 rippleName = document.getElementById('ripple' + id).innerHTML;
             }
-            console.log(rippleName)
             const memberName = [[${memberDTO.loginId}]]
             $.ajax({
                 type: "post",
@@ -1291,7 +1293,7 @@
                         success: function (comment) {
                             rippleBtn = 0;
                             $(".emojionearea-editor").html("")
-                            rippleList(boardId,id);
+                            commentList(boardId,id);
                         }
                     });
                 }
@@ -1354,13 +1356,15 @@
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
                                             commentDetail.innerHTML += '<img class="rippleImg" src="/upload/' + member[o].memberProfileName + '" >';
                                             commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
-                                            commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + member[o].loginId + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                             ripple = member[o].memberName;
+                                            console.log("data[i].id2" + data[i].id);
                                         }
                                     }
                                     if (commentId == data[i].commentId) {
+                                        commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + data[i].tagLogin + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
-                                        commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' + data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        console.log("data[i].id" + data[i].id);
                                     }
                                 }
                             }
@@ -1574,6 +1578,7 @@
         }
 
         function feedRightSlider(a) {
+            console.log("aa"+a)
             // a = id 값 벨류 받아오기
             document.getElementById("l" + a).style.visibility = "visible";
             let y = 0;
