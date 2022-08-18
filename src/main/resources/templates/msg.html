@@ -384,7 +384,6 @@
                 })
                 rightInt=0
             }
-            console.log("int : "+i)
         }
 
 
@@ -406,7 +405,7 @@
                     result.setRequestHeader(header, token);
                 },
                 success:function (e){
-                    console.log("msglist suc : "+e)
+
                     for(let i=0;i<e.length;i++){
                         let loginId2=e[i].loginId
                         let loginFileName2=e[i].loginFileName
@@ -415,7 +414,6 @@
                         let friendFileName2=e[i].friendFileName
                         let friendName2=e[i].friendName
 
-                        console.log(loginId2)
                         if(e[i].loginId=='[[${mem.loginId}]]'){
                             // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].loginId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                             html+='<tr onClick = "goMsgPage('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')+msgCount()" ><td><div class="msgList"><div class = "msgProfileZone">'+
@@ -788,7 +786,6 @@
 
 
     $("#formBtn").click(function (){
-        console.log("click호출")
         if(document.getElementById("dmInput").value.length!=0){
             let loginId='[[${mem.loginId}]]';
             let friendId=document.getElementById("friendId").value;
@@ -860,7 +857,6 @@
                 result.setRequestHeader(header, token);
             },
             success:function (e){
-                console.log("go suc")
                 for(let i=0;i<e.length;i++){
                     if(e[i].loginId==loginId1){
                         html+='<div style="text-align: -webkit-right;"><p class="msgTime">'+e[i].createdTime+'</p><div class="myMsgZone">'+
@@ -923,7 +919,6 @@
     let totalint=0
     let clickint=0
     function totalCount(){
-        console.log("total 호출")
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let logId='[[${mem.loginId}]]'
@@ -937,15 +932,14 @@
                 result.setRequestHeader(header, token);
             },
             success:function (e){
-                console.log("total suc len: "+e.length)
-                console.log("total suc int: "+totalint)
 
-                if(totalint!=e.length){
+                if(totalint!=e.length || totalint==0){
                     totalint=e.length
                     msgList()
                     if(clickint==1){
                     goMsgPage(fi,ff,fn)}
                 }
+
             },
             error:function (e){
                 console.log("total err")
@@ -959,11 +953,7 @@
     }
     let mcount=0;
     function msgCount(){
-        console.log("=================================")
-        console.log("msgcount 호출")
-        console.log("mcount : "+mcount)
-        console.log("totalint : "+totalint)
-        console.log("=================================")
+
         if(mcount!=totalint){
                 goMsgPage(fi, ff, fn)
                 mcount = totalint
@@ -974,7 +964,6 @@
     //     clearTimeout(var1)
     // })
     function sub() {
-        console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         const searchInput = document.getElementById("search");
@@ -995,7 +984,6 @@
             success: function (result) {
                 let content = "";
                 let id='[[${mem.loginId}]]'
-                console.log("sub id: "+id)
                 if (result.length != 0) {
                     for (let i in result) {
                         if(id!=result[i].loginId) {
@@ -1007,7 +995,6 @@
                 } else {
                     content = html;
                 }
-                console.log("suc content : " + content),
                     document.getElementById("searchLIstZone").innerHTML = content;
 
             },
@@ -1015,7 +1002,6 @@
                 let content = "";
                 console.log("sub err")
                 content = html;
-                console.log("err content : " + content),
                     document.getElementById("searchLIstZone").innerHTML = content;
             },
 
@@ -1042,7 +1028,6 @@
         }
         if (e == 2) {
             function rollBack() {
-                console.log("rollback 호출")
                 $(".spinZone").css({
                     "opacity":0,
                     "transition":"all 0.2s",
