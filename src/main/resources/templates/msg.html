@@ -10,7 +10,6 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
 
-    <link rel="stylesheet" href="/main/main">
 
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -448,15 +447,12 @@
                 }
             })
         }
-        $("#testBtn").click(function (){
-            $("#nextbbtn").trigger("click")
-        })
+
     </script>
 
 </head>
 
 <body onload="msgList(),totalCount()">
-<button id="testBtn">test</button>
 <div class="msgbody" style="margin:auto;margin-top: 50px; border:#ebe9e9 1px solid; width: 900px; height:700px;display: flex; ">
     <!-- 왼쪽화면 -->
     <div class="msgbodyLeft" style="width: 350px;height: 100%;border-right: #ebe9e9 1px solid;">
