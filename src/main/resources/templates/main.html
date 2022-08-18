@@ -555,13 +555,18 @@
             outline: none;
         }
 
-        .rippleOnlick {
-            margin-left: 50px;
+        .rippleOnclick {
+            margin-left: 63px;
             color: gray;
-            font-size: 8px;
+            font-size: 13px;
         }
-        .rippleLine{
-            border:5px solid #8c8f91;
+        .listRipple{
+            background-color: #8c8f91;
+            height: 1px;
+            width: 24px;
+            margin-left: 50px;
+            margin-top: 20px;
+            margin-right: 20px;
         }
     </style>
 
@@ -1194,8 +1199,8 @@
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
                                 // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<span onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">'+'</div>';
+                                commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<div class="listRipple" id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
@@ -1355,7 +1360,7 @@
                                     }
                                     if (commentId == data[i].commentId) {
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
-                                        commentDetail.innerHTML += '<span class="rippleOnlick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' + data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' + data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                     }
                                 }
                             }
