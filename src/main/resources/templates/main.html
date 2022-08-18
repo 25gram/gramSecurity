@@ -795,11 +795,14 @@
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone">
             <h5>스토리 구역입니다.</h5>
-
-            <!--            <input type="text" th:value="${memberDTO.memberName}" id="id">-->
-            <!--            <button th:onclick="followList()">followList</button>-->
+            <tr>
+                <div th:each="story :${storyList}">
+                    <td><img class="storyProfile"
+                             th:src="@{|/upload/${AuthenticationPrincipal.getMemberDTO().getMemberProfileName()}|}"
+                             alt=""></td>
+                </div>
+            </tr>
         </div>
-
 
         <!-- 메인피드 구역 -->
         <div class="" id="feedZone">
