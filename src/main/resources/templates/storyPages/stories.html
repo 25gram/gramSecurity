@@ -774,14 +774,7 @@
             left: 20px;
         }
     </style>
-    <script>
-        function bar(){
-            $(".bar").css({
-                width:"458px",
-                transition:"all 15s"
-            })
-        }
-    </script>
+
 </head>
 <body onload="bar()">
 <div class="container">
@@ -879,8 +872,13 @@
                         setTimeout(function (){
                             location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
                         }, (time+0.5)*1000);
+                            $(".bar").css({
+                                width:"458px",
+                                transition: time
+                            })
                     }, 500);
                 });
+
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
                 $(document).ready(function (){
