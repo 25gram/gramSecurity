@@ -544,6 +544,25 @@
             left: 1px;
             z-index: 0;
         }
+
+        .rippleImg {
+            width: 25px;
+            height: 25px;
+            margin-left: 50px;
+        }
+
+        #rippleText:focus {
+            outline: none;
+        }
+
+        .rippleOnlick {
+            margin-left: 50px;
+            color: gray;
+            font-size: 8px;
+        }
+        .rippleLine{
+            border:5px solid #8c8f91;
+        }
     </style>
 
 
@@ -561,7 +580,7 @@
         </div>
         <div class="col">
             <div class="container" style="width: 300px;">
-                <div class="input-group searchGroup" style="margin-top:11px ;">
+                <div class="input-group searchGroup" style="margin-top:11px;">
                     <div id="searchIcon" class="drop-item input-group-text"
                          style="background-color:#F2F3F5;color:rgb(168, 168, 168);">
                         <i class="drop-item fa-solid fa-magnifying-glass"></i>
@@ -910,12 +929,11 @@
 
             <tr th:each="story :${storyList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
-                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
-                        <!-- <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt=""> -->
-                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">
+                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}"> <img class="storyProfile"
+                                                                                      th:src="@{|/upload/${story.getMemberProfileName()}|}"
+                                                                                      alt="">
                     </a>
-                    <!-- <p class="storyName "th:text="${story.getMemberName()}"></p> -->
-                    <p class="storyName" >havana_1016</p>
+                    <p style="text-align: center" th:text="${story.getMemberName()}"></p>
                 </div>
             </tr>
         </div>
@@ -1312,9 +1330,9 @@
                                 for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
-                                        commentDetail.innerHTML += '<span onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML += '<span class="rippleLine" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '' + '</span>';
                                     } else if (comment[i].id == commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
-                                        commentDetail.innerHTML = '<span onclick="rippleClose(' + commentId + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML = '<span class="rippleLine" onclick="rippleClose(' + commentId + "," + id + ')">' + '' + '</span>';
                                     }
                                 }
                             }
@@ -1329,7 +1347,7 @@
                                 for (let i = 0; i < data.length; i++) {
                                     for (let o = 0; o < member.length; o++) {
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
-                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">';
+                                            commentDetail.innerHTML += '<img class="rippleImg" src="/upload/' + member[o].memberProfileName + '" >';
                                             commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
                                             commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + member[o].loginId + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                             ripple = member[o].memberName;
@@ -1337,7 +1355,7 @@
                                     }
                                     if (commentId == data[i].commentId) {
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
-                                        commentDetail.innerHTML += '<span onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        commentDetail.innerHTML += '<span class="rippleOnlick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' + data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                     }
                                 }
                             }
