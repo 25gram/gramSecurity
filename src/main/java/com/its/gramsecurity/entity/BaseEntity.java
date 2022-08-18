@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
@@ -21,4 +23,9 @@ public class BaseEntity {
     @UpdateTimestamp
     @Column(insertable = false)
     private LocalDateTime updatedTime;
+
+    LocalDateTime date = LocalDateTime.now();
+//    @CreationTimestamp
+    @Column
+    public String lastTime= date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT));
 }

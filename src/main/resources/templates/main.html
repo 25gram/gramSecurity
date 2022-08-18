@@ -420,11 +420,35 @@
         }
 
         .storyProfile {
+            /*width: 70px;*/
+            /*height: 70px;*/
+            /*border-radius: 50%;*/
+            /*margin-top: 6px;*/
+            position: relative;
             width: 70px;
             height: 70px;
+            margin: 12px;
+            /* padding: 0px; */
+            border: 3px solid transparent;
             border-radius: 50%;
-            margin-top: 6px;
+            background-image: linear-gradient(#fff, #fff), linear-gradient(to right, red 0%, orange 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            cursor: pointer;
+            transition: ease-out 0.5s;
+            z-index: 1;
         }
+        .storyProfile:hover{
+            opacity: 0.8;
+            transform: scale(1.2);
+            transition: all 0.5s;
+
+        }
+        .storyProfile:active{
+            transform: scale(1.1);
+            transition: all 0.2s;
+        }
+
 
         .storyBtn {
             width: 150px;
@@ -512,6 +536,38 @@
             margin-left: 15px;
         }
         #rippleText:focus {outline:none;}
+
+        .storyName{
+            /* ext-align: center; */
+            position: relative;
+            top: -16px;
+            left: 1px;
+            z-index: 0;
+        }
+
+        .rippleImg {
+            width: 25px;
+            height: 25px;
+            margin-left: 50px;
+        }
+
+        #rippleText:focus {
+            outline: none;
+        }
+
+        .rippleOnclick {
+            margin-left: 63px;
+            color: gray;
+            font-size: 13px;
+        }
+        .listRipple{
+            background-color: #8c8f91;
+            height: 1px;
+            width: 24px;
+            margin-left: 50px;
+            margin-top: 20px;
+            margin-right: 20px;
+        }
     </style>
 
 
@@ -529,7 +585,7 @@
         </div>
         <div class="col">
             <div class="container" style="width: 300px;">
-                <div class="input-group searchGroup" style="margin-top:11px ;">
+                <div class="input-group searchGroup" style="margin-top:11px;">
                     <div id="searchIcon" class="drop-item input-group-text"
                          style="background-color:#F2F3F5;color:rgb(168, 168, 168);">
                         <i class="drop-item fa-solid fa-magnifying-glass"></i>
@@ -1143,8 +1199,8 @@
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
                                 // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<span onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">'+'</div>';
+                                commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<div class="listRipple" id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
@@ -1281,9 +1337,9 @@
                                 for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
-                                        commentDetail.innerHTML += '<span onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML += '<span class="rippleLine" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '' + '</span>';
                                     } else if (comment[i].id == commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
-                                        commentDetail.innerHTML = '<span onclick="rippleClose(' + commentId + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML = '<span class="rippleLine" onclick="rippleClose(' + commentId + "," + id + ')">' + '' + '</span>';
                                     }
                                 }
                             }
@@ -1298,7 +1354,7 @@
                                 for (let i = 0; i < data.length; i++) {
                                     for (let o = 0; o < member.length; o++) {
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
-                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">';
+                                            commentDetail.innerHTML += '<img class="rippleImg" src="/upload/' + member[o].memberProfileName + '" >';
                                             commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
                                             ripple = member[o].memberName;
                                             console.log("data[i].id2" + data[i].id);
@@ -1307,7 +1363,7 @@
                                     if (commentId == data[i].commentId) {
                                         commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + data[i].tagLogin + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
-                                        commentDetail.innerHTML += '<span onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                         console.log("data[i].id" + data[i].id);
                                     }
                                 }

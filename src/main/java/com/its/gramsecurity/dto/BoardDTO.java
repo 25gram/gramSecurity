@@ -45,7 +45,7 @@ public class BoardDTO {
         boardDTO.setLoginId(boardEntity.getLoginId());
         boardDTO.setBoardContents(boardEntity.getBoardContents());
         boardDTO.setBoardLocation(boardEntity.getBoardLocation());
-        boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
+//        boardDTO.setBoardCreatedTime(boardEntity.getLastTime());
         boardDTO.setBoardTag(boardEntity.getBoardTag());
         boardDTO.setMemberProfileName(boardEntity.getMemberProfileName());
         boardDTO.setLikes(boardEntity.getLikes());
