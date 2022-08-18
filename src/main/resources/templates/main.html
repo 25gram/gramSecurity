@@ -122,7 +122,8 @@
             width: 500px;
             background-color: white;
             display: flex;
-
+            z-index: -5;
+            position: relative;
         }
 
         /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
@@ -148,6 +149,7 @@
             background-color: white;
             min-width: 1120px;
             user-select: none;
+            z-index: 55555 !important;
         }
 
         .feedZone:not(.detail) {
@@ -165,6 +167,8 @@
             border: rgb(214, 214, 214) solid 1px;
             border-radius: 1em;
             background-color: white;
+            position: relative;
+            z-index: -2;
         }
 
         .fi:not(.detail) {
@@ -457,7 +461,7 @@
             position: relative;
             left: -46px;
             /* top: 13px; */
-            top: -96px;
+            top: -155px;
             border: 1px solid rgb(168, 168, 168);
             cursor: pointer;
             opacity: 0;
@@ -635,26 +639,35 @@
             let goint = 0
 
             function showGo() {
+                const btn = document.querySelector('.storyBtn');
                 if (goint == 0) {
                     $(".storyBtn").css({
                         opacity: 1,
-                        top: "2px",
+                        top: "4px",
                         transition: "all 1s",
-                        zIndex: 1
                         // "transition-property":"opacity top"
-
                     })
+
+                    function show(){
+                        btn.style.zIndex = '0'
+                    }
+                    setTimeout(show,500);
 
 
                     goint = 1
                 } else if (goint == 1) {
-                    $(".storyBtn").css({
-                        opacity: 0,
-                        zIndex: -1,
-                        top: "-96px",
-                        transition: "all 1s",
-                    })
-                    goint = 0
+                    btn.style.zIndex = '-1';
+                    setTimeout(behind,200)
+                    function behind(){
+                        $(".storyBtn").css({
+                            opacity: 0,
+                            top: "-155px",
+                            transition: "all 0.9s",
+                        })
+                    }
+
+
+                    goint = 0;
                 }
             }
         </script>
@@ -934,11 +947,12 @@
 
             <tr th:each="story :${storyList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
-                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}"> <img class="storyProfile"
-                                                                                      th:src="@{|/upload/${story.getMemberProfileName()}|}"
-                                                                                      alt="">
+                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
+                         <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
+<!--                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">-->
                     </a>
-                    <p style="text-align: center" th:text="${story.getMemberName()}"></p>
+                     <p class="storyName "th:text="${story.getMemberName()}"></p>
+<!--                    <p class="storyName" >havana_1016</p>-->
                 </div>
             </tr>
         </div>
@@ -1674,11 +1688,11 @@
         }
 
         function nextBtn2() {
-            $('#nextBTN2').trigger("click")
+            $('#nextbBTN2').trigger("click")
         }
 
         function nextBtn() {
-            $('#nextBTN').trigger("click")
+            $('#nextbBTN').trigger("click")
         }
 
         let page = 0
@@ -1900,7 +1914,7 @@
                                class="fa-solid fa-arrow-left modal1"
                                style="font-size:35px ; margin: 25px 0 0 20px;"></i>
                         </div>
-                        <div id="nextBTN" data-bs-toggle="collapse"
+                        <div id="nextbBTN" data-bs-toggle="collapse"
                              data-bs-target="#collapseWidthExample" aria-expanded="true"
                              aria-controls="collapseWidthExample" hidden></div>
                         <div class="col" style="text-align: right;height: 50px">
@@ -1916,7 +1930,7 @@
 
                 </div>
                 <div class="modal-body modal1">
-                    <div hidden id="nextBTN2" data-bs-toggle="collapse"
+                    <div hidden id="nextbBTN2" data-bs-toggle="collapse"
                          data-bs-target="#collapseWidthExample2" aria-expanded="true"
                          aria-controls="collapseWidthExample"></div>
                     <div id="nextBtn2" name="nextBtn2" class=" modal1"
