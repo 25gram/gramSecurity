@@ -640,10 +640,12 @@
                     <div class="goContents">
                         <p id="gc" class="goItem">게시글 작성</p>
                     </div>
-                    <div class="goStory" onclick="location.href='/storyBoard/'">
-                        <p id="gs" class="goItem">스토리 작성</p>
+                    <div class="goStory" onclick="location.href='/storyBoard/'" th:if="${storyCheckResult.isEmpty()}">
+                        <p id="gs1" class="goItem" >스토리 작성</p>
                     </div>
-                </div>
+                    <div class="goStory" onclick="location.href='/storyBoard/'" th:unless="${storyCheckResult.isEmpty()}">
+                        <p id="gs2" class="goItem" >스토리 보기</p>
+                    </div>
             </div>
 
 
@@ -877,9 +879,8 @@
 
             <tr th:each="story :${storyList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
-                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}"> <img class="storyProfile"
-                                                                                      th:src="@{|/upload/${story.getMemberProfileName()}|}"
-                                                                                      alt="">
+                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
+                        <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
                     </a>
                     <p style="text-align: center" th:text="${story.getMemberName()}"></p>
                 </div>
