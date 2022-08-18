@@ -420,11 +420,35 @@
         }
 
         .storyProfile {
+            /*width: 70px;*/
+            /*height: 70px;*/
+            /*border-radius: 50%;*/
+            /*margin-top: 6px;*/
+            position: relative;
             width: 70px;
             height: 70px;
+            margin: 12px;
+            /* padding: 0px; */
+            border: 3px solid transparent;
             border-radius: 50%;
-            margin-top: 6px;
+            background-image: linear-gradient(#fff, #fff), linear-gradient(to right, red 0%, orange 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            cursor: pointer;
+            transition: ease-out 0.5s;
+            z-index: 1;
         }
+        .storyProfile:hover{
+            opacity: 0.8;
+            transform: scale(1.2);
+            transition: all 0.5s;
+
+        }
+        .storyProfile:active{
+            transform: scale(1.1);
+            transition: all 0.2s;
+        }
+
 
         .storyBtn {
             width: 150px;
@@ -510,6 +534,15 @@
             font-weight: bold;
             margin-right: 20px;
             margin-left: 15px;
+        }
+        #rippleText:focus {outline:none;}
+
+        .storyName{
+            /* ext-align: center; */
+            position: relative;
+            top: -16px;
+            left: 1px;
+            z-index: 0;
         }
 
         .rippleImg {
@@ -1092,8 +1125,7 @@
     <script th:inline="javascript">
         $("#feedCommentZone1").onclick = commentList(0);
         let rippleBtn = 0;
-
-        function commentList(id, commentId, rippleId, rippleNum) {
+        function commentList(id,commentId,rippleId,rippleNum) {
             console.log(id)
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
@@ -1162,14 +1194,14 @@
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
                                 // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<span class="rippleOnlick" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">' + '</div>';
+                                commentDetail.innerHTML += '<span onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
                         if (rippleBtn == 1) {
                             commentDetailBtn.innerHTML = "<p onclick='rippleSave(" + commentId + "," + id + "," + rippleId + "," + rippleNum + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
-                        } else {
+                        }else {
                             commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
                         }
                         rippleList(id);
@@ -1204,18 +1236,17 @@
                 }
             });
         }
-
-        function rippleZone(id, commentId, rippleId, rippleNum) {
+        function rippleZone(id,commentId,rippleId,rippleNum) {
             rippleBtn = 1;
-            let ripple = "";
+            let ripple="";
             if (rippleNum == 1) {
                 ripple = document.getElementById('ripplePlus' + rippleId).innerHTML;
-            } else {
+            }else {
                 ripple = document.getElementById('ripple' + commentId).innerHTML;
             }
-            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">' + "@" + ripple + '</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
+            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">'+"@" + ripple +'</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
             $("#rippleText").focus();
-            commentList(id, commentId, rippleId, rippleNum)
+            commentList(id,commentId,rippleId,rippleNum)
         }
 
         function rippleSave(id, boardId, rippleNum, rippleNum2) {
@@ -1255,7 +1286,7 @@
                         success: function (comment) {
                             rippleBtn = 0;
                             $(".emojionearea-editor").html("")
-                            rippleList(boardId, id);
+                            rippleList(boardId,id);
                         }
                     });
                 }
@@ -2602,10 +2633,10 @@
         }
 
         .commentListImg {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            border: 1px ghostwhite solid;
+            /*border: 1px gray solid;*/
             margin-bottom: 10px;
             margin-left: 15px;
         }

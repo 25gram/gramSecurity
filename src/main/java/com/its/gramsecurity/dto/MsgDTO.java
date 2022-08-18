@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MsgDTO extends BaseEntity {
+public class MsgDTO {
 
     public Long MsgId;
 
@@ -30,7 +30,7 @@ public class MsgDTO extends BaseEntity {
 
     public String friendName;
     public String loginName;
-
+    public String lastTime;
 
     public static MsgDTO toDto(MsgEntity mem){
         MsgDTO dto=new MsgDTO();
@@ -43,6 +43,7 @@ public class MsgDTO extends BaseEntity {
         dto.setFriendName(mem.getFriendName());
         dto.setLoginName(mem.getLoginName());
         dto.setLoginFileName(mem.getLoginFileName());
+        dto.setLastTime(mem.getLastTime());
         return dto;
     }
     public static MsgDTO toSaveDto(MsgEntity mem){
@@ -56,6 +57,7 @@ public class MsgDTO extends BaseEntity {
         dto.setFriendName(mem.getFriendName());
         dto.setLoginName(mem.getLoginName());
         dto.setLoginFileName(mem.getLoginFileName());
+        dto.setLastTime(mem.getLastTime());
         return dto;
     }
 
