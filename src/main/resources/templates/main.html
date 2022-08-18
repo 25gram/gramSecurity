@@ -527,6 +527,9 @@
             color: gray;
             font-size: 8px;
         }
+        .rippleLine{
+            border:5px solid #8c8f91;
+        }
     </style>
 
 
@@ -1296,9 +1299,9 @@
                                 for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
-                                        commentDetail.innerHTML += '<span class="rippleLine" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML += '<span class="rippleLine" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '' + '</span>';
                                     } else if (comment[i].id == commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
-                                        commentDetail.innerHTML = '<span onclick="rippleClose(' + commentId + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML = '<span class="rippleLine" onclick="rippleClose(' + commentId + "," + id + ')">' + '' + '</span>';
                                     }
                                 }
                             }
