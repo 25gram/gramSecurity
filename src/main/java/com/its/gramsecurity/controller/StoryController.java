@@ -42,6 +42,10 @@ public class StoryController {
             return "redirect:/storyBoard/stories/"+loginId;
         }
     }
+    public List<StoryDTO> storyCheck(String loginId) {
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+        return storyDTOList;
+    }
 
     @GetMapping("/stories/{id}")
     public String stories(@PathVariable("id") String loginId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
