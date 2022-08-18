@@ -422,7 +422,7 @@
                                 '<p class="msgName">'+e[i].friendName+'</p></b></div><div class="lastMsgZone">'+
                                 '<textarea class="lastMsg" cols="30" rows="10">'+
                                 e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
-                                "999년65월54일"+'</div></div></td></tr>'}
+                                e[i].lastTime+'</div></div></td></tr>'}
                         else{
                             // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].friendId+','+e[i].loginFileName+','+e[i].loginName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                             html+='<tr onClick = "goMsgPage('+"'"+loginId2+"','"+loginFileName2+"','"+loginName2+"'"+')+msgCount()" ><td><div class="msgList"><div class = "msgProfileZone">'+
@@ -431,7 +431,7 @@
                                 '<p class="msgName">'+e[i].loginName+'</p></b></div><div class="lastMsgZone">'+
                                 '<textarea class="lastMsg" cols="30" rows="10">'+
                                 e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
-                                "999년65월54일"+'</div></div></td></tr>'
+                                e[i].lastTime+'</div></div></td></tr>'
                         }
 
                     }
@@ -859,11 +859,11 @@
             success:function (e){
                 for(let i=0;i<e.length;i++){
                     if(e[i].loginId==loginId1){
-                        html+='<div style="text-align: -webkit-right;"><p class="msgTime">'+e[i].createdTime+'</p><div class="myMsgZone">'+
+                        html+='<div style="text-align: -webkit-right;"><p class="msgTime">'+e[i].lastTime+'</p><div class="myMsgZone">'+
                             '<p class="Msg">'+e[i].text+'</p></div></div>'
                     }
                     else if(e[i].friendId==loginId1){
-                        html+='<div><p class="msgTime">'+e[i].createdTime+'</p><div class="yourMsgZone"><p class="Msg">'
+                        html+='<div><p class="msgTime">'+e[i].lastTime+'</p><div class="yourMsgZone"><p class="Msg">'
                             +e[i].text+'</p></div></div>'
                     }
                 }
