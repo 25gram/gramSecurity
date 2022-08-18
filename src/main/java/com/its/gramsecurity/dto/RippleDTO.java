@@ -17,6 +17,7 @@ public class RippleDTO {
     private String rippleWriter;
     private String rippleContents;
     private String tagName;
+    private String tagLogin;
     private LocalDateTime rippleCreatedTime;
 
 
@@ -27,6 +28,7 @@ public class RippleDTO {
         rippleDTO.setRippleWriter(rippleEntity.getRippleWriter());
         rippleDTO.setRippleContents(rippleEntity.getRippleContents());
         rippleDTO.setTagName(rippleEntity.getTagName());
+        rippleDTO.setTagLogin(rippleEntity.getTagLogin());
         return rippleDTO;
     }
 }
