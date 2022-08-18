@@ -125,6 +125,7 @@
             margin-top: 10px;
             width: 500px;
             background-color: white;
+            display: flex;
 
         }
 
@@ -586,12 +587,12 @@
             <i id="headerItem2" class="fi fa-regular fa-heart" onclick="iconEffect(6)"
                data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
             <i id="headerItem3" class="fi fa-regular fa-paper-plane" style="font-size: 28px;"
-               onclick="iconEffect(7),goMsg()"></i>
+               onclick="goMsg()"></i>
             <!--            th:onclick=' location.href="@{|/msg/msgpage?loginId=${AuthenticationPrincipal.getMemberDTO().getLoginId()}|}"'></i>-->
 
 
             <i id="footerItem1" class="fi fa-solid fa-house"
-               onclick="iconEffect(1)"></i>
+               onclick="location.href='/main/main'"></i>
             <!-- <i id="footerItem2" class="fi fa-solid fa-magnifying-glass"
                onclick="iconEffect(2)" style="margin-right:25px ;"></i> -->
             <!--            <img id="headerProfile" onclick="ulSet()" class="dropdown event-dropdown" data-bs-toggle="dropdown"-->
