@@ -122,7 +122,8 @@
             width: 500px;
             background-color: white;
             display: flex;
-
+            z-index: -5;
+            position: relative;
         }
 
         /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
@@ -148,6 +149,7 @@
             background-color: white;
             min-width: 1120px;
             user-select: none;
+            z-index: 55555 !important;
         }
 
         .feedZone:not(.detail) {
@@ -165,6 +167,8 @@
             border: rgb(214, 214, 214) solid 1px;
             border-radius: 1em;
             background-color: white;
+            position: relative;
+            z-index: -2;
         }
 
         .fi:not(.detail) {
@@ -420,11 +424,35 @@
         }
 
         .storyProfile {
+            /*width: 70px;*/
+            /*height: 70px;*/
+            /*border-radius: 50%;*/
+            /*margin-top: 6px;*/
+            position: relative;
             width: 70px;
             height: 70px;
+            margin: 12px;
+            /* padding: 0px; */
+            border: 3px solid transparent;
             border-radius: 50%;
-            margin-top: 6px;
+            background-image: linear-gradient(#fff, #fff), linear-gradient(to right, red 0%, orange 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            cursor: pointer;
+            transition: ease-out 0.5s;
+            z-index: 1;
         }
+        .storyProfile:hover{
+            opacity: 0.8;
+            transform: scale(1.2);
+            transition: all 0.5s;
+
+        }
+        .storyProfile:active{
+            transform: scale(1.1);
+            transition: all 0.2s;
+        }
+
 
         .storyBtn {
             width: 150px;
@@ -433,7 +461,7 @@
             position: relative;
             left: -46px;
             /* top: 13px; */
-            top: -96px;
+            top: -155px;
             border: 1px solid rgb(168, 168, 168);
             cursor: pointer;
             opacity: 0;
@@ -511,6 +539,39 @@
             margin-right: 20px;
             margin-left: 15px;
         }
+        #rippleText:focus {outline:none;}
+
+        .storyName{
+            /* ext-align: center; */
+            position: relative;
+            top: -16px;
+            left: 1px;
+            z-index: 0;
+        }
+
+        .rippleImg {
+            width: 25px;
+            height: 25px;
+            margin-left: 50px;
+        }
+
+        #rippleText:focus {
+            outline: none;
+        }
+
+        .rippleOnclick {
+            margin-left: 63px;
+            color: gray;
+            font-size: 13px;
+        }
+        .listRipple{
+            background-color: #8c8f91;
+            height: 1px;
+            width: 24px;
+            margin-left: 50px;
+            margin-top: 20px;
+            margin-right: 20px;
+        }
     </style>
 
 
@@ -528,7 +589,7 @@
         </div>
         <div class="col">
             <div class="container" style="width: 300px;">
-                <div class="input-group searchGroup" style="margin-top:11px ;">
+                <div class="input-group searchGroup" style="margin-top:11px;">
                     <div id="searchIcon" class="drop-item input-group-text"
                          style="background-color:#F2F3F5;color:rgb(168, 168, 168);">
                         <i class="drop-item fa-solid fa-magnifying-glass"></i>
@@ -578,26 +639,35 @@
             let goint = 0
 
             function showGo() {
+                const btn = document.querySelector('.storyBtn');
                 if (goint == 0) {
                     $(".storyBtn").css({
                         opacity: 1,
-                        top: "2px",
+                        top: "4px",
                         transition: "all 1s",
-                        zIndex: 1
                         // "transition-property":"opacity top"
-
                     })
+
+                    function show(){
+                        btn.style.zIndex = '0'
+                    }
+                    setTimeout(show,500);
 
 
                     goint = 1
                 } else if (goint == 1) {
-                    $(".storyBtn").css({
-                        opacity: 0,
-                        zIndex: -1,
-                        top: "-96px",
-                        transition: "all 1s",
-                    })
-                    goint = 0
+                    btn.style.zIndex = '-1';
+                    setTimeout(behind,200)
+                    function behind(){
+                        $(".storyBtn").css({
+                            opacity: 0,
+                            top: "-155px",
+                            transition: "all 0.9s",
+                        })
+                    }
+
+
+                    goint = 0;
                 }
             }
         </script>
@@ -880,9 +950,11 @@
             <tr th:each="story :${storyList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
                     <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
-                        <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
+                         <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
+<!--                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">-->
                     </a>
-                    <p style="text-align: center" th:text="${story.getMemberName()}"></p>
+                     <p class="storyName "th:text="${story.getMemberName()}"></p>
+<!--                    <p class="storyName" >havana_1016</p>-->
                 </div>
             </tr>
         </div>
@@ -1073,8 +1145,8 @@
     </div>
     <script th:inline="javascript">
         $("#feedCommentZone1").onclick = commentList(0);
-
-        function commentList(id) {
+        let rippleBtn = 0;
+        function commentList(id,commentId,rippleId,rippleNum) {
             console.log(id)
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
@@ -1142,13 +1214,19 @@
                                 }
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
-                                commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">' + '</div>';
+                                // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<div class="listRipple" id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
-                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
-                        rippleList(id);
+                        if (rippleBtn == 1) {
+                            commentDetailBtn.innerHTML = "<p onclick='rippleSave(" + commentId + "," + id + "," + rippleId + "," + rippleNum + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        }
+                        if (rippleBtn == 0){
+                            commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        }
+                        rippleList(id,commentId);
                     }
                 }
             });
@@ -1175,22 +1253,36 @@
                     result.setRequestHeader(header, token);
                 },
                 success: function (data) {
+                    $(".emojionearea-editor").html("")
                     commentList(id);
                 }
             });
+        }
+        function rippleZone(id,commentId,rippleId,rippleNum) {
+            rippleBtn = 1;
+            console.log("commentId" + commentId);
+            console.log("commentId" + rippleId);
+            let ripple="";
+            if (rippleNum == 1) {
+                ripple = document.getElementById('ripplePlus' + rippleId).innerHTML;
+            }else {
+                ripple = document.getElementById('ripple' + commentId).innerHTML;
+            }
+            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">'+"@" + ripple +'</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
+            $("#rippleText").focus();
+            commentList(id,commentId,rippleId,rippleNum)
         }
 
         function rippleSave(id, boardId, rippleNum, rippleNum2) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
-            const contentsDetail = document.getElementById("text1_detail");
+            const contentsDetail = document.getElementById("rippleText");
             let rippleName = '';
             if (rippleNum2 == 1) {
                 rippleName = document.getElementById('ripplePlus' + rippleNum).innerHTML;
             } else {
                 rippleName = document.getElementById('ripple' + id).innerHTML;
             }
-            console.log(rippleName)
             const memberName = [[${memberDTO.loginId}]]
             $.ajax({
                 type: "post",
@@ -1215,7 +1307,9 @@
                             result.setRequestHeader(header, token);
                         },
                         success: function (comment) {
-                            rippleList(boardId, id);
+                            rippleBtn = 0;
+                            $(".emojionearea-editor").html("")
+                            commentList(boardId,id);
                         }
                     });
                 }
@@ -1259,9 +1353,9 @@
                                 for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
-                                        commentDetail.innerHTML += '<span onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML += '<span class="rippleLine" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '' + '</span>';
                                     } else if (comment[i].id == commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
-                                        commentDetail.innerHTML = '<span onclick="rippleClose(' + commentId + "," + id + ')">' + '---' + '</span>';
+                                        commentDetail.innerHTML = '<span class="rippleLine" onclick="rippleClose(' + commentId + "," + id + ')">' + '' + '</span>';
                                     }
                                 }
                             }
@@ -1276,15 +1370,17 @@
                                 for (let i = 0; i < data.length; i++) {
                                     for (let o = 0; o < member.length; o++) {
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
-                                            commentDetail.innerHTML += '<img src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">';
+                                            commentDetail.innerHTML += '<img class="rippleImg" src="/upload/' + member[o].memberProfileName + '" >';
                                             commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
-                                            commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + member[o].loginId + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                             ripple = member[o].memberName;
+                                            console.log("data[i].id2" + data[i].id);
                                         }
                                     }
                                     if (commentId == data[i].commentId) {
+                                        commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + data[i].tagLogin + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a>';
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
-                                        commentDetail.innerHTML += '<span onclick="rippleSave(' + commentId + ',' + id + ',' + data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        console.log("data[i].id" + data[i].id);
                                     }
                                 }
                             }
@@ -1498,6 +1594,7 @@
         }
 
         function feedRightSlider(a) {
+            console.log("aa"+a)
             // a = id 값 벨류 받아오기
             document.getElementById("l" + a).style.visibility = "visible";
             let y = 0;
@@ -1593,11 +1690,11 @@
         }
 
         function nextBtn2() {
-            $('#nextBTN2').trigger("click")
+            $('#nextbBTN2').trigger("click")
         }
 
         function nextBtn() {
-            $('#nextBTN').trigger("click")
+            $('#nextbBTN').trigger("click")
         }
 
         let page = 0
@@ -1819,7 +1916,7 @@
                                class="fa-solid fa-arrow-left modal1"
                                style="font-size:35px ; margin: 25px 0 0 20px;"></i>
                         </div>
-                        <div id="nextBTN" data-bs-toggle="collapse"
+                        <div id="nextbBTN" data-bs-toggle="collapse"
                              data-bs-target="#collapseWidthExample" aria-expanded="true"
                              aria-controls="collapseWidthExample" hidden></div>
                         <div class="col" style="text-align: right;height: 50px">
@@ -1835,7 +1932,7 @@
 
                 </div>
                 <div class="modal-body modal1">
-                    <div hidden id="nextBTN2" data-bs-toggle="collapse"
+                    <div hidden id="nextbBTN2" data-bs-toggle="collapse"
                          data-bs-target="#collapseWidthExample2" aria-expanded="true"
                          aria-controls="collapseWidthExample"></div>
                     <div id="nextBtn2" name="nextBtn2" class=" modal1"
@@ -2883,7 +2980,7 @@
 
                                 <div class="row detail" style="height: 60px;">
                                     <div class="col-10 detail" style=" margin-top:0px;">
-                                        <textarea class="text1_detail detail" name="" id="text1_detail" cols="30"
+                                        <textarea class="text1_detail detail aaa" name="" id="text1_detail" cols="30"
                                                   rows="10" placeholder="댓글 달기..."></textarea>
                                     </div>
                                     <!-- 댓글 저장 버튼 -->

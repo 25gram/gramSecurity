@@ -10,6 +10,7 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="_csrf" th:content="${_csrf.token}">
 
+
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -384,7 +385,6 @@
                 })
                 rightInt=0
             }
-            console.log("int : "+i)
         }
 
 
@@ -406,7 +406,7 @@
                     result.setRequestHeader(header, token);
                 },
                 success:function (e){
-                    console.log("msglist suc : "+e)
+
                     for(let i=0;i<e.length;i++){
                         let loginId2=e[i].loginId
                         let loginFileName2=e[i].loginFileName
@@ -415,7 +415,6 @@
                         let friendFileName2=e[i].friendFileName
                         let friendName2=e[i].friendName
 
-                        console.log(loginId2)
                         if(e[i].loginId=='[[${mem.loginId}]]'){
                             // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].loginId+','+e[i].friendFileName+','+e[i].friendName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                             html+='<tr onClick = "goMsgPage('+"'"+friendId2+"','"+friendFileName2+"','"+friendName2+"'"+')+msgCount()" ><td><div class="msgList"><div class = "msgProfileZone">'+
@@ -424,7 +423,7 @@
                                 '<p class="msgName">'+e[i].friendName+'</p></b></div><div class="lastMsgZone">'+
                                 '<textarea class="lastMsg" cols="30" rows="10">'+
                                 e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
-                                "999년65월54일"+'</div></div></td></tr>'}
+                                e[i].lastTime+'</div></div></td></tr>'}
                         else{
                             // html+='<tr onClick = "showRight(0),goMsgPage('+e[i].friendId+','+e[i].loginFileName+','+e[i].loginName+')" ><td><div class="msgList"><div class = "msgProfileZone">'+
                             html+='<tr onClick = "goMsgPage('+"'"+loginId2+"','"+loginFileName2+"','"+loginName2+"'"+')+msgCount()" ><td><div class="msgList"><div class = "msgProfileZone">'+
@@ -433,7 +432,7 @@
                                 '<p class="msgName">'+e[i].loginName+'</p></b></div><div class="lastMsgZone">'+
                                 '<textarea class="lastMsg" cols="30" rows="10">'+
                                 e[i].text+'</textarea></div></div><div class="lastTimeZone"><p class="lastTime">'+
-                                "999년65월54일"+'</div></div></td></tr>'
+                                e[i].lastTime+'</div></div></td></tr>'
                         }
 
                     }
@@ -448,6 +447,7 @@
                 }
             })
         }
+
     </script>
 
 </head>
@@ -788,7 +788,6 @@
 
 
     $("#formBtn").click(function (){
-        console.log("click호출")
         if(document.getElementById("dmInput").value.length!=0){
             let loginId='[[${mem.loginId}]]';
             let friendId=document.getElementById("friendId").value;
@@ -860,14 +859,13 @@
                 result.setRequestHeader(header, token);
             },
             success:function (e){
-                console.log("go suc")
                 for(let i=0;i<e.length;i++){
                     if(e[i].loginId==loginId1){
-                        html+='<div style="text-align: -webkit-right;"><p class="msgTime">'+e[i].createdTime+'</p><div class="myMsgZone">'+
+                        html+='<div style="text-align: -webkit-right;"><p class="msgTime">'+e[i].lastTime+'</p><div class="myMsgZone">'+
                             '<p class="Msg">'+e[i].text+'</p></div></div>'
                     }
                     else if(e[i].friendId==loginId1){
-                        html+='<div><p class="msgTime">'+e[i].createdTime+'</p><div class="yourMsgZone"><p class="Msg">'
+                        html+='<div><p class="msgTime">'+e[i].lastTime+'</p><div class="yourMsgZone"><p class="Msg">'
                             +e[i].text+'</p></div></div>'
                     }
                 }
@@ -923,7 +921,6 @@
     let totalint=0
     let clickint=0
     function totalCount(){
-        console.log("total 호출")
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let logId='[[${mem.loginId}]]'
@@ -937,15 +934,14 @@
                 result.setRequestHeader(header, token);
             },
             success:function (e){
-                console.log("total suc len: "+e.length)
-                console.log("total suc int: "+totalint)
 
-                if(totalint!=e.length){
+                if(totalint!=e.length || totalint==0){
                     totalint=e.length
                     msgList()
                     if(clickint==1){
                     goMsgPage(fi,ff,fn)}
                 }
+
             },
             error:function (e){
                 console.log("total err")
@@ -959,11 +955,7 @@
     }
     let mcount=0;
     function msgCount(){
-        console.log("=================================")
-        console.log("msgcount 호출")
-        console.log("mcount : "+mcount)
-        console.log("totalint : "+totalint)
-        console.log("=================================")
+
         if(mcount!=totalint){
                 goMsgPage(fi, ff, fn)
                 mcount = totalint
@@ -974,7 +966,6 @@
     //     clearTimeout(var1)
     // })
     function sub() {
-        console.log("함수호출");
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         const searchInput = document.getElementById("search");
@@ -995,7 +986,6 @@
             success: function (result) {
                 let content = "";
                 let id='[[${mem.loginId}]]'
-                console.log("sub id: "+id)
                 if (result.length != 0) {
                     for (let i in result) {
                         if(id!=result[i].loginId) {
@@ -1007,7 +997,6 @@
                 } else {
                     content = html;
                 }
-                console.log("suc content : " + content),
                     document.getElementById("searchLIstZone").innerHTML = content;
 
             },
@@ -1015,7 +1004,6 @@
                 let content = "";
                 console.log("sub err")
                 content = html;
-                console.log("err content : " + content),
                     document.getElementById("searchLIstZone").innerHTML = content;
             },
 
@@ -1042,7 +1030,6 @@
         }
         if (e == 2) {
             function rollBack() {
-                console.log("rollback 호출")
                 $(".spinZone").css({
                     "opacity":0,
                     "transition":"all 0.2s",

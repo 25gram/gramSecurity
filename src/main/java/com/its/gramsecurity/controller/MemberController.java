@@ -100,8 +100,8 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                         @RequestParam String loginId, Model model) {
+    public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model,
+                         @RequestParam("loginId")String loginId) {
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
