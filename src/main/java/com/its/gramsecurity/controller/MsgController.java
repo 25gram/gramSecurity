@@ -48,22 +48,13 @@ public class MsgController {
     @ResponseBody
 //    List<MsgDTO> msglist(@RequestParam("loginId") String loginId){
     List<MsgDTO> msglist(@RequestParam("loginId") String loginId){
-        System.out.println("MsgController.msglist");
-        System.out.println("loginId = " + loginId);
         List<MsgDTO> mlist= msgs.msglist(loginId);
-        System.out.println("mlist: "+mlist);
         return mlist;
     }
     @GetMapping("count")
     @ResponseBody
     List<MsgEntity> count(@ModelAttribute MsgDTO mem){
         List<MsgEntity> emem=msgs.count(mem);
-        System.out.println("-------------------------");
-        System.out.println("MsgController.count");
-        System.out.println("mem = " + mem);
-        System.out.println("emem = " + emem);
-        System.out.println("emem size = " + emem.size());
-        System.out.println("-------------------------");
         return emem;
 
     }
@@ -71,9 +62,6 @@ public class MsgController {
     @ResponseBody
     List<MsgEntity>total(@RequestParam("loginId") String loginId){
         List<MsgEntity> mem=msgs.total(loginId);
-        System.out.println("//////////////////////////");
-        System.out.println("MsgController.total");
-        System.out.println("mem +\" ,\"+ mem.size() = " + mem +" ,"+ mem.size());
         return mem;
     }
 
