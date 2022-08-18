@@ -32,6 +32,9 @@ public class RippleEntity extends BaseEntity{
     @Column
     private String tagName;
 
+    @Column
+    private String tagLogin;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
@@ -50,6 +53,7 @@ public class RippleEntity extends BaseEntity{
         rippleEntity.setCommentId(rippleDTO.getCommentId());
         rippleEntity.setRippleWriter(memberEntity.getMemberName());
         rippleEntity.setTagName(rippleDTO.getTagName());
+        rippleEntity.setTagLogin(memberEntity.getLoginId());
         rippleEntity.setMemberEntity(memberEntity);
         rippleEntity.setCommentEntity(commentEntity);
         return rippleEntity;
