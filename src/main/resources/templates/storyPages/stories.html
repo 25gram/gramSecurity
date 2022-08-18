@@ -774,19 +774,12 @@
             left: 20px;
         }
     </style>
-    <script>
-        function bar(){
-            $(".bar").css({
-                width:"458px",
-                transition:"all 15s"
-            })
-        }
-    </script>
+
 </head>
 <body onload="bar()">
 <div class="container">
     <div class="closeDiv">
-        <button type="button" class="btn-close" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
+        <button type="button" class="btn-close" onclick="movePage()" aria-label="Close"></button>
     </div>
     <div class="storyBox">
         <div style="width:0 ;height:0">
@@ -806,6 +799,14 @@
 </div>
 </body>
 <script th:inline="javascript">
+    const movePage = () => {
+        let previous = document.referrer;
+        if(previous=="http://localhost:8080/storyBoard/save-form"){
+            location.href="http://localhost:8080/main/main";
+        } else {
+            location.href=previous;
+        }
+    }
     window.onload = function () {
         const filePreview = document.getElementById("filePreview");
         filePreview.innerHTML="";
@@ -877,10 +878,20 @@
                     setTimeout(function (){
                         let time = obj.duration;
                         setTimeout(function (){
-                            location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
+                            let previous = document.referrer;
+                            if(previous=="http://localhost:8080/storyBoard/save-form"){
+                                location.href="http://localhost:8080/main/main";
+                            } else {
+                                location.href=previous;
+                            }
                         }, (time+0.5)*1000);
+                            $(".bar").css({
+                                width:"458px",
+                                transition: time
+                            })
                     }, 500);
                 });
+
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
                 $(document).ready(function (){
@@ -893,6 +904,7 @@
                 document.getElementById("addImg").src = "/upload/"+storyImgName;
             }
         }
+
     }
 </script>
 </html>
