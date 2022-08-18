@@ -49,5 +49,9 @@ public interface MsgRepository extends JpaRepository<MsgEntity,Long> {
     @Modifying
     @Query(value = "select * from msgEntity where loginId=:loginId group by friendId ",nativeQuery = true)
     List<MsgEntity> findLeft(String loginId);
+    @Transactional
+    @Modifying
+    @Query(value = "select * from msgEntity where friendId=:loginId group by loginId ",nativeQuery = true)
+    List<MsgEntity> findLeft1(String loginId);
 }
 //select * from msgentity where createdTime in (SELECT max(createdTime) FROM msgentity where loginId='hasangsu82' or friendId='hasangsu82' group by friendId);
