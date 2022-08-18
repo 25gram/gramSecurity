@@ -511,6 +511,7 @@
             margin-right: 20px;
             margin-left: 15px;
         }
+        #rippleText:focus {outline:none;}
     </style>
 
 
@@ -1072,8 +1073,8 @@
     </div>
     <script th:inline="javascript">
         $("#feedCommentZone1").onclick = commentList(0);
-
-        function commentList(id) {
+        let rippleBtn = 0;
+        function commentList(id,commentId,rippleId,rippleNum) {
             console.log(id)
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
@@ -1141,12 +1142,17 @@
                                 }
                                 commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
-                                commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">' + '</div>';
+                                // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<span onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
+                                commentDetail.innerHTML += '<div id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
-                        commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        if (rippleBtn == 1) {
+                            commentDetailBtn.innerHTML = "<p onclick='rippleSave(" + commentId + "," + id + "," + rippleId + "," + rippleNum + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        }else {
+                            commentDetailBtn.innerHTML = "<p onclick='commentSave(" + id + "," + 1 + ")'id='saveCommentBtn_detail' class='saveCommentBtn btn detail' onmouseover='gray1(1)' onmouseout='black1(1)'>" + "게시" + "</p>"
+                        }
                         rippleList(id);
                     }
                 }
@@ -1174,15 +1180,28 @@
                     result.setRequestHeader(header, token);
                 },
                 success: function (data) {
+                    $(".emojionearea-editor").html("")
                     commentList(id);
                 }
             });
+        }
+        function rippleZone(id,commentId,rippleId,rippleNum) {
+            rippleBtn = 1;
+            let ripple="";
+            if (rippleNum == 1) {
+                ripple = document.getElementById('ripplePlus' + rippleId).innerHTML;
+            }else {
+                ripple = document.getElementById('ripple' + commentId).innerHTML;
+            }
+            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">'+"@" + ripple +'</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
+            $("#rippleText").focus();
+            commentList(id,commentId,rippleId,rippleNum)
         }
 
         function rippleSave(id, boardId, rippleNum, rippleNum2) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
-            const contentsDetail = document.getElementById("text1_detail");
+            const contentsDetail = document.getElementById("rippleText");
             let rippleName = '';
             if (rippleNum2 == 1) {
                 rippleName = document.getElementById('ripplePlus' + rippleNum).innerHTML;
@@ -1214,7 +1233,9 @@
                             result.setRequestHeader(header, token);
                         },
                         success: function (comment) {
-                            rippleList(boardId, id);
+                            rippleBtn = 0;
+                            $(".emojionearea-editor").html("")
+                            rippleList(boardId,id);
                         }
                     });
                 }
@@ -1283,7 +1304,7 @@
                                     }
                                     if (commentId == data[i].commentId) {
                                         commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
-                                        commentDetail.innerHTML += '<span onclick="rippleSave(' + commentId + ',' + id + ',' + data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
+                                        commentDetail.innerHTML += '<span onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                     }
                                 }
                             }
@@ -2882,7 +2903,7 @@
 
                                 <div class="row detail" style="height: 60px;">
                                     <div class="col-10 detail" style=" margin-top:0px;">
-                                        <textarea class="text1_detail detail" name="" id="text1_detail" cols="30"
+                                        <textarea class="text1_detail detail aaa" name="" id="text1_detail" cols="30"
                                                   rows="10" placeholder="댓글 달기..."></textarea>
                                     </div>
                                     <!-- 댓글 저장 버튼 -->
