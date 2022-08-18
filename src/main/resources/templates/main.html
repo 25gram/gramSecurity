@@ -434,6 +434,19 @@
             background-image: linear-gradient(#fff, #fff), linear-gradient(to right, red 0%, orange 100%);
             background-origin: border-box;
             background-clip: content-box, border-box;
+            cursor: pointer;
+            transition: ease-out 0.5s;
+            z-index: 1;
+        }
+        .storyProfile:hover{
+            opacity: 0.8;
+            transform: scale(1.2);
+            transition: all 0.5s;
+
+        }
+        .storyProfile:active{
+            transform: scale(1.1);
+            transition: all 0.2s;
         }
 
 
@@ -525,10 +538,11 @@
         #rippleText:focus {outline:none;}
 
         .storyName{
-            ext-align: center;
+            /* ext-align: center; */
             position: relative;
             top: -16px;
             left: 1px;
+            z-index: 0;
         }
     </style>
 
@@ -897,10 +911,11 @@
             <tr th:each="story :${storyList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
                     <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
-                         <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
-<!--                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">-->
+                        <!-- <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt=""> -->
+                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">
                     </a>
-                    <p class="storyName "th:text="${story.getMemberName()}"></p>
+                    <!-- <p class="storyName "th:text="${story.getMemberName()}"></p> -->
+                    <p class="storyName" >havana_1016</p>
                 </div>
             </tr>
         </div>
