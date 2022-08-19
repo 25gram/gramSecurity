@@ -1224,7 +1224,8 @@
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[i].commentWriter == member[o].memberName) {
                                         commentDetail.innerHTML += '<img class=\'commentListImg\' src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                        commentDetail.innerHTML += '     <span class="commentListWriter" id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                        commentDetail.innerHTML += '     <span class="commentListWriter" id="' + "rippleRipple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                        commentDetail.innerHTML += '     <span class="commentListWriter" hidden id="' + "ripple" + data[i].id + '">' + member[o].loginId + '</span>';
                                         ripple = member[o].memberName;
                                     }
                                 }
@@ -1279,12 +1280,15 @@
             console.log("commentId" + commentId);
             console.log("commentId" + rippleId);
             let ripple="";
+            let ripple2="";
             if (rippleNum == 1) {
                 ripple = document.getElementById('ripplePlus' + rippleId).innerHTML;
+                ripple2 = document.getElementById('ripplePlusRipple' + rippleId).innerHTML;
             }else {
                 ripple = document.getElementById('ripple' + commentId).innerHTML;
+                ripple2 = document.getElementById('rippleRipple' + commentId).innerHTML;
             }
-            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">'+"@" + ripple +'</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
+            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">'+"@" + ripple2 +'</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
             $("#rippleText").focus();
             commentList(id,commentId,rippleId,rippleNum)
         }
@@ -1307,7 +1311,7 @@
                     "rippleContents": contentsDetail.value,
                     "commentId": id,
                     "rippleWriter": memberName,
-                    "tagName": rippleName
+                    "tagLogin": rippleName
                 },
                 dataType: "json",
                 beforeSend: function (result) {
@@ -1387,7 +1391,8 @@
                                     for (let o = 0; o < member.length; o++) {
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
                                             commentDetail.innerHTML += '<img class="rippleImg" src="/upload/' + member[o].memberProfileName + '" >';
-                                            commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '     <span id="ripplePlusRipple' + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '     <span hidden id="ripplePlus' + data[i].id + '">' + member[o].loginId + '</span>';
                                             ripple = member[o].memberName;
                                             console.log("data[i].id2" + data[i].id);
                                         }
