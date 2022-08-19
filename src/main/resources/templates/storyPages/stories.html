@@ -20,18 +20,17 @@
         }
         .storyBox {
             width: 500px;
-            height: 780px;
+            height: 888px;
             padding-left: 0;
             padding-right: 0;
             margin-top: 30px;
             margin-left: auto;
             margin-right: auto;
-            border-radius: 1em;
+            border-radius: 5px;
             background-color: rgb(214, 214, 214);
-            border: 1px solid rgb(214, 214, 214);
+            border: 0;
             overflow: hidden;
-            position: fixed;
-            left: 708px;
+            position: relative;
         }
         .btn-primary {
             background-color:rgba(71,66,69,0.4) !important;
@@ -768,7 +767,7 @@
 
         input[type="range"] {
             overflow: hidden;
-            height: 5px;
+            height: 2px;
             -webkit-appearance: none;
             margin: 10px 0;
             width: 460px;
@@ -777,28 +776,23 @@
             top: 14px;
             left: 20px;
             border-radius: 1em;
+            z-index: 9000;
         }
 
-        input[type="range"]:focus {
-            outline: none;
-        }
+        #bar{
+            width:0px;
+            height: 2px;
+            background-color: rgba(0,0,0,0.5);
 
-        input[type="range"]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            border-radius: 5px;
-            border: 1px solid darkgrey;
         }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 1q;
-            height: 3px;
-            background: #6c757d;
-            box-shadow: 1px 1px 1px #d16a6e;
-            cursor: pointer;
-            box-shadow: -1000vw 0 0 1000vw #6c757d;
+        #underbar{
+            background-color:rgba(0, 0, 0, 0.2);
+            width: 480px;
+            height: 2px;
+            position: relative;
+            z-index: 5555;
+            left: 2%;
+            top: 20px;
         }
 
     </style>
@@ -816,7 +810,10 @@
         <div class="filePreview" id="filePreview"></div>
         <div class="addImgDiv" id="addImgDiv"></div>
         <div id="video-controls">
-            <input type="range" id="seek-bar" value="0">
+            <div id="underbar">
+                <div id="bar"></div>
+
+            </div>
 
         </div>
     </div>
@@ -891,22 +888,30 @@
                 video.setAttribute("src", "/upload/"+storyFileName);
                 video.setAttribute("width", "100%");
                 video.setAttribute("autoplay", "autoplay");
+                video.setAttribute("muted", "muted");
                 video.setAttribute("id", "aaa");
                 video.setAttribute("loop", "loop");
                 video.setAttribute("class", "aaa");
 
                 document.getElementById("filePreview").appendChild(video);
 
-
-                const seekBar = document.getElementById("seek-bar");
-                // 재생시간에 따른 재생바 이동
+                    // 재생시간에 따른 재생바 이동
                 video.addEventListener("timeupdate", function() {
-                    // Calculate the slider value
-                    let value = (100 / video.duration) * video.currentTime;
+                        let i=video.duration;
+                        const bar=document.getElementById("bar");
+                    console.log("현재시간"+video.currentTime);
+                    $("#bar").css({
+                        width:"480px",
+                        transition:i+"s linear"
+                    })
+                        if(video.currentTime==0){
+                            $("#bar").css({
+                                width:"0px",
+                                transition:0+"s linear"
+                            })
+                        }
+                    });
 
-                    // Update the slider value
-                    seekBar.value = value;
-                });
                 // let obj = document.getElementById("aaa");
                 // $(document).ready(function (){
                 //     setTimeout(function (){
@@ -919,7 +924,7 @@
                 //                 location.href=previous;
                 //             }
                 //         }, (time+0.1)*1000);
-                // //      }, 500);
+                //      }, 500);
                 // });
 
             } else {
@@ -934,7 +939,6 @@
                 document.getElementById("addImg").src = "/upload/"+storyImgName;
             }
         }
-
     }
 </script>
 </html>

@@ -84,8 +84,8 @@ public class StoryController {
     }
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
-        String loginid = storyService.saveFile(storyDTO);
-        return "redirect:/storyBoard/stories/"+loginid;
+        String loginId = storyService.saveFile(storyDTO);
+        return "redirect:/storyBoard/stories/"+loginId;
     }
 
     public List<FollowDTO> storyIdList(String id){
