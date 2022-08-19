@@ -47,13 +47,15 @@ public class MainController {
         model.addAttribute("storyCheckResult", storyCheckResult);
         List<StoryDTO> storyList = new ArrayList<>();
         for(int i=0; i<storyDTOList.size(); i++) {
-            Long id = storyDTOList.get(i).getId();
+            Long storyId = storyDTOList.get(i).getId();
             StoryDTO storyDTO = storyDTOList.get(i);
-           boolean result = storyController.findByStoryIdAndLoginId(id, loginId);
+           boolean result = storyController.findByStoryIdAndLoginId(storyId, loginId);
+            System.out.println("==============================result======================================"+result);
            if(!result){
                storyList.add(storyDTO);
            }
         }
+
         model.addAttribute("storyList", storyDTOList);
         return "main";
     }
