@@ -122,7 +122,7 @@
             width: 500px;
             background-color: white;
             display: flex;
-            z-index: -5;
+            z-index: 1;
             position: relative;
         }
 
@@ -168,7 +168,7 @@
             border-radius: 1em;
             background-color: white;
             position: relative;
-            z-index: -2;
+            z-index: 1;
         }
 
         .fi:not(.detail) {
@@ -458,14 +458,17 @@
             width: 150px;
             height: 110px;
             background-color: white;
-            position: relative;
-            left: -46px;
+            position: absolute;
+            left: 50%;
+            margin-left: 150px;
+            /*left: -46px;*/
             /* top: 13px; */
-            top: -155px;
+            top: 64px;
+            /*top: -155px;*/
             border: 1px solid rgb(168, 168, 168);
             cursor: pointer;
             opacity: 0;
-            z-index: -1;
+            z-index: 2;
             box-shadow: 3px 4px 10px 1px #ced4da;
             border-radius: 3px;
 
@@ -643,32 +646,33 @@
                 if (goint == 0) {
                     $(".storyBtn").css({
                         opacity: 1,
-                        top: "4px",
+                        // top: "4px",
                         transition: "all 1s",
                         // "transition-property":"opacity top"
                     })
 
-                    function show(){
-                        btn.style.zIndex = '0'
-                    }
-                    setTimeout(show,500);
+                    // function show(){
+                    //     btn.style.zIndex = '3'
+                    // }
+                    // setTimeout(show,400);
 
 
                     goint = 1
                 } else if (goint == 1) {
-                    btn.style.zIndex = '-1';
-                    setTimeout(behind,200)
-                    function behind(){
+                    // btn.style.zIndex = '-1';
+                    // setTimeout(behind,500)
+                    // function behind(){
                         $(".storyBtn").css({
                             opacity: 0,
-                            top: "-155px",
-                            transition: "all 0.9s",
+                            // top: "-155px",
+                            transition: "all 1s",
                         })
-                    }
-
-
                     goint = 0;
+
                 }
+
+
+                // }
             }
         </script>
 
@@ -705,27 +709,28 @@
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
                 </li>
             </ul>
-            <div class="storyBtnZone" style="width: 0;height:0">
-                <div class="storyBtn">
-                    <div class="goContents">
-                        <p id="gc" class="goItem">게시글 작성</p>
-                    </div>
-                    <div class="goStory" onclick="location.href='/storyBoard/'" th:if="${storyCheckResult.isEmpty()}">
-                        <p id="gs1" class="goItem" >스토리 작성</p>
-                    </div>
-                    <div class="goStory" onclick="location.href='/storyBoard/'" th:unless="${storyCheckResult.isEmpty()}">
-                        <p id="gs2" class="goItem" >스토리 보기</p>
-                    </div>
-            </div>
+<!--            <div class="storyBtnZone" style="width: 0;height:0">-->
+<!--                <div class="storyBtn">-->
+<!--                    <div class="goContents">-->
+<!--                        <p id="gc" class="goItem">게시글 작성</p>-->
+<!--                    </div>-->
+<!--                    <div class="goStory" onclick="location.href='/storyBoard/'">-->
+<!--                        <p id="gs" class="goItem">스토리 작성</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
 
             <div>
             </div>
 
             <script>
-                $(".goContents").click(function () {
+                function goContents(){
                     $("#goContents").trigger("click")
-                })
+                }
+                // $(".goContents").click(function () {
+                //     $("#goContents").trigger("click")
+                // })
 
                 function sub() {
                     console.log("함수호출");
@@ -941,6 +946,17 @@
                 data-bs-target="#staticBackdrop_detail">
             Launch static backdrop modal
         </button>
+    </div>
+
+    <div class="storyBtnZone" style="width: 0;height:0">
+        <div class="storyBtn">
+            <div class="goContents" onclick="goContents()">
+                <p id="gc" class="goItem">게시글 작성</p>
+            </div>
+            <div class="goStory" onclick="location.href='/storyBoard/'">
+                <p id="gs" class="goItem">스토리 작성</p>
+            </div>
+        </div>
     </div>
 
     <!-- 스토리 구역 -->
