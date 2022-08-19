@@ -46,14 +46,14 @@ public class RippleEntity extends BaseEntity{
     @OneToMany(mappedBy = "rippleEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     List<LikesEntity> likesEntityList = new ArrayList<>();
 
-    public static RippleEntity toSaveEntity(RippleDTO rippleDTO,CommentEntity commentEntity,MemberEntity memberEntity ){
+    public static RippleEntity toSaveEntity(RippleDTO rippleDTO,CommentEntity commentEntity,MemberEntity memberEntity, MemberEntity login){
         RippleEntity rippleEntity = new RippleEntity();
         rippleEntity.setId(rippleDTO.getId());
         rippleEntity.setRippleContents(rippleDTO.getRippleContents());
         rippleEntity.setCommentId(rippleDTO.getCommentId());
         rippleEntity.setRippleWriter(memberEntity.getMemberName());
-        rippleEntity.setTagName(rippleDTO.getTagName());
-        rippleEntity.setTagLogin(memberEntity.getLoginId());
+        rippleEntity.setTagName(login.getMemberName());
+        rippleEntity.setTagLogin(login.getLoginId());
         rippleEntity.setMemberEntity(memberEntity);
         rippleEntity.setCommentEntity(commentEntity);
         return rippleEntity;

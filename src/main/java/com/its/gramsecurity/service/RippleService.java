@@ -30,11 +30,13 @@ public class RippleService {
 
     public void save(RippleDTO rippleDTO, PrincipalDetails principalDetails) {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByLoginId(principalDetails.getMemberDTO().getLoginId());
+        Optional<MemberEntity> loginId = memberRepository.findByLoginId(rippleDTO.getTagLogin());
         Optional<CommentEntity> optionalCommentEntity = commentRepository.findById(rippleDTO.getCommentId());
-        if(optionalCommentEntity.isPresent() && optionalMemberEntity.isPresent()){
+        if(optionalCommentEntity.isPresent() && optionalMemberEntity.isPresent() && loginId.isPresent()){
             MemberEntity memberEntity = optionalMemberEntity.get();
             CommentEntity commentEntity = optionalCommentEntity.get();
-            RippleEntity rippleEntity = RippleEntity.toSaveEntity(rippleDTO,commentEntity,memberEntity);
+            MemberEntity login = loginId.get();
+            RippleEntity rippleEntity = RippleEntity.toSaveEntity(rippleDTO,commentEntity,memberEntity,login);
             rippleRepository.save(rippleEntity);
         }
 
