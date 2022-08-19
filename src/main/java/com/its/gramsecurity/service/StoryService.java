@@ -89,6 +89,8 @@ public class StoryService {
 
             for (StoryEntity story : storyEntityList) {
                 storyDTOList.add(StoryDTO.toStoryDTO(story));
+                System.out.println("================================================"+storyDTOList);
+
             }
         }
         return storyDTOList;
