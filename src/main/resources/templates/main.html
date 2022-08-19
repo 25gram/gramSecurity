@@ -976,7 +976,6 @@
         </div>
         <!-- 메인피드 구역 -->
         <div class="" id="feedZone">
-
             <div th:each="board : ${boardList}" style="overflow: hidden" class="feedZone">
                 <div class="feedWriter row">
                     <div class="col-1 feedImg feedWriterItem">
@@ -1414,9 +1413,9 @@
 
     </script>
     <script>
-        $("#detailGoBtn2").click(function () {
+        function gogo() {
             $("#detailGoBtn").trigger("click")
-        })
+        }
     </script>
 
 
@@ -1567,7 +1566,7 @@
                                 let icon = "";
                                 if (data[i].likes == 1) {
                                     icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
-                                    icon += "<i class='fa-regular fa-comment feedBtn'></i>";
+                                    icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
                                     icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
@@ -1577,7 +1576,7 @@
                                     }
                                 } else {
                                     icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
-                                    icon += "<i class='fa-regular fa-comment feedBtn'></i>";
+                                    icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
                                     icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
