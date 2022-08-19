@@ -122,7 +122,8 @@
             width: 500px;
             background-color: white;
             display: flex;
-
+            z-index: 1;
+            position: relative;
         }
 
         /*$( 'p' ).not( 'p.abc' ).css( 'color', 'green');*/
@@ -148,6 +149,7 @@
             background-color: white;
             min-width: 1120px;
             user-select: none;
+            z-index: 55555 !important;
         }
 
         .feedZone:not(.detail) {
@@ -165,6 +167,8 @@
             border: rgb(214, 214, 214) solid 1px;
             border-radius: 1em;
             background-color: white;
+            position: relative;
+            z-index: 1;
         }
 
         .fi:not(.detail) {
@@ -454,14 +458,17 @@
             width: 150px;
             height: 110px;
             background-color: white;
-            position: relative;
-            left: -46px;
+            position: absolute;
+            left: 50%;
+            margin-left: 150px;
+            /*left: -46px;*/
             /* top: 13px; */
-            top: -96px;
+            top: 64px;
+            /*top: -155px;*/
             border: 1px solid rgb(168, 168, 168);
             cursor: pointer;
             opacity: 0;
-            z-index: -1;
+            z-index: 2;
             box-shadow: 3px 4px 10px 1px #ced4da;
             border-radius: 3px;
 
@@ -635,27 +642,37 @@
             let goint = 0
 
             function showGo() {
+                const btn = document.querySelector('.storyBtn');
                 if (goint == 0) {
                     $(".storyBtn").css({
                         opacity: 1,
-                        top: "2px",
+                        // top: "4px",
                         transition: "all 1s",
-                        zIndex: 1
                         // "transition-property":"opacity top"
-
                     })
+
+                    // function show(){
+                    //     btn.style.zIndex = '3'
+                    // }
+                    // setTimeout(show,400);
 
 
                     goint = 1
                 } else if (goint == 1) {
-                    $(".storyBtn").css({
-                        opacity: 0,
-                        zIndex: -1,
-                        top: "-96px",
-                        transition: "all 1s",
-                    })
-                    goint = 0
+                    // btn.style.zIndex = '-1';
+                    // setTimeout(behind,500)
+                    // function behind(){
+                        $(".storyBtn").css({
+                            opacity: 0,
+                            // top: "-155px",
+                            transition: "all 1s",
+                        })
+                    goint = 0;
+
                 }
+
+
+                // }
             }
         </script>
 
@@ -692,25 +709,28 @@
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
                 </li>
             </ul>
-            <div class="storyBtnZone" style="width: 0;height:0">
-                <div class="storyBtn">
-                    <div class="goContents">
-                        <p id="gc" class="goItem">게시글 작성</p>
-                    </div>
-                    <div class="goStory" onclick="location.href='/storyBoard/'">
-                        <p id="gs" class="goItem">스토리 작성</p>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="storyBtnZone" style="width: 0;height:0">-->
+<!--                <div class="storyBtn">-->
+<!--                    <div class="goContents">-->
+<!--                        <p id="gc" class="goItem">게시글 작성</p>-->
+<!--                    </div>-->
+<!--                    <div class="goStory" onclick="location.href='/storyBoard/'">-->
+<!--                        <p id="gs" class="goItem">스토리 작성</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
 
             <div>
             </div>
 
             <script>
-                $(".goContents").click(function () {
+                function goContents(){
                     $("#goContents").trigger("click")
-                })
+                }
+                // $(".goContents").click(function () {
+                //     $("#goContents").trigger("click")
+                // })
 
                 function sub() {
                     console.log("함수호출");
@@ -928,17 +948,29 @@
         </button>
     </div>
 
+    <div class="storyBtnZone" style="width: 0;height:0">
+        <div class="storyBtn">
+            <div class="goContents" onclick="goContents()">
+                <p id="gc" class="goItem">게시글 작성</p>
+            </div>
+            <div class="goStory" onclick="location.href='/storyBoard/'">
+                <p id="gs" class="goItem">스토리 작성</p>
+            </div>
+        </div>
+    </div>
+
     <!-- 스토리 구역 -->
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone">
 
             <tr th:each="story :${storyList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
-                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}"> <img class="storyProfile"
-                                                                                      th:src="@{|/upload/${story.getMemberProfileName()}|}"
-                                                                                      alt="">
+                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
+                         <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
+<!--                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">-->
                     </a>
-                    <p style="text-align: center" th:text="${story.getMemberName()}"></p>
+                     <p class="storyName "th:text="${story.getMemberName()}"></p>
+<!--                    <p class="storyName" >havana_1016</p>-->
                 </div>
             </tr>
         </div>
@@ -1110,7 +1142,7 @@
                     <textarea class="feedText" name="" id="" cols="30" rows="10"></textarea>
                 </div> -->
                 <div class="row detail" style="height: 60px;border-top: 1px solid rgb(214,214,214);">
-                    <div class="col-10 detail" style=" margin-top:0px;" id="1">
+                    <div class="col-10 detail" style=" margin-top:0px;" >
                         <textarea class="text1_detail detail" th:id="text1_feed+${board.id}" cols="30" rows="10"
                                   placeholder="댓글 달기..."></textarea>
                     </div>
@@ -1192,7 +1224,8 @@
                                 for (let o = 0; o < member.length; o++) {
                                     if (data[i].commentWriter == member[o].memberName) {
                                         commentDetail.innerHTML += '<img class=\'commentListImg\' src="/upload/' + member[o].memberProfileName + '" width="40px" height="40px">'
-                                        commentDetail.innerHTML += '     <span class="commentListWriter" id="' + "ripple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                        commentDetail.innerHTML += '     <span class="commentListWriter" id="' + "rippleRipple" + data[i].id + '">' + member[o].memberName + '</span>';
+                                        commentDetail.innerHTML += '     <span class="commentListWriter" hidden id="' + "ripple" + data[i].id + '">' + member[o].loginId + '</span>';
                                         ripple = member[o].memberName;
                                     }
                                 }
@@ -1200,7 +1233,7 @@
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
                                 // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
                                 commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<div class="listRipple" id="listRipple' + data[i].id + '">'+'</div>';
+                                commentDetail.innerHTML += '<div  id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
@@ -1247,12 +1280,15 @@
             console.log("commentId" + commentId);
             console.log("commentId" + rippleId);
             let ripple="";
+            let ripple2="";
             if (rippleNum == 1) {
                 ripple = document.getElementById('ripplePlus' + rippleId).innerHTML;
+                ripple2 = document.getElementById('ripplePlusRipple' + rippleId).innerHTML;
             }else {
                 ripple = document.getElementById('ripple' + commentId).innerHTML;
+                ripple2 = document.getElementById('rippleRipple' + commentId).innerHTML;
             }
-            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">'+"@" + ripple +'</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
+            $(".aaa").children(".emojionearea-editor").html('<a href="" style="color: black">'+"@" + ripple2 +'</a><input id="rippleText" style="border:none; border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" type="text" id="rippleText" value=" ">');
             $("#rippleText").focus();
             commentList(id,commentId,rippleId,rippleNum)
         }
@@ -1275,7 +1311,7 @@
                     "rippleContents": contentsDetail.value,
                     "commentId": id,
                     "rippleWriter": memberName,
-                    "tagName": rippleName
+                    "tagLogin": rippleName
                 },
                 dataType: "json",
                 beforeSend: function (result) {
@@ -1337,9 +1373,9 @@
                                 for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
-                                        commentDetail.innerHTML += '<span class="rippleLine" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '' + '</span>';
+                                        commentDetail.innerHTML += '<span class="rippleLine rippleOnclick" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '답글보기' + '</span>';
                                     } else if (comment[i].id == commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
-                                        commentDetail.innerHTML = '<span class="rippleLine" onclick="rippleClose(' + commentId + "," + id + ')">' + '' + '</span>';
+                                        commentDetail.innerHTML = '<span class="rippleLine rippleOnclick" onclick="rippleClose(' + commentId + "," + id + ')">' + '답글보기' + '</span>';
                                     }
                                 }
                             }
@@ -1355,7 +1391,8 @@
                                     for (let o = 0; o < member.length; o++) {
                                         if (data[i].commentId == commentId && data[i].rippleWriter == member[o].memberName) {
                                             commentDetail.innerHTML += '<img class="rippleImg" src="/upload/' + member[o].memberProfileName + '" >';
-                                            commentDetail.innerHTML += '     <span id="ripplePlus' + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '     <span id="ripplePlusRipple' + data[i].id + '">' + member[o].memberName + '</span>';
+                                            commentDetail.innerHTML += '     <span hidden id="ripplePlus' + data[i].id + '">' + member[o].loginId + '</span>';
                                             ripple = member[o].memberName;
                                             console.log("data[i].id2" + data[i].id);
                                         }
@@ -1674,11 +1711,11 @@
         }
 
         function nextBtn2() {
-            $('#nextBTN2').trigger("click")
+            $('#nextbBTN2').trigger("click")
         }
 
         function nextBtn() {
-            $('#nextBTN').trigger("click")
+            $('#nextbBTN').trigger("click")
         }
 
         let page = 0
@@ -1900,7 +1937,7 @@
                                class="fa-solid fa-arrow-left modal1"
                                style="font-size:35px ; margin: 25px 0 0 20px;"></i>
                         </div>
-                        <div id="nextBTN" data-bs-toggle="collapse"
+                        <div id="nextbBTN" data-bs-toggle="collapse"
                              data-bs-target="#collapseWidthExample" aria-expanded="true"
                              aria-controls="collapseWidthExample" hidden></div>
                         <div class="col" style="text-align: right;height: 50px">
@@ -1916,7 +1953,7 @@
 
                 </div>
                 <div class="modal-body modal1">
-                    <div hidden id="nextBTN2" data-bs-toggle="collapse"
+                    <div hidden id="nextbBTN2" data-bs-toggle="collapse"
                          data-bs-target="#collapseWidthExample2" aria-expanded="true"
                          aria-controls="collapseWidthExample"></div>
                     <div id="nextBtn2" name="nextBtn2" class=" modal1"
@@ -2926,7 +2963,7 @@
 
                                 <!-- 댓글 리스트 구역 -->
 
-                                <div id="commentList" class="commentList detail">
+                                <div id="commentList" class="commentList detail" style="overflow: scroll">
 
 
                                 </div>

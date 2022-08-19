@@ -42,7 +42,9 @@ public class MainController {
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
+        List<StoryDTO> storyCheckResult = storyController.storyCheck(loginId);
         List<StoryDTO> storyDTOList = storyController.findStoryList(loginId);
+        model.addAttribute("storyCheckResult", storyCheckResult);
         List<StoryDTO> storyList = new ArrayList<>();
         for(int i=0; i<storyDTOList.size(); i++) {
             Long id = storyDTOList.get(i).getId();

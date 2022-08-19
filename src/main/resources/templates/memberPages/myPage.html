@@ -204,13 +204,14 @@
             width: 31%;
             max-width: 307px;
             min-width: 140px;
-            background-color: black;
+            /*background-color: black;*/
             /* opacity: 0.8; */
             padding: 1%;
             /* left: 2%;
             top:-100px; */
             z-index: 5000;
             transition: ease-out 0.5s;
+            cursor: pointer;
 
         }
 
@@ -227,7 +228,7 @@
             right: 0;
             bottom: 0;
             left: 0;
-            /* background-color:blue; */
+             background-color:black;
             overflow: hidden;
             max-width: 100%;
             min-height: 100%;
@@ -236,11 +237,18 @@
             user-select: none;
             cursor: pointer;
             -webkit-user-drag: none;
+            transition: ease-out 0.5s;
+            z-index: -1;
+        }
+        .wrap:hover .mypageListItem{
+                transform: scale(1.1);
+                transition: all 0.5s;
         }
 
 
         .wrap:hover .listImg {
             opacity: 0.7;
+            transform: scale(1.1);
 
         }
 
@@ -255,10 +263,10 @@
 
         }
 
-        .wrap:hover {
-            transform: scale(1.1);
-            transition: all 0.5s;
-        }
+        /*.wrap:hover {*/
+        /*    transform: scale(1.1);*/
+        /*    transition: all 0.5s;*/
+        /*}*/
 
         /* .wrap:active{
             transform: scale(0.95);
@@ -1145,7 +1153,7 @@
                                             if (trDoor == 1) {
                                                 file += '</tr>';
                                             }
-                                            if (data[data.length-1].boardId == data[0].boardId) {
+                                            if (boardId == 0) {
                                                 i = -1;
                                             }
                                         }
