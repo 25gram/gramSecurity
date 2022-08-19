@@ -1232,7 +1232,7 @@
                                 // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
                                 // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
                                 commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
-                                commentDetail.innerHTML += '<div class="listRipple" id="listRipple' + data[i].id + '">'+'</div>';
+                                commentDetail.innerHTML += '<div  id="listRipple' + data[i].id + '">'+'</div>';
                                 commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                             }
                         }
@@ -1369,9 +1369,9 @@
                                 for (let j = 0; j < data.length; j++) {
                                     if (comment[i].id != commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
                                         commentDetail.innerHTML = "";
-                                        commentDetail.innerHTML += '<span class="rippleLine" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '' + '</span>';
+                                        commentDetail.innerHTML += '<span class="rippleLine rippleOnclick" onclick="rippleOpen(' + (i + 1) + "," + id + ')">' + '답글보기' + '</span>';
                                     } else if (comment[i].id == commentId && id == comment[i].boardId && comment[i].id == data[j].commentId) {
-                                        commentDetail.innerHTML = '<span class="rippleLine" onclick="rippleClose(' + commentId + "," + id + ')">' + '' + '</span>';
+                                        commentDetail.innerHTML = '<span class="rippleLine rippleOnclick" onclick="rippleClose(' + commentId + "," + id + ')">' + '답글보기' + '</span>';
                                     }
                                 }
                             }
@@ -2958,7 +2958,7 @@
 
                                 <!-- 댓글 리스트 구역 -->
 
-                                <div id="commentList" class="commentList detail">
+                                <div id="commentList" class="commentList detail" style="overflow: scroll">
 
 
                                 </div>
