@@ -20,7 +20,7 @@
         }
         .storyBox {
             width: 500px;
-            height: 780px;
+            height: 888px;
             padding-left: 0;
             padding-right: 0;
             margin-top: 30px;
@@ -28,10 +28,9 @@
             margin-right: auto;
             border-radius: 1em;
             background-color: rgb(214, 214, 214);
-            border: 1px solid rgb(214, 214, 214);
+            border: 0;
             overflow: hidden;
-            position: fixed;
-            left: 708px;
+            position: relative;
         }
         .btn-primary {
             background-color:rgba(71,66,69,0.4) !important;
@@ -768,7 +767,7 @@
 
         input[type="range"] {
             overflow: hidden;
-            height: 5px;
+            height: 2px;
             -webkit-appearance: none;
             margin: 10px 0;
             width: 460px;
@@ -777,6 +776,7 @@
             top: 14px;
             left: 20px;
             border-radius: 1em;
+            z-index: 9000;
         }
 
         input[type="range"]:focus {
@@ -795,10 +795,10 @@
             -webkit-appearance: none;
             width: 1q;
             height: 3px;
-            background: #6c757d;
+            background: whitesmoke;
             box-shadow: 1px 1px 1px #d16a6e;
             cursor: pointer;
-            box-shadow: -1000vw 0 0 1000vw #6c757d;
+            box-shadow: -1000vw 0 0 1000vw whitesmoke;
         }
 
     </style>
