@@ -218,6 +218,7 @@
             /* border: rgb(214,214,214) solid 1px; */
             /*width: 100vw;*/
             float: left;
+            cursor: pointer;
         }
 
         .contentsBody:not(.detail) {
@@ -575,6 +576,14 @@
             margin-top: 20px;
             margin-right: 20px;
         }
+        .cc{
+            font-size: 80px;
+            /* color: #ccc; */
+            position: absolute;
+            left: 210px;
+            top: 254px;
+        }
+
     </style>
 
 
@@ -934,9 +943,30 @@
                 // dropdown 메뉴가 사라진 직후에 호출되는 이벤트
                 // $('.event-dropdown').on('hidden.bs.dropdown	', function () {
                 //         console.log("메뉴가 닫힌 후 이벤트!");  });
+                   let stopint=0;
+                 function stopAndGo(index,indexB) {
+                     console.log("stopAndGo")
+                     let video = document.getElementById("feedVideo" + index+"b"+indexB)
+                     // let btn=document.getElementById("cc"+index)
+                     let btn=document.getElementById("cc"+index+"b"+indexB)
 
 
-                //          </script>
+                     if(video.paused){
+                        btn.style.opacity="0";
+                         video.style.opacity="1";
+
+                         video.play();
+                     }
+                     else{
+                        btn.style.opacity="1";
+                         video.style.opacity="0.7";
+
+
+                         video.pause();
+                     }
+
+                 }
+                         </script>
 
 
         </div>
@@ -977,9 +1007,10 @@
                 </div>
             </tr>
         </div>
+
         <!-- 메인피드 구역 -->
         <div class="" id="feedZone">
-            <div th:each="board : ${boardList}" style="overflow: hidden" class="feedZone">
+            <div th:each="board,index : ${boardList}" style="overflow: hidden" class="feedZone">
                 <div class="feedWriter row">
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
@@ -991,18 +1022,27 @@
                     <!-- <div class="col feedName feedWriterItem"><span>Havana 1016</span></div> -->
                     <div class="col feedName feedWriterItem"><span th:text="${board.boardWriter}"></span></div>
                 </div>
+                <div th:each="boardFile2,indexB : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="width: 0;height:0">
+                    <i th:id="cc+${index.index}+b+${indexB.index}" style="opacity: 0" class="cc bi bi-play-circle"></i>
+<!--                    <i th:id="cc+${index.index}+'b'+${indexB.index}" style="opacity: 0" class="cc bi bi-play-circle"></i>-->
+                </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div id="detailGoBtn" th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}"
-                             th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">
+                        <div hidden id="detailGoBtn"th:onclick="detailGo([[${board}]])"></div>
+                        <div  th:each="boardFile2,indexB : ${boardFile}"
+                             th:if="${boardFile2.boardId == board.id}" >
+<!--                        <div th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}"-->
                             <!--                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">-->
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1"
                                  th:src="@{|/upload/${boardFile2.boardImgName}|}"
                                  th:style="'filter:' + ${boardFile2.boardFilter}" alt="">
-                            <video th:if="${boardFile2.boardVideoName != null}" class="contentsItem2"
+                            <video th:id="feedVideo+${index.index}+'b'+${indexB.index}" th:if="${boardFile2.boardVideoName != null}" class="contentsItem2"
                                    th:src="@{|/upload/${boardFile2.boardVideoName}|}"
                                    th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay"
-                                   loop="loop"></video>
+                                   loop="loop" th:onclick="stopAndGo([[${index.index}]],[[${indexB.index}]])">
+                            </video>
+
+
                         </div>
                     </div>
                 </div>
