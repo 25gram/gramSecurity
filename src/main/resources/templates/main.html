@@ -1120,28 +1120,21 @@
                                 result.setRequestHeader(header, token);
                             },
                             success: function (data) {
-
-                                console.log("detailGo data: " + data.length)
-                                let detail = document.getElementById("contentsBody_detail");
-                                let m = "";
                                 if (object.commentNo == 1) {
                                     document.getElementById("hiddenBtnBtn").style.visibility = "hidden";
-                                    document.getElementById("likeListZone").className = "likeListZone2 detail"
                                     document.getElementById("commentHidden").style.visibility = "hidden"
                                 }else {
                                     document.getElementById("hiddenBtnBtn").style.visibility = "visible";
-                                    document.getElementById("likeListZone").className = "likeListZone detail"
                                     document.getElementById("commentHidden").style.visibility = "visible"
                                 }
-                                if (object.commentNo == 1 && object.likesNo == 1) {
-                                    document.getElementById("commentList").className = "commentList2 detail";
-                                }else {
-                                    document.getElementById("commentList").className = "commentList detail";
-                                }
+                                console.log("detailGo data: " + data.length)
+                                let detail = document.getElementById("contentsBody_detail");
+                                let m = "";
                                 showBtn(data.length);
                                 addImg();
                                 likeList(object.id);
                                 commentList(object.id);
+                                rippleList(object.id);
 
                                 function addImg() {
                                     if (data[hssIndex].boardImgName != null) {
@@ -1236,8 +1229,6 @@
     <script th:inline="javascript">
         $("#feedCommentZone1").onclick = commentList(0);
         let rippleBtn = 0;
-        let assass = [[${boardList}]]
-        console.log(assass[1].commentNo)
         function commentList(id,commentId,rippleId,rippleNum) {
             let header = $("meta[name='_csrf_header']").attr('content');
             let token = $("meta[name='_csrf']").attr('content');
@@ -1508,10 +1499,11 @@
             });
         }
 
+
     </script>
     <script>
-        function gogo(id) {
-            $("#detailGoBtn"+id).trigger("click")
+        function gogo() {
+            $("#detailGoBtn").trigger("click")
         }
     </script>
 
@@ -1662,17 +1654,13 @@
                                 let detailIcon = "";
                                 let icon = "";
                                 if (data[i].likes == 1) {
-                                    icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
-                                    // icon += "<i th:onclick='detailGo([[${board}]])' class='fa-regular fa-comment feedBtn'></i>";
-                                    // icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
-                                    icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     if (data[i].likesNo == null) {
                                         icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
                                     }
-                                    icon += "<i onclick='gogo(" + data[i].id + ")' class='fa-regular fa-comment feedBtn'></i>";
-                                    if (likeIndex[i] > 0) {
+                                    if (data[i].likesNo == null) {
                                         icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     }
+                                    // icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
                                         if (data[i].likesNo == null) {
@@ -1681,19 +1669,17 @@
                                         if (likeIndex[i] > 0) {
                                             detailIcon += "<span id='like_count'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                         }
+                                        // detailIcon += "<span id='like_count'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                         likeDetail.innerHTML = detailIcon;
                                     }
                                 } else {
-                                    icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
-                                    // icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
-                                    icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     if (data[i].likesNo == null) {
                                         icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
                                     }
-                                    icon += "<i onclick='gogo(" + data[i].id + ")' class='fa-regular fa-comment feedBtn'></i>";
-                                    if (likeIndex[i] > 0) {
+                                    if (data[i].likesNo == null) {
                                         icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     }
+                                    // icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
                                         if (data[i].likesNo == null) {
@@ -1702,6 +1688,7 @@
                                         if (likeIndex[i] > 0) {
                                             detailIcon += "<span id='like_count'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                         }
+                                        // detailIcon += "<span id='like_count'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                         likeDetail.innerHTML = detailIcon;
                                     }
                                 }
@@ -2406,8 +2393,7 @@
                                             <script>
 
                                                 // false 일때 댓글 기능을 해제 하도록 개발 해주세요
-                                                function replyChk(a) {
-                                                    console.log(a)
+                                                function replyChk() {
                                                     let val = document.getElementById("flexSwitchCheckDefault").value
                                                     if (val === 'false') {
                                                         document.getElementById("commentNo").value = 1;
@@ -2901,13 +2887,6 @@
             /*font-family: 'Noto Sans KR', sans-serif;*/
             /*font-size: 25px;*/
         }
-        .commentList2[class*="detail"] {
-            /* background-color: yellow; */
-            height: 509px;
-            /*border-bottom: rgb(214, 214, 214) 1px solid;*/
-            /*font-family: 'Noto Sans KR', sans-serif;*/
-            /*font-size: 25px;*/
-        }
 
         .commentWriter {
             display: inline-block;
@@ -2945,11 +2924,6 @@
             height: 80px;
             /* background-color: blue; */
             border-bottom: rgb(214, 214, 214) 1px solid
-        }
-        .likeListZone2[class*="detail"] {
-            height: 80px;
-            /* background-color: blue; */
-            /*border-bottom: rgb(214, 214, 214) 1px solid*/
         }
 
         .saveCommentBtn[class*="detail"] {
@@ -3128,15 +3102,15 @@
                                     </div>
 
                                     <!-- 댓글 버튼 -->
-                                    <div class="commentBtn detail">
-                                        <i id="commentHidden" onclick="focusComment()"
+                                    <div class="commentBtn detail" id="commentHidden">
+                                        <i onclick="focusComment()"
                                            class="fa-regular fa-comment commentListItem detail"></i>
                                     </div>
                                 </div>
 
 
                                 <!-- 좋아요 리스트 구역 -->
-                                <div class="likeListZone detail" id="likeListZone">
+                                <div class="likeListZone detail">
 
                                 </div>
 
