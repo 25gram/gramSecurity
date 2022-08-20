@@ -154,18 +154,19 @@
 
         .feedZone:not(.detail) {
             /* border: 1px solid ; */
-            height: 818px;
+            height: auto;
+            /*height: 818px;*/
 
             /* height: 830px; */
             /*background-color: aqua;*/
             padding-left: 0;
             padding-right: 0;
-            width: 500px;
+            width: 450px;
             margin: auto;
             margin-top: 10px;
             margin-bottom: 10px;
             border: rgb(214, 214, 214) solid 1px;
-            border-radius: 1em;
+            border-radius: 5px;
             background-color: white;
             position: relative;
             z-index: 1;
@@ -201,24 +202,27 @@
         }
 
         .contentsItem1:not(.detail) {
-            margin: 24px;
+            /*margin: 24px;*/
             width: 450px;
-            height: 470px;
+            height: auto;
+            /*height: 470px;*/
             /* border: rgb(214,214,214) solid 1px; */
             /*width: 100vw;*/
             float: left;
-            padding-right: 65px;
-            padding-left: 65px;
+            /*padding-right: 65px;*/
+            /*padding-left: 65px;*/
         }
 
         .contentsItem2:not(.detail) {
-            margin: 24px;
+            /*margin: 24px;*/
             width: 450px;
-            height: 470px;
+            height: auto;
+            max-height: 515px;
             /* border: rgb(214,214,214) solid 1px; */
             /*width: 100vw;*/
             float: left;
             cursor: pointer;
+            background-color: black;
         }
 
         .contentsBody:not(.detail) {
@@ -520,14 +524,23 @@
             margin-left: 5px;
             margin-bottom: 10px;
         }
-
+        .fa-comment{
+            transform: rotateY(180deg);
+        }
         .board_boardContent {
             font-family: 'Noto Sans KR', sans-serif;
             font-weight: 200;
             font-size: 15px;
-            margin-right: 20px;
-            margin-left: 15px;
-            margin-bottom: 10px;
+            /* margin-right: 20px; */
+            /* margin-left: 15px; */
+            /* margin-bottom: 10px; */
+            width: max-content;
+            height:auto;
+            max-width: 470px;
+            max-height: 42px;
+            white-space: pre-line;
+            word-break: break-all;
+            overflow: hidden;
         }
 
         .boardContent {
@@ -1181,8 +1194,9 @@
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
                 <div class="boardContent">
-                    <span class="boardWriter" th:text="${board.getBoardWriter()}"></span>
-                    <span class="board_boardContent" th:text="${board.boardContents}"><br></span>
+<!--                    <span class="boardWriter" th:text="${board.getBoardWriter()}"></span>-->
+                    <div class="board_boardContent" th:text="${board.boardContents}">
+                    </div>
                 </div>
                 <div style="height: 0px;">
                     <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}"
@@ -2206,6 +2220,7 @@
                             .emojionearea .emojionearea-editor:not(.detail) {
                                 min-height: 200px;
                                 max-height: 200px;
+                                white-space: pre-line;
 
                             }
 
@@ -2771,6 +2786,7 @@
             min-height: 60px;
             max-height: 60px;
             height: 60px;
+            white-space: pre-line;
         }
 
 
