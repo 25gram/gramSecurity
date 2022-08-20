@@ -26,10 +26,10 @@ public class StoryController {
     private final FollowService followService;
     private final StoryViewService storyViewService;
     @GetMapping("/findStoryList")
-    public List<StoryDTO> findStoryList(String id) {
-        List<FollowDTO> followDTOList = storyIdList(id);
+    public List<StoryDTO> findStoryList(String loginId) {
+        List<FollowDTO> followDTOList = storyIdList(loginId);
         List<StoryDTO> storyDTOList = storyService.findStoryList(followDTOList);
-
+        System.out.println("================================================================="+storyDTOList);
         return storyDTOList;
     }
     @GetMapping("/")
@@ -84,19 +84,19 @@ public class StoryController {
     }
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
-        String loginid = storyService.saveFile(storyDTO);
-        return "redirect:/storyBoard/stories/"+loginid;
+        String loginId = storyService.saveFile(storyDTO);
+        return "redirect:/storyBoard/stories/"+loginId;
     }
 
     public List<FollowDTO> storyIdList(String id){
         List<FollowDTO> myList = followService.findAllByMyId(id);
         List<FollowDTO> yourList=followService.findAllByYourId(id);
-
+        System.out.println("================================================================================"+myList);
         return yourList;
     }
     @GetMapping("/storyViewCheck")
-    public boolean findByStoryIdAndLoginId(Long id, String loginId){
-        boolean result = storyViewService.findByStoryIdAndLoginId(id, loginId);
+    public boolean findByStoryIdAndLoginId(Long storyId, String loginId){
+        boolean result = storyViewService.findByStoryIdAndLoginId(storyId, loginId);
         return result;
     }
 }

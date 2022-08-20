@@ -31,8 +31,11 @@ public class StoryViewService {
         }
         storyViewRepository.save(storyViewEntity);
     }
-    public boolean findByStoryIdAndLoginId(Long id, String loginId){
-        Optional<StoryViewEntity> optionalStoryViewEntity = storyViewRepository.findByStoryIdAndLoginId(id, loginId);
+    public boolean findByStoryIdAndLoginId(Long storyId, String loginId){
+        Optional<StoryViewEntity> optionalStoryViewEntity = storyViewRepository.findByStoryIdAndLoginId(storyId, loginId);
+        System.out.println("==================================storyId=========================================="+storyId);
+        System.out.println("==================================loginId=========================================="+loginId);
+
         if(optionalStoryViewEntity.isPresent()){
             return true;
         } else {
