@@ -459,21 +459,16 @@
             width: 150px;
             height: 110px;
             background-color: white;
-            position: absolute;
-            left: 50%;
+            position: relative;
+            left: -242px;
             margin-left: 150px;
-            /*left: -46px;*/
-            /* top: 13px; */
-            top: 64px;
-            /*top: -155px;*/
+            top: 45px;
             border: 1px solid rgb(168, 168, 168);
             cursor: pointer;
             opacity: 0;
             z-index: 2;
             box-shadow: 3px 4px 10px 1px #ced4da;
             border-radius: 3px;
-
-            /* top: -98px; */
         }
 
         .goContents {
@@ -596,6 +591,7 @@
 
 
     <div class="row headerZone">
+
         <div class="col-4">
             <p class="title">25gram</p>
         </div>
@@ -671,11 +667,11 @@
                     // btn.style.zIndex = '-1';
                     // setTimeout(behind,500)
                     // function behind(){
-                        $(".storyBtn").css({
-                            opacity: 0,
-                            // top: "-155px",
-                            transition: "all 1s",
-                        })
+                    $(".storyBtn").css({
+                        opacity: 0,
+                        // top: "-155px",
+                        transition: "all 1s",
+                    })
                     goint = 0;
 
                 }
@@ -686,12 +682,26 @@
         </script>
 
 
-        <div class="col-4 headerItem" style="margin-top: 18px;text-align: start;">
+        <div class="col-4 headerItem" style="display: flex;margin-top: 18px;text-align: start;">
             <button id="hiddenBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" hidden></button>
-            <i onclick="showGo()" id="headerItem1" class="fi fa-regular fa-square-plus"></i>
+            <div  onclick="showGo()">
+                <i id="headerItem1" class="fi fa-regular fa-square-plus"></i>
+            </div>
             <div hidden id="goContents" style="width: 0;height:0" data-bs-toggle="modal"
                  data-bs-target="#staticBackdrop"></div>
-
+            <div class="storyBtnZone" style="width: 0;height:0">
+                <div class="storyBtn">
+                    <div class="goContents" onclick="goContents()">
+                        <p id="gc" class="goItem">게시글 작성</p>
+                    </div>
+                    <div class="goStory" onclick="location.href='/storyBoard/'" th:if="${storyCheckResult.isEmpty()}">
+                        <p id="gs1" class="goItem" >스토리 작성</p>
+                    </div>
+                    <div class="goStory" onclick="location.href='/storyBoard/'" th:unless="${storyCheckResult.isEmpty()}">
+                        <p id="gs2" class="goItem" >스토리 보기</p>
+                    </div>
+                </div>
+            </div>
             <i id="headerItem2" class="fi fa-regular fa-heart" onclick="iconEffect(6)"
                data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
             <i id="headerItem3" class="fi fa-regular fa-paper-plane" style="font-size: 28px;"
@@ -718,16 +728,16 @@
                 <li><a class="dropdown-item dropdown-item3" style="cursor: pointer" onclick="logoutChk()">Log-out</a>
                 </li>
             </ul>
-<!--            <div class="storyBtnZone" style="width: 0;height:0">-->
-<!--                <div class="storyBtn">-->
-<!--                    <div class="goContents">-->
-<!--                        <p id="gc" class="goItem">게시글 작성</p>-->
-<!--                    </div>-->
-<!--                    <div class="goStory" onclick="location.href='/storyBoard/'">-->
-<!--                        <p id="gs" class="goItem">스토리 작성</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="storyBtnZone" style="width: 0;height:0">-->
+            <!--                <div class="storyBtn">-->
+            <!--                    <div class="goContents">-->
+            <!--                        <p id="gc" class="goItem">게시글 작성</p>-->
+            <!--                    </div>-->
+            <!--                    <div class="goStory" onclick="location.href='/storyBoard/'">-->
+            <!--                        <p id="gs" class="goItem">스토리 작성</p>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
 
             <div>
@@ -943,42 +953,42 @@
                 // dropdown 메뉴가 사라진 직후에 호출되는 이벤트
                 // $('.event-dropdown').on('hidden.bs.dropdown	', function () {
                 //         console.log("메뉴가 닫힌 후 이벤트!");  });
-                   let stopint=0;
-                 function stopAndGo(index,indexB) {
-                     console.log("stopAndGo")
-                     let video = document.getElementById("feedVideo" + index+"b"+indexB)
-                     // let btn=document.getElementById("cc"+index)
-                     let btn=document.getElementById("cc"+index+"b"+indexB)
+                let stopint=0;
+                function stopAndGo(index,indexB) {
+                    console.log("stopAndGo")
+                    let video = document.getElementById("feedVideo" + index+"b"+indexB)
+                    // let btn=document.getElementById("cc"+index)
+                    let btn=document.getElementById("cc"+index+"b"+indexB)
 
 
-                     if(video.paused){
+                    if(video.paused){
                         btn.style.opacity="0";
-                         video.style.opacity="1";
+                        video.style.opacity="1";
 
-                         video.play();
-                     }
-                     else{
+                        video.play();
+                    }
+                    else{
                         btn.style.opacity="1";
-                         video.style.opacity="0.7";
+                        video.style.opacity="0.7";
 
 
-                         video.pause();
-                     }
+                        video.pause();
+                    }
 
-                 }
-                         </script>
+                }
+            </script>
 
 
         </div>
     </div>
     <div>
-        <button hidden id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop_detail">
+        <button  id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal"
+                 data-bs-target="#staticBackdrop_detail" hidden>
             Launch static backdrop modal
         </button>
     </div>
 
-    <div class="storyBtnZone" style="width: 0;height:0">
+    <!-- <div class="storyBtnZone" style="width: 0;height:0">
         <div class="storyBtn">
             <div class="goContents" onclick="goContents()">
                 <p id="gc" class="goItem">게시글 작성</p>
@@ -990,7 +1000,7 @@
                 <p id="gs2" class="goItem" >스토리 보기</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- 스토리 구역 -->
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
@@ -999,11 +1009,11 @@
             <tr th:each="story :${storyList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
                     <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
-                         <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
-<!--                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">-->
+                        <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
+                        <!--                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">-->
                     </a>
-                     <p class="storyName "th:text="${story.getMemberName()}"></p>
-<!--                    <p class="storyName" >havana_1016</p>-->
+                    <p class="storyName "th:text="${story.getMemberName()}"></p>
+                    <!--                    <p class="storyName" >havana_1016</p>-->
                 </div>
             </tr>
         </div>
@@ -1024,14 +1034,14 @@
                 </div>
                 <div th:each="boardFile2,indexB : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="width: 0;height:0">
                     <i th:id="cc+${index.index}+b+${indexB.index}" style="opacity: 0" class="cc bi bi-play-circle"></i>
-<!--                    <i th:id="cc+${index.index}+'b'+${indexB.index}" style="opacity: 0" class="cc bi bi-play-circle"></i>-->
+                    <!--                    <i th:id="cc+${index.index}+'b'+${indexB.index}" style="opacity: 0" class="cc bi bi-play-circle"></i>-->
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
                         <div hidden id="detailGoBtn"th:onclick="detailGo([[${board}]])"></div>
                         <div  th:each="boardFile2,indexB : ${boardFile}"
-                             th:if="${boardFile2.boardId == board.id}" >
-<!--                        <div th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}"-->
+                              th:if="${boardFile2.boardId == board.id}" >
+                            <!--                        <div th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}"-->
                             <!--                        <div th:onclick="detailGo([[${board.id}]],[[${board.boardWriter}]],[[${board.memberProfileName}]])" th:each="boardFile2 : ${boardFile}" th:if="${boardFile2.boardId == board.id}" style="cursor: pointer">-->
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1"
                                  th:src="@{|/upload/${boardFile2.boardImgName}|}"
