@@ -1076,91 +1076,112 @@
                                 result.setRequestHeader(header, token);
                             },
                             success: function (comment) {
-                                const detailFile = document.getElementById("detailFile");
-                                let id = 1;
-                                let likeIndex = [];
-                                let commentIndex = [];
-                                let lengthBoard = 0;
-                                let idFind = 0;
-                                let trDoor = 1;
-                                let file = "";
-                                let boardId = data.length;
-                                for (let i = data.length - 1; i >= 0; i--) {
-                                    let fileNum = 0;
-                                    let boardCount = 0;
-                                    console.log(boardId)
-                                    if (data[i].boardId == data[boardId-1].boardId) {
-                                        if (trDoor == 1) {
-                                            file += '<tr>';
-                                        }else if (trDoor == 3){
-                                            trDoor = 0;
-                                        }
-                                        trDoor++;
-                                        for (let j = 0; j < data.length; j++) {
-                                            if (data[j].boardId == data[boardId-1].boardId) {
-                                                boardCount++;
-                                            }
-                                        }
-                                        if (boardId != 0){
-                                            boardId = (boardId - boardCount);
-                                        }
-                                        console.log(boardId)
-                                        likeIndex[boardId] = 0;
-                                        commentIndex[boardId] = 0;
-                                        idFind = data[boardId].boardId;
-                                        lengthBoard = id;
-                                        file += '<td class="wrap">'
-                                        for (let j = 0; j < like.length; j++) {
-                                            if (like[j].boardId == idFind) {
-                                                likeIndex[boardId]++;
-                                            }
-                                        }
-                                        for (let j = 0; j < comment.length; j++) {
-                                            if (comment[j].boardId == idFind) {
-                                                commentIndex[boardId]++;
-                                            }
-                                        }
-                                        file += '<div class="mypageListItem input-group">';
-                                        if (data[boardId].boardId == idFind) {
-                                            if (data[boardId].boardImgName == null) {
-                                                file += '<video class="mypageListItem listImg" src="/upload/' + data[boardId].boardVideoName + '" style="filter: ' +  data[boardId].boardFilter + '" autoplay="autoplay" loop="loop"></video>';
-                                            } else {
-                                                file += '<img class="mypageListItem listImg" src="/upload/' + data[boardId].boardImgName + '" alt="" style="filter: ' + data[boardId].boardFilter + '">';
-                                            }
-                                            for (let j = 0; j < data.length; j++) {
-                                                if (data[j].boardId == data[boardId].boardId) {
-                                                    fileNum++;
+                                $.ajax({
+                                    type: "post",
+                                    url: "/ripple/list",
+                                    data: {},
+                                    dataType: "json",
+                                    beforeSend: function (result) {
+                                        result.setRequestHeader(header, token);
+                                    },
+                                    success: function (ripple) {
+                                        console.log(ripple)
+                                        const detailFile = document.getElementById("detailFile");
+                                        let id = 1;
+                                        let likeIndex = [];
+                                        let commentIndex = [];
+                                        let rippleIndex = [];
+                                        let lengthBoard = 0;
+                                        let idFind = 0;
+                                        let trDoor = 1;
+                                        let file = "";
+                                        let boardId = data.length;
+                                        for (let i = data.length - 1; i >= 0; i--) {
+                                            let fileNum = 0;
+                                            let boardCount = 0;
+                                            console.log(boardId)
+                                            if (data[i].boardId == data[boardId-1].boardId) {
+                                                if (trDoor == 1) {
+                                                    file += '<tr>';
+                                                }else if (trDoor == 3){
+                                                    trDoor = 0;
+                                                }
+                                                trDoor++;
+                                                for (let j = 0; j < data.length; j++) {
+                                                    if (data[j].boardId == data[boardId-1].boardId) {
+                                                        boardCount++;
+                                                    }
+                                                }
+                                                if (boardId != 0){
+                                                    boardId = (boardId - boardCount);
+                                                }
+                                                console.log(boardId)
+                                                likeIndex[boardId] = 0;
+                                                commentIndex[boardId] = 0;
+                                                rippleIndex[boardId] = 0;
+                                                idFind = data[boardId].boardId;
+                                                lengthBoard = id;
+                                                file += '<td class="wrap">'
+                                                for (let j = 0; j < like.length; j++) {
+                                                    if (like[j].boardId == idFind) {
+                                                        likeIndex[boardId]++;
+                                                    }
+                                                }
+                                                for (let j = 0; j < comment.length; j++) {
+                                                    if (comment[j].boardId == idFind) {
+                                                        commentIndex[boardId]++;
+                                                    }
+                                                    for (let o = 0; o < ripple.length; o++) {
+                                                        if (comment[j].boardId == idFind) {
+                                                            if (ripple[o].commentId == comment[j].id) {
+                                                            rippleIndex[boardId]++;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                file += '<div class="mypageListItem input-group">';
+                                                if (data[boardId].boardId == idFind) {
+                                                    if (data[boardId].boardImgName == null) {
+                                                        file += '<video class="mypageListItem listImg" src="/upload/' + data[boardId].boardVideoName + '" style="filter: ' +  data[boardId].boardFilter + '" autoplay="autoplay" loop="loop"></video>';
+                                                    } else {
+                                                        file += '<img class="mypageListItem listImg" src="/upload/' + data[boardId].boardImgName + '" alt="" style="filter: ' + data[boardId].boardFilter + '">';
+                                                    }
+                                                    for (let j = 0; j < data.length; j++) {
+                                                        if (data[j].boardId == data[boardId].boardId) {
+                                                            fileNum++;
+                                                        }
+                                                    }
+                                                    if (fileNum > 1) {
+                                                        file += '<i class="manyIcon fa-regular fa-clone"></i>';
+                                                    }
+                                                    file += '<div class="imgIconGroup " style="display:flex;text-align:center;">';
+                                                    file += '<div class="likeText1"><i class="fa-solid fa-heart"></i></div>';
+                                                    file += '<div class="likeText2">' + likeIndex[boardId] + '</div>';
+                                                    file += '<div class="commentText1"><i class="fa-solid fa-comment"></i></div>';
+                                                    file += '<div class="commentText2">' + (commentIndex[boardId] + rippleIndex[boardId]) + '</div>';
+                                                    file += '</div>';
+                                                    file += '</div>';
+                                                    file += '</td>';
+                                                    id++;
+                                                    if (boardId == 0 && trDoor != 1) {
+                                                        file += '<td style="width: 31%"></td>';
+                                                        if (trDoor == 2) {
+                                                            file += '<td style="width: 31%"></td>';
+                                                        }
+                                                    }
+                                                    if (trDoor == 1) {
+                                                        file += '</tr>';
+                                                    }
+                                                    if (boardId == 0) {
+                                                        i = -1;
+                                                    }
                                                 }
                                             }
-                                            if (fileNum > 1) {
-                                                file += '<i class="manyIcon fa-regular fa-clone"></i>';
-                                            }
-                                            file += '<div class="imgIconGroup " style="display:flex;text-align:center;">';
-                                            file += '<div class="likeText1"><i class="fa-solid fa-heart"></i></div>';
-                                            file += '<div class="likeText2">' + likeIndex[boardId] + '</div>';
-                                            file += '<div class="commentText1"><i class="fa-solid fa-comment"></i></div>';
-                                            file += '<div class="commentText2">' + commentIndex[boardId] + '</div>';
-                                            file += '</div>';
-                                            file += '</div>';
-                                            file += '</td>';
-                                            id++;
-                                            if (boardId == 0 && id == 3) {
-                                                file += '<td style="width: 31%"></td>';
-                                            } else if (boardId == 0) {
-                                                file += '<td style="width: 31%"></td>';
-                                                file += '<td style="width: 31%"></td>';
-                                            }
-                                            if (trDoor == 1) {
-                                                file += '</tr>';
-                                            }
-                                            if (boardId == 0) {
-                                                i = -1;
-                                            }
                                         }
+                                        detailFile.innerHTML += file;
+                                        document.getElementById("mypageBoardCount").innerHTML = lengthBoard;
                                     }
-                                }
-                                detailFile.innerHTML += file;
-                                document.getElementById("mypageBoardCount").innerHTML = lengthBoard;
+                                });
                             }
                         });
                     }
