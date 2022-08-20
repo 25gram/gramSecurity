@@ -459,21 +459,16 @@
             width: 150px;
             height: 110px;
             background-color: white;
-            position: absolute;
-            left: 50%;
+            position: relative;
+            left: -242px;
             margin-left: 150px;
-            /*left: -46px;*/
-            /* top: 13px; */
-            top: 64px;
-            /*top: -155px;*/
+            top: 45px;
             border: 1px solid rgb(168, 168, 168);
             cursor: pointer;
             opacity: 0;
             z-index: 2;
             box-shadow: 3px 4px 10px 1px #ced4da;
             border-radius: 3px;
-
-            /* top: -98px; */
         }
 
         .goContents {
@@ -582,6 +577,13 @@
             position: absolute;
             left: 210px;
             top: 254px;
+            cursor:auto ;
+        }
+        #detailGoBtn{
+            height: 0;
+            position: absolute;
+            top: 580px;
+            left: 349px;
         }
 
     </style>
@@ -596,6 +598,7 @@
 
 
     <div class="row headerZone">
+
         <div class="col-4">
             <p class="title">25gram</p>
         </div>
@@ -686,12 +689,26 @@
         </script>
 
 
-        <div class="col-4 headerItem" style="margin-top: 18px;text-align: start;">
+        <div class="col-4 headerItem" style="display: flex;margin-top: 18px;text-align: start;">
             <button id="hiddenBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" hidden></button>
-            <i onclick="showGo()" id="headerItem1" class="fi fa-regular fa-square-plus"></i>
+            <div  onclick="showGo()">
+                <i id="headerItem1" class="fi fa-regular fa-square-plus"></i>
+            </div>
             <div hidden id="goContents" style="width: 0;height:0" data-bs-toggle="modal"
                  data-bs-target="#staticBackdrop"></div>
-
+            <div class="storyBtnZone" style="width: 0;height:0">
+                <div class="storyBtn">
+                    <div class="goContents" onclick="goContents()">
+                        <p id="gc" class="goItem">게시글 작성</p>
+                    </div>
+                    <div class="goStory" onclick="location.href='/storyBoard/'" th:if="${storyCheckResult.isEmpty()}">
+                        <p id="gs1" class="goItem" >스토리 작성</p>
+                    </div>
+                    <div class="goStory" onclick="location.href='/storyBoard/'" th:unless="${storyCheckResult.isEmpty()}">
+                        <p id="gs2" class="goItem" >스토리 보기</p>
+                    </div>
+                </div>
+            </div>
             <i id="headerItem2" class="fi fa-regular fa-heart" onclick="iconEffect(6)"
                data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i>
             <i id="headerItem3" class="fi fa-regular fa-paper-plane" style="font-size: 28px;"
@@ -972,13 +989,13 @@
         </div>
     </div>
     <div>
-        <button hidden id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop_detail">
+        <button  id="detailModalBtn" type="button" class="btn btn-primary detail" data-bs-toggle="modal"
+                 data-bs-target="#staticBackdrop_detail" hidden>
             Launch static backdrop modal
         </button>
     </div>
 
-    <div class="storyBtnZone" style="width: 0;height:0">
+    <!-- <div class="storyBtnZone" style="width: 0;height:0">
         <div class="storyBtn">
             <div class="goContents" onclick="goContents()">
                 <p id="gc" class="goItem">게시글 작성</p>
@@ -990,7 +1007,7 @@
                 <p id="gs2" class="goItem" >스토리 보기</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- 스토리 구역 -->
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
@@ -1028,7 +1045,9 @@
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div hidden th:id="detailGoBtn+${board.id}"th:onclick="detailGo([[${board}]])"></div>
+                        <div  id="detailGoBtn"th:onclick="detailGo([[${board}]])">
+                            <i class='fa-regular fa-comment feedBtn'></i>
+                        </div>
                         <div  th:each="boardFile2,indexB : ${boardFile}"
                               th:if="${boardFile2.boardId == board.id}" >
                             <!--                        <div th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}"-->
@@ -1643,6 +1662,10 @@
                                 let detailIcon = "";
                                 let icon = "";
                                 if (data[i].likes == 1) {
+                                    icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
+                                    // icon += "<i th:onclick='detailGo([[${board}]])' class='fa-regular fa-comment feedBtn'></i>";
+                                    // icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
+                                    icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     if (data[i].likesNo == null) {
                                         icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
                                     }
@@ -1661,6 +1684,9 @@
                                         likeDetail.innerHTML = detailIcon;
                                     }
                                 } else {
+                                    icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
+                                    // icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
+                                    icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     if (data[i].likesNo == null) {
                                         icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
                                     }

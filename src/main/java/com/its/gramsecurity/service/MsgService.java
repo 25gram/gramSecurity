@@ -55,15 +55,19 @@ public class MsgService {
     public List<MsgDTO> msglist(String loginId) {
 //
         List<MsgEntity> elist = msgr.findLeft(loginId);
-        MsgEntity member=new MsgEntity();
 
         List<MsgDTO> mlist = new ArrayList<>();
         String friendId = "";
         if(elist.isEmpty()){
-        member = msgr.findLeft1(loginId).get(0);
-            friendId = member.getLoginId();
-            List<MsgEntity> flist = msgr.findMsgList(loginId, friendId);
-            mlist.add(MsgDTO.toDto(flist.get(0)));
+                List<MsgEntity> member= msgr.findLeft1(loginId);
+                if(member.isEmpty()){
+                    mlist=null;
+                }
+                else{
+                    friendId = member.get(0).getLoginId();
+                    List<MsgEntity> flist = msgr.findMsgList(loginId, friendId);
+                    mlist.add(MsgDTO.toDto(flist.get(0)));
+                }
         }else{
 
         for (int i = 0; i < elist.size(); i++) {
