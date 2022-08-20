@@ -577,6 +577,13 @@
             position: absolute;
             left: 210px;
             top: 254px;
+            cursor:auto ;
+        }
+        #detailGoBtn{
+            height: 0;
+            position: absolute;
+            top: 580px;
+            left: 349px;
         }
 
     </style>
@@ -1038,7 +1045,9 @@
                 </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
-                        <div hidden id="detailGoBtn"th:onclick="detailGo([[${board}]])"></div>
+                        <div  id="detailGoBtn"th:onclick="detailGo([[${board}]])">
+                            <i class='fa-regular fa-comment feedBtn'></i>
+                        </div>
                         <div  th:each="boardFile2,indexB : ${boardFile}"
                               th:if="${boardFile2.boardId == board.id}" >
                             <!--                        <div th:onclick="detailGo([[${board}]])" th:each="boardFile2 : ${boardFile}"-->
@@ -1619,7 +1628,8 @@
                                 let icon = "";
                                 if (data[i].likes == 1) {
                                     icon += "<i class='fa-solid fa-heart feedBtn' style='color: red' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
-                                    icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
+                                    // icon += "<i th:onclick='detailGo([[${board}]])' class='fa-regular fa-comment feedBtn'></i>";
+                                    // icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
                                     icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
@@ -1629,7 +1639,7 @@
                                     }
                                 } else {
                                     icon += "<i class='fa-regular fa-heart feedBtn' style='color: black' id='i" + data[i].id + "' onclick='likes(" + data[i].id + ")'></i>"
-                                    icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
+                                    // icon += "<i onclick='gogo()' class='fa-regular fa-comment feedBtn'></i>";
                                     icon += "<span id='k" + likeNum + "'>" + "좋아요" + likeIndex[i] + "개" + "</span>";
                                     likeMain.innerHTML = icon;
                                     if (likeNum == id) {
