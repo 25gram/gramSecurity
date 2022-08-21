@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600&family=Ibarra+Real+Nova:wght@700&display=swap"
           rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="/js/moment-with-locales.min.js"></script>
+
     <style>
         body{
             background-color: rgb(26,26,26) !important;
@@ -94,9 +98,10 @@
         .closeDiv {
             width: 30px;
             height: 30px;
-            position: relative;
-            top: 50px;
-            left: 1530px;
+            position: static;
+            margin-top: 20px;
+            margin-left: 95%;
+
         }
         .filePreview {
             width: 100%;
@@ -782,7 +787,7 @@
         #bar{
             width:0px;
             height: 2px;
-            background-color: rgba(0,0,0,0.5);
+            background-color: white;
 
         }
         #underbar{
@@ -795,6 +800,52 @@
             top: 20px;
         }
 
+        .logoLine {
+            width: 100%;
+            height: 37px;
+            position: relative;
+            top: 34px;
+            float: left;
+            z-index: 12;
+        }
+        .storyUser {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: white;
+            border: 0;
+            margin-left: 2%;
+            float: left;
+            overflow: hidden;
+        }
+        .userName {
+            font-size: 16px;
+            color: white;
+            margin-left: 2%;
+            margin-top: 4px;
+            float: left;
+        }
+        .createdTime {
+            font-size: 13px;
+            color: #ced4da;
+            margin-left: 2%;
+            margin-top: 6px;
+            float: left;
+        }
+        #userImg {
+            width: 100%;
+            height: 100%;
+        }
+        .viewCount {
+            z-index: 12;
+            position: absolute;
+            top: 96%;
+            left: 5%;
+            width: 57px;
+            height: 19px;
+            color: white;
+            font-size: 11px;
+        }
     </style>
 
 </head>
@@ -803,23 +854,29 @@
     <div class="logoFont">25gram</div>
     <div class="closeDiv">
         <a href="#" class="closeIco" id="closeStories"  onclick="movePage()" aria-label="Close"><i class="bi bi-x-lg" style="font-size: 28px; color: white"></i></a>
-
         <!--        <button type="button" class="btn-close" onclick="movePage()" aria-label="Close"></button>-->
     </div>
     <div class="storyBox">
+        <div class="logoLine" id="logoLine">
+            <div class="storyUser" id="storyUser">
+                <img src="#" id="userImg">
+            </div>
+            <div class="userName" id="userName"></div>
+            <div class="createdTime"  id="createdTime"></div>
+        </div>
         <div class="filePreview" id="filePreview"></div>
         <div class="addImgDiv" id="addImgDiv"></div>
         <div id="video-controls">
             <div id="underbar">
                 <div id="bar"></div>
-
             </div>
-
         </div>
+        <div class="viewCount" id="viewCount" th:text="${countStoryView}+'명 읽음'"></div>
     </div>
 </div>
 </body>
 <script th:inline="javascript">
+    moment.locale("ko");
     const movePage = () => {
         let previous = document.referrer;
         if(previous=="http://localhost:8080/storyBoard/save-form"){
@@ -848,7 +905,9 @@
             /*[[${storyList.storyFileName}]]*/,
             /*[[${storyList.storyImgName}]]*/,
             /*[[${storyList.storyImgTag}]]*/,
-            /*[[${storyList.loginId}]]*/)
+            /*[[${storyList.memberProfileName}]]*/,
+            /*[[${storyList.memberName}]]*/,
+            /*[[${storyList.storyCreatedTime}]]*/)
         /*[/]*/
 
         /*]]>*/
@@ -865,7 +924,9 @@
                             storyFileName,
                             storyImgName,
                             storyImgTag,
-                            loginId) {
+                            memberProfileName,
+                            memberName,
+                            storyCreatedTime) {
             if(storyReferenceTag){
                 document.body.innerHTML+=storyReferenceTag;
             }
@@ -883,6 +944,12 @@
             document.body.innerHTML+=storyLocationTag;
             document.getElementById("addImgDiv").innerHTML=storyImgTag;
 
+            let storyMadeTime = moment(storyCreatedTime).fromNow();
+            document.getElementById("userImg").src="/upload/"+memberProfileName;
+            document.getElementById("userName").innerHTML=memberName;
+            document.getElementById("createdTime").innerHTML=storyMadeTime;
+            console.log(storyMadeTime);
+
             if(storyFileName.endsWith(".mp4")){
                 let video = document.createElement("video");
                 video.setAttribute("src", "/upload/"+storyFileName);
@@ -899,7 +966,6 @@
                 video.addEventListener("timeupdate", function() {
                         let i=video.duration;
                         const bar=document.getElementById("bar");
-                    console.log("현재시간"+video.currentTime);
                     $("#bar").css({
                         width:"480px",
                         transition:i+"s linear"
@@ -931,8 +997,12 @@
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
                 $(document).ready(function (){
                     setTimeout(function (){
-                        location.href = "http://localhost:8080/member/mypage?loginId="+[[${myId}]];
-                    }, (10)*1000);
+                                    let previous = document.referrer;
+                                    if(previous=="http://localhost:8080/storyBoard/save-form"){
+                                        location.href="http://localhost:8080/main/main";
+                                    } else {
+                                        location.href=previous;
+                                    }                    }, (10)*1000);
                 });
             }
             if (storyImgName){

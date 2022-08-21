@@ -103,7 +103,6 @@ public class MemberController {
     public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model,
                          @RequestParam("loginId")String loginId) {
         MemberDTO memberDTO = memberService.findByLoginId(loginId);
-        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         List<FollowDTO> following = followService.findAllByYourId(loginId);
         String findByMyIdAndYourId=followService.findByMyIdAndYourId(principalDetails.getMemberDTO().getLoginId(),loginId);
@@ -112,7 +111,13 @@ public class MemberController {
         model.addAttribute("count", followDTOList.size());
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("AuthenticationPrincipal", principalDetails);
-        model.addAttribute("storyList", storyDTOList);
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+        StoryDTO myStory = new StoryDTO();
+        if(!storyDTOList.isEmpty()){
+                int i = storyDTOList.size();
+                myStory = storyDTOList.get(i-1);
+       }
+        model.addAttribute("myStory", myStory);
         return "memberPages/myPage";
     }
 }

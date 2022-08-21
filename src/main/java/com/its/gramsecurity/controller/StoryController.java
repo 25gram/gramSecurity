@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,17 +30,25 @@ public class StoryController {
     public List<StoryDTO> findStoryList(String loginId) {
         List<FollowDTO> followDTOList = storyIdList(loginId);
         List<StoryDTO> storyDTOList = storyService.findStoryList(followDTOList);
-        System.out.println("================================================================="+storyDTOList);
+        System.out.println("========================StoryController/findStoryList/yourStoryList========================="+storyDTOList);
         return storyDTOList;
     }
     @GetMapping("/")
     public String myStory(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        List<StoryDTO> myStoryList = new ArrayList<>();
+        StoryDTO myNewStory = new StoryDTO();
         String loginId = principalDetails.getMemberDTO().getLoginId();
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
         if(storyDTOList.isEmpty()){
             return "redirect:/storyBoard/save-form";
         } else {
-            return "redirect:/storyBoard/stories/"+loginId;
+            for(StoryDTO storyDTO: storyDTOList){
+                myStoryList.add(storyDTO);
+                int i = myStoryList.size();
+                myNewStory = myStoryList.get(i-1);
+            }
+            Long storyId = myNewStory.getId();
+            return "redirect:/storyBoard/stories?id="+storyId+"&loginId="+loginId;
         }
     }
     public List<StoryDTO> storyCheck(String loginId) {
@@ -47,13 +56,15 @@ public class StoryController {
         return storyDTOList;
     }
 
-    @GetMapping("/stories/{id}")
-    public String stories(@PathVariable("id") String loginId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+    @GetMapping("/stories")
+    public String stories(@RequestParam("id") Long storyId, @RequestParam("loginId") String loginId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId); //본적없는 팔로우스토리 아이디 받아서 다시찾기
+        StoryDTO storyDTO = storyService.findById(storyId); //본적없는 팔로우스토리 아이디 받아서 다시찾기
         String myId = principalDetails.getMemberDTO().getLoginId();
-        storyViewService.storyViewSave(loginId);
+        Long countStoryView = storyViewService.storyViewSave(storyId, myId);
         model.addAttribute("storyList", storyDTOList);
-        model.addAttribute("myId", myId);
+        model.addAttribute("storyDTO", storyDTO);
+        model.addAttribute("countStoryView", countStoryView);
         return "storyPages/stories";
     }
 
@@ -84,19 +95,24 @@ public class StoryController {
     }
     @PostMapping("/saveFile")
     public String saveFile(@ModelAttribute StoryDTO storyDTO) throws IOException {
-        String loginId = storyService.saveFile(storyDTO);
-        return "redirect:/storyBoard/stories/"+loginId;
+        Long storyId = storyService.saveFile(storyDTO);
+        StoryDTO storySaved = storyService.findById(storyId);
+        String loginId = storySaved.getLoginId();
+        return "redirect:/storyBoard/stories?id="+storyId+"&loginId="+loginId;
     }
 
     public List<FollowDTO> storyIdList(String id){
         List<FollowDTO> myList = followService.findAllByMyId(id);
         List<FollowDTO> yourList=followService.findAllByYourId(id);
-        System.out.println("================================================================================"+myList);
-        return yourList;
+        System.out.println("============================StoryController/storyIdList/myList=============================="+myList);
+        return myList;
     }
     @GetMapping("/storyViewCheck")
-    public boolean findByStoryIdAndLoginId(Long storyId, String loginId){
-        boolean result = storyViewService.findByStoryIdAndLoginId(storyId, loginId);
+    public boolean findByStoryIdAndLoginId(Long storyId, String storyWriter){
+        System.out.println("======================StoryController/findByStoryIdAndLoginId/storyId======================="+storyId);
+        System.out.println("====================StoryController/findByStoryIdAndLoginId/storyWriter====================="+storyId);
+
+        boolean result = storyViewService.findByStoryIdAndLoginId(storyId, storyWriter);
         return result;
     }
 }

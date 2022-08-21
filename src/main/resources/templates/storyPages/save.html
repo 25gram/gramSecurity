@@ -34,13 +34,13 @@
         }
         .saveBox {
             width: 500px;
-            height: 780px;
+            height: 888px;
             padding-left: 0;
             padding-right: 0;
             margin-top: 30px;
             margin-left: auto;
             margin-right: auto;
-            border-radius: 1em;
+            border-radius: 1px;
             background-color: whitesmoke;
             border: 1px solid rgb(214, 214, 214);
             overflow: hidden;
@@ -187,12 +187,11 @@
             margin: 3px;
         }
         .fontDiv {
-            margin: 70% auto 0 auto;
-            width: 100%;
+            width: 280px;
             height: 50px;
-            padding-top: 70%;
-            padding-left: 20%;
             position: absolute;
+            top: 90%;
+            left: 22%;
             display: none;
         }
         .fontKr {
@@ -219,17 +218,18 @@
 
         .slide
         {
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(30px);
+            border-radius: 1em;
             padding: 2rem 4rem 4rem 4rem;
             display: none;
             width: 100%;
             height: 100%;
-            position: absolute;
         }
         #reverse {
             margin-top: 31%;
             padding-bottom: 0;
-            height: 624px;
+            height: 85%;
             position: relative;
             z-index: 21;
         }
@@ -244,7 +244,7 @@
         }
         .btnFncDiv {
             text-align: center;
-            magin-top: 10%;
+            padding-top: 20%;
             margin-bottom: 50px;
             width: 100%;
 
@@ -257,8 +257,9 @@
         .closeDiv2 {
             text-align: center;
             width: 370px;
-            margin-bottom: 4rem;
-
+            position: absolute;
+            color: white;
+            font-size: 20px;
         }
         .addFileLabel {
             border: 1px solid white;
@@ -969,11 +970,11 @@
             </div>
             <div id="reverse">
                 <div class="slide slideUp" id="slideUp">
-                    <div class="closeDiv2"><button class="btn-close" id="reverseSlideContentUp" onclick="downSlide()"></button></div>
+                    <div class="closeDiv2"><a href="#"><i class="bi bi-x-lg" id="reverseSlideContentUp" style="font-size: 25px; color: white" onclick="downSlide()"></i></a></div>
                     <div class="btnFncDiv">
-                        <button type="button" class="btnFnc btn-secondary" onclick="locationFnc()">위치</button>
-                        <button type="button" class="btnFnc btn-secondary" onclick="referenceFnc()">@언급</button>
-                        <button type="button" class="btnFnc btn-secondary" onclick="hashtagFnc()">#해시태그</button>
+                        <button type="button" class="btnFnc btn-secondary" style="color: rebeccapurple !important; font-size: 20px" onclick="locationFnc()"><i class="bi bi-geo-alt-fill"></i>위치</button>
+                        <button type="button" class="btnFnc btn-secondary" style="color: coral !important; font-size: 20px" onclick="referenceFnc()"><i class="bi bi-at"></i>언급</button>
+                        <button type="button" class="btnFnc btn-secondary" style="color: crimson !important; font-size: 14px; padding-top: 5px;" onclick="hashtagFnc()"><i class="bi bi-hash"></i>해시태그</button>
                     </div>
                     <div class="btnFncDiv">
                         <button type="button" class="btnFnc btn-secondary" onclick="questionFnc()">질문</button>

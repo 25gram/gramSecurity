@@ -42,21 +42,21 @@ public class MainController {
         model.addAttribute("findAll", findAll);
         model.addAttribute("boardList",boardList);
         model.addAttribute("boardFile",boardFileList);
-        List<StoryDTO> storyCheckResult = storyController.storyCheck(loginId);
-        List<StoryDTO> storyDTOList = storyController.findStoryList(loginId);
-        model.addAttribute("storyCheckResult", storyCheckResult);
-        List<StoryDTO> storyList = new ArrayList<>();
-        for(int i=0; i<storyDTOList.size(); i++) {
-            Long storyId = storyDTOList.get(i).getId();
-            StoryDTO storyDTO = storyDTOList.get(i);
+        List<StoryDTO> myStoryList = storyController.storyCheck(loginId); // 내 스토리 리스트
+        List<StoryDTO> followingStoryList = storyController.findStoryList(loginId); //내가 팔로우한 사람들의 스토리 리스트
+        model.addAttribute("myStoryList", myStoryList);
+        List<StoryDTO> neverSeenStoryList = new ArrayList<>();
+        for(int i=0; i<followingStoryList.size(); i++) {
+            StoryDTO myFollowStory = followingStoryList.get(i); //내가 팔로우한 사람의 스토리
+            Long storyId = myFollowStory.getId();  // 내가 팔로우한 사람의 스토리 번호
            boolean result = storyController.findByStoryIdAndLoginId(storyId, loginId);
-            System.out.println("==============================result======================================"+result);
-           if(!result){
-               storyList.add(storyDTO);
+            System.out.println("==============================MainController/main/result================================"+result);
+           if(!result){ // 내가 팔로우한 사람의 스토리를 본적이 없으면
+               neverSeenStoryList.add(myFollowStory); // 내가 안본 팔로우스토리 리스트에 추가
            }
         }
-
-        model.addAttribute("storyList", storyDTOList);
+        model.addAttribute("neverSeenStoryList", neverSeenStoryList);
+        System.out.println("=============================MainController/main/neverSeenStoryList========================="+neverSeenStoryList);
         return "main";
     }
     @GetMapping("/story")
