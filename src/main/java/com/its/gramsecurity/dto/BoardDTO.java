@@ -34,8 +34,8 @@ public class BoardDTO {
         boardFileDTO.setBoardContents(boardFile.getBoardContents());
         boardFileDTO.setBoardLocation(boardFile.getBoardLocation());
         boardFileDTO.setBoardTag(boardFile.getBoardTag());
-        boardFileDTO.setLikesNo(boardFileDTO.getLikesNo());
         boardFileDTO.setCommentNo(boardFile.getCommentNo());
+        boardFileDTO.setLikesNo(boardFile.getLikesNo());
         return boardFileDTO;
     }
     public static BoardDTO toBoardDTO(BoardEntity boardEntity){
@@ -49,6 +49,8 @@ public class BoardDTO {
         boardDTO.setBoardTag(boardEntity.getBoardTag());
         boardDTO.setMemberProfileName(boardEntity.getMemberProfileName());
         boardDTO.setLikes(boardEntity.getLikes());
+        boardDTO.setCommentNo(boardEntity.getCommentNo());
+        boardDTO.setLikesNo(boardEntity.getLikesNo());
         return boardDTO;
     }
 
