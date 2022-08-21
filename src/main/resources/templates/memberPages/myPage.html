@@ -456,15 +456,15 @@
     <!-- 내 정보 구역 시작-->
     <!-- 프로필 사진 -->
     <div id="mypageProfileZone" class="mypageProfileZone">
-        <div th:if="${storyList.isEmpty()}">
+        <div th:if="${myStory==null}">
             <a href="/storyBoard/save-form">
                 <img  id="mypageProfileCreateStory" class="mypageProfile"
                       th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
             <!--        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">-->
         </a>
         </div>
-        <div th:unless="${storyList.isEmpty()}">
-            <a th:href="@{|/storyBoard/stories/${memberDTO.loginId}|}">
+        <div th:unless="${myStory==null}">
+            <a th:href="@{|/storyBoard/stories?id=${myStory.id}&loginId=${memberDTO.loginId}|}">
                 <img  id="mypageProfileShowStroy" class="mypageProfile"
                       th:src="@{|/upload/${memberDTO.memberProfileName}|}" alt="">
         <!--        <img onclick="showMenu()" id="mypageProfile" class="mypageProfile" src="https://image.ajunews.com/content/image/2021/07/30/20210730092316312062.jpg" alt="">-->

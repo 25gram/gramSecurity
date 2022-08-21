@@ -983,10 +983,10 @@
             <div class="goContents" onclick="goContents()">
                 <p id="gc" class="goItem">게시글 작성</p>
             </div>
-            <div class="goStory" onclick="location.href='/storyBoard/'" th:if="${storyCheckResult.isEmpty()}">
+            <div class="goStory" onclick="location.href='/storyBoard/'" th:if="${myStoryList.isEmpty()}">
                 <p id="gs1" class="goItem" >스토리 작성</p>
             </div>
-            <div class="goStory" onclick="location.href='/storyBoard/'" th:unless="${storyCheckResult.isEmpty()}">
+            <div class="goStory" onclick="location.href='/storyBoard/'" th:unless="${myStoryList.isEmpty()}">
                 <p id="gs2" class="goItem" >스토리 보기</p>
             </div>
         </div>
@@ -996,9 +996,9 @@
     <div style="overflow: scroll;height: 93vh;border-top: 1px rgb(214,214,214) solid;border-bottom: 1px rgb(214,214,214) solid">
         <div class="storyZone">
 
-            <tr th:each="story :${storyList}">
+            <tr th:each="story :${neverSeenStoryList}">
                 <div style=" width: 20%; text-align: center; font-size: 14px; color: #4E4E4E">
-                    <a th:href="@{|/storyBoard/stories/${story.getLoginId()}|}">
+                    <a th:href="@{|/storyBoard/stories?id=${story.getId()}&loginId=${story.getLoginId}|}">
                          <img class="storyProfile" th:src="@{|/upload/${story.getMemberProfileName()}|}" alt="">
 <!--                        <img class="storyProfile" src="https://img2.sbs.co.kr/img/sbs_cms/WE/2020/03/10/WE45860315_ori.jpg" alt="">-->
                     </a>

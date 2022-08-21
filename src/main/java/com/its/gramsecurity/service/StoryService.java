@@ -52,8 +52,8 @@ public class StoryService {
         return storyRepository.save(StoryEntity.toSaveStoryEntity(storyDTO, memberEntity)).getId();
     }
 
-    public String saveFile(StoryDTO storyDTO) throws IOException {
-        String loginId="";
+    public Long saveFile(StoryDTO storyDTO) throws IOException {
+        Long storyId=null;
         Optional<StoryEntity> storyEntityOptional = storyRepository.findById(storyDTO.getId());
         if (storyEntityOptional.isPresent()) {
             StoryEntity storyEntity = storyEntityOptional.get();
@@ -75,21 +75,21 @@ public class StoryService {
             storyEntity.setStoryFileName(storyFileName);
             storyEntity.setStoryImgName(storyImgName);
             storyEntity.setMemberProfileName(storyDTO.getMemberProfileName());
-            loginId = storyRepository.save(storyEntity).getLoginId();
+            storyId = storyRepository.save(storyEntity).getId();
         }
-            return loginId;
+            return storyId;
     }
 
     public List<StoryDTO> findStoryList(List<FollowDTO> followDTOList) {
         List<StoryDTO> storyDTOList = new ArrayList<>();
         for (int i = 0; i < followDTOList.size(); i++) {
 
-            String storyFollowingId = followDTOList.get(i).getMyId();
+            String storyFollowingId = followDTOList.get(i).getYourId();
             List<StoryEntity> storyEntityList = storyRepository.findByLoginId(storyFollowingId);
 
             for (StoryEntity story : storyEntityList) {
                 storyDTOList.add(StoryDTO.toStoryDTO(story));
-                System.out.println("================================================"+storyDTOList);
+                System.out.println("======================StoryService/findStoryList/storyDTOList======================="+storyDTOList);
 
             }
         }
