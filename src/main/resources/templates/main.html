@@ -154,21 +154,20 @@
         }
 
         .feedZone:not(.detail) {
-            /* border: 1px solid ; */
+            /* border: 1px solid; */
             height: auto;
-            /*height: 818px;*/
-
+            /* height: 818px; */
             /* height: 830px; */
-            /*background-color: aqua;*/
+            /* background-color: aqua; */
             padding-left: 0;
             padding-right: 0;
             width: 450px;
-            /*width: 500px;*/
+            /* width: 500px; */
             margin: auto;
-            margin-top: 10px;
+            margin-top: 20px;
             margin-bottom: 10px;
             border: rgb(214, 214, 214) solid 1px;
-            border-radius: 5px;
+            border-radius: 13px;
             background-color: white;
             position: relative;
             z-index: 1;
@@ -207,6 +206,7 @@
             /*margin: 24px;*/
             width: 450px;
             height: auto;
+            min-height: 600px;
             max-height: 600px;
             /*height: 470px;*/
             /* border: rgb(214,214,214) solid 1px; */
@@ -219,7 +219,8 @@
         .contentsItem2:not(.detail) {
             /*margin: 24px;*/
             width: 450px;
-            max-height: 515px;
+            max-height: 600px;
+            min-height: 600px;
             /* border: rgb(214,214,214) solid 1px; */
             /*width: 100vw;*/
             float: left;
@@ -245,21 +246,26 @@
 
         .feedSlideBtn {
             font-size: 30px;
+            /*position: absolute;*/
+            color:gainsboro;
 
-            color: rgba(0, 0, 0, 0.4);
             /* filter: invert(100); */
         }
 
         .slideRight {
-            position: relative;
-            top: -330px;
-            left: 413px;
+            position: absolute;
+            top: 50%;
+            left: 407px;
+            margin-top: -73px;
+            z-index: 9999;
         }
 
         .slideLeft {
-            position: relative;
-            top: -330px;
-            left: -5px;
+            position: absolute;
+            top: 50%;
+            left: 1px;
+            margin-top: -73px;
+            z-index: 9999;
         }
 
         .feedWriter {
@@ -538,9 +544,9 @@
             /* margin-left: 15px; */
             /* margin-bottom: 10px; */
             width: max-content;
-            height:auto;
-            max-width: 470px;
-            max-height: 42px;
+            height: 49px;
+            max-width: 419px;
+            max-height: 49px;
             white-space: pre-line;
             word-break: break-all;
             overflow: hidden;
@@ -591,15 +597,17 @@
             font-size: 80px;
             /* color: #ccc; */
             position: absolute;
-            left: 210px;
-            top: 254px;
-            cursor:auto ;
+            left: 190px;
+            top: 50%;
+            margin-top: -125px;
+            cursor: auto;
+            z-index: 0;
         }
         #detailGoBtn{
             height: 0;
-            position: absolute;
-            top: 580px;
-            left: 349px;
+            position: relative;
+            top: 600px;
+            left: 299px;
         }
 
     </style>
@@ -1044,6 +1052,7 @@
         <!-- 메인피드 구역 -->
         <div class="" id="feedZone">
             <div th:each="board,index : ${boardList}" style="overflow: hidden" class="feedZone">
+
                 <div class="feedWriter row">
                     <div class="col-1 feedImg feedWriterItem">
                         <input type="hidden" name="boardId" th:value="${board.id}">
@@ -1059,6 +1068,17 @@
                     <i th:id="cc+${index.index}+b+${indexB.index}" style="opacity: 0" class="cc bi bi-play-circle"></i>
                     <!--                    <i th:id="cc+${index.index}+'b'+${indexB.index}" style="opacity: 0" class="cc bi bi-play-circle"></i>-->
                 </div>
+                <div style="height: 0px;">
+                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}"
+                            onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i
+                            class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>
+<!--                            onclick="feedLeftSlider(value),stopAndGo(index,indexb)" style="background-color: transparent;border: 0"><i-->
+                    <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}"
+                            onclick="feedRightSlider(value)" style="background-color: transparent;border: 0"><i
+                            class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
+
+
+                </div>
                 <div class="feedContentsZone">
                     <div th:id="${board.id}" style="width: 5000px;">
                         <div  id="detailGoBtn"th:onclick="detailGo([[${board}]])">
@@ -1071,6 +1091,8 @@
                             <img th:if="${boardFile2.boardImgName != null}" class="contentsItem1"
                                  th:src="@{|/upload/${boardFile2.boardImgName}|}"
                                  th:style="'filter:' + ${boardFile2.boardFilter}" alt="">
+                            <!--                                 th:src="@{|/upload/${boardFile2.boardImgName}|}"-->
+                            <!--                                 th:style="'filter:' + ${boardFile2.boardFilter}" alt="">-->
                             <video th:id="feedVideo+${index.index}+'b'+${indexB.index}" th:if="${boardFile2.boardVideoName != null}" class="contentsItem2"
                                    th:src="@{|/upload/${boardFile2.boardVideoName}|}"
                                    th:style="'filter:' + ${boardFile2.boardFilter}" alt="" autoplay="autoplay"
@@ -1207,16 +1229,16 @@
                     <div class="board_boardContent" th:text="${board.boardContents}">
                     </div>
                 </div>
-                <div style="height: 0px;">
-                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}"
-                            onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i
-                            class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>
-                    <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}"
-                            onclick="feedRightSlider(value)" style="background-color: transparent;border: 0"><i
-                            class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>
+<!--                <div style="height: 0px;">-->
+<!--                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}"-->
+<!--                            onclick="feedLeftSlider(value)" style="background-color: transparent;border: 0"><i-->
+<!--                            class="fa-solid fa-circle-chevron-left feedSlideBtn"></i></button>-->
+<!--                    <button class="slideRight" th:id="r+${board.id}" th:value="${board.id}"-->
+<!--                            onclick="feedRightSlider(value)" style="background-color: transparent;border: 0"><i-->
+<!--                            class="fa-solid fa-circle-chevron-right feedSlideBtn"></i></button>-->
 
 
-                </div>
+<!--                </div>-->
                 <!-- 댓글 표시 -->
                 <div class="feedCommentZone" th:id="feedCommentZone+${board.id}">
 
@@ -1589,6 +1611,12 @@
             /* border: solid 1px; */
             /*width: 100vw;*/
             float: left;
+            max-height: 600px;
+        }
+        .contentsItem_vid{
+            min-height: 600px;
+            max-height: 600px;
+            width: 420px;
         }
 
         .filterTitle:not(.detail) {
@@ -1742,7 +1770,7 @@
             // a = id 값 벨류 받아오기
             document.getElementById("l" + a).style.visibility = "visible";
             let y = 0;
-            let zz = -498;
+            let zz = -450;
             for (let i = 0; i < d.length; i++) {
                 if (d[i].boardId == s[s.length - a].id) {
                     y++;
@@ -1763,7 +1791,7 @@
         }
 
         function feedLeftSlider(a) {
-            let zz = -498;
+            let zz = -450;
             if (sliderNum[a] > 0) {
                 sliderNum[a]--;
             }
@@ -1805,12 +1833,14 @@
 
                 // document.getElementById("modalSize").className = "modal-dialog modal-lg"
                 zone.style.width = '800px'
+                zone.style.marginLeft="-80%"
                 zone.style.transition = "all 0.4s"
             } else {
                 console.log("test : 1")
 
 
                 zone.style.width = '500px'
+                zone.style.marginLeft="-49%"
                 zone.style.transition = "all 0.4s"
                 count = 0
             }
@@ -2049,7 +2079,7 @@
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div id="modalSize" class="modal-dialog modal1">
             <!-- <div class="modal-content" id="modal-content" style="height:770px" > -->
-            <div class="modal-content modal1" id="modal-content" style="height:770px">
+            <div class="modal-content modal1" id="modal-content" style="height:770px; left:50%;margin-left: -49% ">
                 <div class="modal-header  modal1" style=" height: 50px;
         display: contents">
                     <!-- contents header 구역 -->
@@ -2308,6 +2338,11 @@
                                 text-align: left;
                             }
 
+
+                            /*.modal1{*/
+                            /*    left: 50%;*/
+                            /*    margin-left: -49%;*/
+                            /*}*/
                             .modal1 > .emojionearea .emojionearea.form-control {
                                 font-size: 18px;
 
@@ -2672,7 +2707,7 @@
 
                                             image.id = "contentsItem" + num;
 
-                                            image.className = "contentsItem";
+                                            image.className = "contentsItem contentsItem_img";
 
 
                                             document.getElementById("contentsBody").appendChild(image);
@@ -2683,7 +2718,7 @@
                                             // video.setAttribute("controls", "controls");
                                             video.setAttribute("autoplay", "autoplay");
                                             video.setAttribute("id", "contentsItem" + num);
-                                            video.setAttribute("class", "contentsItem");
+                                            video.setAttribute("class", "contentsItem, contentsItem_vid");
                                             video.setAttribute("loop", "loop");
                                             document.getElementById("contentsBody").appendChild(video);
                                         }

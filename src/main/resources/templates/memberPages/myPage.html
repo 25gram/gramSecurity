@@ -434,7 +434,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel" >팔로잉</h5>
+                <h5 class="modal-title" id="staticBackdropLabel" >팔로우</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
@@ -507,7 +507,7 @@
             <div style="margin:0 50px 0 0 ;">
             <span onclick="followingList()" style="display:flex;height:25px;cursor: pointer;" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
-                <p class="countItem" onclick="followingList()">팔로잉</p>
+                <p class="countItem" onclick="followingList()">팔로우</p>
                 <b><p id="mypageFollowerCount" class="mypageFollowerCount countItem1" th:text="${count}"></p></b>
             </span>
             </div>
@@ -812,6 +812,7 @@
         let token = $("meta[name='_csrf']").attr('content');
         const loginId = document.getElementById("myPageLoginId").innerText;
         console.log(loginId);
+        document.getElementById("staticBackdropLabel").innerHTML="팔로워";
 
         $.ajax({
             type: "post",
@@ -843,6 +844,7 @@
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         const loginId = document.getElementById("myPageLoginId").innerText;
+        document.getElementById("staticBackdropLabel").innerHTML="팔로우";
         console.log(loginId);
 
         $.ajax({
