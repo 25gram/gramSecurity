@@ -54,7 +54,7 @@ public class MemberController {
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO,@AuthenticationPrincipal PrincipalDetails
                          principalDetails) throws IOException {
-        memberService.update(memberDTO);
+        memberService.update(memberDTO,principalDetails);
         return "redirect:/main/main";
     }
 
