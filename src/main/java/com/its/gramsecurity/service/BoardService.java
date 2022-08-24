@@ -128,6 +128,7 @@ public class BoardService {
     }
 
      void updateProfile(MemberDTO memberDTO,String fileName){
+//        BoardEntity blist=boardRepository.findByLoginId(memberDTO.getLoginId());
         List<BoardEntity> blist=boardRepository.findByLoginId(memberDTO.getLoginId());
         for (int i =0;i< blist.size();i++){
             blist.get(i).setMemberProfileName(fileName);

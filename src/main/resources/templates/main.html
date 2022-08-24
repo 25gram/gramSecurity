@@ -1216,7 +1216,19 @@
                             }
                         });
                     }
+                    window.addEventListener('load', function(){
+                        let contentHeight = document.querySelector('.board_boardContent').offsetHeight; //컨텐츠 높이 얻기
+                        if(contentHeight >= 49){
+                            // document.querySelector('.detailinfo').classList.remove('showstep1');
+                            // // 초기값보다 작으면 전체 컨텐츠 표시
+                            // document.querySelector('.btn_open').classList.add('hide');
+                            // // 버튼 감춤
+                            $("#showContentsBtn1").html("더보기")
+                        }else{
+                            $("#showContentsBtn1").html("")
 
+                        }
+                    });
 
                 </script>
 
@@ -1226,8 +1238,11 @@
                 <!-- 피드 슬라이드 버튼 -->
                 <div class="boardContent">
 <!--                    <span class="boardWriter" th:text="${board.getBoardWriter()}"></span>-->
-                    <div class="board_boardContent" th:text="${board.boardContents}">
+<!--                    <div class="board_boardContent" th:text="${board.boardContents}">-->
+                    <div class="board_boardContent" >
+                        <p id="showContentsBtn" style="height: max-content;word-break: break-all;white-space: pre-line">[[${board.boardContents}]]</p>
                     </div>
+                    <div id="showContentsBtn1"></div>
                 </div>
 <!--                <div style="height: 0px;">-->
 <!--                    <button class="slideLeft" th:id="l+${board.id}" id="" th:value="${board.id}"-->
@@ -2832,6 +2847,7 @@
 
         .detail > .emojionearea .emojionearea-editor:empty:before {
             margin-top: 12px;
+            white-space: pre-line !important;
         }
 
 
@@ -2880,7 +2896,7 @@
             min-height: 60px;
             max-height: 60px;
             height: 60px;
-            white-space: pre-line;
+            white-space: pre-line !important;
         }
 
 

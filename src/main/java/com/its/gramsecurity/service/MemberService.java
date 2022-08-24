@@ -62,7 +62,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void update(MemberDTO memberDTO) throws IOException {
+    public void update(MemberDTO memberDTO,PrincipalDetails principalDetails) throws IOException {
 
         MemberEntity persistence = memberRepository.findByLoginId(memberDTO.getLoginId()).orElseThrow(() -> {
             return new IllegalArgumentException("회원찾기실패");
@@ -84,7 +84,7 @@ public class MemberService {
         System.out.println(memberFile);
         String memberProfileName = memberFile.getOriginalFilename();
         memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
-        persistence.setMemberProfileName(memberProfileName);
+//        persistence.setMemberProfileName(memberProfileName);
         if (!Objects.equals(findDTO.getMemberProfileName(), memberDTO.getMemberProfileName())) {
             if (!memberFile.isEmpty()) {
                 memberProfileName = System.currentTimeMillis() + "_" + memberProfileName;
@@ -104,12 +104,16 @@ public class MemberService {
                 persistence.setMemberProfileName(null);
             }
         }
+        System.out.println("*************************************************************");
         System.out.println("MemberService.update");
         System.out.println("memberProfileName = " + memberProfileName);
-        boardService.updateProfile(memberDTO, memberProfileName);
-        msgService.updateProfile(memberDTO, memberProfileName);
-        followService.updateProfile(memberDTO,memberProfileName);
-        storyService.updateProfile(memberDTO,memberProfileName);
+        System.out.println("persistence memberProfileName = " + persistence.getMemberProfileName());
+        System.out.println("*************************************************************");
+
+        boardService.updateProfile(memberDTO, persistence.getMemberProfileName());
+        msgService.updateProfile(memberDTO, persistence.getMemberProfileName());
+        followService.updateProfile(memberDTO,persistence.getMemberProfileName());
+        storyService.updateProfile(memberDTO,persistence.getMemberProfileName());
 
 
     }
