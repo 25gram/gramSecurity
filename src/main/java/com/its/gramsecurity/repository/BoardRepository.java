@@ -25,6 +25,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
     void likesDelete(@Param("id") Long id);
 
 
+//    BoardEntity findByLoginId(String loginId);
     List<BoardEntity> findByLoginId(String loginId);
 
 }

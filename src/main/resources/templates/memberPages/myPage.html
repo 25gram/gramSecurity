@@ -528,7 +528,8 @@
         <div id="aboutMe" class="">
             <!-- <t th:text="${memberDTO.memberIntro}"></p> -->
             <!--            <textarea class="aboutMe" readonly name="" id="">너에게 전화를 할까봐 오늘도 가사를 쓰고 있잖아</textarea>-->
-            <textarea class="aboutMe" th:value="${memberDTO.memberIntro}" readonly name="" id=""></textarea>
+            <textarea class="aboutMe" th:text
+                    ="${memberDTO.memberIntro}" readonly name="" id=""></textarea>
         </div>
         <div id="menuZone" class="menuZone">
             <div class="menuItemZone">

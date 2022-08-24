@@ -104,13 +104,16 @@ public class MemberService {
                 persistence.setMemberProfileName(null);
             }
         }
+        System.out.println("*************************************************************");
         System.out.println("MemberService.update");
         System.out.println("memberProfileName = " + memberProfileName);
+        System.out.println("persistence memberProfileName = " + persistence.getMemberProfileName());
+        System.out.println("*************************************************************");
 
-        boardService.updateProfile(memberDTO, memberProfileName);
-        msgService.updateProfile(memberDTO, memberProfileName);
-        followService.updateProfile(memberDTO,memberProfileName);
-        storyService.updateProfile(memberDTO,memberProfileName);
+        boardService.updateProfile(memberDTO, persistence.getMemberProfileName());
+        msgService.updateProfile(memberDTO, persistence.getMemberProfileName());
+        followService.updateProfile(memberDTO,persistence.getMemberProfileName());
+        storyService.updateProfile(memberDTO,persistence.getMemberProfileName());
 
 
     }
