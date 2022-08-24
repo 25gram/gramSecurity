@@ -110,13 +110,19 @@
         }
 
         .inputText {
-            width: 100%;
+            width: 250px;
+            height: 75px;
             color: yellow;
             background-color: transparent;
             border: 0;
             border-spacing: 0;
             text-align: center;
             vertical-align: middle;
+            position: absolute;
+            z-index: 6500;
+            top: 50%;
+            display: none;
+
         }
         .inputTextDiv {
             width: 250px;
@@ -330,13 +336,15 @@
 
         }
         .inputLinkDiv {
-            text-align: center;
             width: 120px;
             height: 39px;
+            color: blue;
+            font-size: 20px;
+            font-weight: 700;
             background-color: white;
             border-radius: 10px;
             border: 0;
-            padding: 0;
+            padding-left: 10px;
             position: absolute;
             top: 50%;
             left: 37%;
@@ -378,7 +386,10 @@
             font-weight: 700;
             background-color: transparent;
             position: absolute;
+            top: 50%;
+            left: 40%;
             z-index: 6500;
+            display: none;
         }
         .questionDiv {
             width: 213px;
@@ -397,20 +408,25 @@
             border: 1px solid transparent;
             border-radius: 10px;
             padding-top: 9%;
-            margin-left: auto;
-            margin-right: auto;
+            position: absolute;
+            top: 40%;
+            left: 30%;
             text-align: center;
+            z-index: 20;
+            display: none;
         }
         #question2 {
             background-color: transparent;
             border: 0;
-            width: 90%;
+            width: 100%;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 5px;
             font-weight: 700;
             font-size: 20px;
             text-align: center;
+            position: relative;
+            top: -25px;
         }
         #answer {
             width: 90%;
@@ -419,6 +435,8 @@
             background-color: lightgrey;
             border: 0;
             border-radius: 7px;
+            position: relative;
+            top: -32px;
         }
         #circleLogo {
             background-color: skyblue;
@@ -796,11 +814,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <div class="closeDiv">
             <button type="button" class="btn-close" id="closeStories" onclick="location.href='javascript:history.back()'" aria-label="Close"></button>
         </div>
         <div class="saveBox" id="saveBox">
+<!--            <div class="draggable inputTextDiv" id="inputTextDiv">-->
+            <input class="draggable inputText" type="text" id="mainInputText" name="mainInputText">
+<!--            </div>-->
+            <input type="button" class="draggable inputToday" id="inputToday">
+<!--            <div class="todayDiv" id="todayDiv">-->
+<!--            </div>-->
             <div class="filePreview" id="filePreview"></div>
             <button type="button" class="locationTag" id="locationTag"></button>
             <div class="addImgDiv" id="addImgDiv">
@@ -808,11 +832,20 @@
                     <img class="addImg" id="addImg">
                 </div>
             </div>
+<!--            <div class="questionDiv" id="questionDiv">-->
+            <div class="draggable questionBox" id="questionBox">
+                <div id="circleLogo"><img th:src="@{|/upload/${memberDTO.memberProfileName}/|}" class="logoImg" alt="등록사진이 없어서"></div>
+                <input type="text" id="question2" placeholder="무엇이든 물어보세요!">
+                <input type="text" id="answer" placeholder="무엇이든 물어보세요!">
+            </div>
+<!--            </div>-->
+<!--            <div class="draggable inputLinkDiv" id="inputLinkDiv">-->
+<!--                <i class="draggable bi bi-link-45deg" style="font-size: 25px; color: blue"></i>-->
+<!--                <input type=" draggable button" class="inputLink" id="inputLink">-->
+<!--            </div>-->
+            <div class="draggable inputLinkDiv" id="inputLinkDiv"><i class="bi bi-link-45deg" style="font-size: 25px; color: blue"></i></div>
             <div class="tagGroup" id="tagGroup">
-                <div class="inputLinkDiv" id="inputLinkDiv">
-                    <i class="bi bi-link-45deg" style="font-size: 25px; color: blue"></i>
-                    <input type="button" class="inputLink" id="inputLink">
-                </div>
+
                 <div class="endClose" id="endClose">
                     <input type="button" class="btn btn-outline-primary" onclick="endQuestion()" value="완료">
                 </div>
@@ -866,7 +899,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="surveyGroup" id="surveyGroup">
+                <div class="draggable surveyGroup" id="surveyGroup">
                     <div class="surveyDiv" id="surveyDiv">
                         <input type="text"  class="survey" id="question" placeholder="질문을 입력하세요">
                         <input type="text"  class="survey" id="answer1" placeholder="예">
@@ -875,18 +908,9 @@
                         <input type="text"  class="survey" id="answer4" placeholder="다른 옵션 추가..." onblur="answer4Fnc()" style="display: none; margin-right: auto; margin-left: auto">
                     </div>
                 </div>
-                <div class="questionDiv" id="questionDiv">
-                    <div class="questionBox" id="questionBox">
-                        <div id="circleLogo"><img th:src="@{|/upload/${memberDTO.memberProfileName}/|}" class="logoImg" alt="등록사진이 없어서"></div>
-                        <input type="text" id="question2" placeholder="무엇이든 물어보세요!">
-                        <input type="text" id="answer" placeholder="무엇이든 물어보세요!">
-                    </div>
-                </div>
+
             </div>
 
-            <div class="todayDiv" id="todayDiv">
-                <input type="button" class="inputToday" id="inputToday">
-            </div>
             <div id="imgBtnZone" style="padding: 0;margin: 0;">
                 <a href="#"><label for="upImgFiles" class="btnPointer modal1">
                     <!--                            <i id="imgBtn" onclick="imgBtnEffect()" name="imgBtn" class=" modal1 fa-regular fa-file-image"-->
@@ -920,9 +944,7 @@
                 </div>
                 <button type="button" class="saveStory btn-primary" id="saveStory" onclick="saveFnc()"><i class="bi bi-chevron-right"></i></button>
             </div>
-            <div class="inputTextDiv" id="inputTextDiv">
-                <input class="inputText" type="text" id="mainInputText" name="mainInputText">
-            </div>
+
             <div class="fontMenu" id="fontMenu">
                 <div class="editFont" id="editFont">
                     <button class="btn btn-primary" onclick="editFnc1a()"><i id=icon1 class="bi bi-text-center"></i></button>
@@ -1014,14 +1036,15 @@
     const inputToday = document.getElementById("inputToday");
     const addImgDiv = document.getElementById("addImgDiv");
     const inputLinkDiv = document.getElementById("inputLinkDiv");
-    const questionDiv = document.getElementById("questionDiv");
+    // const questionDiv = document.getElementById("questionDiv");
+    const questionBox = document.getElementById("questionBox");
     const surveyGroup = document.getElementById("surveyGroup");
     const quizGroup = document.getElementById("quizGroup");
     const locationGroup = document.getElementById("locationGroup");
     const locationTag = document.getElementById("locationTag");
     const hashtagDiv = document.getElementById("hashtagDiv");
     const referenceDiv = document.getElementById("referenceDiv");
-    const inputTextDiv = document.getElementById("inputTextDiv");
+    // const inputTextDiv = document.getElementById("inputTextDiv");
     const mainInputText = document.getElementById("mainInputText");
     const dragToday = document.getElementById("inputToday");
     const mainMenu = document.getElementById("mainMenu");
@@ -1043,6 +1066,48 @@
     const inputHashTag = document.getElementById("inputHashTag");
     const inputReference = document.getElementById("inputReference");
 
+// 드래그 앤 드롭 기능
+    window.addEventListener("load", function (){
+        console.log("드래그 정의");
+        let dragging = false;
+        let offset = {x:0, y:0};
+        let current = null;
+        let left = saveBox.offsetLeft;
+        let top = saveBox.offsetTop;
+
+        window.onresize = function(){
+            console.log("드래그 창변환");
+            left = saveBox.offsetLeft;
+            top = saveBox.offsetTop;
+        }
+
+        document.onmousedown = function (e) {
+            console.log("마우스 다운");
+
+            if(e.target.classList.contains("draggable")){
+                console.log("드래그 객체 지정");
+                dragging = true;
+                current = e.target;
+                offset.x = e.offsetX;
+                offset.y = e.offsetY;
+            }
+        };
+
+        document.onmousemove = function (e) {
+            if(dragging){
+                console.log("마우스 드래그시");
+                let x = e.pageX - offset.x - left;
+                let y = e.pageY - offset.y - top;
+                current.style.left = x + "px";
+                current.style.top = y + "px";
+                console.log("left: "+x+"/top: "+y)
+            }
+        };
+        document.onmouseup = function () {
+            console.log("마우스 업");
+            dragging = false;
+        };
+    });
     const saveFnc = () => {
         let header=$("meta[name='_csrf_header']").attr('content');
         let token =$("meta[name='_csrf']").attr('content');
@@ -1058,7 +1123,7 @@
         if(mainInputText.value.length>0){
         mainInputText.setAttribute("value", mainInputText.value);
         // inputTextDiv.setAttribute("style", "position: fixed");
-        storyTextTag= inputTextDiv.outerHTML;
+        storyTextTag= mainInputText.outerHTML;
         }
 
         let storyTodayTag="";
@@ -1080,7 +1145,7 @@
             answer.setAttribute("value", answer.value);
             $(answer).attr("readonly", false);
             // questionDiv.setAttribute("style", "position: fixed");
-            storyQuestionTag= questionDiv.outerHTML;
+            storyQuestionTag= questionBox.outerHTML;
         }
 
         let storySurveyTag="";
@@ -1272,34 +1337,6 @@
         });
     };
     RangeSlider();
-// 인풋창 드래그 앤 드롭 기능
-    inputTextDiv.onmousedown = function(event) {
-        inputTextDiv.style.zIndex="9000";
-        let shiftX = event.clientX - inputTextDiv.getBoundingClientRect().left;
-        let shiftY = event.clientY - inputTextDiv.getBoundingClientRect().top;
-
-        document.body.append(inputTextDiv);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            inputTextDiv.style.left = pageX - shiftX + 'px';
-            inputTextDiv.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        inputTextDiv.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            inputTextDiv.onmouseup = null;
-            inputTextDiv.style.zIndex="6500";
-        };
-    };
-    inputTextDiv.ondragstart = function() {
-        return false;
-    };
 
 // 인풋 글자편집 기능
     const editFnc1 = () => {
@@ -1307,8 +1344,10 @@
         mainMenu.style.display="none";
         document.getElementById("fontMenu").style.display="block";
         document.getElementById("fontMenu").style.zIndex="7100";
-        inputTextDiv.style.display="block";
-        inputTextDiv.style.zIndex="6500";
+        mainInputText.style.display="block";
+        mainInputText.style.zIndex="6500";
+        // inputTextDiv.style.display="block";
+        // inputTextDiv.style.zIndex="6500";
         mainInputText.focus();
     }
     const editFnc2 = () => {
@@ -1356,7 +1395,8 @@
 // 글자편집 완료 버튼 기능
     const editFnc1d = () => {
         document.getElementById("fontMenu").style.zIndex="31";
-        inputTextDiv.style.display="block";
+        // inputTextDiv.style.display="block";
+        mainInputText.style.display="block";
         document.getElementById("fontMenu").style.display = "none";
         mainMenu.style.display = "block";
         $("#mainInputText").attr("readonly", true);
@@ -1508,15 +1548,14 @@ const downSlide = () => {
         document.getElementById("linkDiv").style.display="none";
         downSlide();
         reverse.style.display="none";
-        const inputLink = document.getElementById("inputLink");
         inputLinkDiv.style.display="block";
         inputLinkDiv.style.zIndex="6500";
         let stickerValue = document.getElementById("stickerInput").value;
         if(stickerValue) {
-            inputLink.value=stickerValue;
+            inputLinkDiv.innerHTML+=stickerValue;
         } else {
             const siteLink = document.getElementById("siteLink").value;
-            inputLink.value=siteLink;
+            inputLinkDiv.innerHTML+=siteLink;
         }
         reverse.style.backgroundColor="transparent";
     });
@@ -1528,73 +1567,74 @@ const downSlide = () => {
         document.getElementById("stickerInput").focus();
         return false;
     }
-    $('#inputLink').on('click', function (){
-        const siteLink = document.getElementById("siteLink").value;
-        location.href=siteLink;
+    $('#inputLinkDiv').on('click', function (){
+        const siteLink = document.getElementById("siteLink");
+        location.href=siteLink.value;
     });
 // 링크태그 드래그 기능
-    inputLinkDiv.onmousedown = function(event) {
-        inputLinkDiv.style.zIndex="9000";
-        let shiftX = event.clientX - inputLinkDiv.getBoundingClientRect().left;
-        let shiftY = event.clientY - inputLinkDiv.getBoundingClientRect().top;
-
-        document.body.append(inputLinkDiv);
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            inputLinkDiv.style.left = pageX - shiftX + 'px';
-            inputLinkDiv.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        inputLinkDiv.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            inputLinkDiv.onmouseup = null;
-            inputLinkDiv.style.zIndex="6500";
-        };
-    };
-    inputLinkDiv.ondragstart = function() {
-        return false;
-    };
+//     inputLinkDiv.onmousedown = function(event) {
+//         inputLinkDiv.style.zIndex="9000";
+//         let shiftX = event.clientX - inputLinkDiv.getBoundingClientRect().left;
+//         let shiftY = event.clientY - inputLinkDiv.getBoundingClientRect().top;
+//
+//         document.body.append(inputLinkDiv);
+//         moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             inputLinkDiv.style.left = pageX - shiftX + 'px';
+//             inputLinkDiv.style.top = pageY - shiftY + 'px';
+//         }
+//         document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         inputLinkDiv.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             inputLinkDiv.onmouseup = null;
+//             inputLinkDiv.style.zIndex="6500";
+//         };
+//     };
+//     inputLinkDiv.ondragstart = function() {
+//         return false;
+//     };
 // 날짜태그 기능
 
     $('#today').on('click', function (){
-        const todayDiv = document.getElementById("todayDiv");
-        dragToday.value=document.getElementById("today").value;
+        // const todayDiv = document.getElementById("todayDiv");
+        inputToday.value=document.getElementById("today").value;
         downSlide();
-        todayDiv.style.display="block";
+        // todayDiv.style.display="block";
+        inputToday.style.display="block";
         inputToday.style.zIndex="6500";
     })
 // 날짜태그 드래그 기능
-    dragToday.onmousedown = function(event) {
-        dragToday.style.zIndex="9000";
-        let shiftX = event.clientX - dragToday.getBoundingClientRect().left;
-        let shiftY = event.clientY - dragToday.getBoundingClientRect().top;
-
-            document.body.append(dragToday);
-            moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            dragToday.style.left = pageX - shiftX + 'px';
-            dragToday.style.top = pageY - shiftY + 'px';
-        }
-            document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        dragToday.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            dragToday.onmouseup = null;
-            dragToday.style.zIndex="6500";
-        };
-    };
-    dragToday.ondragstart = function() {
-        return false;
-    };
+//     dragToday.onmousedown = function(event) {
+//         dragToday.style.zIndex="9000";
+//         let shiftX = event.clientX - dragToday.getBoundingClientRect().left;
+//         let shiftY = event.clientY - dragToday.getBoundingClientRect().top;
+//
+//             document.body.append(dragToday);
+//             moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             dragToday.style.left = pageX - shiftX + 'px';
+//             dragToday.style.top = pageY - shiftY + 'px';
+//         }
+//             document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         dragToday.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             dragToday.onmouseup = null;
+//             dragToday.style.zIndex="6500";
+//         };
+//     };
+//     dragToday.ondragstart = function() {
+//         return false;
+//     };
     // 질문태그 기능
     const questionFnc = () => {
         $('#question2').attr('readonly', false);
@@ -1605,7 +1645,8 @@ const downSlide = () => {
         tagGroup.style.zIndex="6500";
 
         addImgDiv.style.zIndex="3000";
-        inputTextDiv.style.zIndex="6400";
+        // inputTextDiv.style.zIndex="6400";
+        mainInputText.style.zIndex="6400";
         inputToday.style.zIndex="6400";
         inputLinkDiv.style.zIndex="6400";
         surveyGroup.style.zIndex="6400";
@@ -1614,9 +1655,11 @@ const downSlide = () => {
         reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
-        questionDiv.style.zIndex="9000";
+        // questionDiv.style.zIndex="9000";
+        questionBox.style.zIndex="9000";
 
-        questionDiv.style.display="block";
+        // questionDiv.style.display="block";
+        questionBox.style.display="block";
         endClose.style.display="block";
         downSlide();
         reverse.style.display="none";
@@ -1631,7 +1674,8 @@ const downSlide = () => {
         tagGroup.style.backgroundColor="transparent";
         tagGroup.style.zIndex="3000";
         mainMenu.style.display="block";
-        questionDiv.style.zIndex="6500";
+        // questionDiv.style.zIndex="6500";
+        questionBox.style.zIndex="6500";
         surveyGroup.style.zIndex="6500";
         reference.style.zIndex="6500";
         referenceDiv.style.zIndex="6500";
@@ -1656,33 +1700,33 @@ const downSlide = () => {
 
     }
 // 질문태그 드래그 기능
-    questionDiv.onmousedown = function(event) {
-        questionDiv.style.zIndex="9000";
-        let shiftX = event.clientX - questionDiv.getBoundingClientRect().left;
-        let shiftY = event.clientY - questionDiv.getBoundingClientRect().top;
-
-        document.body.append(questionDiv);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            questionDiv.style.left = pageX - shiftX + 'px';
-            questionDiv.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        questionDiv.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            questionDiv.onmouseup = null;
-            questionDiv.style.zIndex="6500";
-        };
-    };
-    questionDiv.ondragstart = function() {
-        return false;
-    };
+//     questionDiv.onmousedown = function(event) {
+//         questionDiv.style.zIndex="9000";
+//         let shiftX = event.clientX - questionDiv.getBoundingClientRect().left;
+//         let shiftY = event.clientY - questionDiv.getBoundingClientRect().top;
+//
+//         document.body.append(questionDiv);
+//
+//         moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             questionDiv.style.left = pageX - shiftX + 'px';
+//             questionDiv.style.top = pageY - shiftY + 'px';
+//         }
+//         document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         questionDiv.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             questionDiv.onmouseup = null;
+//             questionDiv.style.zIndex="6500";
+//         };
+//     };
+//     questionDiv.ondragstart = function() {
+//         return false;
+//     };
 // 설문태그 기능
     const surveyFnc = () => {
         $('#question').attr('readonly', false);
@@ -1694,10 +1738,11 @@ const downSlide = () => {
         tagGroup.style.display="block";
         tagGroup.style.zIndex="6500";
         mainMenu.style.display="none";
-        questionDiv.style.zIndex="31";
+        questionBox.style.zIndex="31";
 
         addImgDiv.style.zIndex="3000";
-        inputTextDiv.style.zIndex="6400";
+        // inputTextDiv.style.zIndex="6400";
+        mainInputText.style.zIndex="6400";
         inputToday.style.zIndex="6400";
         inputLinkDiv.style.zIndex="6400";
         quizGroup.style.zIndex="6400";
@@ -1705,7 +1750,7 @@ const downSlide = () => {
         reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
-        questionDiv.style.zIndex="6400";
+        questionBox.style.zIndex="6400";
         surveyGroup.style.zIndex="9000";
 
         surveyGroup.style.display="block";
@@ -1732,33 +1777,33 @@ const downSlide = () => {
         }
     }
 // 설문태그 드래그 기능
-    surveyGroup.onmousedown = function(event) {
-        surveyGroup.style.zIndex="9000";
-        let shiftX = event.clientX - surveyGroup.getBoundingClientRect().left;
-        let shiftY = event.clientY - surveyGroup.getBoundingClientRect().top;
-
-        document.body.append(surveyGroup);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            surveyGroup.style.left = pageX - shiftX + 'px';
-            surveyGroup.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        surveyGroup.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            surveyGroup.onmouseup = null;
-            surveyGroup.style.zIndex="6500";
-        };
-    };
-    surveyGroup.ondragstart = function() {
-        return false;
-    };
+//     surveyGroup.onmousedown = function(event) {
+//         surveyGroup.style.zIndex="9000";
+//         let shiftX = event.clientX - surveyGroup.getBoundingClientRect().left;
+//         let shiftY = event.clientY - surveyGroup.getBoundingClientRect().top;
+//
+//         document.body.append(surveyGroup);
+//
+//         moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             surveyGroup.style.left = pageX - shiftX + 'px';
+//             surveyGroup.style.top = pageY - shiftY + 'px';
+//         }
+//         document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         surveyGroup.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             surveyGroup.onmouseup = null;
+//             surveyGroup.style.zIndex="6500";
+//         };
+//     };
+//     surveyGroup.ondragstart = function() {
+//         return false;
+//     };
 // 퀴즈태그 기능
     const quizFnc = () => {
         $('#quiz').attr('readonly', false);
@@ -1771,11 +1816,12 @@ const downSlide = () => {
         tagGroup.style.display="block";
         tagGroup.style.zIndex="6500";
         mainMenu.style.display="none";
-        questionDiv.style.zIndex="31";
+        questionBox.style.zIndex="31";
         surveyGroup.style.zIndex="31";
 
         addImgDiv.style.zIndex="3000";
-        inputTextDiv.style.zIndex="6400";
+        // inputTextDiv.style.zIndex="6400";
+        mainInputText.style.zIndex="6400";
         inputToday.style.zIndex="6400";
         inputLinkDiv.style.zIndex="6400";
         surveyGroup.style.zIndex="6400";
@@ -1783,7 +1829,7 @@ const downSlide = () => {
         reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
-        questionDiv.style.zIndex="6400";
+        questionBox.style.zIndex="6400";
         quizGroup.style.zIndex="9000";
         downSlide();
         reverse.style.display="none";
@@ -1885,33 +1931,33 @@ const downSlide = () => {
 
     }
 // 퀴즈태그 드래그 기능
-    quizGroup.onmousedown = function(event) {
-        quizGroup.style.zIndex="9000";
-        let shiftX = event.clientX - quizGroup.getBoundingClientRect().left;
-        let shiftY = event.clientY - quizGroup.getBoundingClientRect().top;
-
-        document.body.append(quizGroup);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            quizGroup.style.left = pageX - shiftX + 'px';
-            quizGroup.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        quizGroup.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            quizGroup.onmouseup = null;
-            quizGroup.style.zIndex="6500";
-        };
-    };
-    quizGroup.ondragstart = function() {
-        return false;
-    };
+//     quizGroup.onmousedown = function(event) {
+//         quizGroup.style.zIndex="9000";
+//         let shiftX = event.clientX - quizGroup.getBoundingClientRect().left;
+//         let shiftY = event.clientY - quizGroup.getBoundingClientRect().top;
+//
+//         document.body.append(quizGroup);
+//
+//         moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             quizGroup.style.left = pageX - shiftX + 'px';
+//             quizGroup.style.top = pageY - shiftY + 'px';
+//         }
+//         document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         quizGroup.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             quizGroup.onmouseup = null;
+//             quizGroup.style.zIndex="6500";
+//         };
+//     };
+//     quizGroup.ondragstart = function() {
+//         return false;
+//     };
 // 해시태그 기능
     const hashtagFnc = (event) => {
         $('#inputHashTag').attr('readonly', false);
@@ -1919,14 +1965,15 @@ const downSlide = () => {
         tagGroup.style.display="block";
         tagGroup.style.zIndex="6500";
         mainMenu.style.display="none";
-        questionDiv.style.zIndex="31";
+        questionBox.style.zIndex="31";
         surveyGroup.style.zIndex="31";
         quizGroup.style.zIndex="31";
         hashtagDiv.style.display="block";
         hashtagDiv.focus();
 
         addImgDiv.style.zIndex="3000";
-        inputTextDiv.style.zIndex="6400";
+        // inputTextDiv.style.zIndex="6400";
+        mainInputText.style.zIndex="6400";
         inputToday.style.zIndex="6400";
         inputLinkDiv.style.zIndex="6400";
         surveyGroup.style.zIndex="6400";
@@ -1934,7 +1981,7 @@ const downSlide = () => {
         referenceDiv.style.zIndex="6400";
         reference.style.zIndex="6400";
         locationTag.style.zIndex="6400";
-        questionDiv.style.zIndex="6400";
+        questionBox.style.zIndex="6400";
         hashtagDiv.style.zIndex="9000";
         downSlide();
         reverse.style.display="none";
@@ -1942,33 +1989,33 @@ const downSlide = () => {
 
     }
 // 해시태그 드래그 기능
-    hashtagDiv.onmousedown = function(event) {
-        hashtagDiv.style.zIndex="9000";
-        let shiftX = event.clientX - hashtagDiv.getBoundingClientRect().left;
-        let shiftY = event.clientY - hashtagDiv.getBoundingClientRect().top;
-
-        document.body.append(hashtagDiv);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            hashtagDiv.style.left = pageX - shiftX + 'px';
-            hashtagDiv.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        hashtagDiv.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            hashtagDiv.onmouseup = null;
-            hashtagDiv.style.zIndex="6500";
-        };
-    };
-    hashtagDiv.ondragstart = function() {
-        return false;
-    };
+//     hashtagDiv.onmousedown = function(event) {
+//         hashtagDiv.style.zIndex="9000";
+//         let shiftX = event.clientX - hashtagDiv.getBoundingClientRect().left;
+//         let shiftY = event.clientY - hashtagDiv.getBoundingClientRect().top;
+//
+//         document.body.append(hashtagDiv);
+//
+//         moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             hashtagDiv.style.left = pageX - shiftX + 'px';
+//             hashtagDiv.style.top = pageY - shiftY + 'px';
+//         }
+//         document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         hashtagDiv.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             hashtagDiv.onmouseup = null;
+//             hashtagDiv.style.zIndex="6500";
+//         };
+//     };
+//     hashtagDiv.ondragstart = function() {
+//         return false;
+//     };
 // 언급태그 기능
     const referenceFnc = () => {
         $('#inputReference').attr('readonly', false);
@@ -1978,14 +2025,15 @@ const downSlide = () => {
         reverse.style.display="none";
 
         addImgDiv.style.zIndex="3000";
-        inputTextDiv.style.zIndex="6400";
+        // inputTextDiv.style.zIndex="6400";
+        mainInputText.style.zIndex="6400";
         inputToday.style.zIndex="6400";
         inputLinkDiv.style.zIndex="6400";
         surveyGroup.style.zIndex="6400";
         quizGroup.style.zIndex="6400";
         hashtagDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
-        questionDiv.style.zIndex="6400";
+        questionBox.style.zIndex="6400";
         reference.style.zIndex="9000";
         referenceDiv.style.display="block";
         document.getElementById("reference").style.zIndex="9000";
@@ -1995,34 +2043,34 @@ const downSlide = () => {
         endClose.style.display="block";
     }
 // 언급태그 드래그기능
-    const reference = document.getElementById("reference");
-    reference.onmousedown = function(event) {
-        reference.style.zIndex="9000";
-        let shiftX = event.clientX - reference.getBoundingClientRect().left;
-        let shiftY = event.clientY - reference.getBoundingClientRect().top;
-
-        document.body.append(reference);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            reference.style.left = pageX - shiftX + 'px';
-            reference.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        reference.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            reference.onmouseup = null;
-            reference.style.zIndex="6500";
-        };
-    };
-    reference.ondragstart = function() {
-        return false;
-    };
+//     const reference = document.getElementById("reference");
+//     reference.onmousedown = function(event) {
+//         reference.style.zIndex="9000";
+//         let shiftX = event.clientX - reference.getBoundingClientRect().left;
+//         let shiftY = event.clientY - reference.getBoundingClientRect().top;
+//
+//         document.body.append(reference);
+//
+//         moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             reference.style.left = pageX - shiftX + 'px';
+//             reference.style.top = pageY - shiftY + 'px';
+//         }
+//         document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         reference.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             reference.onmouseup = null;
+//             reference.style.zIndex="6500";
+//         };
+//     };
+//     reference.ondragstart = function() {
+//         return false;
+//     };
 // 위치태그 기능
     const locationFnc = () => {
         tagGroup.style.zIndex="6500";
@@ -2030,7 +2078,8 @@ const downSlide = () => {
         reverse.style.display="none";
 
         addImgDiv.style.zIndex="3000";
-        inputTextDiv.style.zIndex="6400";
+        // inputTextDiv.style.zIndex="6400";
+        mainInputText.style.zIndex="6400";
         inputToday.style.zIndex="6400";
         inputLinkDiv.style.zIndex="6400";
         surveyGroup.style.zIndex="6400";
@@ -2038,7 +2087,7 @@ const downSlide = () => {
         hashtagDiv.style.zIndex="6400";
         reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
-        questionDiv.style.zIndex="6400";
+        questionBox.style.zIndex="6400";
         locationGroup.style.zIndex="9000";
         locationGroup.style.display="block";
         document.getElementById("inputLocation").focus();
@@ -2072,7 +2121,8 @@ const downSlide = () => {
         document.getElementById("locationTag").style.display="block";
         document.getElementById("locationTag").style.zIndex="6500";
         addImgDiv.style.zIndex="3000";
-        inputTextDiv.style.zIndex="6500";
+        // inputTextDiv.style.zIndex="6500";
+        mainInputText.style.zIndex="6500";
         inputToday.style.zIndex="6500";
         inputLinkDiv.style.zIndex="6500";
         surveyGroup.style.zIndex="6500";
@@ -2081,38 +2131,38 @@ const downSlide = () => {
         reference.style.zIndex="6500";
         referenceDiv.style.zIndex="6500";
         locationGroup.style.zIndex="6500";
-        questionDiv.style.zIndex="6500";
+        questionBox.style.zIndex="6500";
         document.getElementById("locationTag").innerHTML=iconTag+findLocation;
 
     }
 // 위치태그 드래그 기능
-    locationTag.onmousedown = function(event) {
-        locationTag.style.zIndex="9000";
-        let shiftX = event.clientX - locationTag.getBoundingClientRect().left;
-        let shiftY = event.clientY - locationTag.getBoundingClientRect().top;
-
-        document.body.append(locationTag);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-            locationTag.style.left = pageX - shiftX + 'px';
-            locationTag.style.top = pageY - shiftY + 'px';
-        }
-        document.addEventListener('mousemove', onMouseMove);
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-        locationTag.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            locationTag.onmouseup = null;
-            locationTag.style.zIndex="6500";
-        };
-    };
-    locationTag.ondragstart = function() {
-        return false;
-    };
+//     locationTag.onmousedown = function(event) {
+//         locationTag.style.zIndex="9000";
+//         let shiftX = event.clientX - locationTag.getBoundingClientRect().left;
+//         let shiftY = event.clientY - locationTag.getBoundingClientRect().top;
+//
+//         document.body.append(locationTag);
+//
+//         moveAt(event.pageX, event.pageY);
+//
+//         function moveAt(pageX, pageY) {
+//             locationTag.style.left = pageX - shiftX + 'px';
+//             locationTag.style.top = pageY - shiftY + 'px';
+//         }
+//         document.addEventListener('mousemove', onMouseMove);
+//
+//         function onMouseMove(event) {
+//             moveAt(event.pageX, event.pageY);
+//         }
+//         locationTag.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             locationTag.onmouseup = null;
+//             locationTag.style.zIndex="6500";
+//         };
+//     };
+//     locationTag.ondragstart = function() {
+//         return false;
+//     };
 
 </script>
 </html>
