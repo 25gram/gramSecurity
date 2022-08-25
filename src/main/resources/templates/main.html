@@ -292,8 +292,12 @@
         }
 
         .feedCommentZone {
-            /*background-color: rgba(128, 128, 128, 0.3);*/
-            height: 100px;
+            /*margin-top: 52px;*/
+            /*margin-left: 21px;*/
+            max-width: 397px;
+            margin: 52px 0 10px 21px;
+            /* word-break: break-all; */
+            /*display: flex;*/
         }
 
         .commentSaveZone {
@@ -304,7 +308,8 @@
 
         .feedName {
             font-size: 18px;
-            margin: 17px 0 0 10px;
+            margin: 17px 0 0 20px;
+            font-weight: bold;
         }
 
         .feedImg {
@@ -544,9 +549,9 @@
             /* margin-left: 15px; */
             /* margin-bottom: 10px; */
             width: max-content;
-            height: 49px;
+            height: 25px;
             max-width: 419px;
-            max-height: 49px;
+            /*max-height: 49px;*/
             white-space: pre-line;
             word-break: break-all;
             overflow: hidden;
@@ -574,6 +579,7 @@
             width: 25px;
             height: 25px;
             margin-left: 50px;
+            border-radius: 50%;
         }
 
         #rippleText:focus {
@@ -608,6 +614,9 @@
             position: relative;
             top: 600px;
             left: 299px;
+        }
+        .emojionearea .emojionearea-editor{
+            white-space: pre-line;
         }
 
     </style>
@@ -1111,8 +1120,10 @@
                         let token = $("meta[name='_csrf']").attr('content');
                         let hssIndex = 0;
                         let result = 0;
+                        detailText
                         $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
                         $("#deTailProfileId").html(object.boardWriter);
+                        $("#detailText").html(object.boardContents);
                         $("#detailModalBtn").trigger("click");
                         showBtn(0)
 
@@ -1217,7 +1228,21 @@
                         });
                     }
 
+                // function showC(id){
+                function showC(id){
+                        console.log("showC 호출")
+                        let showId=document.getElementById("showZone"+id);
+                        let btn=document.getElementById("showContentsBtn1"+id)
 
+                        console.log("showZone id: "+id);
+                        showId.style.maxHeight="max-content";
+                        showId.style.height="max-content"    ;
+                        btn.style.display="none";
+                        // $("#showContentsBtn").css({
+                        //     position:"relative",
+                        //     top:"-38px"
+                        // })
+                    }
                 </script>
 
                 <!-- 피드 좋아요,댓글 아이콘 -->
@@ -1225,8 +1250,15 @@
                 </div>
                 <!-- 피드 슬라이드 버튼 -->
                 <div class="boardContent">
-<!--                    <span class="boardWriter" th:text="${board.getBoardWriter()}"></span>-->
-                    <div class="board_boardContent" th:text="${board.boardContents}">
+<!--                    <span class="contentsWriter" th:text="${board.getBoardWriter()}"></span>-->
+<!--                    <div class="board_boardContent" th:text="${board.boardContents}">-->
+                    <div th:id="showZone+${board.id}" class="board_boardContent" style="position: relative;top:44px; display: flex; margin-bottom:8px " >
+                        <p th:if="${board.boardContents.length()!=0}" class="contentsWriter" th:text="${board.getBoardWriter()}"></p>
+                        &nbsp;&nbsp;<p th:id="showContentsBtn+${board.id}" style="width:max-content;max-width: 315px;height: max-content;word-break: break-all;margin: 2px"> [[${board.boardContents}]]</p>
+                    </div>
+                    <div th:id="showContentsBtn1+${board.id}" th:onclick="showC('[[${board.id}]]')" style="cursor: pointer;color:gray;font-size: 14px; position: relative;top:42px">
+<!--                    <div th:id="showContentsBtn1+${board.id}" th:onclick="showC('showZone'+${board.id})">-->
+<!--                        <p id="show" th:onclick="showC('showZone'+${board.id})">더보기</p>-->
                     </div>
                 </div>
 <!--                <div style="height: 0px;">-->
@@ -1266,6 +1298,36 @@
 
     </div>
     <script th:inline="javascript">
+
+        window.addEventListener('load', function(){
+            let contentHeight = 0; //컨텐츠 높이 얻기
+            let list=[[${boardList}]];
+            console.log("contentHeight : "+contentHeight)
+            console.log("list : "+list)
+
+            for(let i=0;i<list.length;i++){
+            // console.log("id : "+list[i])
+            console.log("id : "+list[i].id)
+
+            contentHeight=document.getElementById('showContentsBtn'+list[i].id).offsetHeight;
+            zone=document.getElementById('showContentsBtn'+list[i].id)
+            // contentHeight=document.querySelector('#showContentsBtn'+list[i].id).offsetHeight;
+            if(zone.innerText.length!=0 || zone.innerText==""){
+                if(contentHeight > 25){
+            // document.querySelector('.detailinfo').classList.remove('showstep1');
+            // 초기값보다 작으면 전체 컨텐츠 표시
+            // document.querySelector('.btn_open').classList.add('hide');
+            // 버튼 감춤
+                    $("#showContentsBtn1"+list[i].id).html("...더보기")
+                }else{
+                    $("#showContentsBtn1"+list[i].id).html("")
+
+                }
+            }}
+            // let contentHeight = document.querySelector('.board_boardContent').offsetHeight; //컨텐츠 높이 얻기
+
+        });
+
         $("#feedCommentZone1").onclick = commentList(0);
         let rippleBtn = 0;
         function commentList(id,commentId,rippleId,rippleNum) {
@@ -1292,7 +1354,8 @@
                             let rippleCount = [];
                             let member = [[${findAll}]];
                             let commentIndex = [];
-                            const board = [[${boardList}]];
+                            const board =[[${boardList}]];
+                            console.log("comment : "+board)
                             let commentNum = board.length;
                             let stop;
                             let commentLength;
@@ -1320,22 +1383,31 @@
                             for (let i = 0; i < board.length; i++) {
                                 stop = 0;
                                 commentLength = 0;
+
                                 const comment = document.getElementById("feedCommentZone" + commentNum);
                                 comment.innerHTML = "";
                                 for (let j = 0; j < data.length; j++) {
+                                    if (stop == 2 && commentIndex[i] != 0) {
+                                        comment.innerHTML += "<p onclick='gogo(" + board[i].id+ ")' class='commentALl' style='cursor: pointer'>" + "댓글 " + (commentIndex[i] + rippleCount[i]) + "개 모두 보기" + "</p>"
+                                        stop++
+                                    }
                                     if (data[j].boardId == board[i].id && stop < 2) {
                                         for (let o = 0; o < member.length; o++) {
+
                                             if (data[j].commentWriter == member[o].memberName) {
                                                 comment.innerHTML += '<span class="commentWriter">' + member[o].memberName + '</span>';
                                             }
+
                                         }
+
                                         comment.innerHTML += "  <span class='commentContent'>" + data[j].commentContents + "</span><br>";
                                         stop++;
                                     }
-                                    if (stop == 2 && commentIndex[i] != 0) {
-                                        comment.innerHTML += "<span onclick='gogo(" + board[i].id + ")' class='commentALl'>" + "댓글 " + (commentIndex[i] + rippleCount[i]) + "개 모두 보기" + "</span>"
-                                        stop++
-                                    }
+                                    // if (stop == 2 && commentIndex[i] != 0) {
+                                    //     comment.innerHTML += "<span onclick='gogo(" + board[i].id + ")' class='commentALl'>" + "댓글 " + (commentIndex[i] + rippleCount[i]) + "개 모두 보기" + "</span>"
+                                    //     stop++
+                                    // }
+
                                 }
                                 commentNum--;
                             }
@@ -1526,8 +1598,8 @@
                                         }
                                     }
                                     if (commentId == data[i].commentId) {
-                                        commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + data[i].tagLogin + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span>';
-                                        commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
+                                        commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + data[i].tagLogin + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a><br>';
+                                        commentDetail.innerHTML += '<p class="rippleText">' + data[i].rippleContents + '</p>';
                                         commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                     }
                                 }
@@ -1541,8 +1613,29 @@
 
     </script>
     <script>
-        function gogo() {
-            $("#detailGoBtn").trigger("click")
+        function gogo(mid) {
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+           $.ajax({
+               url:"/board/findById",
+               data:{
+                   "bid":mid
+               },
+               dataType:"json",
+               beforeSend: function (result) {
+                   result.setRequestHeader(header, token);
+               },
+               success:function (e){
+                   console.log("gogo suc")
+                   detailGo(e)
+               },
+               error:function (e){
+                   console.log("gogo err")
+               }
+
+           })
+
+            console.log(mid);
         }
     </script>
 
@@ -1550,7 +1643,23 @@
     <!--게시글 모달 시작-->
 
     <style>
+        #detailText{
+            white-space: pre-line;
+            margin-left: 20px;
 
+        }
+        .rippleText{
+            word-break: break-all;
+            max-width: 250px;
+            margin-left: 80px;
+            font-size: 14px;
+        }
+        .contentsWriter{
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            min-width: max-content;
+        }
 
         /*.modal-header {*/
         /*    height: 50px;*/
@@ -2132,7 +2241,7 @@
                             <input type="hidden" value="''," id="boardFilter8">
                             <input type="hidden" value="''," id="boardFilter9">
                             <input type="hidden" value="''," id="boardFilter10">
-                            <input type="text" id="boardContents" name="boardContents" hidden>
+                            <textarea type="text" id="boardContents" name="boardContents" hidden></textarea>
                             <input type="text" id="likesNo" name="likesNo" hidden>
                             <input type="text" id="commentNo" name="commentNo" hidden>
                         </div>
@@ -2299,7 +2408,7 @@
                             .emojionearea .emojionearea-editor:not(.detail) {
                                 min-height: 200px;
                                 max-height: 200px;
-                                white-space: pre-line;
+                                /*white-space: pre-line;*/
 
                             }
 
@@ -2832,6 +2941,7 @@
 
         .detail > .emojionearea .emojionearea-editor:empty:before {
             margin-top: 12px;
+            /*white-space: pre-line !important;*/
         }
 
 
@@ -2880,7 +2990,7 @@
             min-height: 60px;
             max-height: 60px;
             height: 60px;
-            white-space: pre-line;
+            /*white-space: pre-line !important;*/
         }
 
 
@@ -2935,7 +3045,7 @@
         }
 
         .commentList[class*="detail"] {
-            /* background-color: yellow; */
+             background-color: yellow;
             height: 509px;
             border-bottom: rgb(214, 214, 214) 1px solid;
             /*font-family: 'Noto Sans KR', sans-serif;*/
@@ -2944,39 +3054,41 @@
 
         .commentWriter {
             display: inline-block;
-            width: 60px;
+            width: max-content;
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 17px;
+            font-size: 15px;
             font-weight: bold;
-            margin: 4px 20px 5px 15px;
+            /* margin: 4px 10px 5px 20px; */
+            margin-right: 10px;
         }
 
         .commentContent {
-            display: inline-block;
             font-family: 'Noto Sans KR', sans-serif;
             font-weight: 200;
             font-size: 15px;
             margin: 4px 20px 5px 15px;
+            max-width: 267px;
+            width: max-content;
+            word-break: break-all;
         }
 
         .commentALl {
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 13px;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-left: 15px;
-            margin-right: 15px;
-        }
+            color: gray;
+            margin-top: 4px;
+
+           }
 
 
-        .commentListItem[class*="detail"] {
-            font-size: 25px;
-            margin: 10px 0 0 20px;
-        }
+                .commentListItem[class*="detail"] {
+                    font-size: 25px;
+                    margin: 10px 0 0 20px;
+                }
 
-        .likeListZone[class*="detail"] {
-            height: 80px;
-            /* background-color: blue; */
+                .likeListZone[class*="detail"] {
+                    height: 80px;
+                    /* background-color: blue; */
             border-bottom: rgb(214, 214, 214) 1px solid
         }
 
@@ -3134,7 +3246,11 @@
 
 
                                 <!-- 댓글 리스트 구역 -->
+                                <div id="textZone">
+                                    <p id="detailText">
 
+                                    </p>
+                                </div>
                                 <div id="commentList" class="commentList detail" style="overflow: scroll">
 
 

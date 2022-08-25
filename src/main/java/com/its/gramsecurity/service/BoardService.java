@@ -128,6 +128,7 @@ public class BoardService {
     }
 
      void updateProfile(MemberDTO memberDTO,String fileName){
+//        BoardEntity blist=boardRepository.findByLoginId(memberDTO.getLoginId());
         List<BoardEntity> blist=boardRepository.findByLoginId(memberDTO.getLoginId());
         for (int i =0;i< blist.size();i++){
             blist.get(i).setMemberProfileName(fileName);
@@ -167,5 +168,15 @@ public class BoardService {
             }
         }
         return boardFileEntityList;
+    }
+
+    public BoardDTO findByBoard_Id(Long board_id) {
+        BoardEntity mem=boardRepository.findByBoard_Id(board_id);
+        System.out.println("///////////////////////////////////////////////////");
+        System.out.println("BoardService.findByBoard_Id");
+        System.out.println("mem = " + mem);
+        System.out.println("///////////////////////////////////////////////////");
+        return BoardDTO.toBoardDTO(mem);
+//        return BoardDTO.toBoardDTO(boardRepository.findByBoard_Id(board_id));
     }
 }
