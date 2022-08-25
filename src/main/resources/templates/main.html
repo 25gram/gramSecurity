@@ -292,9 +292,10 @@
         }
 
         .feedCommentZone {
-            margin-top: 52px;
-            margin-left: 21px;
+            /*margin-top: 52px;*/
+            /*margin-left: 21px;*/
             max-width: 397px;
+            margin: 52px 0 10px 21px;
             /* word-break: break-all; */
             /*display: flex;*/
         }
@@ -307,7 +308,8 @@
 
         .feedName {
             font-size: 18px;
-            margin: 17px 0 0 10px;
+            margin: 17px 0 0 20px;
+            font-weight: bold;
         }
 
         .feedImg {
@@ -577,6 +579,7 @@
             width: 25px;
             height: 25px;
             margin-left: 50px;
+            border-radius: 50%;
         }
 
         #rippleText:focus {
@@ -1117,8 +1120,10 @@
                         let token = $("meta[name='_csrf']").attr('content');
                         let hssIndex = 0;
                         let result = 0;
+                        detailText
                         $("#detailProfile").attr("src", /upload/ + object.memberProfileName);
                         $("#deTailProfileId").html(object.boardWriter);
+                        $("#detailText").html(object.boardContents);
                         $("#detailModalBtn").trigger("click");
                         showBtn(0)
 
@@ -1247,9 +1252,9 @@
                 <div class="boardContent">
 <!--                    <span class="contentsWriter" th:text="${board.getBoardWriter()}"></span>-->
 <!--                    <div class="board_boardContent" th:text="${board.boardContents}">-->
-                    <div th:id="showZone+${board.id}" class="board_boardContent" style="position: relative;top:44px; display: flex" >
+                    <div th:id="showZone+${board.id}" class="board_boardContent" style="position: relative;top:44px; display: flex; margin-bottom:8px " >
                         <p th:if="${board.boardContents.length()!=0}" class="contentsWriter" th:text="${board.getBoardWriter()}"></p>
-                        &nbsp;&nbsp;<p th:id="showContentsBtn+${board.id}" style="width:max-content;max-width: 315px;height: max-content;word-break: break-all;"> [[${board.boardContents}]]</p>
+                        &nbsp;&nbsp;<p th:id="showContentsBtn+${board.id}" style="width:max-content;max-width: 315px;height: max-content;word-break: break-all;margin: 2px"> [[${board.boardContents}]]</p>
                     </div>
                     <div th:id="showContentsBtn1+${board.id}" th:onclick="showC('[[${board.id}]]')" style="cursor: pointer;color:gray;font-size: 14px; position: relative;top:42px">
 <!--                    <div th:id="showContentsBtn1+${board.id}" th:onclick="showC('showZone'+${board.id})">-->
@@ -1349,7 +1354,7 @@
                             let rippleCount = [];
                             let member = [[${findAll}]];
                             let commentIndex = [];
-                            const board = [[${boardList}]];
+                            const board =[[${boardList}]];
                             console.log("comment : "+board)
                             let commentNum = board.length;
                             let stop;
@@ -1378,11 +1383,12 @@
                             for (let i = 0; i < board.length; i++) {
                                 stop = 0;
                                 commentLength = 0;
+
                                 const comment = document.getElementById("feedCommentZone" + commentNum);
                                 comment.innerHTML = "";
                                 for (let j = 0; j < data.length; j++) {
                                     if (stop == 2 && commentIndex[i] != 0) {
-                                        comment.innerHTML += "<p onclick='gogo(" + board[i].id + ")' class='commentALl'>" + "댓글 " + (commentIndex[i] + rippleCount[i]) + "개 모두 보기" + "</p>"
+                                        comment.innerHTML += "<p onclick='gogo(" + board[i].id+ ")' class='commentALl' style='cursor: pointer'>" + "댓글 " + (commentIndex[i] + rippleCount[i]) + "개 모두 보기" + "</p>"
                                         stop++
                                     }
                                     if (data[j].boardId == board[i].id && stop < 2) {
@@ -1592,8 +1598,8 @@
                                         }
                                     }
                                     if (commentId == data[i].commentId) {
-                                        commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + data[i].tagLogin + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span>';
-                                        commentDetail.innerHTML += '<span>' + data[i].rippleContents + '</span><br>';
+                                        commentDetail.innerHTML += '<a href="/member/mypage?loginId=' + data[i].tagLogin + '">' + '<span style="color: skyblue">' + '@' + data[i].tagName + '</span></a><br>';
+                                        commentDetail.innerHTML += '<p class="rippleText">' + data[i].rippleContents + '</p>';
                                         commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].commentId + ',' +  data[i].id + ',' + '1' + ')">' + '답글달기' + '</span><br>';
                                     }
                                 }
@@ -1608,13 +1614,28 @@
     </script>
     <script>
         function gogo(mid) {
-            // $("#detailGoBtn").trigger("click")
-            let mem ={
-                id:mid
-            }
-            detailGo(mem);
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+           $.ajax({
+               url:"/board/findById",
+               data:{
+                   "bid":mid
+               },
+               dataType:"json",
+               beforeSend: function (result) {
+                   result.setRequestHeader(header, token);
+               },
+               success:function (e){
+                   console.log("gogo suc")
+                   detailGo(e)
+               },
+               error:function (e){
+                   console.log("gogo err")
+               }
 
-            console.log(id);
+           })
+
+            console.log(mid);
         }
     </script>
 
@@ -1622,10 +1643,22 @@
     <!--게시글 모달 시작-->
 
     <style>
+        #detailText{
+            white-space: pre-line;
+            margin-left: 20px;
+
+        }
+        .rippleText{
+            word-break: break-all;
+            max-width: 250px;
+            margin-left: 80px;
+            font-size: 14px;
+        }
         .contentsWriter{
             color: black;
             font-size: 16px;
             font-weight: bold;
+            min-width: max-content;
         }
 
         /*.modal-header {*/
@@ -3012,7 +3045,7 @@
         }
 
         .commentList[class*="detail"] {
-            /* background-color: yellow; */
+             background-color: yellow;
             height: 509px;
             border-bottom: rgb(214, 214, 214) 1px solid;
             /*font-family: 'Noto Sans KR', sans-serif;*/
@@ -3213,7 +3246,11 @@
 
 
                                 <!-- 댓글 리스트 구역 -->
+                                <div id="textZone">
+                                    <p id="detailText">
 
+                                    </p>
+                                </div>
                                 <div id="commentList" class="commentList detail" style="overflow: scroll">
 
 
