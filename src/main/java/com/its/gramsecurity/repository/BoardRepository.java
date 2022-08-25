@@ -27,5 +27,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
 
 //    BoardEntity findByLoginId(String loginId);
     List<BoardEntity> findByLoginId(String loginId);
-
+    @Transactional
+//    @Modifying
+    @Query(value = "select * from board_Entity where board_id=:board_id",nativeQuery = true)
+    BoardEntity findByBoard_Id(@Param("board_id") Long board_id);
 }

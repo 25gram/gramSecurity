@@ -169,4 +169,14 @@ public class BoardService {
         }
         return boardFileEntityList;
     }
+
+    public BoardDTO findByBoard_Id(Long board_id) {
+        BoardEntity mem=boardRepository.findByBoard_Id(board_id);
+        System.out.println("///////////////////////////////////////////////////");
+        System.out.println("BoardService.findByBoard_Id");
+        System.out.println("mem = " + mem);
+        System.out.println("///////////////////////////////////////////////////");
+        return BoardDTO.toBoardDTO(mem);
+//        return BoardDTO.toBoardDTO(boardRepository.findByBoard_Id(board_id));
+    }
 }

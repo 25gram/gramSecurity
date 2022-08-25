@@ -102,4 +102,9 @@ public class BoardController {
         List<BoardFileDTO> boardFileDTO = boardService.detailFind(memberName);
         return boardFileDTO;
     }
+    @GetMapping("findById")
+    @ResponseBody
+    BoardDTO findById(@RequestParam("bid") Long board_id){
+        return boardService.findByBoard_Id(board_id);
+    }
 }
