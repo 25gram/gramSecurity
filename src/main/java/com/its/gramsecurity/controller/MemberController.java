@@ -1,9 +1,7 @@
 package com.its.gramsecurity.controller;
 
 import com.its.gramsecurity.config.auth.PrincipalDetails;
-import com.its.gramsecurity.dto.FollowDTO;
-import com.its.gramsecurity.dto.MemberDTO;
-import com.its.gramsecurity.dto.StoryDTO;
+import com.its.gramsecurity.dto.*;
 import com.its.gramsecurity.entity.FollowEntity;
 import com.its.gramsecurity.repository.FollowRepository;
 import com.its.gramsecurity.service.BoardService;
@@ -32,6 +30,7 @@ public class MemberController {
     private final MemberService memberService;
     private final FollowService followService;
     private final StoryService storyService;
+    private final BoardService boardService;
 
     //구글 로그인 후처리
     @RequestMapping(value = "/oauth2/authorization/google", method = RequestMethod.GET)
@@ -106,12 +105,21 @@ public class MemberController {
         List<FollowDTO> followDTOList = followService.findAllByMyId(loginId);
         List<FollowDTO> following = followService.findAllByYourId(loginId);
         String findByMyIdAndYourId=followService.findByMyIdAndYourId(principalDetails.getMemberDTO().getLoginId(),loginId);
+        List<BoardDTO> boardList = boardService.findAll();
+        List<BoardFileDTO> boardFileList = boardService.fileFindAll();
+        List<MemberDTO> findAll = memberService.findAll();
+
+
         model.addAttribute("findByMyIdAndYourId",findByMyIdAndYourId);
         model.addAttribute("countFw", following.size());
         model.addAttribute("count", followDTOList.size());
         model.addAttribute("memberDTO", memberDTO);
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("findAll", findAll);
+        model.addAttribute("boardFile", boardFileList);
         model.addAttribute("AuthenticationPrincipal", principalDetails);
         List<StoryDTO> storyDTOList = storyService.findByLoginId(loginId);
+
         StoryDTO myStory = new StoryDTO();
         if(!storyDTOList.isEmpty()){
                 int i = storyDTOList.size();

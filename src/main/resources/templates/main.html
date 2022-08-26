@@ -40,7 +40,10 @@
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
 
     <script>
-
+        $(function (){
+            let id='[[${bid}]]'
+            gogo(id)
+        })
 
         function logoutChk() {
             let header = $("meta[name='_csrf_header']").attr('content');
@@ -96,7 +99,10 @@
     </script>
 
     <style>
+        .modal.fade.detail.show{
+            background-color: black;
 
+        }
         .title:not(.detail) {
             font-family: 'Dosis', sans-serif;
             font-size: 40px;
@@ -241,7 +247,7 @@
         }
 
         ::-webkit-scrollbar {
-            display: none;
+            /*display: none;*/
         }
 
         .feedSlideBtn {
@@ -621,9 +627,22 @@
 
     </style>
 
-
+<script th:inline="javascript">
+    // function modal(){
+    //     let id='[[${bid}]]'
+    //     // if(id!=null){
+    //         gogo(id);
+    //
+    //     // }
+    // }
+    // window.onload(function (){
+    //     let id='[[${bid}]]'
+    //     gogo(id);
+    // })
+</script>
 </head>
-<body onload="loginChk()" style="background-color:#F2F3F5 ;overflow: hidden;">
+<body th:onload="loginChk()" style="background-color:#F2F3F5 ;overflow: hidden;">
+<!--<body th:onload="modal(),loginChk()" style="background-color:#F2F3F5 ;overflow: hidden;">-->
 <div class="mainBody">
 
     <!-- 헤더구역 -->
@@ -1218,6 +1237,10 @@
 
                                 });
                                 $('#detailClose').click(function () {
+                                    let id='[[${bid}]]'
+                                    if(id.length!=0){
+                                        location.href="/member/mypage?loginId="+object.loginId;
+                                    }
                                     $(".emojionearea-editor").html("")
                                     hssIndex = 0;
                                     $("#detailClose").unbind("click");
@@ -1424,10 +1447,10 @@
                                                 ripple2 = member[o].memberName;
                                             }
                                         }
-                                        commentDetail.innerHTML += "<span>" + data[i].commentContents + "</span><br>";
+                                        commentDetail.innerHTML += "<p class='dText'>" + data[i].commentContents + "</p>";
                                         // commentDetail.innerHTML += "<span onclick='rippleSave(" + data[i].id + ")'>" + '---' + "</span><br>";
                                         // commentDetail.innerHTML += '<span onclick="rippleSave(' + data[i].id + ',' + data[i].boardId + ')">' + '답글달기' + '</span>';
-                                        commentDetail.innerHTML += '<span class="rippleOnclick" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
+                                        commentDetail.innerHTML += '<span class="rippleOnclick" style="cursor: pointer" onclick="rippleZone(' + id + ',' + data[i].id + ')">' + '답글달기' + '</span>';
                                         commentDetail.innerHTML += '<div  id="listRipple' + data[i].id + '">'+'</div>';
                                         commentDetail.innerHTML += '<div id="rippleList' + data[i].id + '"></div>';
                                     }
@@ -1643,6 +1666,13 @@
     <!--게시글 모달 시작-->
 
     <style>
+        .dText{
+            max-width: 300px;
+            white-space: pre-line;
+            margin-left: 100px;
+            margin-top: -14px;
+            margin-bottom: 0;
+        }
         #detailText{
             white-space: pre-line;
             margin-left: 20px;
@@ -3045,9 +3075,12 @@
         }
 
         .commentList[class*="detail"] {
-             background-color: yellow;
-            height: 509px;
+             /*background-color: yellow;*/
+            height: 270px;
+            overflow: scroll;
+            width: 400px;
             border-bottom: rgb(214, 214, 214) 1px solid;
+            border-top: rgb(214, 214, 214) 1px solid;
             /*font-family: 'Noto Sans KR', sans-serif;*/
             /*font-size: 25px;*/
         }
@@ -3246,7 +3279,7 @@
 
 
                                 <!-- 댓글 리스트 구역 -->
-                                <div id="textZone">
+                                <div id="textZone" style="height: 235px;overflow: scroll">
                                     <p id="detailText">
 
                                     </p>
