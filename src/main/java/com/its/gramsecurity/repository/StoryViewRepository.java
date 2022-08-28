@@ -19,4 +19,5 @@ public interface StoryViewRepository extends JpaRepository<StoryViewEntity,Long>
     List<StoryViewEntity> findAllByStoryEntityIdAndMemberEntityLoginId(Long storyId, String storyWriter);
 
     Long countByStoryEntity_Id(Long storyId);
+
 }

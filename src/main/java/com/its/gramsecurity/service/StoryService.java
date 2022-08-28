@@ -9,6 +9,7 @@ import com.its.gramsecurity.entity.MemberEntity;
 import com.its.gramsecurity.entity.StoryEntity;
 import com.its.gramsecurity.repository.MemberRepository;
 import com.its.gramsecurity.repository.StoryRepository;
+import com.its.gramsecurity.repository.StoryViewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Service
 public class StoryService {
     private final StoryRepository storyRepository;
+    private final StoryViewRepository storyViewRepository;
     private final MemberRepository memberRepository;
 
     public List<StoryDTO> findByLoginId(String loginId) {
@@ -113,5 +115,9 @@ public class StoryService {
             storyRepository.save(storyEntityList.get(i));
 
         }
+    }
+
+    public void deleteStory(Long id) {
+        storyRepository.deleteById(id);
     }
 }

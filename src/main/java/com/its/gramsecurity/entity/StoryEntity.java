@@ -72,8 +72,7 @@ public class StoryEntity {
     private String memberProfileName;
 
     @OneToMany(mappedBy = "storyEntity",
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private List<StoryViewEntity> storyEntityList=new ArrayList<>();
     public static StoryEntity toSaveStoryEntity(StoryDTO storyDTO, MemberEntity memberEntity){
