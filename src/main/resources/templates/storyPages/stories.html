@@ -98,9 +98,8 @@
         .closeDiv {
             width: 30px;
             height: 30px;
-            position: static;
-            margin-top: 20px;
-            margin-left: 95%;
+            position: absolute;
+            left: 95%;
 
         }
         .filePreview {
@@ -868,6 +867,20 @@
             color: white;
             font-size: 11px;
         }
+        .deleteMenu {
+            width: 40px;
+            height: 40px;
+            color: white;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,0.5);
+            position: absolute;
+            top: 90%;
+            right: 2%;
+            z-index: 6500;
+            text-align: center;
+            line-height: 40px;
+
+        }
     </style>
 
 </head>
@@ -894,11 +907,28 @@
             </div>
         </div>
         <div class="viewCount" id="viewCount" th:text="${countStoryView}+'명 읽음'"></div>
+        <a href="#"><div class="deleteMenu" id="deleteMenu" onclick="deleteStory()"><i class="bi bi-trash"></i></div></a>
     </div>
 </div>
 </body>
 <script th:inline="javascript">
     moment.locale("ko");
+    const deleteStory = () => {
+        const storyList =[[${storyList}]];
+        let storyId =0;
+        for(story of storyList){
+            if(story){
+                storyId = story.id;
+                console.log("storyId: "+storyId);
+            }
+        }
+        let deleteConfirm = confirm("이 스토리를 정말 삭제하시겠습니까?");
+        if(deleteConfirm){
+            location.href="/storyBoard/deleteStory?id="+storyId;
+        } else {
+            alert("스토리 삭제를 취소합니다.");
+        }
+    }
     const movePage = () => {
         let previous = document.referrer;
         if(previous=="http://localhost:8080/storyBoard/save-form"){
@@ -1000,20 +1030,20 @@
                         }
                     });
 
-                let obj = document.getElementById("aaa");
-                $(document).ready(function (){
-                    setTimeout(function (){
-                        let time = obj.duration;
-                        setTimeout(function (){
-                            let previous = document.referrer;
-                            if(previous=="http://localhost:8080/storyBoard/save-form"){
-                                location.href="http://localhost:8080/main/main";
-                            } else {
-                                location.href=previous;
-                            }
-                        }, (time+0.1)*1000);
-                     }, 500);
-                });
+                // let obj = document.getElementById("aaa");
+                // $(document).ready(function (){
+                //     setTimeout(function (){
+                //         let time = obj.duration;
+                //         setTimeout(function (){
+                //             let previous = document.referrer;
+                //             if(previous=="http://localhost:8080/storyBoard/save-form"){
+                //                 location.href="http://localhost:8080/main/main";
+                //             } else {
+                //                 location.href=previous;
+                //             }
+                //         }, (time+0.1)*1000);
+                //      }, 500);
+                // });
 
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";

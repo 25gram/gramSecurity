@@ -115,4 +115,10 @@ public class StoryController {
         boolean result = storyViewService.findByStoryIdAndLoginId(storyId, storyWriter);
         return result;
     }
+    @GetMapping("/deleteStory")
+    public String deleteStory(@RequestParam ("id") Long id){
+        System.out.println("=================================================================="+id);
+        storyService.deleteStory(id);
+        return "redirect:/main/main";
+    }
 }
