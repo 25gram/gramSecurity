@@ -30,7 +30,7 @@ public class StoryController {
     public List<StoryDTO> findStoryList(String loginId) {
         List<FollowDTO> followDTOList = storyIdList(loginId);
         List<StoryDTO> storyDTOList = storyService.findStoryList(followDTOList);
-        System.out.println("========================StoryController/findStoryList/yourStoryList========================="+storyDTOList);
+//        System.out.println("========================StoryController/findStoryList/yourStoryList========================="+storyDTOList);
         return storyDTOList;
     }
     @GetMapping("/")
@@ -104,13 +104,13 @@ public class StoryController {
     public List<FollowDTO> storyIdList(String id){
         List<FollowDTO> myList = followService.findAllByMyId(id);
         List<FollowDTO> yourList=followService.findAllByYourId(id);
-        System.out.println("============================StoryController/storyIdList/myList=============================="+myList);
+//        System.out.println("============================StoryController/storyIdList/myList=============================="+myList);
         return myList;
     }
     @GetMapping("/storyViewCheck")
     public boolean findByStoryIdAndLoginId(Long storyId, String storyWriter){
-        System.out.println("======================StoryController/findByStoryIdAndLoginId/storyId======================="+storyId);
-        System.out.println("====================StoryController/findByStoryIdAndLoginId/storyWriter====================="+storyId);
+//        System.out.println("======================StoryController/findByStoryIdAndLoginId/storyId======================="+storyId);
+//        System.out.println("====================StoryController/findByStoryIdAndLoginId/storyWriter====================="+storyId);
 
         boolean result = storyViewService.findByStoryIdAndLoginId(storyId, storyWriter);
         return result;

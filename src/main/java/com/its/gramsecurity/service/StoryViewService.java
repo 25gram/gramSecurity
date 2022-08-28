@@ -25,7 +25,7 @@ public class StoryViewService {
     public Long storyViewSave(Long storyId, String loginId) {
         StoryViewEntity saveStoryView = new StoryViewEntity();
         List<StoryViewEntity> storyViewList = storyViewRepository.findAllByStoryEntityIdAndMemberEntityLoginId(storyId, loginId);
-        System.out.println("========================StoryViewService/storyViewSave/storyViewList========================"+storyViewList);
+//        System.out.println("========================StoryViewService/storyViewSave/storyViewList========================"+storyViewList);
         Long countStoryView=0L;
             if(storyViewList.isEmpty()) { // 스토리본적 없으면
                     Optional<StoryEntity> optionalStoryEntity = storyRepository.findById(storyId);
@@ -39,17 +39,17 @@ public class StoryViewService {
                         saveStoryView.setMemberEntity(memberEntity);
                     }
                     storyViewRepository.save(saveStoryView).getId();
-        System.out.println("========================StoryViewService/storyViewSave/saveStoryView========================"+ StoryViewDTO.toStoryViewDTOSave(saveStoryView));
+//        System.out.println("========================StoryViewService/storyViewSave/saveStoryView========================"+ StoryViewDTO.toStoryViewDTOSave(saveStoryView));
             }
                     countStoryView = storyViewRepository.countByStoryEntity_Id(storyId);
-        System.out.println("=======================StoryViewService/storyViewSave/countStoryView========================"+ countStoryView);
+//        System.out.println("=======================StoryViewService/storyViewSave/countStoryView========================"+ countStoryView);
         return countStoryView;
 
     }
     public boolean findByStoryIdAndLoginId(Long storyId, String storyWriter){
         List<StoryViewEntity> StoryViewList = storyViewRepository.findAllByStoryEntityIdAndMemberEntityLoginId(storyId, storyWriter);
-        System.out.println("=======================StoryViewService/findByStoryIdAndLoginId/storyId====================="+storyId);
-        System.out.println("=====================StoryViewService/findByStoryIdAndLoginId/storyWriter==================="+storyWriter);
+//        System.out.println("=======================StoryViewService/findByStoryIdAndLoginId/storyId====================="+storyId);
+//        System.out.println("=====================StoryViewService/findByStoryIdAndLoginId/storyWriter==================="+storyWriter);
 
         if(StoryViewList.size()>0){
             return true;

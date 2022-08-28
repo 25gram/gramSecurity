@@ -366,17 +366,19 @@
 
         }
         .inputLinkDiv {
-            text-align: center;
             width: 120px;
             height: 39px;
+            color: blue;
+            font-size: 20px;
+            font-weight: 700;
             background-color: white;
             border-radius: 10px;
             border: 0;
-            padding: 0;
+            padding-left: 10px;
             position: absolute;
             top: 50%;
             left: 37%;
-            z-index: 31;
+            z-index: 6500;
             display: block;
         }
         input:focus {outline:none;}
@@ -431,10 +433,11 @@
             border: 1px solid transparent;
             border-radius: 10px;
             padding-top: 9%;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
             position: absolute;
+            top: 40%;
+            left: 30%;
+            text-align: center;
+            z-index: 20;
         }
         #question2 {
             background-color: transparent;
@@ -457,7 +460,7 @@
             border: 0;
             border-radius: 7px;
             position: relative;
-            top: -30px;
+            top: -32px;
         }
         #circleLogo {
             background-color: skyblue;
@@ -501,7 +504,10 @@
         }
         .surveyGroup {
             width: 193px;
-            height: 143px;
+            height: 182px;
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
             position: absolute;
             top: 30%;
             left: 15%;
@@ -531,8 +537,8 @@
             border-radius: 10px;
         }
         .quizGroup {
-            width: 187.59px;
-            height: 149.75px;
+            width: 188px;
+            height: 150px;
             position: absolute;
             top: 30%;
             left: 29%;
@@ -543,12 +549,12 @@
 
         }
         .shapeBtn {
-            width: 100%;
+            width: 80%;
             height: 40px;
             border: 1px solid darkgrey;
             border-radius: 15px;
-            margin-top: 10px;
             background-color: transparent;
+            margin: 10px auto;
         }
         .quizDiv {
             height: 100%;
@@ -564,7 +570,7 @@
             color: white;
             width: 100%;
             height: 40px;
-            background-color: transparent;
+            background-color: black;
             border: 0;
             padding: 0;
         }
@@ -613,34 +619,39 @@
             height: 40px;
             font-size: 20px;
             color: hotpink;
+            background: white;
+            border-radius: 10px;
             text-align: center;
             float: left;
             margin-right: auto;
             margin-left: auto;
             position: absolute;
             top: 50%;
+            left: 37%;
             z-index: 31;
             display: block;
         }
         .inputHashTag {
-            width: 75%;
-            height: 40px;
+            width: 95px;
+            height: 25px;
             background-color: transparent;
             border: 0;
             font-size: 20px;
             color: hotpink;
             float: left;
             padding: 0;
+            margin-top: 5%;
+            margin-left: 3%;
         }
         .sharp {
-            width: 25%;
-            height: 40px;
+            width: 10px;
+            height: 15px;
             float: left;
             background-color: transparent;
             font-size: 20px;
             color: hotpink;
-            line-height: 40px;
             text-align: right;
+            margin: 5% 0% auto 10%;
         }
         input::placeholder{
             color: hotpink;
@@ -659,37 +670,39 @@
             border-radius: 10px;
         }
         .referenceDiv {
-            width: 100%;
+            width: 156px;
             height: 40px;
             font-size: 20px;
             color: hotpink;
             text-align: center;
             float: left;
-            margin-right: auto;
-            margin-left: auto;
+            background: white;
+            border-radius: 10px;
             position: absolute;
             top: 50%;
             left: 34%;
             display: block;
         }
         .inputReference {
-            width: 115px;
-            height: 40px;
+            width: 100px;
+            height: 25px;
             background-color: transparent;
             border: 0;
             font-size: 20px;
             color: hotpink;
             float: left;
             padding: 0;
+            margin-top: 5%;
         }
         .at {
             width: 20px;
-            height: 40px;
+            height: 20px;
+            margin-left: 13%;
+            margin-top: 4%;
             float: left;
             background-color: transparent;
             font-size: 20px;
             color: hotpink;
-            line-height: 40px;
             text-align: right;
         }
         input::placeholder{
@@ -957,7 +970,7 @@
             document.getElementById("userImg").src="/upload/"+memberProfileName;
             document.getElementById("userName").innerHTML=memberName;
             document.getElementById("createdTime").innerHTML=storyMadeTime;
-            console.log(storyMadeTime);
+            // console.log(storyMadeTime);
 
             if(storyFileName.endsWith(".mp4")){
                 let video = document.createElement("video");
@@ -987,32 +1000,32 @@
                         }
                     });
 
-                // let obj = document.getElementById("aaa");
-                // $(document).ready(function (){
-                //     setTimeout(function (){
-                //         let time = obj.duration;
-                //         setTimeout(function (){
-                //             let previous = document.referrer;
-                //             if(previous=="http://localhost:8080/storyBoard/save-form"){
-                //                 location.href="http://localhost:8080/main/main";
-                //             } else {
-                //                 location.href=previous;
-                //             }
-                //         }, (time+0.1)*1000);
-                //      }, 500);
-                // });
+                let obj = document.getElementById("aaa");
+                $(document).ready(function (){
+                    setTimeout(function (){
+                        let time = obj.duration;
+                        setTimeout(function (){
+                            let previous = document.referrer;
+                            if(previous=="http://localhost:8080/storyBoard/save-form"){
+                                location.href="http://localhost:8080/main/main";
+                            } else {
+                                location.href=previous;
+                            }
+                        }, (time+0.1)*1000);
+                     }, 500);
+                });
 
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
-                // $(document).ready(function (){
-                //     setTimeout(function (){
-                //                     let previous = document.referrer;
-                //                     if(previous=="http://localhost:8080/storyBoard/save-form"){
-                //                         location.href="http://localhost:8080/main/main";
-                //                     } else {
-                //                         location.href=previous;
-                //                     }                    }, (10)*1000);
-                // });
+                $(document).ready(function (){
+                    setTimeout(function (){
+                                    let previous = document.referrer;
+                                    if(previous=="http://localhost:8080/storyBoard/save-form"){
+                                        location.href="http://localhost:8080/main/main";
+                                    } else {
+                                        location.href=previous;
+                                    }                    }, (10)*1000);
+                });
             }
             if (storyImgName){
                 document.getElementById("addImg").src = "/upload/"+storyImgName;
