@@ -175,12 +175,11 @@
             height: 80%;
         }
         .colorCircles {
-            margin-top: 70%;
-            width: 100%;
-            height: 50%;
-            padding-top: 70%;
-            padding-left: 15px;
+            width: 94%;
+            height: 4%;
             position: absolute;
+            top: 85%;
+            left: 3%;
             display: none;
         }
         .circles {
@@ -471,7 +470,6 @@
         .surveyDiv {
             width: 190px;
             height: 180px;
-            background-color: white;
             border: 0px solid transparent;
             border-radius: 10px;
             margin-left: auto;
@@ -480,7 +478,10 @@
         }
         .surveyGroup {
             width: 193px;
-            height: 143px;
+            height: 182px;
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
             position: absolute;
             top: 30%;
             left: 15%;
@@ -510,8 +511,8 @@
             border-radius: 10px;
         }
         .quizGroup {
-            width: 187.59px;
-            height: 149.75px;
+            width: 188px;
+            height: 150px;
             position: absolute;
             top: 30%;
             left: 29%;
@@ -522,12 +523,12 @@
 
         }
         .shapeBtn {
-            width: 100%;
+            width: 80%;
             height: 40px;
             border: 1px solid darkgrey;
             border-radius: 15px;
-            margin-top: 10px;
             background-color: transparent;
+            margin: 10px auto;
         }
         .quizDiv {
             height: 100%;
@@ -543,7 +544,7 @@
             color: white;
             width: 100%;
             height: 40px;
-            background-color: transparent;
+            background-color: black;
             border: 0;
             padding: 0;
         }
@@ -592,6 +593,8 @@
             height: 40px;
             font-size: 20px;
             color: hotpink;
+            background: white;
+            border-radius: 10px;
             text-align: center;
             float: left;
             margin-right: auto;
@@ -603,24 +606,28 @@
             display: none;
         }
         .inputHashTag {
-            width: 75%;
-            height: 40px;
+            width: 95px;
+            height: 25px;
             background-color: transparent;
             border: 0;
             font-size: 20px;
             color: hotpink;
             float: left;
             padding: 0;
+            margin-top: 5%;
+            margin-left: 3%;
+
         }
         .sharp {
-            width: 25%;
-            height: 40px;
+            width: 10px;
+            height: 15px;
             float: left;
             background-color: transparent;
             font-size: 20px;
             color: hotpink;
-            line-height: 40px;
             text-align: right;
+            margin: 5% 0% auto 10%;
+
         }
         input::placeholder{
             color: hotpink;
@@ -639,37 +646,39 @@
             border-radius: 10px;
         }
         .referenceDiv {
-            width: 100%;
+            width: 156px;
             height: 40px;
             font-size: 20px;
             color: hotpink;
             text-align: center;
             float: left;
-            margin-right: auto;
-            margin-left: auto;
+            background: white;
+            border-radius: 10px;
             position: absolute;
             top: 50%;
             left: 34%;
             display: none;
         }
         .inputReference {
-            width: 115px;
-            height: 40px;
+            width: 100px;
+            height: 25px;
             background-color: transparent;
             border: 0;
             font-size: 20px;
             color: hotpink;
             float: left;
             padding: 0;
+            margin-top: 5%;
         }
         .at {
             width: 20px;
-            height: 40px;
+            height: 20px;
+            margin-left: 13%;
+            margin-top: 4%;
             float: left;
             background-color: transparent;
             font-size: 20px;
             color: hotpink;
-            line-height: 40px;
             text-align: right;
         }
         input::placeholder{
@@ -826,7 +835,7 @@
 <!--            <div class="todayDiv" id="todayDiv">-->
 <!--            </div>-->
             <div class="filePreview" id="filePreview"></div>
-            <button type="button" class="locationTag" id="locationTag"></button>
+            <button type="button" class="draggable locationTag" id="locationTag"></button>
             <div class="addImgDiv" id="addImgDiv">
                 <div id="imgDrag">
                     <img class="addImg" id="addImg">
@@ -844,6 +853,46 @@
 <!--                <input type=" draggable button" class="inputLink" id="inputLink">-->
 <!--            </div>-->
             <div class="draggable inputLinkDiv" id="inputLinkDiv"><i class="bi bi-link-45deg" style="font-size: 25px; color: blue"></i></div>
+            <div class="draggable surveyGroup" id="surveyGroup">
+                <input type="text"  class="survey" id="question" placeholder="질문을 입력하세요">
+                <input type="text"  class="survey" id="answer1" placeholder="예">
+                <input type="text"  class="survey" id="answer2" placeholder="아니요">
+                <input type="text"  class="survey" id="answer3" placeholder="다른 옵션 추가..." onkeyup="newInput()">
+                <input type="text"  class="survey" id="answer4" placeholder="다른 옵션 추가..." onblur="answer4Fnc()" style="display: none; margin-right: auto; margin-left: auto">
+            </div>
+            <div class="draggable quizGroup" id="quizGroup">
+                <input type="text"  class="quiz" id="quiz" placeholder="내가 좋아하는 것은...">
+                <div class="shapeBtn" id="shapeBtn1">
+                    <button type="button" class="quizIco" id="quizIcoA" onmousedown="clickQuizIcoA()">A</button>
+                    <input type="text" class="option" id="option1" onkeyup="addCheck()" name="quizOption" placeholder="옵션1">
+                </div>
+                <div class="shapeBtn" id="shapeBtn2">
+                    <button type="button" class="quizIco" id="quizIcoB" onmousedown="clickQuizIcoB()">B</button>
+                    <input type="text" class="option" id="option2" onkeyup="addCheck()" name="quizOption" placeholder="옵션2">
+                </div>
+                <div class="shapeBtn" id="shapeBtn3">
+                    <button type="button" class="quizIco" id="quizIcoC" onmousedown="clickQuizIcoC()" >C</button>
+                    <input type="text" class="option" id="option3" onkeyup="addCheck2()" onblur="delCheck()" name="quizOption" placeholder="추가">
+                </div>
+                <div class="shapeBtn" id="shapeBtn4">
+                    <button type="button" class="quizIco" id="quizIcoD" onmousedown="clickQuizIcoD()">D</button>
+                    <input type="text" class="option" id="option4" onkeyup="addCheck3()" name="quizOption" placeholder="추가">
+                </div>
+                <!--                    <div class="quizDiv" id="quizDiv">-->
+                <!--                        <div class="shapeQuestion">-->
+                <!--                        </div>-->
+                <!--                        <div class="optionDiv" id="optionDiv">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+            </div>
+            <div class="draggable referenceDiv" id="referenceDiv">
+                <div class="at" id="at">@</div>
+                <input type="text"  class="inputReference" id="inputReference" placeholder="언급">
+            </div>
+            <div class="draggable hashtagDiv" id="hashtagDiv">
+                <div class="sharp" id="sharp">#</div>
+                <input type="text"  class="inputHashTag" id="inputHashTag" placeholder="해시태그">
+            </div>
             <div class="tagGroup" id="tagGroup">
 
                 <div class="endClose" id="endClose">
@@ -861,54 +910,6 @@
                     </div>
                     <div class="locationList" id="locationList"></div>
                 </div>
-                <div class="referenceDiv" id="referenceDiv">
-                    <div class="reference" id="reference">
-                        <div class="at" id="at">@</div>
-                        <input type="text"  class="inputReference" id="inputReference" placeholder="언급">
-                    </div>
-                </div>
-                <div class="hashtagDiv" id="hashtagDiv">
-                    <div class="hashtag" id="hashtag">
-                        <div class="sharp" id="sharp">#</div>
-                        <input type="text"  class="inputHashTag" id="inputHashTag" placeholder="해시태그">
-                    </div>
-                </div>
-                <div class="quizGroup" id="quizGroup">
-                    <div class="quizDiv" id="quizDiv">
-                        <div class="shapeQuestion">
-                            <input type="text"  class="quiz" id="quiz" placeholder="내가 좋아하는 것은...">
-                        </div>
-                        <div class="optionDiv" id="optionDiv">
-                            <div class="shapeBtn" id="shapeBtn1">
-                                <button type="button" class="quizIco" id="quizIcoA" onmousedown="clickQuizIcoA()">A</button>
-                                <input type="text" class="option" id="option1" onkeyup="addCheck()" name="quizOption" placeholder="옵션1">
-                            </div>
-                            <div class="shapeBtn" id="shapeBtn2">
-                                <button type="button" class="quizIco" id="quizIcoB" onmousedown="clickQuizIcoB()">B</button>
-                                <input type="text" class="option" id="option2" onkeyup="addCheck()" name="quizOption" placeholder="옵션2">
-                            </div>
-                            <div class="shapeBtn" id="shapeBtn3">
-                                <button type="button" class="quizIco" id="quizIcoC" onmousedown="clickQuizIcoC()" >C</button>
-                                <input type="text" class="option" id="option3" onkeyup="addCheck2()" onblur="delCheck()" name="quizOption" placeholder="추가">
-                            </div>
-                            <div class="shapeBtn" id="shapeBtn4">
-                                <button type="button" class="quizIco" id="quizIcoD" onmousedown="clickQuizIcoD()">D</button>
-                                <input type="text" class="option" id="option4" onkeyup="addCheck3()" name="quizOption" placeholder="추가">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="draggable surveyGroup" id="surveyGroup">
-                    <div class="surveyDiv" id="surveyDiv">
-                        <input type="text"  class="survey" id="question" placeholder="질문을 입력하세요">
-                        <input type="text"  class="survey" id="answer1" placeholder="예">
-                        <input type="text"  class="survey" id="answer2" placeholder="아니요">
-                        <input type="text"  class="survey" id="answer3" placeholder="다른 옵션 추가..." onkeyup="newInput()">
-                        <input type="text"  class="survey" id="answer4" placeholder="다른 옵션 추가..." onblur="answer4Fnc()" style="display: none; margin-right: auto; margin-left: auto">
-                    </div>
-                </div>
-
             </div>
 
             <div id="imgBtnZone" style="padding: 0;margin: 0;">
@@ -1081,9 +1082,16 @@
             top = saveBox.offsetTop;
         }
 
-        document.onmousedown = function (e) {
-            console.log("마우스 다운");
+        $('.draggable').mouseover(function(){
+            let clickId = $(this).attr("id");
+            console.log(clickId);
+            document.getElementById(clickId).style.cursor="move";
 
+            const clickThis = $(this).closest(".draggable").attr("class");
+            console.log(clickThis);
+            document.onmousedown = function (e) {
+            console.log("마우스 다운");
+            console.log(document.getElementById(clickId).className);
             if(e.target.classList.contains("draggable")){
                 console.log("드래그 객체 지정");
                 dragging = true;
@@ -1092,7 +1100,7 @@
                 offset.y = e.offsetY;
             }
         };
-
+        });
         document.onmousemove = function (e) {
             if(dragging){
                 console.log("마우스 드래그시");
@@ -1133,11 +1141,14 @@
         }
 
         let storyLinkTag ="";
-        if(inputLink.value.length>0){
-            inputLink.setAttribute("value", inputLink.value);
+        if(inputLinkDiv.style.display=="block"){
             // inputLinkDiv.setAttribute("style", "position: fixed");
             storyLinkTag= document.getElementById("inputLinkDiv").outerHTML;
         }
+        $('#inputLinkDiv').on('click', function (){
+            const siteLink = document.getElementById("siteLink");
+            location.href=siteLink.value;
+        });
 
         let storyQuestionTag="";
         if(question2.value.length>0){
@@ -1181,7 +1192,7 @@
         if(inputReference.value.length>0){
             inputReference.setAttribute("value", inputReference.value);
             // reference.setAttribute("style", "position: fixed");
-            storyReferenceTag = reference.outerHTML;
+            storyReferenceTag = referenceDiv.outerHTML;
         }
 
         let storyLocationTag="";
@@ -1567,10 +1578,7 @@ const downSlide = () => {
         document.getElementById("stickerInput").focus();
         return false;
     }
-    $('#inputLinkDiv').on('click', function (){
-        const siteLink = document.getElementById("siteLink");
-        location.href=siteLink.value;
-    });
+
 // 링크태그 드래그 기능
 //     inputLinkDiv.onmousedown = function(event) {
 //         inputLinkDiv.style.zIndex="9000";
@@ -1652,7 +1660,7 @@ const downSlide = () => {
         surveyGroup.style.zIndex="6400";
         quizGroup.style.zIndex="6400";
         hashtagDiv.style.zIndex="6400";
-        reference.style.zIndex="6400";
+        // reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
         // questionDiv.style.zIndex="9000";
@@ -1669,7 +1677,7 @@ const downSlide = () => {
         let answer3 = document.getElementById("answer3");
         if(answer3.value==""){
             answer3.style.display="none";
-            document.getElementById("surveyDiv").style.height="140px";
+            surveyGroup.style.height="140px";
         }
         tagGroup.style.backgroundColor="transparent";
         tagGroup.style.zIndex="3000";
@@ -1677,7 +1685,7 @@ const downSlide = () => {
         // questionDiv.style.zIndex="6500";
         questionBox.style.zIndex="6500";
         surveyGroup.style.zIndex="6500";
-        reference.style.zIndex="6500";
+        // reference.style.zIndex="6500";
         referenceDiv.style.zIndex="6500";
         hashtagDiv.style.zIndex="6500";
         quizGroup.style.zIndex="6500";
@@ -1747,7 +1755,7 @@ const downSlide = () => {
         inputLinkDiv.style.zIndex="6400";
         quizGroup.style.zIndex="6400";
         hashtagDiv.style.zIndex="6400";
-        reference.style.zIndex="6400";
+        // reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
         questionBox.style.zIndex="6400";
@@ -1826,7 +1834,7 @@ const downSlide = () => {
         inputLinkDiv.style.zIndex="6400";
         surveyGroup.style.zIndex="6400";
         hashtagDiv.style.zIndex="6400";
-        reference.style.zIndex="6400";
+        // reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
         questionBox.style.zIndex="6400";
@@ -1979,7 +1987,7 @@ const downSlide = () => {
         surveyGroup.style.zIndex="6400";
         quizGroup.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
-        reference.style.zIndex="6400";
+        // reference.style.zIndex="6400";
         locationTag.style.zIndex="6400";
         questionBox.style.zIndex="6400";
         hashtagDiv.style.zIndex="9000";
@@ -2034,9 +2042,8 @@ const downSlide = () => {
         hashtagDiv.style.zIndex="6400";
         locationTag.style.zIndex="6400";
         questionBox.style.zIndex="6400";
-        reference.style.zIndex="9000";
+        referenceDiv.style.zIndex="9000";
         referenceDiv.style.display="block";
-        document.getElementById("reference").style.zIndex="9000";
         document.getElementById("inputReference").focus();
         downSlide();
         reverse.style.display="none";
@@ -2085,7 +2092,7 @@ const downSlide = () => {
         surveyGroup.style.zIndex="6400";
         quizGroup.style.zIndex="6400";
         hashtagDiv.style.zIndex="6400";
-        reference.style.zIndex="6400";
+        // reference.style.zIndex="6400";
         referenceDiv.style.zIndex="6400";
         questionBox.style.zIndex="6400";
         locationGroup.style.zIndex="9000";
@@ -2128,7 +2135,7 @@ const downSlide = () => {
         surveyGroup.style.zIndex="6500";
         quizGroup.style.zIndex="6500";
         hashtagDiv.style.zIndex="6500";
-        reference.style.zIndex="6500";
+        // reference.style.zIndex="6500";
         referenceDiv.style.zIndex="6500";
         locationGroup.style.zIndex="6500";
         questionBox.style.zIndex="6500";
