@@ -970,7 +970,7 @@
             document.getElementById("userImg").src="/upload/"+memberProfileName;
             document.getElementById("userName").innerHTML=memberName;
             document.getElementById("createdTime").innerHTML=storyMadeTime;
-            console.log(storyMadeTime);
+            // console.log(storyMadeTime);
 
             if(storyFileName.endsWith(".mp4")){
                 let video = document.createElement("video");
@@ -1000,32 +1000,32 @@
                         }
                     });
 
-                // let obj = document.getElementById("aaa");
-                // $(document).ready(function (){
-                //     setTimeout(function (){
-                //         let time = obj.duration;
-                //         setTimeout(function (){
-                //             let previous = document.referrer;
-                //             if(previous=="http://localhost:8080/storyBoard/save-form"){
-                //                 location.href="http://localhost:8080/main/main";
-                //             } else {
-                //                 location.href=previous;
-                //             }
-                //         }, (time+0.1)*1000);
-                //      }, 500);
-                // });
+                let obj = document.getElementById("aaa");
+                $(document).ready(function (){
+                    setTimeout(function (){
+                        let time = obj.duration;
+                        setTimeout(function (){
+                            let previous = document.referrer;
+                            if(previous=="http://localhost:8080/storyBoard/save-form"){
+                                location.href="http://localhost:8080/main/main";
+                            } else {
+                                location.href=previous;
+                            }
+                        }, (time+0.1)*1000);
+                     }, 500);
+                });
 
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
-                // $(document).ready(function (){
-                //     setTimeout(function (){
-                //                     let previous = document.referrer;
-                //                     if(previous=="http://localhost:8080/storyBoard/save-form"){
-                //                         location.href="http://localhost:8080/main/main";
-                //                     } else {
-                //                         location.href=previous;
-                //                     }                    }, (10)*1000);
-                // });
+                $(document).ready(function (){
+                    setTimeout(function (){
+                                    let previous = document.referrer;
+                                    if(previous=="http://localhost:8080/storyBoard/save-form"){
+                                        location.href="http://localhost:8080/main/main";
+                                    } else {
+                                        location.href=previous;
+                                    }                    }, (10)*1000);
+                });
             }
             if (storyImgName){
                 document.getElementById("addImg").src = "/upload/"+storyImgName;

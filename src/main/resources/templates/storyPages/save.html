@@ -12,7 +12,8 @@
         }
         .btn-primary {
             background-color:rgba(71,66,69,0.4) !important;
-            border-radius: 70% !important;
+            border-radius: 50% !important;
+            border-color: transparent !important;
         }
         .btn-outline-primary {
             color: lightgray !important;
@@ -40,7 +41,7 @@
             margin-top: 30px;
             margin-left: auto;
             margin-right: auto;
-            border-radius: 1px;
+            border-radius: 5px;
             background-color: whitesmoke;
             border: 1px solid rgb(214, 214, 214);
             overflow: hidden;
@@ -50,13 +51,13 @@
             width: 100%;
             height: 50px;
             position: absolute;
+            top: 2%;
             z-index: 6500;
         }
         .editMenu {
-            width: 200px;
+            width: 150px;
             height: 50px;
             position: absolute;
-            top: 5px;
             right: 10px;
             display: none;
 
@@ -98,15 +99,17 @@
 
         .saveStory {
             text-align: center;
-            padding-top: 10px;
             border-radius: 50%;
-            background-color: white;
             width: 40px;
             height: 40px;
             position: absolute;
-            top: 660px;
+            top: 90%;
             right: 20px;
             display: none;
+            color: black !important;
+            background: rgba(255,255,255,0.5) !important;
+            border: 1px solid rgba(0,0,0,0.3) !important;
+            z-index: 9999;
         }
 
         .inputText {
@@ -146,7 +149,7 @@
             width: 200px;
             height: 50px;
             position: absolute;
-            top: 5px;
+            top: 2%;
             right: 2px;
         }
         .editBox {
@@ -455,7 +458,7 @@
         .tagGroup {
             width: 100%;
             height: 100%;
-            border-radius: 3%;
+            border-radius: 5px;
             position: absolute;
             z-index: 31;
             display: none;
@@ -463,7 +466,8 @@
         .endClose {
             width: 60px;
             position: absolute;
-            left: 90%;
+            right: 5px;
+            top: 2%;
             display: none;
             z-index: 3000;
         }
@@ -843,7 +847,7 @@
             </div>
 <!--            <div class="questionDiv" id="questionDiv">-->
             <div class="draggable questionBox" id="questionBox">
-                <div id="circleLogo"><img th:src="@{|/upload/${memberDTO.memberProfileName}/|}" class="logoImg" alt="등록사진이 없어서"></div>
+                <div id="circleLogo"><img th:src="@{|/upload/${memberDTO.memberProfileName}/|}" class="logoImg" alt="사진없음"></div>
                 <input type="text" id="question2" placeholder="무엇이든 물어보세요!">
                 <input type="text" id="answer" placeholder="무엇이든 물어보세요!">
             </div>
@@ -924,6 +928,7 @@
                     사진을
                     선택해주세요.</p>
             </div>
+                <button type="button" class="saveStory btn-primary" id="saveStory" onclick="saveFnc()"><i class="bi bi-chevron-right"></i></button>
             <div class="mainMenu" id="mainMenu">
                 <div class="inputFileBtn">
                     <form action="/storyBoard/saveFile" method="post" id="storyFile" enctype="multipart/form-data">
@@ -940,10 +945,9 @@
                 <div class="editMenu" id="editMenu">
                     <button class="btn btn-primary" onclick="editFnc1()"><i class="bi bi-type"></i></button>
                     <button class="btn btn-primary" onclick="editFnc2()" id="reverseSlideContentDown"><i class="bi bi-outlet"></i></button>
-                    <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>
-                    <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-three-dots"></i></button>
+<!--                    <button class="btn btn-primary" onclick="editFnc3()"><i class="bi bi-sliders"></i></button>-->
+                    <button class="btn btn-primary" onclick="editFnc4()"><i class="bi bi-arrow-clockwise"></i></button>
                 </div>
-                <button type="button" class="saveStory btn-primary" id="saveStory" onclick="saveFnc()"><i class="bi bi-chevron-right"></i></button>
             </div>
 
             <div class="fontMenu" id="fontMenu">
@@ -964,7 +968,7 @@
                     </div>
                 </div>
                 <div class="rangBar" id="rangeBar">
-                    <input class="slider_range" id="slider" type="range" value="0" min="2" max="48">
+                    <input class="slider_range" id="slider" type="range" value="0" min="10" max="48">
                     <p style="font-size: 2px; text-align: center" id="slider_value_view">0</p>
                 </div>
                 <div class="colorCircles" id="colorCircles">
@@ -1069,7 +1073,7 @@
 
 // 드래그 앤 드롭 기능
     window.addEventListener("load", function (){
-        console.log("드래그 정의");
+        // console.log("드래그 정의");
         let dragging = false;
         let offset = {x:0, y:0};
         let current = null;
@@ -1077,23 +1081,23 @@
         let top = saveBox.offsetTop;
 
         window.onresize = function(){
-            console.log("드래그 창변환");
+            // console.log("드래그 창변환");
             left = saveBox.offsetLeft;
             top = saveBox.offsetTop;
         }
 
         $('.draggable').mouseover(function(){
             let clickId = $(this).attr("id");
-            console.log(clickId);
+            // console.log(clickId);
             document.getElementById(clickId).style.cursor="move";
 
             const clickThis = $(this).closest(".draggable").attr("class");
-            console.log(clickThis);
+            // console.log(clickThis);
             document.onmousedown = function (e) {
-            console.log("마우스 다운");
-            console.log(document.getElementById(clickId).className);
+            // console.log("마우스 다운");
+            // console.log(document.getElementById(clickId).className);
             if(e.target.classList.contains("draggable")){
-                console.log("드래그 객체 지정");
+                // console.log("드래그 객체 지정");
                 dragging = true;
                 current = e.target;
                 offset.x = e.offsetX;
@@ -1103,16 +1107,16 @@
         });
         document.onmousemove = function (e) {
             if(dragging){
-                console.log("마우스 드래그시");
+                // console.log("마우스 드래그시");
                 let x = e.pageX - offset.x - left;
                 let y = e.pageY - offset.y - top;
                 current.style.left = x + "px";
                 current.style.top = y + "px";
-                console.log("left: "+x+"/top: "+y)
+                // console.log("left: "+x+"/top: "+y)
             }
         };
         document.onmouseup = function () {
-            console.log("마우스 업");
+            // console.log("마우스 업");
             dragging = false;
         };
     });
@@ -1233,10 +1237,10 @@
                 document.getElementById("hiddenFile").files=imgFile;
                 document.getElementById("id").value=data;
                 document.getElementById("storyFile").submit();
-                console.log("저장성공");
+                // console.log("저장성공");
             },
             error: function () {
-                console.log("저장실패");
+                // console.log("저장실패");
             }
         });
     }
@@ -1364,11 +1368,11 @@
     const editFnc2 = () => {
 
     }
-    const editFnc3 = () => {
-        editBox.style.display="block";
-    }
+    // const editFnc3 = () => {
+    //     editBox.style.display="block";
+    // }
     const editFnc4 = () => {
-
+    location.reload();
     }
 
 // 인풋 글자정렬 기능
@@ -2142,6 +2146,7 @@ const downSlide = () => {
         document.getElementById("locationTag").innerHTML=iconTag+findLocation;
 
     }
+
 // 위치태그 드래그 기능
 //     locationTag.onmousedown = function(event) {
 //         locationTag.style.zIndex="9000";

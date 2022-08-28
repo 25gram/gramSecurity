@@ -557,7 +557,11 @@
     </div>
     <script th:inline="javascript">
         function story(){
-           location.href="/storyBoard/stories?id="+[[${myStory.id}]]+"&loginId="+[[${memberDTO.loginId}]]
+            if([[${myStory.id}]]!=null){
+                location.href="/storyBoard/stories?id="+[[${myStory.id}]]+"&loginId="+[[${memberDTO.loginId}]];
+            } else {
+                location.href="/storyBoard/save-form";
+            }
 
         }
     </script>
