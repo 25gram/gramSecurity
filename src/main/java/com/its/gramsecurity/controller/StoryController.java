@@ -65,6 +65,7 @@ public class StoryController {
         model.addAttribute("storyList", storyDTOList);
         model.addAttribute("storyDTO", storyDTO);
         model.addAttribute("countStoryView", countStoryView);
+        model.addAttribute("loginId", principalDetails.getMemberDTO().getLoginId());
         return "storyPages/stories";
     }
 
