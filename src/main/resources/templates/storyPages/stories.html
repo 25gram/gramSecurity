@@ -907,7 +907,9 @@
             </div>
         </div>
         <div class="viewCount" id="viewCount" th:text="${countStoryView}+'명 읽음'"></div>
-        <a href="#"><div class="deleteMenu" id="deleteMenu" onclick="deleteStory()"><i class="bi bi-trash"></i></div></a>
+        <a href="#" th:if="${storyDTO.loginId.equals(loginId)}">
+            <div class="deleteMenu" id="deleteMenu" onclick="deleteStory()"><i class="bi bi-trash"></i></div>
+        </a>
     </div>
 </div>
 </body>
@@ -1030,20 +1032,20 @@
                         }
                     });
 
-                // let obj = document.getElementById("aaa");
-                // $(document).ready(function (){
-                //     setTimeout(function (){
-                //         let time = obj.duration;
-                //         setTimeout(function (){
-                //             let previous = document.referrer;
-                //             if(previous=="http://localhost:8080/storyBoard/save-form"){
-                //                 location.href="http://localhost:8080/main/main";
-                //             } else {
-                //                 location.href=previous;
-                //             }
-                //         }, (time+0.1)*1000);
-                //      }, 500);
-                // });
+                let obj = document.getElementById("aaa");
+                $(document).ready(function (){
+                    setTimeout(function (){
+                        let time = obj.duration;
+                        setTimeout(function (){
+                            let previous = document.referrer;
+                            if(previous=="http://localhost:8080/storyBoard/save-form"){
+                                location.href="http://localhost:8080/main/main";
+                            } else {
+                                location.href=previous;
+                            }
+                        }, (time)*1000);
+                     }, 500);
+                });
 
             } else {
                 document.getElementById("filePreview").style.backgroundImage="url('"+"/upload/"+storyFileName+"')";
