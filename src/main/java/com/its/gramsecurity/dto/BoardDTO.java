@@ -4,6 +4,7 @@ import com.its.gramsecurity.config.auth.PrincipalDetails;
 import com.its.gramsecurity.entity.BoardEntity;
 import com.its.gramsecurity.entity.BoardFileEntity;
 import com.its.gramsecurity.entity.LikesEntity;
+import com.its.gramsecurity.entity.MemberEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -26,9 +27,9 @@ public class BoardDTO {
     private Integer likesNo;
     private Integer commentNo;
 
-    public static BoardDTO toDTO(BoardEntity boardFile, PrincipalDetails principalDetails) {
+    public static BoardDTO toDTO(BoardEntity boardFile, MemberEntity principalDetails) {
         BoardDTO boardFileDTO = new BoardDTO();
-        boardFileDTO.setLoginId(principalDetails.getMemberDTO().getLoginId());
+        boardFileDTO.setLoginId(principalDetails.getLoginId());
         boardFileDTO.setId(boardFile.getId());
         boardFileDTO.setBoardWriter(boardFile.getBoardWriter());
         boardFileDTO.setBoardContents(boardFile.getBoardContents());
