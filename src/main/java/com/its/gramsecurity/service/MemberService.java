@@ -91,6 +91,7 @@ public class MemberService {
                 String savePath = "C:\\springboot_img\\" + memberProfileName;
                 memberFile.transferTo(new File(savePath));
                 persistence.setMemberProfileName(memberProfileName);
+
             } else {
                 memberDTO.setMemberProfileName(null);
             }
